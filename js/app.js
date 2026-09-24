@@ -1,10 +1,16 @@
 /* Orbit — app shell.
    Everything renders from State. Nothing else writes to the DOM.
-   The script runner below is where the model will slot in later: `juno` steps become
-   {intent, allowedFacts} and the text comes back from the Director + model instead of the file. */
+   The model slots in at one place: a `juno` step with an `intent` asks api/reply for its
+   words (fetchLine). Any failure falls back to the step's hardcoded `text`. */
 
 (function () {
   "use strict";
+
+  const MODEL_TIMEOUT_MS = 4000;     // give up on the model and show the scripted line
+  const MIN_TYPING_MS = 700;         // Juno always "types" at least this long
+  const TYPING_MS_PER_CHAR = 22;     // ...plus this much per character
+  const MAX_EXTRA_TYPING_MS = 1400;  // ...up to this much extra
+  const RECENT_TURNS = 6;            // how much of the thread the model gets to see
 
   const app = document.getElementById("app");
 
@@ -82,25 +88,66 @@
     State.log.push({ from: "juno", text: text });
   }
 
+  function typingDelay(text) {
+    return MIN_TYPING_MS + Math.min(text.length * TYPING_MS_PER_CHAR, MAX_EXTRA_TYPING_MS);
+  }
+
+  // Ask the model for this step's line. Resolves to the text, or null on any failure.
+  function fetchLine(step) {
+    if (!step.intent || location.protocol === "file:") return Promise.resolve(null);
+
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), MODEL_TIMEOUT_MS);
+    const recentTurns = State.log
+      .filter((m) => m.from === "me" || m.from === "juno")
+      .slice(-RECENT_TURNS);
+
+    return fetch("api/reply", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        persona: "juno",
+        intent: step.intent,
+        allowedFacts: step.facts || [],
+        recentTurns: recentTurns,
+      }),
+      signal: ctrl.signal,
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => (data && typeof data.text === "string" && data.text.trim()) || null)
+      .catch(() => null)
+      .finally(() => clearTimeout(timer));
+  }
+
   function runScript() {
     if (State.awaiting || State.waiting || State.ended || State.pending) return;
     const step = currentStep();
     if (!step) return;
 
     switch (step.type) {
-      case "juno":
+      case "juno": {
+        // The request runs under the typing dots, so the model's latency reads as typing.
         State.typing = true;
         State.pending = true;
         render();
-        setTimeout(() => {
-          State.typing = false;
-          State.pending = false;
-          pushJuno(step.text);
-          State.step++;
-          render();
-          runScript();
-        }, 700 + Math.min(step.text.length * 22, 1400));
+        const started = Date.now();
+        fetchLine(step).then((generated) => {
+          const text = generated || step.text;
+          if (step.intent) {
+            console.info(`[juno] ${step.intent} · ${generated ? "model" : "fallback"}: ${text}`);
+          }
+          const left = typingDelay(text) - (Date.now() - started);
+          setTimeout(() => {
+            State.typing = false;
+            State.pending = false;
+            pushJuno(text);
+            State.step++;
+            render();
+            runScript();
+          }, Math.max(0, left));
+        });
         return;
+      }
 
       case "memory":
         State.memories.push({ text: step.text, time: step.time });

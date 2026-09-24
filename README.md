@@ -17,6 +17,18 @@ python3 -m http.server 8000
 # then visit http://<your-computer's-ip>:8000 on the phone
 ```
 
+## Run it with the model
+
+Opened from disk (`file://`), Juno always uses the scripted lines — there's no server to ask. To hear the model, run it through Vercel locally:
+
+```bash
+npm i -g vercel          # once
+cp .env.example .env     # then paste your Zhipu key after ZHIPU_API_KEY=
+vercel dev               # serves the app and api/reply at http://localhost:3000
+```
+
+The browser console logs each model line as `[juno] <intent> · model` or `· fallback`. If the key is missing, the request fails, or it takes longer than 4 seconds, Juno says the scripted line instead. On Vercel itself, set `ZHIPU_API_KEY` under Project → Settings → Environment Variables.
+
 ## What works right now
 
 - Lock screen, chat list, Juno's thread, Rachel's thread with a year of history, her profile, Saved, Settings
@@ -44,6 +56,8 @@ js/app.js                   state, routing, rendering, script runner
 js/data/app-data.js         contacts, profile, evidence and pairing tables
 js/data/rachel-history.js   a year of DMs (she never uses full stops — that's a clue)
 js/data/script-day2.js      the Day 2 beats
+api/reply.js                serverless function: one line of Juno from {intent, allowedFacts}
+api/_persona.js             Juno's voice and what each intent means — tune this freely
 ```
 
 ## Next

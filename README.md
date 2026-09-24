@@ -1,0 +1,55 @@
+# Stay a Little Longer
+
+A detective game that takes place inside a fake social app. Senior thesis, Parsons BFA Design and Technology, 2026–27.
+
+You are looking for a friend who has gone quiet. Your AI companion is helping you look, and is also the reason she is gone.
+
+This repo is the **static shell**: real screens, hardcoded dialogue, no model yet.
+
+## Run it
+
+Open `index.html` in a browser. No build step, no install.
+
+If you want it on your phone on the same wifi:
+
+```bash
+python3 -m http.server 8000
+# then visit http://<your-computer's-ip>:8000 on the phone
+```
+
+## What works right now
+
+- Lock screen, chat list, Juno's thread, Rachel's thread with a year of history, her profile, Saved, Settings
+- The Day 2 script up to the first deduction
+- Saving evidence, and putting two saved cards together to reach a conclusion
+- The profile that fails to load until you refresh it yourself
+
+## Try this path
+
+1. Tap the notification on the lock screen.
+2. Talk to Juno until it tells you Rachel wrote back.
+3. Open Rachel's chat, read the new message, save it with the flag icon.
+4. Go back, keep talking, then open her profile from her chat.
+5. The profile won't load. Hit **Try again** yourself.
+6. Save the deleted-account notice.
+7. Open **Saved**, tap both cards, and put them together.
+8. Go back to Juno and hear the excuse.
+
+## Files
+
+```
+index.html                  the app shell
+css/app.css                 all styles, design tokens at the top
+js/app.js                   state, routing, rendering, script runner
+js/data/app-data.js         contacts, profile, evidence and pairing tables
+js/data/rachel-history.js   a year of DMs (she never uses full stops — that's a clue)
+js/data/script-day2.js      the Day 2 beats
+```
+
+## Next
+
+1. A serverless proxy and a model, so Juno's lines are generated instead of fixed.
+2. A Director that picks Juno's intent each turn. The model only writes the words for it.
+3. Logging every turn, which the ending reads back to the player.
+
+See `CLAUDE.md` for the architecture rules before changing anything.

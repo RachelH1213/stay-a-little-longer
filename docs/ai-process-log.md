@@ -113,3 +113,44 @@ Copy this for each new entry.
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `CLAUDE.md`, `README.md`, `docs/ai-process-log.md`
 - **My decision:** **[to fill in]**
+
+---
+
+### 2026-10-01 — Director and truth graph (Tasks 2–3), with Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:** after Claude Code proposed a plan for Task 2 with four open questions, I answered "你帮我决定和优化" (you decide and optimize for me).
+- **Prompt:** in the session linked above.
+- **What Claude Code decided:**
+  - **Technical:**
+    - build the truth graph before the Director;
+    - the script's intent is the default, and rules can only override it;
+    - detect the player's free text with keyword lists, not a second model call.
+  - **Narrative (proposed as a draft, needs my review):**
+    - the four rules in `js/data/director-rules.js` (player leaving → `retain`, accusing Juno → `block`, doubt with a solved pair → `concede`, doubt → `deflect`);
+    - the keyword lists;
+    - the `kind`, `intents` and `requires` tags in `js/data/truth.js`;
+    - "Juno never raises the full-stop clue" (intents left empty);
+    - labelling "Juno wrote the 18:40 reply as Rachel" as `secret`. That label comes from `CLAUDE.md` (clue 3) and the "not-her-typing" pair.
+- **Result:**
+  - **New files:** `js/data/truth.js` (12 facts, every one taken from text already in the repo), `js/data/director-rules.js` and `js/director.js`.
+  - **Changed:** `js/app.js` asks the Director before calling the model, and the 5 script steps now use fact ids.
+  - **Behaviour:** with only the chip options, the game behaves almost exactly as before. One chip ("something feels off") now matches the doubt rule. That rule picks the same intent as the script, but sends one extra fact.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Errors, failed attempts, unexpected output:**
+  - The first test harness loaded the files wrongly. That was a test bug, not a game bug.
+  - The first keyword matcher matched inside words ("off" in "office"), so it was changed to whole-word matching before commit.
+  - **Known limitation:** if a rule overrides the intent and the model then fails, the fallback is the script's line, which was written for the default intent. For example, an accusation is answered with `block`, but the fallback might be "ok. me neither".
+- **Testing:**
+  - 150 leak checks: every intent, flag combination and deduction state. No `secret` or no-intent fact ever reached `allowedFacts`.
+  - Unit checks: unlock gating, day gating and keyword rules.
+  - Two full playthroughs in Chromium with a fake model: chips only, and with typed messages that triggered each rule.
+  - `file://` still falls back without errors.
+  - Still not tested with a real GLM key.
+- **Files / features affected:** `js/data/truth.js`, `js/data/director-rules.js`, `js/director.js`, `js/app.js`, `js/data/script-day2.js`, `index.html`, `CLAUDE.md`, `README.md`, `docs/course-context.md`
+- **My decision:** **[to fill in]**
+- **Notes for Project 2:**
+  - The `player-leaving` rule is where the platform's retention goal turns into code. When the player says goodnight, the system tells Juno to keep them close.
+  - That rule was proposed by an AI tool, not by me. That's a small, concrete example of the authorship question for the reflection.

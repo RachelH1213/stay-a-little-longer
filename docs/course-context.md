@@ -22,7 +22,7 @@ The section should show:
 - the truth graph and other rules stopping the model from changing or revealing the mystery;
 - my own authorship of the concept, story structure, clues, visual design, character goals and final creative decisions.
 
-**Where things actually stand** (update as it changes): the model layer is built (`api/reply.js`), but I haven't tested it with a real API key yet. The Director (Task 2) and the truth graph (Task 3) are not built yet. For now, the intent and facts for each model-written line are written by hand in `js/data/script-day2.js`.
+**Where things actually stand** (update as it changes): the model layer is built (`api/reply.js`), but I haven't tested it with a real API key yet. A first version of the Director (Task 2) and the truth graph (Task 3) is built and tested with a fake model. The mechanism works, but its contents — the rules in `js/data/director-rules.js` and the fact tags in `js/data/truth.js` — are a draft Claude Code proposed when I asked it to decide. I still have to review and rewrite them, and the actual truth of what happened to Rachel isn't in the truth graph yet.
 
 Alongside the playable section, there's a final reflection of about 2,000 words. It looks at how AI affected my process: authorship, control, originality, creative labor, bias, privacy, and the difference between using AI as a tool and letting it make creative decisions. The raw material for that is `docs/ai-process-log.md` and `devlog/`.
 

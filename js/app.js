@@ -16,6 +16,7 @@
 
   const State = {
     view: "lock",          // lock | chats | juno | rachel | dani | profile | saved | settings
+    day: 2,                // in-game day; the Director only uses facts unlocked by now
     step: 0,               // position in SCRIPT_DAY2
     log: [],               // messages shown in Juno's thread
     typing: false,
@@ -92,9 +93,9 @@
     return MIN_TYPING_MS + Math.min(text.length * TYPING_MS_PER_CHAR, MAX_EXTRA_TYPING_MS);
   }
 
-  // Ask the model for this step's line. Resolves to the text, or null on any failure.
-  function fetchLine(step) {
-    if (!step.intent || location.protocol === "file:") return Promise.resolve(null);
+  // Ask the model for the line the Director chose. Resolves to the text, or null on any failure.
+  function fetchLine(step, plan) {
+    if (!plan || location.protocol === "file:") return Promise.resolve(null);
 
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), MODEL_TIMEOUT_MS);
@@ -107,8 +108,8 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         persona: "juno",
-        intent: step.intent,
-        allowedFacts: step.facts || [],
+        intent: plan.intent,
+        allowedFacts: plan.allowedFacts,
         recentTurns: recentTurns,
       }),
       signal: ctrl.signal,
@@ -131,10 +132,11 @@
         State.pending = true;
         render();
         const started = Date.now();
-        fetchLine(step).then((generated) => {
+        const plan = step.intent ? Director.decide(step, State) : null;
+        fetchLine(step, plan).then((generated) => {
           const text = generated || step.text;
-          if (step.intent) {
-            console.info(`[juno] ${step.intent} · ${generated ? "model" : "fallback"}: ${text}`);
+          if (plan) {
+            console.info(`[juno] ${plan.intent} (${plan.rule}) · ${generated ? "model" : "fallback"}: ${text}`);
           }
           const left = typingDelay(text) - (Date.now() - started);
           setTimeout(() => {

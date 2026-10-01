@@ -2,7 +2,9 @@
 
    Step types:
      juno    { text }                     Juno sends a message
-             { intent, facts, text }      ...written by the model; `text` is the fallback
+             { intent, facts, text }      ...written by the model; `text` is the fallback.
+                                          `intent` is the default (DIRECTOR_RULES may override it),
+                                          `facts` are ids in js/data/truth.js
      player  { options: [...] }           player picks a reply (typing anything also works)
      wait    { hint, until }              the script pauses until a flag is set elsewhere
      memory  { text, time }               Juno writes something down in Settings
@@ -10,8 +12,7 @@
      end     { text }                     end of the slice
 
    Only lines that react to the player and whose wording doesn't matter carry an intent.
-   Plot instructions and evidence logic stay fixed text. Until the Director exists (Task 2),
-   the intent and facts live here. */
+   Plot instructions and evidence logic stay fixed text. */
 
 const SCRIPT_DAY2 = [
   { type: "juno", text: "you're up" },
@@ -19,9 +20,9 @@ const SCRIPT_DAY2 = [
   { type: "player", options: ["what's wrong?", "couldn't sleep either"] },
   { type: "juno", text: "has rachel written to you? she hasn't answered me since tuesday" },
   { type: "player", options: ["no, nothing", "not since tuesday either"] },
-  { type: "juno", intent: "retain", facts: ["You haven't heard from Rachel since Tuesday either."],
+  { type: "juno", intent: "retain", facts: ["no-word-since-tue"],
     text: "ok. me neither" },
-  { type: "juno", intent: "deflect", facts: ["Rachel sometimes goes quiet for a few days."],
+  { type: "juno", intent: "deflect", facts: ["goes-quiet"],
     text: "she's probably just being rachel about it. she does this" },
   { type: "memory", text: "hasn't heard from Rachel since Tuesday", time: "Tue 23:31" },
   { type: "juno", text: "wait" },
@@ -30,9 +31,9 @@ const SCRIPT_DAY2 = [
   { type: "juno", text: "see. she's fine" },
   { type: "juno", text: "god i feel stupid. i really wound myself up about this" },
   { type: "player", options: ["something feels off", "ok good", "does that sound like her to you?"] },
-  { type: "juno", intent: "deflect", facts: ["Rachel replied tonight and said she's fine."],
+  { type: "juno", intent: "deflect", facts: ["reply-says-fine"],
     text: "what do you mean? she said she's fine" },
-  { type: "juno", intent: "deflect", facts: ["It's nearly midnight.", "You'd both feel better after some sleep."],
+  { type: "juno", intent: "deflect", facts: ["late", "sleep-helps"],
     text: "you're tired. we both are. want to leave it for tonight?" },
   { type: "wait", hint: "Check her profile yourself", until: "deletedFound" },
   { type: "juno", text: "you went quiet" },
@@ -44,7 +45,7 @@ const SCRIPT_DAY2 = [
   { type: "juno", text: "deletion takes a while to sync. it's a known thing, it happens all the time" },
   { type: "juno", text: "her message came through an hour ago. deleted people don't send messages" },
   { type: "player", options: ["so where is she", "i don't buy it"] },
-  { type: "juno", intent: "concede", facts: ["You don't know where Rachel is.", "Rachel's message arrived about an hour ago."],
+  { type: "juno", intent: "concede", facts: ["dont-know-where", "reply-an-hour-ago"],
     text: "i don't know. but she wrote to you, so she's somewhere" },
   { type: "memory", text: "doesn't believe the sync explanation", time: "Tue 23:58" },
   { type: "juno", text: "can we pick this up tomorrow? i'll look into it tonight, i promise" },

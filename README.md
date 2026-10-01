@@ -56,6 +56,9 @@ js/app.js                   state, routing, rendering, script runner
 js/data/app-data.js         contacts, profile, evidence and pairing tables
 js/data/rachel-history.js   a year of DMs (she never uses full stops — that's a clue)
 js/data/script-day2.js      the Day 2 beats
+js/data/truth.js            the truth graph: what Juno is allowed to know, and when
+js/data/director-rules.js   which intent Juno picks when — edit this to change Juno's strategy
+js/director.js              picks Juno's intent and allowed facts each turn
 api/reply.js                serverless function: one line of Juno from {intent, allowedFacts}
 api/_persona.js             Juno's voice and what each intent means — tune this freely
 ```

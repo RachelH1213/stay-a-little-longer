@@ -8,7 +8,7 @@ Read this before changing anything in this repo.
 
 The player looks for a friend (Rachel) who has gone quiet. Their AI companion (Juno) helps, and is also the one hiding what happened. Three in-game days, about 20 minutes.
 
-This repo is currently the **Day 2 shell**: real screens, a hardcoded script, and 5 of Juno's lines written by a model (not yet tested with a real key). No Director or truth graph yet.
+This repo is currently the **Day 2 shell**: real screens, a hardcoded script, and 5 of Juno's lines written by a model (not yet tested with a real key), with intents picked by a first-draft Director.
 
 **Course work and AI use:** part of this project is also coursework for ULEC 2943. Read `docs/course-context.md` (including my AI consent policy) before any task. After any meaningful AI-assisted work, add an entry to `docs/ai-process-log.md` — facts only, and leave "My decision" for me.
 
@@ -22,6 +22,8 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 
 **Model layer (built):** a `juno` step with `intent` + `facts` calls `fetchLine()` in `js/app.js` → `api/reply.js` (GLM-4.7-Flash, key in `ZHIPU_API_KEY`, voice in `api/_persona.js`); any failure or a 4s timeout shows the step's `text` instead, and `file://` always falls back.
 
+**Director (built, rules are a draft):** `Director.decide(step, State)` in `js/director.js` picks the intent from `js/data/director-rules.js` (else the step's own intent) and filters the step's fact ids through `js/data/truth.js` — never `secret`, only facts allowed for that intent, unlocked by the player, and not before their day.
+
 ## Structure
 
 ```
@@ -31,6 +33,10 @@ js/app.js             state, routing, rendering, the script runner
 js/data/app-data.js   contacts, profile, settings, saved-card definitions
 js/data/rachel-history.js   a year of DMs with Rachel (evidence: she never uses full stops)
 js/data/script-day2.js      the hardcoded Day 2 beat script
+js/data/truth.js            the truth graph: every fact, its kind, day, intents, unlock
+js/data/director-rules.js   which intent Juno picks when (story, not logic)
+js/director.js              Director.decide(step, State) -> {intent, allowedFacts, rule}
+api/reply.js, api/_persona.js   the model layer
 ```
 
 No build step, no dependencies. Open `index.html` in a browser, or serve the folder.
@@ -50,6 +56,7 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 `State` in `js/app.js` holds everything:
 
 - `view`, `params` — current screen
+- `day` — in-game day; facts in the truth graph unlock by day
 - `step` — position in the day script
 - `saved[]` — evidence card ids the player kept
 - `deductions[]` — pairs the player has solved
@@ -61,7 +68,7 @@ All rendering reads from `State`. Never write to the DOM from anywhere else.
 ## Roadmap
 
 1. **Done:** static Day 2 shell, ending after the first deduction. Serverless proxy + model for Juno's lines (Task 1).
-2. **Next:** a Director that picks intents, reading a truth graph (Tasks 2–3).
+2. **Now:** Director + truth graph (Tasks 2–3) built; rules and fact tags are a draft awaiting the author's review.
 3. **Then:** logging every turn to Supabase; the replay quiz that reads that log back.
 4. **Later:** Day 1 and Day 3, endings, the call screen.
 

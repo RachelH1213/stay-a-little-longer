@@ -10,6 +10,8 @@ The player looks for a friend (Rachel) who has gone quiet. Their AI companion (J
 
 This repo is currently the **static shell**: real screens, hardcoded dialogue, no model yet.
 
+**Course work and AI use:** part of this project is also coursework for ULEC 2943. Read `docs/course-context.md` (including my AI consent policy) before any task. After any meaningful AI-assisted work, add an entry to `docs/ai-process-log.md` — facts only, and leave "My decision" for me.
+
 ## The one rule
 
 **Game code decides what Juno wants to say. The model only writes the words.**

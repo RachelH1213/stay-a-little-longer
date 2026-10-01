@@ -95,3 +95,21 @@ Copy this for each new entry.
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `docs/course-context.md`, `docs/ai-process-log.md`, `CLAUDE.md`
 - **My decision:** **[to fill in]**
+
+---
+
+### 2026-10-01 — Status wording update and Task 2 plan, with Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:** "帮我update 然后继续我的游戏开发" (update, then continue development).
+- **Prompt:** in the session linked above.
+- **Result:**
+  - The remote branch had no new commits.
+  - Claude Code updated the outdated status lines in `CLAUDE.md` (intro and roadmap) and `README.md` (intro), which still said "no model yet". They now say 5 lines can be model-written, untested with a real key, and no Director or truth graph yet.
+  - It then proposed a plan for Task 2 (Director) and stopped for my answers, since `TASKS.md` asks for a plan before code. No game code changed.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Errors, failed attempts, unexpected output:** none.
+- **Files / features affected:** `CLAUDE.md`, `README.md`, `docs/ai-process-log.md`
+- **My decision:** **[to fill in]**

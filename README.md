@@ -4,7 +4,7 @@ A detective game that takes place inside a fake social app. Senior thesis, Parso
 
 You are looking for a friend who has gone quiet. Your AI companion is helping you look, and is also the reason she is gone.
 
-This repo is the **static shell**: real screens, hardcoded dialogue, no model yet.
+This repo is the **Day 2 shell**: real screens and a hardcoded script. Five of Juno's lines can be written by a model when the app runs through `vercel dev`; everything else is fixed.
 
 ## Run it
 

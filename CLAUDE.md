@@ -8,7 +8,7 @@ Read this before changing anything in this repo.
 
 The player looks for a friend (Rachel) who has gone quiet. Their AI companion (Juno) helps, and is also the one hiding what happened. Three in-game days, about 20 minutes.
 
-This repo is currently the **static shell**: real screens, hardcoded dialogue, no model yet.
+This repo is currently the **Day 2 shell**: real screens, a hardcoded script, and 5 of Juno's lines written by a model (not yet tested with a real key). No Director or truth graph yet.
 
 **Course work and AI use:** part of this project is also coursework for ULEC 2943. Read `docs/course-context.md` (including my AI consent policy) before any task. After any meaningful AI-assisted work, add an entry to `docs/ai-process-log.md` — facts only, and leave "My decision" for me.
 
@@ -60,8 +60,8 @@ All rendering reads from `State`. Never write to the DOM from anywhere else.
 
 ## Roadmap
 
-1. **Now:** static Day 2 shell, ending after the first deduction.
-2. **Next:** serverless proxy + model for Juno's lines, driven by a Director that picks intents.
+1. **Done:** static Day 2 shell, ending after the first deduction. Serverless proxy + model for Juno's lines (Task 1).
+2. **Next:** a Director that picks intents, reading a truth graph (Tasks 2–3).
 3. **Then:** logging every turn to Supabase; the replay quiz that reads that log back.
 4. **Later:** Day 1 and Day 3, endings, the call screen.
 

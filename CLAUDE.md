@@ -22,6 +22,8 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 
 **Model layer (built):** a `juno` step with `intent` + `facts` calls `fetchLine()` in `js/app.js` → `api/reply.js` (GLM-4.7-Flash, key in `ZHIPU_API_KEY`, voice in `api/_persona.js`); any failure or a 4s timeout shows the step's `text` instead, and `file://` always falls back.
 
+**Play log (built):** `Log.write()` in `js/log.js` → `api/log.js` → Supabase table `turns` (`supabase/schema.sql`, keys in `SUPABASE_URL` / `SUPABASE_SECRET_KEY`). One row per player message, Juno line (with intent, rule, source, fact ids) and exit from Juno's thread. Fire-and-forget: never awaited, errors ignored, no-op on `file://`.
+
 **Director (built, rules are a draft):** `Director.decide(step, State)` in `js/director.js` picks the intent from `js/data/director-rules.js` (else the step's own intent) and filters the step's fact ids through `js/data/truth.js` — never `secret`, only facts allowed for that intent, unlocked by the player, and not before their day.
 
 ## Structure
@@ -37,6 +39,7 @@ js/data/truth.js            the truth graph: every fact, its kind, day, intents,
 js/data/director-rules.js   which intent Juno picks when (story, not logic)
 js/director.js              Director.decide(step, State) -> {intent, allowedFacts, rule}
 api/reply.js, api/_persona.js   the model layer
+js/log.js, api/log.js       the play log (Supabase); supabase/schema.sql is the table
 ```
 
 No build step, no dependencies. Open `index.html` in a browser, or serve the folder.
@@ -60,6 +63,7 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - `step` — position in the day script
 - `saved[]` — evidence card ids the player kept
 - `deductions[]` — pairs the player has solved
+- `exits` — times the player has left Juno's thread
 - `memories[]` — what Juno has written down about the player
 - `flags` — one-off story switches (`rachelReplied`, `profileRefreshed`, `deletedFound`, …)
 
@@ -69,7 +73,7 @@ All rendering reads from `State`. Never write to the DOM from anywhere else.
 
 1. **Done:** static Day 2 shell, ending after the first deduction. Serverless proxy + model for Juno's lines (Task 1).
 2. **Now:** Director + truth graph (Tasks 2–3) built; rules and fact tags are a draft awaiting the author's review.
-3. **Then:** logging every turn to Supabase; the replay quiz that reads that log back.
+3. **Then:** logging every turn to Supabase (Task 4, built, untested against a real project); the replay quiz that reads that log back.
 4. **Later:** Day 1 and Day 3, endings, the call screen.
 
 ## Things that are deliberate

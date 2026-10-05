@@ -154,3 +154,40 @@ Copy this for each new entry.
 - **Notes for Project 2:**
   - The `player-leaving` rule is where the platform's retention goal turns into code. When the player says goodnight, the system tells Juno to keep them close.
   - That rule was proposed by an AI tool, not by me. That's a small, concrete example of the authorship question for the reflection.
+
+---
+
+### 2026-10-05 — Play log (Task 4), with Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:** "继续 Task 4" (continue with Task 4: log every turn to Supabase, failing silently).
+- **Prompt:** in the session linked above. The task is Task 4 in `TASKS.md`.
+- **What Claude Code decided (technical):**
+  - **Where the key lives:** writes go through a serverless function (`api/log.js`), like the model layer, so the Supabase key never sits in the browser.
+  - **What gets a row:** one row per event: a player message, a Juno line, or the player leaving Juno's thread.
+  - **What each Juno row holds:** the intent, which rule chose it, whether the words came from the model, the fallback or the script, and the allowed fact ids. It stores fact ids, not fact text.
+  - **What each row doesn't hold:** no IP address and no browser details. The session id is random per playthrough.
+  - **What the server accepts:** it keeps only known fields and caps the length of every text field.
+  - **Supabase key:** uses the new secret key format (`sb_secret_…`). It also sends the extra header the older JWT keys need.
+  - **Fact ids:** the Director now also returns the allowed fact ids, and which keyword lists the player's words matched.
+- **Result:**
+  - **New files:** `api/log.js`, `js/log.js`, `supabase/schema.sql`.
+  - **Changed:** `js/app.js` (log calls, plus an `exits` counter in State), `js/director.js`, `index.html`, `.env.example`, `README.md`, `CLAUDE.md`, `docs/course-context.md`.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Errors, failed attempts, unexpected output:**
+  - Shutting down the local test server killed the test shell (exit code 144) after the tests had finished. The results were unaffected.
+  - The official Supabase docs weren't opened directly. The rule that the new secret keys go in the `apikey` header came from web search results that quote the Supabase docs.
+- **Testing:**
+  - Unit tests on `api/log.js`: field mapping, unknown fields dropped, length caps, bad input rejected, both key formats, and upstream errors.
+  - A full playthrough in Chromium with fake servers produced 28 rows in order, one session.
+  - The same playthrough with the log endpoint returning 500, refusing the connection, or never answering. Play finished every time, at the same speed, with no page errors.
+  - `file://` sends no requests and shows no errors.
+  - **Not yet tested against a real Supabase project.**
+- **Files / features affected:** `api/log.js`, `js/log.js`, `supabase/schema.sql`, `js/app.js`, `js/director.js`, `index.html`, `.env.example`, `README.md`, `CLAUDE.md`, `docs/course-context.md`
+- **My decision:** **[to fill in]**
+- **Notes for Project 2:**
+  - The log stores everything the player types to Juno, and the player is never told. That's the same kind of quiet data collection the game is about.
+  - Whether to tell players (and how, without breaking the "no game vocabulary" rule) is an ethical and design decision I haven't made yet.
+  - `APP.aboutLine` already says "Conversations may be used to improve future companions." That's in-fiction, not real consent.

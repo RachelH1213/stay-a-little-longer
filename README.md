@@ -29,6 +29,16 @@ vercel dev               # serves the app and api/reply at http://localhost:3000
 
 The browser console logs each model line as `[juno] <intent> · model` or `· fallback`. If the key is missing, the request fails, or it takes longer than 4 seconds, Juno says the scripted line instead. On Vercel itself, set `ZHIPU_API_KEY` under Project → Settings → Environment Variables.
 
+## Play log (Supabase)
+
+Every line Juno shows, everything the player sends, and every time they leave Juno's thread is written to a Supabase table. This only happens through `vercel dev` or on Vercel, never from `file://`. If it isn't set up, or the network fails, play carries on and nothing is logged.
+
+1. Create a Supabase project. In the SQL editor, run `supabase/schema.sql`.
+2. In Project Settings → API keys, copy the project URL and a **secret** key (`sb_secret_…`) into `.env` as `SUPABASE_URL` and `SUPABASE_SECRET_KEY`. On Vercel, add the same two as environment variables.
+3. Play once, then open the `turns` table. Rows from one playthrough share a `session_id` and are ordered by `turn`.
+
+The secret key only lives on the server (`api/log.js`). The table has row level security on and no policies, so it can't be read or written with the public key.
+
 ## What works right now
 
 - Lock screen, chat list, Juno's thread, Rachel's thread with a year of history, her profile, Saved, Settings
@@ -61,6 +71,9 @@ js/data/director-rules.js   which intent Juno picks when — edit this to change
 js/director.js              picks Juno's intent and allowed facts each turn
 api/reply.js                serverless function: one line of Juno from {intent, allowedFacts}
 api/_persona.js             Juno's voice and what each intent means — tune this freely
+api/log.js                  serverless function: writes one play-log row to Supabase
+js/log.js                   sends play-log rows; never blocks or breaks play
+supabase/schema.sql         the `turns` table
 ```
 
 ## Next

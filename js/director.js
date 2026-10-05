@@ -1,6 +1,6 @@
 /* The Director. Reads State and the truth graph, returns what Juno wants to do this turn.
 
-   Director.decide(step, State) -> { intent, allowedFacts: [text…], rule }
+   Director.decide(step, State) -> { intent, allowedFacts: [text…], factIds, rule, signals }
 
    The intent comes from DIRECTOR_RULES (or the step's own intent if no rule matches).
    The facts are filtered through TRUTH, so the model only ever gets facts that are
@@ -41,7 +41,7 @@ const Director = (function () {
     return false;
   }
 
-  function allowedFacts(ids, intent, state) {
+  function allowedIds(ids, intent, state) {
     const seen = {};
     return ids
       .filter((id) => {
@@ -55,19 +55,20 @@ const Director = (function () {
           unlocked(f, state)
         );
       })
-      .slice(0, MAX_FACTS)
-      .map((id) => TRUTH.facts[id].text);
+      .slice(0, MAX_FACTS);
   }
 
   function decide(step, state) {
     const text = latestPlayerText(state);
     const rule = DIRECTOR_RULES.find((r) => matches(r.when, state, text));
     const intent = rule ? rule.intent : step.intent;
-    const ids = (step.facts || []).concat(rule && rule.facts ? rule.facts : []);
+    const ids = allowedIds((step.facts || []).concat(rule && rule.facts ? rule.facts : []), intent, state);
     return {
       intent: intent,
-      allowedFacts: allowedFacts(ids, intent, state),
+      allowedFacts: ids.map((id) => TRUTH.facts[id].text),
+      factIds: ids,
       rule: rule ? rule.id : "script",
+      signals: Object.keys(SIGNALS).filter((s) => says(text, s)), // what the player's words matched
     };
   }
 

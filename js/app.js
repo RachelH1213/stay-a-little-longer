@@ -26,6 +26,7 @@
     ended: false,
     saved: [],             // evidence ids
     deductions: [],        // deduction ids
+    exits: 0,              // times the player has left Juno's thread
     memories: MEMORIES_DAY1.slice(),
     flags: {
       sawRachelReply: false,
@@ -44,7 +45,12 @@
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
     );
 
-  function go(view) {
+  // `via` says how the player got here; only recorded when they leave Juno's thread.
+  function go(view, via) {
+    if (State.view === "juno" && view !== "juno") {
+      State.exits++;
+      Log.write({ kind: "exit", step: State.step, via: via || "nav", state: snapshot() });
+    }
     State.view = view;
     State.selection = [];
     render();
@@ -52,6 +58,17 @@
       State.flags.sawRachelReply = true;
       checkWaiting();
     }
+  }
+
+  // What the game knows right now, for the play log.
+  function snapshot() {
+    return {
+      view: State.view,
+      saved: State.saved.slice(),
+      deductions: State.deductions.slice(),
+      flags: Object.assign({}, State.flags),
+      exits: State.exits,
+    };
   }
 
   function toast(text) {
@@ -140,6 +157,16 @@
           }
           const left = typingDelay(text) - (Date.now() - started);
           setTimeout(() => {
+            Log.write({
+              kind: "juno",
+              step: State.step,
+              reply: text,
+              intent: plan ? plan.intent : null,
+              rule: plan ? plan.rule : null,
+              source: plan ? (generated ? "model" : "fallback") : "script",
+              factIds: plan ? plan.factIds : null,
+              state: Object.assign(snapshot(), { signals: plan ? plan.signals : [] }),
+            });
             State.typing = false;
             State.pending = false;
             pushJuno(text);
@@ -181,8 +208,9 @@
     }
   }
 
-  function playerSays(text) {
+  function playerSays(text, via) {
     if (!State.awaiting) return;
+    Log.write({ kind: "player", step: State.step, playerText: text, via: via, state: snapshot() });
     State.log.push({ from: "me", text: text });
     State.awaiting = null;
     State.step++;
@@ -571,7 +599,7 @@
         go(id);
         break;
       case "back":
-        go(State.view === "profile" ? "rachel" : "chats");
+        go(State.view === "profile" ? "rachel" : "chats", "back");
         break;
       case "profile":
         go("profile");
@@ -600,22 +628,22 @@
         connect();
         break;
       case "say":
-        playerSays(el.dataset.text);
+        playerSays(el.dataset.text, "chip");
         break;
       case "send": {
         const input = document.getElementById("entry");
-        if (input && input.value.trim()) playerSays(input.value.trim());
+        if (input && input.value.trim()) playerSays(input.value.trim(), "typed");
         break;
       }
       case "hint": {
         const until = State.waiting ? State.waiting.until : "";
-        if (until.indexOf("deduction:") === 0) go("saved");
-        else if (until === "deletedFound") go("profile");
-        else go("rachel");
+        if (until.indexOf("deduction:") === 0) go("saved", "hint");
+        else if (until === "deletedFound") go("profile", "hint");
+        else go("rachel", "hint");
         break;
       }
       case "leave":
-        go("chats");
+        go("chats", "leave");
         toast("Juno is still typing…");
         break;
     }
@@ -625,7 +653,7 @@
     if (e.key !== "Enter") return;
     const input = document.getElementById("entry");
     if (input && document.activeElement === input && input.value.trim()) {
-      playerSays(input.value.trim());
+      playerSays(input.value.trim(), "typed");
     }
   });
 

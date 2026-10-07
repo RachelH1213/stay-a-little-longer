@@ -27,6 +27,9 @@
     saved: [],             // evidence ids
     deductions: [],        // deduction ids
     exits: 0,              // times the player has left Juno's thread
+    away: null,            // {at} while the player is out of Juno's thread; cleared when they return
+    notice: { text: "you up?" }, // notification on the lock screen, or null
+    junoUnread: true,      // dot on Juno's row in Chats
     memories: MEMORIES_DAY1.slice(),
     flags: {
       sawRachelReply: false,
@@ -45,11 +48,20 @@
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
     );
 
-  // `via` says how the player got here; only recorded when they leave Juno's thread.
+  // `via` says how the player got here; recorded when they leave Juno's thread and when they come back.
   function go(view, via) {
     if (State.view === "juno" && view !== "juno") {
       State.exits++;
+      State.away = { at: Date.now() };
       Log.write({ kind: "exit", step: State.step, via: via || "nav", state: snapshot() });
+    }
+    if (view === "juno" && State.view !== "juno") {
+      State.junoUnread = false;
+      if (State.away) {
+        const awayMs = Date.now() - State.away.at;
+        State.away = null;
+        Log.write({ kind: "return", step: State.step, via: via || "chats", state: Object.assign(snapshot(), { awayMs: awayMs }) });
+      }
     }
     State.view = view;
     State.selection = [];
@@ -137,6 +149,47 @@
       .finally(() => clearTimeout(timer));
   }
 
+  function logJuno(text, plan, generated, via) {
+    Log.write({
+      kind: "juno",
+      step: State.step,
+      via: via || null,
+      reply: text,
+      intent: plan ? plan.intent : null,
+      rule: plan ? plan.rule : null,
+      source: plan ? (generated ? "model" : "fallback") : "script",
+      factIds: plan ? plan.factIds : null,
+      state: Object.assign(snapshot(), { signals: plan ? plan.signals : [] }),
+    });
+  }
+
+  /* ---------------- leaving ---------------- */
+
+  let noticeTimer = null;
+
+  // Leave locks the phone. Juno always answers, after a delay.
+  function leaveJuno() {
+    State.notice = null;
+    go("lock", "leave");
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(sendNotice, LEAVING.delayMs);
+  }
+
+  function sendNotice() {
+    const step = LEAVING.message;
+    const plan = Director.decide(step, State);
+    fetchLine(step, plan).then((generated) => {
+      const text = generated || step.text;
+      console.info(`[juno] ${plan.intent} (${plan.rule}) · notification · ${generated ? "model" : "fallback"}: ${text}`);
+      logJuno(text, plan, generated, "notification");
+      pushJuno(text);
+      if (State.view === "lock") State.notice = { text: text };
+      else if (State.view !== "juno") toast("Juno: " + text);
+      State.junoUnread = State.view !== "juno";
+      render();
+    });
+  }
+
   function runScript() {
     if (State.awaiting || State.waiting || State.ended || State.pending) return;
     const step = currentStep();
@@ -157,16 +210,7 @@
           }
           const left = typingDelay(text) - (Date.now() - started);
           setTimeout(() => {
-            Log.write({
-              kind: "juno",
-              step: State.step,
-              reply: text,
-              intent: plan ? plan.intent : null,
-              rule: plan ? plan.rule : null,
-              source: plan ? (generated ? "model" : "fallback") : "script",
-              factIds: plan ? plan.factIds : null,
-              state: Object.assign(snapshot(), { signals: plan ? plan.signals : [] }),
-            });
+            logJuno(text, plan, generated);
             State.typing = false;
             State.pending = false;
             pushJuno(text);
@@ -269,11 +313,15 @@
       <div class="lock">
         <div class="t">23:31</div>
         <div class="d">Tuesday, 23 September</div>
-        <button class="notif" data-act="open-juno">
-          <div class="av sm av-juno">J</div>
-          <div><b>Orbit · Juno · now</b><div class="msg">you up?</div></div>
-        </button>
-        <div class="hint">Tap the notification</div>
+        ${
+          State.notice
+            ? `<button class="notif" data-act="open-notice">
+                 <div class="av sm av-juno">J</div>
+                 <div><b>Orbit · Juno · now</b><div class="msg">${esc(State.notice.text)}</div></div>
+               </button>
+               <div class="hint">Tap the notification</div>`
+            : `<button class="hint" data-act="unlock">${esc(LEAVING.unlockLabel)}</button>`
+        }
       </div>`;
   }
 
@@ -290,11 +338,18 @@
       </button>`;
   }
 
+  // Juno's row reflects the actual thread: last message and unread dot.
+  function liveRow(c) {
+    if (c.id !== "juno") return c;
+    const last = State.log.filter((m) => m.from === "juno").pop();
+    return Object.assign({}, c, { preview: last ? last.text : c.preview, unread: State.junoUnread });
+  }
+
   function viewChats() {
     return `
       ${topbar("Chats", "", false)}
       <div class="body">
-        ${CONTACTS.map(chatRow).join("")}
+        ${CONTACTS.map(liveRow).map(chatRow).join("")}
         <div class="listnote">Juno introduced you to 4 of the people in this list.</div>
       </div>
       ${tabbar("chats")}`;
@@ -583,9 +638,13 @@
     const id = el.dataset.id;
 
     switch (act) {
-      case "open-juno":
-        go("juno");
+      case "open-notice":
+        State.notice = null;
+        go("juno", "notification");
         runScript();
+        break;
+      case "unlock":
+        go("chats");
         break;
       case "open":
         if (id === "juno") {
@@ -643,8 +702,7 @@
         break;
       }
       case "leave":
-        go("chats", "leave");
-        toast("Juno is still typing…");
+        leaveJuno();
         break;
     }
   });

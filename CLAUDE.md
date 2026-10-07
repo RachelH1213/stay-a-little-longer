@@ -24,6 +24,8 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 
 **Play log (built):** `Log.write()` in `js/log.js` → `api/log.js` → Supabase table `turns` (`supabase/schema.sql`, keys in `SUPABASE_URL` / `SUPABASE_SECRET_KEY`). One row per player message, Juno line (with intent, rule, source, fact ids) and exit from Juno's thread. Fire-and-forget: never awaited, errors ignored, no-op on `file://`.
 
+**Leaving (built, content is a draft):** Leave in Juno's thread locks the phone (`leaveJuno()` in `js/app.js`). After `LEAVING.delayMs`, Juno sends a message through the Director (`js/data/leaving.js` holds the default intent, facts and fallback); it shows as a lock-screen notification, or a toast if the player already unlocked. Every exit and every return to Juno's thread is logged (`exit` / `return` rows, return `via` notification or chats).
+
 **Director (built, rules are a draft):** `Director.decide(step, State)` in `js/director.js` picks the intent from `js/data/director-rules.js` (else the step's own intent) and filters the step's fact ids through `js/data/truth.js` — never `secret`, only facts allowed for that intent, unlocked by the player, and not before their day.
 
 ## Structure
@@ -37,6 +39,7 @@ js/data/rachel-history.js   a year of DMs with Rachel (evidence: she never uses 
 js/data/script-day2.js      the hardcoded Day 2 beat script
 js/data/truth.js            the truth graph: every fact, its kind, day, intents, unlock
 js/data/director-rules.js   which intent Juno picks when (story, not logic)
+js/data/leaving.js          what happens when the player leaves Juno: delay, message, lock-screen text
 js/director.js              Director.decide(step, State) -> {intent, allowedFacts, rule}
 api/reply.js, api/_persona.js   the model layer
 js/log.js, api/log.js       the play log (Supabase); supabase/schema.sql is the table
@@ -64,6 +67,9 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - `saved[]` — evidence card ids the player kept
 - `deductions[]` — pairs the player has solved
 - `exits` — times the player has left Juno's thread
+- `away` — set while the player is out of Juno's thread, cleared when they come back
+- `notice` — the notification on the lock screen, or null
+- `junoUnread` — the dot on Juno's row in Chats
 - `memories[]` — what Juno has written down about the player
 - `flags` — one-off story switches (`rachelReplied`, `profileRefreshed`, `deletedFound`, …)
 
@@ -74,6 +80,7 @@ All rendering reads from `State`. Never write to the DOM from anywhere else.
 1. **Done:** static Day 2 shell, ending after the first deduction. Serverless proxy + model for Juno's lines (Task 1).
 2. **Now:** Director + truth graph (Tasks 2–3) built; rules and fact tags are a draft awaiting the author's review.
 3. **Then:** logging every turn to Supabase (Task 4, built, untested against a real project); the replay quiz that reads that log back.
+   Leaving and notifications (Task 5) built; delay and wording are a draft.
 4. **Later:** Day 1 and Day 3, endings, the call screen.
 
 ## Things that are deliberate

@@ -191,3 +191,42 @@ Copy this for each new entry.
   - The log stores everything the player types to Juno, and the player is never told. That's the same kind of quiet data collection the game is about.
   - Whether to tell players (and how, without breaking the "no game vocabulary" rule) is an ethical and design decision I haven't made yet.
   - `APP.aboutLine` already says "Conversations may be used to improve future companions." That's in-fiction, not real consent.
+
+---
+
+### 2026-10-07 — Leaving and notifications (Task 5), with Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:** "继续 Task 5" (continue with Task 5: closing Juno's thread shows the lock screen, a notification arrives after a delay, returning through it is recorded).
+- **Prompt:** in the session linked above. The task is Task 5 in `TASKS.md`.
+- **What Claude Code decided (technical):**
+  - **What counts as closing:** only the **Leave** button locks the phone. Back and the hint card still go to other screens, as before. All three count as exits in the log.
+  - **The notification is a Juno line:** it goes through the Director (default intent `retain`, fact `late`), so the one rule still holds. The model writes the words, and a fallback is shown if it fails.
+  - **Always answered:** the message is always sent, even if the player unlocks before it arrives. In that case it shows as a toast in Chats, and Juno's row gets an unread dot and the new preview.
+  - **Leaving again:** if the player leaves again before the message arrives, the timer restarts, so they get one message, not two.
+  - **Logging:** new `return` rows, recorded when the player comes back to Juno's thread, with `via` (`notification` or `chats`) and how long they were away. Notification lines are logged as `juno` rows with `via: notification`.
+  - **Schema:** `supabase/schema.sql` can now be re-run safely, so an existing table picks up the new `return` kind.
+- **What Claude Code put in as placeholders (narrative/design, needs my review), all in `js/data/leaving.js`:**
+  - **Delay:** 8 seconds.
+  - **Fallback message:** "you up?", reused from the opening lock screen. This is the message shown if the model fails, or every time when the game is opened from disk.
+  - **Unlock text:** "Tap to open".
+  - **Lock-screen tapping:** the lock screen can be tapped to unlock without waiting for Juno. Without that, the player would be stuck on the lock screen until the message came. Whether being stuck is actually the intended feeling is my call.
+- **Removed:** the old toast "Juno is still typing…" that appeared after pressing Leave. The lock screen replaces it. **[to fill in]**: was that line mine, and do I want it back somewhere?
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Errors, failed attempts, unexpected output:** none in the game. The earlier playthrough test had to be updated, because Leave now goes to the lock screen instead of Chats.
+- **Testing:** five Chromium scenarios at 390px with a fake model and a 1.5s delay:
+  1. leave, then tap the notification;
+  2. leave, then unlock at once (toast, unread dot, return via chats);
+  3. model fails (fallback line, logged as fallback);
+  4. leave twice (only one notification);
+  5. `file://`.
+
+  Also a full playthrough with a leave mid-conversation: 4 exits, 4 returns, no page errors. The `api/log` and Director tests still pass. **Not tested with a real model or a real Supabase project.**
+- **Files / features affected:** `js/data/leaving.js`, `js/app.js`, `index.html`, `api/log.js`, `supabase/schema.sql`, `CLAUDE.md`, `README.md`, `docs/course-context.md`
+- **My decision:** **[to fill in]**
+- **Notes for Project 2:**
+  - This is the retention loop in its plainest form: the player leaves, and the system schedules a message designed to bring them back.
+  - The log now measures whether it worked (`return` via `notification`, and `awayMs`).
+  - The default intent for that message is `retain`.

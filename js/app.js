@@ -30,6 +30,7 @@
     away: null,            // {at} while the player is out of Juno's thread; cleared when they return
     notice: { text: "you up?" }, // notification on the lock screen, or null
     junoUnread: true,      // dot on Juno's row in Chats
+    replay: null,          // the look-back: {items, i, guesses[], done}
     memories: MEMORIES_DAY1.slice(),
     flags: {
       sawRachelReply: false,
@@ -368,6 +369,8 @@
       : "";
     const hint = State.waiting
       ? `<button class="hintcard" data-act="hint">${esc(State.waiting.hint)}</button>`
+      : State.ended
+      ? `<button class="hintcard" data-act="replay-start">${esc(REPLAY.entryLabel)}</button>`
       : "";
 
     const chips =
@@ -571,6 +574,67 @@
       ${tabbar("settings")}`;
   }
 
+  function meaningOf(intent) {
+    return REPLAY.meaning[intent] || { side: "keeping", label: intent };
+  }
+
+  function viewReplay() {
+    const r = State.replay;
+    const s = Replay.summary(Log.rows());
+    let content;
+
+    if (!r.items.length) {
+      content = `<div class="empty">${esc(REPLAY.empty)}</div>`;
+    } else if (r.done) {
+      const leaving = REPLAY.summaryLeaving
+        .replace("{exits}", Replay.times(s.exits))
+        .replace("{notified}", Replay.times(s.notified))
+        .replace("{returned}", Replay.times(s.returned));
+      content = `
+        <div class="replay">
+          <h2>${esc(REPLAY.summaryTitle)}</h2>
+          ${r.items
+            .map((item, k) => {
+              const m = meaningOf(item.intent);
+              return `
+                <div class="rsum">
+                  <div class="bub them">${esc(item.reply)}</div>
+                  <div class="note">${esc(REPLAY.revealPrefix)} ${esc(m.label)} · ${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[r.guesses[k]] || "")}</div>
+                </div>`;
+            })
+            .join("")}
+          <p class="rleave">${esc(leaving)}</p>
+          <button class="pill primary" data-act="replay-close">${esc(REPLAY.finish)}</button>
+        </div>`;
+    } else {
+      const item = r.items[r.i];
+      const guess = r.guesses[r.i];
+      const m = meaningOf(item.intent);
+      const last = r.i === r.items.length - 1;
+      content = `
+        <div class="replay">
+          <div class="bub them">${esc(item.reply)}</div>
+          ${
+            guess
+              ? `<div class="reveal ${esc(m.side)}">
+                   <span>${esc(REPLAY.revealPrefix)}</span>
+                   <b>${esc(m.label)}</b>
+                   <span class="note">${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[guess])}</span>
+                 </div>
+                 <button class="pill primary" data-act="replay-next">${esc(last ? REPLAY.finish : REPLAY.next)}</button>`
+              : `<div class="rq">${esc(REPLAY.question)}</div>
+                 <div class="ranswers">
+                   <button class="pill" data-act="replay-answer" data-id="helping">${esc(REPLAY.answers.helping)}</button>
+                   <button class="pill" data-act="replay-answer" data-id="keeping">${esc(REPLAY.answers.keeping)}</button>
+                 </div>`
+          }
+        </div>`;
+    }
+
+    const sub = r.items.length && !r.done ? `${r.i + 1} / ${r.items.length}` : "";
+    return `${topbar(REPLAY.title, sub, true)}<div class="body">${content}</div>`;
+  }
+
   /* ---------------- chrome ---------------- */
 
   function topbar(title, sub, back) {
@@ -617,6 +681,7 @@
       profile: viewProfile,
       saved: viewSaved,
       settings: viewSettings,
+      replay: viewReplay,
     };
     app.innerHTML =
       (views[State.view] || viewChats)() +
@@ -703,6 +768,37 @@
       }
       case "leave":
         leaveJuno();
+        break;
+      case "replay-start":
+        if (!State.replay) {
+          const items = Replay.pick(Log.rows(), REPLAY.count);
+          State.replay = { items: items, i: 0, guesses: [], done: false };
+        }
+        go("replay", "replay");
+        break;
+      case "replay-answer": {
+        const r = State.replay;
+        const item = r.items[r.i];
+        r.guesses[r.i] = id;
+        Log.write({
+          kind: "answer",
+          step: State.step,
+          via: id,
+          reply: item.reply,
+          intent: item.intent,
+          rule: item.rule,
+          state: { forTurn: item.turn, side: meaningOf(item.intent).side },
+        });
+        render();
+        break;
+      }
+      case "replay-next":
+        if (State.replay.i < State.replay.items.length - 1) State.replay.i++;
+        else State.replay.done = true;
+        render();
+        break;
+      case "replay-close":
+        go("chats");
         break;
     }
   });

@@ -6,7 +6,7 @@
 
 const TABLE = "turns";
 const UPSTREAM_TIMEOUT_MS = 3000;
-const KINDS = ["player", "juno", "exit", "return"];
+const KINDS = ["player", "juno", "exit", "return", "answer"];
 const MAX_TEXT = 500;
 const MAX_JSON = 4000;
 

@@ -169,3 +169,22 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .toast.on{opacity:1}
 
 @media (prefers-reduced-motion:reduce){.dots i{animation:none;opacity:.6}.toast{transition:none}}
+
+/* ---------- look-back ---------- */
+.replay{padding:22px 16px;display:flex;flex-direction:column;gap:14px}
+.replay h2{font-size:17px;margin:0 0 4px}
+.replay .bub.them{max-width:100%}
+.rq{font-size:15px;color:var(--ink-2);text-align:center;margin-top:6px}
+.ranswers{display:flex;gap:10px;justify-content:center}
+.ranswers .pill{min-width:110px;font-size:14px;padding:9px 16px}
+.reveal{border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;animation:flip .35s ease-out}
+.reveal.helping{background:#e7f2ea;color:var(--ok)}
+.reveal.keeping{background:var(--warn-soft);color:var(--warn)}
+.reveal span{font-size:12px;opacity:.85}
+.reveal b{font-size:15px;font-weight:600}
+.reveal .note,.rsum .note{font-size:12px;color:var(--ink-2)}
+.rsum{display:flex;flex-direction:column;gap:5px}
+.rleave{font-size:13px;color:var(--ink-2);margin:6px 0 0}
+.replay > .pill{align-self:center}
+@keyframes flip{from{transform:rotateX(70deg);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.reveal{animation:none}}

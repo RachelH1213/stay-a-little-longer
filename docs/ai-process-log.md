@@ -230,3 +230,46 @@ Copy this for each new entry.
   - This is the retention loop in its plainest form: the player leaves, and the system schedules a message designed to bring them back.
   - The log now measures whether it worked (`return` via `notification`, and `awayMs`).
   - The default intent for that message is `retain`.
+
+---
+
+### 2026-10-07 — Look-back quiz (Task 6), with Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:** "继续 Task 6" (continue with Task 6: built from the log, pick five of Juno's messages by rule, ask "helping you, or keeping you?" for each, flip to show the real intent, then a summary screen).
+- **Prompt:** in the session linked above. The task is Task 6 in `TASKS.md`. The question wording is mine, from `TASKS.md`.
+- **What Claude Code decided (technical):**
+  - **Where the quiz reads from:** the log now keeps every row in memory for the playthrough (`Log.rows()`), and the quiz reads that, not Supabase. It's the same data that gets sent, and it works offline and from `file://`. Reading back from Supabase (for example, at an exhibition) isn't built.
+  - **The pick rule (`js/replay.js`):** only lines with an intent can be asked about, because fixed script lines have no intent to reveal. In order of preference:
+    1. lines where a Director rule overrode the script;
+    2. notification lines;
+    3. a spread of different intents;
+    4. the earliest lines.
+
+    The chosen lines are shown in the order they were sent.
+  - **Where it starts:** a card in Juno's thread once the slice ends opens a new `replay` screen.
+  - **Logging:** each answer is logged as a new `answer` row, so the guesses are research data too. The schema and `api/log.js` were updated, and `supabase/schema.sql` should be re-run.
+- **What Claude Code put in as placeholders (narrative/design/ethical, needs my review), all in `js/data/replay.js`:**
+  - **Wording:** every label except the question: the entry card "Look back at tonight", the title "Tonight", "Juno was …", the summary lines.
+  - **Plain-language meanings:** what each intent means, for example `retain` → "keeping you here".
+  - **Which side each intent counts as:** `give_clue` is helping, everything else is keeping. Counting `concede` as "keeping" is an ethical call I haven't made.
+  - **The summary:** it lists the five lines with what Juno was doing and what I guessed. It also has one line counting how many times I pressed Leave, how many times Juno wrote to bring me back, and how many times that worked.
+  - **No score:** there's deliberately no score, following the "no score" convention in `CLAUDE.md`. The "1 / 5" progress label is still a number on screen, and I should decide if that's OK.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Errors, failed attempts, unexpected output:**
+  - **Wrong leave count:** the first version of the summary said "You left 5 times" after one Leave, because it counted every exit from Juno's thread, including hint cards and opening the look-back itself. It now counts presses of Leave only.
+  - **Grammar:** it also printed "1 times". The counts now read "once", "twice", "3 times".
+  - **Test harness:** the `file://` run crashed because the harness tried to intercept requests in file mode. That was a harness bug, not a game bug.
+  - **Blank reveal card:** the first screenshot of the reveal was taken mid-animation and looked blank. A second screenshot after the animation showed it correctly.
+- **Testing:**
+  - Unit tests for the pick rule: it picks rule overrides, notifications and different intents; keeps the lines in order; caps at 5; and handles empty input. There are also tests for the summary counts.
+  - A full playthrough in Chromium at 390px with a fake model: typed "goodnight", left and came back, accused Juno, doubted with proof. The look-back picked 5 lines, including all three rule overrides and the notification. 5 answer rows were sent and the summary was correct.
+  - The same run from `file://`: it worked with fallback lines and sent nothing.
+  - The Director and `api/log` tests still pass.
+- **Files / features affected:** `js/data/replay.js`, `js/replay.js`, `js/log.js`, `js/app.js`, `css/app.css`, `index.html`, `api/log.js`, `supabase/schema.sql`, `CLAUDE.md`, `README.md`, `docs/course-context.md`
+- **My decision:** **[to fill in]**
+- **Notes for Project 2:**
+  - The look-back is the moment the game shows the player what the system was doing to them. It's a small model of the transparency the game argues real companion apps don't give.
+  - The `answer` rows record whether players could tell helping from keeping. That might be evidence for Project 2 if I playtest with other people. If I do, I'd need their consent, which ties back to the open question from Task 4.

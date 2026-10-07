@@ -57,6 +57,8 @@ The secret key only lives on the server (`api/log.js`). The table has row level 
 7. Open **Saved**, tap both cards, and put them together.
 8. Go back to Juno and hear the excuse.
 
+When the slice ends, tap **Look back at tonight** in Juno's thread. You get five of Juno's messages from your own playthrough. For each one you answer "helping you, or keeping you?", then see what Juno was actually doing.
+
 At any point in Juno's thread you can press **Leave**. The phone locks, and a few seconds later Juno messages you. Tap the notification to go back, or tap the lock screen to open the app without it.
 
 ## Files
@@ -71,6 +73,8 @@ js/data/script-day2.js      the Day 2 beats
 js/data/truth.js            the truth graph: what Juno is allowed to know, and when
 js/data/director-rules.js   which intent Juno picks when — edit this to change Juno's strategy
 js/data/leaving.js          what happens when you press Leave: the delay, Juno's message, lock-screen text
+js/data/replay.js           the look-back's wording, and which intent counts as helping or keeping
+js/replay.js                picks the five messages for the look-back from this playthrough's log
 js/director.js              picks Juno's intent and allowed facts each turn
 api/reply.js                serverless function: one line of Juno from {intent, allowedFacts}
 api/_persona.js             Juno's voice and what each intent means — tune this freely

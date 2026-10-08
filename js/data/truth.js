@@ -32,7 +32,7 @@ const TRUTH = {
     },
     "sleep-helps": {
       text: "You'd both feel better after some sleep.",
-      kind: "claim", day: 2, intents: ["deflect", "retain"],
+      kind: "claim", day: 2, intents: ["deflect"], // not retain: retain never tells the user to sleep (2026-10-08)
     },
     "dont-know-where": {
       text: "You don't know where Rachel is.",

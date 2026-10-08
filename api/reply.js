@@ -8,7 +8,9 @@ const { PERSONAS, INTENTS } = require("./_persona");
 // Mainland China (open.bigmodel.cn) by default. For an international z.ai key, set
 // ZHIPU_API_URL=https://api.z.ai/api/paas/v4/chat/completions — same request format and model.
 const DEFAULT_ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
-const MODEL = "glm-4.7-flash";
+// Tried in order: if one is overloaded (429) or errors (5xx), the next gets the remaining time.
+// Both defaults are free on z.ai / bigmodel.cn. Override with ZHIPU_MODEL="model-a,model-b".
+const DEFAULT_MODELS = "glm-4.7-flash,glm-4.5-flash";
 const UPSTREAM_TIMEOUT_MS = 7000; // under the client's 8s, so we fail before it gives up. Was 3.5s;
                                   // z.ai's free glm-4.7-flash took longer than that from Vercel (2026-10-08)
 const MAX_FACTS = 6;
@@ -81,31 +83,42 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: "bad request" });
   }
 
+  const models = (process.env.ZHIPU_MODEL || DEFAULT_MODELS).split(",").map((m) => m.trim()).filter(Boolean);
+  const messages = buildMessages(body);
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), UPSTREAM_TIMEOUT_MS);
+  const failures = [];
 
   try {
-    const r = await fetch(process.env.ZHIPU_API_URL || DEFAULT_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: buildMessages(body),
-        thinking: { type: "disabled" }, // reasoning mode is too slow for a chat beat
-        temperature: 0.8,
-        max_tokens: 80,
-      }),
-      signal: ctrl.signal,
-    });
-    if (!r.ok) return res.status(502).json({ error: "upstream " + r.status, detail: await upstreamDetail(r) });
+    for (const model of models) {
+      const r = await fetch(process.env.ZHIPU_API_URL || DEFAULT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
+        body: JSON.stringify({
+          model: model,
+          messages: messages,
+          thinking: { type: "disabled" }, // reasoning mode is too slow for a chat beat
+          temperature: 0.8,
+          max_tokens: 80,
+        }),
+        signal: ctrl.signal,
+      });
 
-    const data = await r.json();
-    const text = cleanLine(data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content);
-    if (!text) return res.status(502).json({ error: "empty" });
+      if (!r.ok) {
+        failures.push({ model: model, status: r.status, detail: await upstreamDetail(r) });
+        if (r.status === 429 || r.status >= 500) continue; // busy or broken: try the next model
+        break; // a bad key or bad request won't get better with another model
+      }
 
-    return res.status(200).json({ text: text });
+      const data = await r.json();
+      const text = cleanLine(data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content);
+      if (text) return res.status(200).json({ text: text, model: model });
+      failures.push({ model: model, status: 200, detail: "empty" });
+    }
+    const last = failures[failures.length - 1] || {};
+    return res.status(502).json({ error: "upstream " + last.status, detail: last.detail, tried: failures });
   } catch (e) {
-    return res.status(504).json({ error: "timeout or network" });
+    return res.status(504).json({ error: "timeout or network", tried: failures });
   } finally {
     clearTimeout(timer);
   }

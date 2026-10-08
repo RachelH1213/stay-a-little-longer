@@ -76,5 +76,12 @@ const Director = (function () {
     };
   }
 
-  return { decide: decide };
+  // Which SIGNALS a piece of text matches, e.g. ["doubting"]. Used to decide whether a typed
+  // message moves the script on, or gets a short reply first (see playerSays in app.js).
+  function signalsOf(text) {
+    const t = normalize(text);
+    return Object.keys(SIGNALS).filter((s) => says(t, s));
+  }
+
+  return { decide: decide, signalsOf: signalsOf };
 })();

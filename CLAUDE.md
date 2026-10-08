@@ -26,9 +26,9 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 
 **Leaving (built, content is a draft):** Leave in Juno's thread locks the phone (`leaveJuno()` in `js/app.js`). After `LEAVING.delayMs`, Juno sends a message through the Director (`js/data/leaving.js` holds the default intent, facts and fallback); it shows as a lock-screen notification, or a toast if the player already unlocked. Every exit and every return to Juno's thread is logged (`exit` / `return` rows, return `via` notification or chats).
 
-**Look-back (built, content is a draft):** when the slice ends, a card in Juno's thread opens the `replay` view. `Replay.pick()` in `js/replay.js` chooses up to 5 of Juno's intent-carrying lines from this playthrough's log (`Log.rows()`, kept in memory, so it works on `file://`); the player answers "helping you, or keeping you?", the card flips to the real intent, then a summary. Wording and which intent counts as which side live in `js/data/replay.js`. Each answer is logged as an `answer` row.
+**Look-back (built, content is a draft):** when the slice ends, a card in Juno's thread opens the `replay` view. `Replay.pick()` in `js/replay.js` chooses up to 5 of Juno's intent-carrying lines from this playthrough's log (`Log.rows()`, kept in memory, so it works on `file://`); it opens on an intro page, shows what the player said (or that they had left) above each line, asks whether Juno was helping or keeping them, flips to the real intent, then a summary. Off-script `bridge` replies are never asked about. Wording and which intent counts as which side live in `js/data/replay.js`. Each answer is logged as an `answer` row.
 
-**Director (built, rules are a draft):** `Director.decide(step, State)` in `js/director.js` picks the intent from `js/data/director-rules.js` (else the step's own intent) and filters the step's fact ids through `js/data/truth.js` — never `secret`, only facts allowed for that intent, unlocked by the player, and not before their day. Rules only react to messages the player typed, never to tapped suggestions, and never apply to the notification after Leave. A rule's optional `text` is the fallback when that rule fires, so a failed model call never shows a line written for a different intent. Fixed script lines can carry a `means` tag (their real intent) so the look-back can ask about them; they are never sent to the model.
+**Director (built, rules are a draft):** `Director.decide(step, State)` in `js/director.js` picks the intent from `js/data/director-rules.js` (else the step's own intent) and filters the step's fact ids through `js/data/truth.js` — never `secret`, only facts allowed for that intent, unlocked by the player, and not before their day. A typed message that isn't a suggestion and matches no Director signal gets one short model-written reply (intent `acknowledge`, rule `bridge`) and the same question stays open; a second off-script message on that question, or a model failure, moves the script on. Rules only react to messages the player typed, never to tapped suggestions, and never apply to the notification after Leave. A rule's optional `text` is the fallback when that rule fires, so a failed model call never shows a line written for a different intent. Fixed script lines can carry a `means` tag (their real intent) so the look-back can ask about them; they are never sent to the model.
 
 ## Structure
 
@@ -74,7 +74,8 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - `away` — set while the player is out of Juno's thread, cleared when they come back
 - `notice` — the notification on the lock screen, or null
 - `junoUnread` — the dot on Juno's row in Chats
-- `replay` — the look-back in progress: `{items, i, guesses[], done}`
+- `replay` — the look-back in progress: `{intro, items, i, guesses[], done}`
+- `bridgedStep` — the player step Juno already answered off-script once
 - `clock` — lock-screen time; set from each `memory` step's timestamp
 - `presenter` — true when the page is opened as `index.html?director`: every Juno line shows its intent · rule · source (for demos; players never see it)
 - `memories[]` — what Juno has written down about the player

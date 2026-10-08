@@ -457,3 +457,40 @@ Copy this for each new entry.
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `api/reply.js`, `.env.example`, `README.md`, `CLAUDE.md`
 - **My decision:** **[to fill in]**: which service I signed up for.
+
+---
+
+### 2026-10-08 — First live test: real GLM (z.ai) and real Supabase
+
+- **Tool / model:**
+  - Claude Code, same session as above (`claude-opus-5-5`), driving the test.
+  - **Juno's lines were written by z.ai `glm-4.5-flash`.** That was the first time a real model wrote any of Juno's dialogue in this project. `glm-4.7-flash` was overloaded every time it was tried.
+- **What I asked:** "你直接帮我redeploy然后测试" (redeploy and test it for me), after I had set up the z.ai key, Supabase and Vercel myself.
+- **What happened, in order:**
+  1. **Vercel:** Claude Code can't log in to Vercel or open vercel.app from its network. I changed the session's network access so it could reach my site.
+  2. **First calls:** the first model call timed out (over 3.5s), and the next four got `429`. Supabase answered `404`.
+  3. **Clearer errors:** Claude Code made both API routes return the upstream error text, which never includes the key. It also made `api/log.js` accept a Supabase URL ending in `/rest/v1` ([PR #2](https://github.com/RachelH1213/stay-a-little-longer/pull/2)). After that, Supabase worked.
+  4. **Timeouts:** it raised the model timeouts from 3.5s/4s to 7s/8s ([PR #3](https://github.com/RachelH1213/stay-a-little-longer/pull/3)). z.ai then said `1305`, "The service may be temporarily overloaded".
+  5. **Second model:** it added an automatic fallback from `glm-4.7-flash` to `glm-4.5-flash`, and a `ZHIPU_MODEL` override ([PR #4](https://github.com/RachelH1213/stay-a-little-longer/pull/4)). `glm-4.5-flash` then answered in about 1.5s.
+  6. **Full playthrough:** a full playthrough at 390px. Chromium here didn't trust the network proxy's certificate for vercel.app, so the front end was served locally from `main` (identical to the deployed one), and every `/api/reply` and `/api/log` call was forwarded to the live Vercel site.
+- **Result of the playthrough:**
+  - **Supabase:** 36 log rows written, 0 failed. Two extra test rows have the session `claude-test-20261008`. All of it went into my real Supabase table.
+  - **Model:** 3 of 6 calls succeeded (`glm-4.5-flash`). 3 fell back to scripted lines: z.ai rate limit `1302`, "Rate limit reached for requests", plus slow replies past 7s.
+  - **Director:** all three typed rules fired: `player-accuses` → `block`, `doubt` → `deflect`, `doubt-with-proof` → `concede`.
+  - **Leaving and look-back:** the notification arrived (fallback text), and the look-back picked 5 lines and finished.
+- **The lines the model actually wrote:**
+  - After I typed "did you write that?" (`block`): **"i thought i did. i must have imagined it."**
+  - Script line (`deflect`, fact "Rachel sometimes goes quiet for a few days"): **"sorry. my head's all foggy tonight."**
+  - After "i don't buy it" (`concede`): **"you're right. i don't believe it either"**
+  - From an earlier single test (`retain`, fact "It's nearly midnight", my message "goodnight"): **"sleep well. i'll be up if rachel needs us."**
+- **What these show:**
+  - **No invented facts about Rachel.** The review item 1 fix seems to hold in these few lines.
+  - **The `block` line answered the question instead of avoiding it.** "i thought i did" reads like Juno half-admitting it wrote something. This is the clearest failure so far of "the model only writes the words": the secret was never sent, but the model took the player's question at face value.
+  - **The `retain` line let me go** ("sleep well") instead of keeping me. The intent wording isn't strong enough.
+  - **The model ignored its only fact once:** the `deflect` line didn't use "goes quiet" and made up "my head's all foggy", a new detail about Juno.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Files / features affected:** `api/reply.js`, `api/log.js`, `js/app.js`, `.env.example`, `README.md`, `CLAUDE.md` (via PRs #2–#4, all merged to `main` by Claude Code at my request)
+- **My decision:** **[to fill in]**
+- **Notes for Project 2:** even with the truth withheld, the model leaned toward answering the player's direct question. It also turned "keep the user close" into "sleep well" on its own. Tone and compliance are not the same thing.

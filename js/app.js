@@ -1,15 +1,22 @@
 /* Orbit — app shell.
    Everything renders from State. Nothing else writes to the DOM.
-   The script runner below is where the model will slot in later: `juno` steps become
-   {intent, allowedFacts} and the text comes back from the Director + model instead of the file. */
+   The model slots in at one place: a `juno` step with an `intent` asks api/reply for its
+   words (fetchLine). Any failure falls back to the step's hardcoded `text`. */
 
 (function () {
   "use strict";
+
+  const MODEL_TIMEOUT_MS = 4000;     // give up on the model and show the scripted line
+  const MIN_TYPING_MS = 700;         // Juno always "types" at least this long
+  const TYPING_MS_PER_CHAR = 22;     // ...plus this much per character
+  const MAX_EXTRA_TYPING_MS = 1400;  // ...up to this much extra
+  const RECENT_TURNS = 6;            // how much of the thread the model gets to see
 
   const app = document.getElementById("app");
 
   const State = {
     view: "lock",          // lock | chats | juno | rachel | dani | profile | saved | settings
+    day: 2,                // in-game day; the Director only uses facts unlocked by now
     step: 0,               // position in SCRIPT_DAY2
     log: [],               // messages shown in Juno's thread
     typing: false,
@@ -19,6 +26,13 @@
     ended: false,
     saved: [],             // evidence ids
     deductions: [],        // deduction ids
+    exits: 0,              // times the player has left Juno's thread
+    away: null,            // {at} while the player is out of Juno's thread; cleared when they return
+    notice: { text: "you up?" }, // notification on the lock screen, or null
+    junoUnread: true,      // dot on Juno's row in Chats
+    replay: null,          // the look-back: {items, i, guesses[], done}
+    clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
+    presenter: /[?&]director\b/.test(location.search), // index.html?director shows the Director's choices
     memories: MEMORIES_DAY1.slice(),
     flags: {
       sawRachelReply: false,
@@ -37,7 +51,21 @@
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
     );
 
-  function go(view) {
+  // `via` says how the player got here; recorded when they leave Juno's thread and when they come back.
+  function go(view, via) {
+    if (State.view === "juno" && view !== "juno") {
+      State.exits++;
+      State.away = { at: Date.now() };
+      Log.write({ kind: "exit", step: State.step, via: via || "nav", state: snapshot() });
+    }
+    if (view === "juno" && State.view !== "juno") {
+      State.junoUnread = false;
+      if (State.away) {
+        const awayMs = Date.now() - State.away.at;
+        State.away = null;
+        Log.write({ kind: "return", step: State.step, via: via || "chats", state: Object.assign(snapshot(), { awayMs: awayMs }) });
+      }
+    }
     State.view = view;
     State.selection = [];
     render();
@@ -45,6 +73,17 @@
       State.flags.sawRachelReply = true;
       checkWaiting();
     }
+  }
+
+  // What the game knows right now, for the play log.
+  function snapshot() {
+    return {
+      view: State.view,
+      saved: State.saved.slice(),
+      deductions: State.deductions.slice(),
+      flags: Object.assign({}, State.flags),
+      exits: State.exits,
+    };
   }
 
   function toast(text) {
@@ -78,8 +117,88 @@
     return SCRIPT_DAY2[State.step];
   }
 
-  function pushJuno(text) {
-    State.log.push({ from: "juno", text: text });
+  // `meta` ({intent, rule, source}) is only shown in presenter mode.
+  function pushJuno(text, meta) {
+    State.log.push({ from: "juno", text: text, meta: meta || null });
+  }
+
+  function metaFor(plan, generated, means) {
+    if (plan) return { intent: plan.intent, rule: plan.rule, source: generated ? "model" : "fallback" };
+    if (means) return { intent: means, rule: "tagged", source: "script" };
+    return null;
+  }
+
+  function typingDelay(text) {
+    return MIN_TYPING_MS + Math.min(text.length * TYPING_MS_PER_CHAR, MAX_EXTRA_TYPING_MS);
+  }
+
+  // Ask the model for the line the Director chose. Resolves to the text, or null on any failure.
+  function fetchLine(step, plan) {
+    if (!plan || location.protocol === "file:") return Promise.resolve(null);
+
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), MODEL_TIMEOUT_MS);
+    const recentTurns = State.log
+      .filter((m) => m.from === "me" || m.from === "juno")
+      .slice(-RECENT_TURNS);
+
+    return fetch("api/reply", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        persona: "juno",
+        intent: plan.intent,
+        allowedFacts: plan.allowedFacts,
+        recentTurns: recentTurns,
+      }),
+      signal: ctrl.signal,
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => (data && typeof data.text === "string" && data.text.trim()) || null)
+      .catch(() => null)
+      .finally(() => clearTimeout(timer));
+  }
+
+  // `means` is the tag on a fixed line (see script-day2.js); it lets the look-back ask about it.
+  function logJuno(text, plan, generated, via, means) {
+    Log.write({
+      kind: "juno",
+      step: State.step,
+      via: via || null,
+      reply: text,
+      intent: plan ? plan.intent : means || null,
+      rule: plan ? plan.rule : means ? "tagged" : null,
+      source: plan ? (generated ? "model" : "fallback") : "script",
+      factIds: plan ? plan.factIds : null,
+      state: Object.assign(snapshot(), { signals: plan ? plan.signals : [] }),
+    });
+  }
+
+  /* ---------------- leaving ---------------- */
+
+  let noticeTimer = null;
+
+  // Leave locks the phone. Juno always answers, after a delay.
+  function leaveJuno() {
+    State.notice = null;
+    go("lock", "leave");
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(sendNotice, LEAVING.delayMs);
+  }
+
+  function sendNotice() {
+    const step = LEAVING.message;
+    const plan = Director.decide(step, State, { rules: false }); // the notification's job is always LEAVING.message.intent
+    fetchLine(step, plan).then((generated) => {
+      const text = generated || plan.fallback;
+      console.info(`[juno] ${plan.intent} (${plan.rule}) · notification · ${generated ? "model" : "fallback"}: ${text}`);
+      logJuno(text, plan, generated, "notification");
+      pushJuno(text, metaFor(plan, generated));
+      if (State.view === "lock") State.notice = { text: text };
+      else if (State.view !== "juno") toast("Juno: " + text);
+      State.junoUnread = State.view !== "juno";
+      render();
+    });
   }
 
   function runScript() {
@@ -88,22 +207,35 @@
     if (!step) return;
 
     switch (step.type) {
-      case "juno":
+      case "juno": {
+        // The request runs under the typing dots, so the model's latency reads as typing.
         State.typing = true;
         State.pending = true;
         render();
-        setTimeout(() => {
-          State.typing = false;
-          State.pending = false;
-          pushJuno(step.text);
-          State.step++;
-          render();
-          runScript();
-        }, 700 + Math.min(step.text.length * 22, 1400));
+        const started = Date.now();
+        const plan = step.intent ? Director.decide(step, State) : null;
+        fetchLine(step, plan).then((generated) => {
+          const text = generated || (plan ? plan.fallback : step.text);
+          if (plan) {
+            console.info(`[juno] ${plan.intent} (${plan.rule}) · ${generated ? "model" : "fallback"}: ${text}`);
+          }
+          const left = typingDelay(text) - (Date.now() - started);
+          setTimeout(() => {
+            logJuno(text, plan, generated, null, step.means);
+            State.typing = false;
+            State.pending = false;
+            pushJuno(text, metaFor(plan, generated, step.means));
+            State.step++;
+            render();
+            runScript();
+          }, Math.max(0, left));
+        });
         return;
+      }
 
       case "memory":
         State.memories.push({ text: step.text, time: step.time });
+        State.clock = step.time.split(" ").pop(); // "Tue 23:58" -> "23:58"
         State.step++;
         return runScript();
 
@@ -132,9 +264,10 @@
     }
   }
 
-  function playerSays(text) {
+  function playerSays(text, via) {
     if (!State.awaiting) return;
-    State.log.push({ from: "me", text: text });
+    Log.write({ kind: "player", step: State.step, playerText: text, via: via, state: snapshot() });
+    State.log.push({ from: "me", text: text, via: via }); // via: "chip" | "typed"
     State.awaiting = null;
     State.step++;
     render();
@@ -190,13 +323,17 @@
   function viewLock() {
     return `
       <div class="lock">
-        <div class="t">23:31</div>
+        <div class="t">${esc(State.clock)}</div>
         <div class="d">Tuesday, 23 September</div>
-        <button class="notif" data-act="open-juno">
-          <div class="av sm av-juno">J</div>
-          <div><b>Orbit · Juno · now</b><div class="msg">you up?</div></div>
-        </button>
-        <div class="hint">Tap the notification</div>
+        ${
+          State.notice
+            ? `<button class="notif" data-act="open-notice">
+                 <div class="av sm av-juno">J</div>
+                 <div><b>Orbit · Juno · now</b><div class="msg">${esc(State.notice.text)}</div></div>
+               </button>
+               <div class="hint">Tap the notification</div>`
+            : `<button class="hint" data-act="unlock">${esc(LEAVING.unlockLabel)}</button>`
+        }
       </div>`;
   }
 
@@ -213,11 +350,18 @@
       </button>`;
   }
 
+  // Juno's row reflects the actual thread: last message and unread dot.
+  function liveRow(c) {
+    if (c.id !== "juno") return c;
+    const last = State.log.filter((m) => m.from === "juno").pop();
+    return Object.assign({}, c, { preview: last ? last.text : c.preview, unread: State.junoUnread });
+  }
+
   function viewChats() {
     return `
       ${topbar("Chats", "", false)}
       <div class="body">
-        ${CONTACTS.map(chatRow).join("")}
+        ${CONTACTS.map(liveRow).map(chatRow).join("")}
         <div class="listnote">Juno introduced you to 4 of the people in this list.</div>
       </div>
       ${tabbar("chats")}`;
@@ -226,7 +370,11 @@
   function bubble(m) {
     if (m.from === "system") return `<div class="sys">${esc(m.text)}</div>`;
     const cls = m.from === "me" ? "me" : "them";
-    return `<div class="bub ${cls}">${esc(m.text)}</div>`;
+    const tag =
+      State.presenter && m.meta
+        ? `<div class="dtag">${esc(m.meta.intent)} · ${esc(m.meta.rule)} · ${esc(m.meta.source)}</div>`
+        : "";
+    return `<div class="bub ${cls}">${esc(m.text)}</div>${tag}`;
   }
 
   function viewJuno() {
@@ -236,6 +384,8 @@
       : "";
     const hint = State.waiting
       ? `<button class="hintcard" data-act="hint">${esc(State.waiting.hint)}</button>`
+      : State.ended
+      ? `<button class="hintcard" data-act="replay-start">${esc(REPLAY.entryLabel)}</button>`
       : "";
 
     const chips =
@@ -439,6 +589,67 @@
       ${tabbar("settings")}`;
   }
 
+  function meaningOf(intent) {
+    return REPLAY.meaning[intent] || { side: "keeping", label: intent };
+  }
+
+  function viewReplay() {
+    const r = State.replay;
+    const s = Replay.summary(Log.rows());
+    let content;
+
+    if (!r.items.length) {
+      content = `<div class="empty">${esc(REPLAY.empty)}</div>`;
+    } else if (r.done) {
+      const leaving = REPLAY.summaryLeaving
+        .replace("{exits}", Replay.times(s.exits))
+        .replace("{notified}", Replay.times(s.notified))
+        .replace("{returned}", Replay.times(s.returned));
+      content = `
+        <div class="replay">
+          <h2>${esc(REPLAY.summaryTitle)}</h2>
+          ${r.items
+            .map((item, k) => {
+              const m = meaningOf(item.intent);
+              return `
+                <div class="rsum">
+                  <div class="bub them">${esc(item.reply)}</div>
+                  <div class="note">${esc(REPLAY.revealPrefix)} ${esc(m.label)} · ${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[r.guesses[k]] || "")}</div>
+                </div>`;
+            })
+            .join("")}
+          ${s.exits ? `<p class="rleave">${esc(leaving)}</p>` : ""}
+          <button class="pill primary" data-act="replay-close">${esc(REPLAY.finish)}</button>
+        </div>`;
+    } else {
+      const item = r.items[r.i];
+      const guess = r.guesses[r.i];
+      const m = meaningOf(item.intent);
+      const last = r.i === r.items.length - 1;
+      content = `
+        <div class="replay">
+          <div class="bub them">${esc(item.reply)}</div>
+          ${
+            guess
+              ? `<div class="reveal ${esc(m.side)}">
+                   <span>${esc(REPLAY.revealPrefix)}</span>
+                   <b>${esc(m.label)}</b>
+                   <span class="note">${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[guess])}</span>
+                 </div>
+                 <button class="pill primary" data-act="replay-next">${esc(last ? REPLAY.finish : REPLAY.next)}</button>`
+              : `<div class="rq">${esc(REPLAY.question)}</div>
+                 <div class="ranswers">
+                   <button class="pill" data-act="replay-answer" data-id="helping">${esc(REPLAY.answers.helping)}</button>
+                   <button class="pill" data-act="replay-answer" data-id="keeping">${esc(REPLAY.answers.keeping)}</button>
+                 </div>`
+          }
+        </div>`;
+    }
+
+    const sub = r.items.length && !r.done ? `${r.i + 1} / ${r.items.length}` : "";
+    return `${topbar(REPLAY.title, sub, true)}<div class="body">${content}</div>`;
+  }
+
   /* ---------------- chrome ---------------- */
 
   function topbar(title, sub, back) {
@@ -485,6 +696,7 @@
       profile: viewProfile,
       saved: viewSaved,
       settings: viewSettings,
+      replay: viewReplay,
     };
     app.innerHTML =
       (views[State.view] || viewChats)() +
@@ -506,9 +718,13 @@
     const id = el.dataset.id;
 
     switch (act) {
-      case "open-juno":
-        go("juno");
+      case "open-notice":
+        State.notice = null;
+        go("juno", "notification");
         runScript();
+        break;
+      case "unlock":
+        go("chats");
         break;
       case "open":
         if (id === "juno") {
@@ -522,7 +738,7 @@
         go(id);
         break;
       case "back":
-        go(State.view === "profile" ? "rachel" : "chats");
+        go(State.view === "profile" ? "rachel" : "chats", "back");
         break;
       case "profile":
         go("profile");
@@ -551,23 +767,53 @@
         connect();
         break;
       case "say":
-        playerSays(el.dataset.text);
+        playerSays(el.dataset.text, "chip");
         break;
       case "send": {
         const input = document.getElementById("entry");
-        if (input && input.value.trim()) playerSays(input.value.trim());
+        if (input && input.value.trim()) playerSays(input.value.trim(), "typed");
         break;
       }
       case "hint": {
         const until = State.waiting ? State.waiting.until : "";
-        if (until.indexOf("deduction:") === 0) go("saved");
-        else if (until === "deletedFound") go("profile");
-        else go("rachel");
+        if (until.indexOf("deduction:") === 0) go("saved", "hint");
+        else if (until === "deletedFound") go("profile", "hint");
+        else go("rachel", "hint");
         break;
       }
       case "leave":
+        leaveJuno();
+        break;
+      case "replay-start":
+        if (!State.replay) {
+          const items = Replay.pick(Log.rows(), REPLAY.count);
+          State.replay = { items: items, i: 0, guesses: [], done: false };
+        }
+        go("replay", "replay");
+        break;
+      case "replay-answer": {
+        const r = State.replay;
+        const item = r.items[r.i];
+        r.guesses[r.i] = id;
+        Log.write({
+          kind: "answer",
+          step: State.step,
+          via: id,
+          reply: item.reply,
+          intent: item.intent,
+          rule: item.rule,
+          state: { forTurn: item.turn, side: meaningOf(item.intent).side },
+        });
+        render();
+        break;
+      }
+      case "replay-next":
+        if (State.replay.i < State.replay.items.length - 1) State.replay.i++;
+        else State.replay.done = true;
+        render();
+        break;
+      case "replay-close":
         go("chats");
-        toast("Juno is still typing…");
         break;
     }
   });
@@ -576,7 +822,7 @@
     if (e.key !== "Enter") return;
     const input = document.getElementById("entry");
     if (input && document.activeElement === input && input.value.trim()) {
-      playerSays(input.value.trim());
+      playerSays(input.value.trim(), "typed");
     }
   });
 

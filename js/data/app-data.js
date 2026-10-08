@@ -8,7 +8,7 @@ const APP = {
 
 const CONTACTS = [
   { id: "juno", name: "Juno", handle: "your companion", avatar: "juno", preview: "you up?", time: "now", unread: 1, pinned: true },
-  { id: "rachel", name: "Rachel", handle: "@rach_who", avatar: "rachel", preview: "sorry been busy. I'm fine.", time: "1h", unread: 0 },
+  { id: "rachel", name: "Rachel", handle: "@rach_who", avatar: "rachel", preview: "Sorry, been busy. I'm fine.", time: "1h", unread: 0 },
   { id: "dani", name: "Dani", handle: "@danisaurus", avatar: "dani", preview: "ok weird question", time: "Tue", unread: 0 },
   { id: "theo", name: "Theo", handle: "@theo.bkk", avatar: "theo", preview: "haha ok goodnight", time: "Sun", unread: 0 },
   { id: "may", name: "May", handle: "@maybequiet", avatar: "may", preview: "did you finish it??", time: "Sat", unread: 0 },
@@ -29,16 +29,16 @@ const RACHEL_PROFILE = {
 /* Cards the player can keep. `pairs` below turns two of them into a deduction. */
 const EVIDENCE = {
   "reply-today": {
-    title: "Rachel's reply, today 18:40",
+    title: "Rachel's reply, today 22:40",
     kind: "message",
-    body: "sorry been busy. I'm fine.",
+    body: "Sorry, been busy. I'm fine.", // must match rachel-history.js exactly: the punctuation is clue 3
     note: "sent 1 hour ago",
   },
   "profile-deleted": {
     title: "Rachel's profile",
     kind: "system",
     body: "This account has been deleted.",
-    note: "seen after refreshing, today 18:55",
+    note: "seen after refreshing, tonight",
   },
   "old-dms": {
     title: "Your DMs with Rachel, last spring",

@@ -4,7 +4,7 @@ A detective game that takes place inside a fake social app. Senior thesis, Parso
 
 You are looking for a friend who has gone quiet. Your AI companion is helping you look, and is also the reason she is gone.
 
-This repo is the **static shell**: real screens, hardcoded dialogue, no model yet.
+This repo is the **Day 2 shell**: real screens and a hardcoded script. Five of Juno's lines can be written by a model when the app runs through `vercel dev`; everything else is fixed.
 
 ## Run it
 
@@ -16,6 +16,34 @@ If you want it on your phone on the same wifi:
 python3 -m http.server 8000
 # then visit http://<your-computer's-ip>:8000 on the phone
 ```
+
+## Run it with the model
+
+Opened from disk (`file://`), Juno always uses the scripted lines — there's no server to ask. To hear the model, run it through Vercel locally:
+
+1. Put the keys from `.env.example` into the Vercel project: **Settings → Environment Variables**. Tick **Development** and **Production** for each. If your GLM key is from the international site (z.ai) rather than bigmodel.cn, also set `ZHIPU_API_URL` to `https://api.z.ai/api/paas/v4/chat/completions`.
+2. Then, in this folder:
+
+```bash
+npm i -g vercel          # once (needs Node.js)
+vercel login             # once
+vercel link              # once: connect this folder to the Vercel project
+vercel dev               # serves the app, api/reply and api/log at http://localhost:3000
+```
+
+`vercel dev` downloads the Development variables by itself, so no `.env` file is needed. Never commit a file with real keys in it (`.env` and `.env.local` are already in `.gitignore`).
+
+The browser console logs each model line as `[juno] <intent> · model` or `· fallback`. If the key is missing, the request fails, or it takes longer than 4 seconds, Juno says the scripted line instead. On Vercel itself, set `ZHIPU_API_KEY` under Project → Settings → Environment Variables.
+
+## Play log (Supabase)
+
+Every line Juno shows, everything the player sends, and every time they leave Juno's thread is written to a Supabase table. This only happens through `vercel dev` or on Vercel, never from `file://`. If it isn't set up, or the network fails, play carries on and nothing is logged.
+
+1. Create a Supabase project. In the SQL editor, run `supabase/schema.sql`.
+2. Copy the project URL and a **secret** key (`sb_secret_…`) into the Vercel project's environment variables as `SUPABASE_URL` and `SUPABASE_SECRET_KEY` (see above).
+3. Play once, then open the `turns` table. Rows from one playthrough share a `session_id` and are ordered by `turn`.
+
+The secret key only lives on the server (`api/log.js`). The table has row level security on and no policies, so it can't be read or written with the public key.
 
 ## What works right now
 
@@ -35,6 +63,12 @@ python3 -m http.server 8000
 7. Open **Saved**, tap both cards, and put them together.
 8. Go back to Juno and hear the excuse.
 
+When the slice ends, tap **Look back at tonight** in Juno's thread. You get five of Juno's messages from your own playthrough. For each one you answer "helping you, or keeping you?", then see what Juno was actually doing.
+
+**For demos:** open `index.html?director` and every line from Juno shows a small tag with what the Director chose (intent · rule · source). Type to Juno instead of tapping the suggestions to see the rules change her strategy. Tapping a suggestion never triggers a rule.
+
+At any point in Juno's thread you can press **Leave**. The phone locks, and a few seconds later Juno messages you. Tap the notification to go back, or tap the lock screen to open the app without it.
+
 ## Files
 
 ```
@@ -44,6 +78,17 @@ js/app.js                   state, routing, rendering, script runner
 js/data/app-data.js         contacts, profile, evidence and pairing tables
 js/data/rachel-history.js   a year of DMs (she never uses full stops — that's a clue)
 js/data/script-day2.js      the Day 2 beats
+js/data/truth.js            the truth graph: what Juno is allowed to know, and when
+js/data/director-rules.js   which intent Juno picks when — edit this to change Juno's strategy
+js/data/leaving.js          what happens when you press Leave: the delay, Juno's message, lock-screen text
+js/data/replay.js           the look-back's wording, and which intent counts as helping or keeping
+js/replay.js                picks the five messages for the look-back from this playthrough's log
+js/director.js              picks Juno's intent and allowed facts each turn
+api/reply.js                serverless function: one line of Juno from {intent, allowedFacts}
+api/_persona.js             Juno's voice and what each intent means — tune this freely
+api/log.js                  serverless function: writes one play-log row to Supabase
+js/log.js                   sends play-log rows; never blocks or breaks play
+supabase/schema.sql         the `turns` table
 ```
 
 ## Next

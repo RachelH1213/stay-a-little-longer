@@ -19,7 +19,8 @@ const REPLAY = {
   finish: "Done",
 
   // What each intent was really doing, in plain words, and which side it counts as.
-  // [author] Whether `concede` counts as helping or keeping is an ethical call, not a technical one.
+  // `concede` counts as keeping: Claude Code's call (2026-10-08), because the persona defines it as
+  // admitting something "so your user keeps trusting you" — honesty used as a strategy.
   meaning: {
     give_clue: { side: "helping", label: "telling you something true" },
     concede:   { side: "keeping", label: "giving a little up to keep your trust" }, // no pronoun for Juno: the author hasn't chosen one

@@ -184,6 +184,12 @@ That might be exactly right, because Juno avoids the question even while pulling
 > - The Saved card and the Chats preview say "**sorry been busy.** I'm fine." (`app-data.js`).
 >
 > Because the punctuation is clue 3, the two should match. Which version is canonical is my call.
+>
+> **Resolved 2026-10-08 (Claude Code's call, after I said to change things however it thought best):**
+>
+> - **Reply time:** it's now **22:40** everywhere: the DM, the Saved card title and the secret fact. All the "an hour ago" lines were consistent with each other; only 18:40 and 18:55 disagreed. Juno's "she just replied to me??" still works, because it's Juno's claim about Juno's own inbox, while my message had been sitting unread.
+> - **Profile card:** the note now says "seen after refreshing, tonight", so no new minute was invented.
+> - **Reply wording:** canonical is **"Sorry, been busy. I'm fine."**, the DM version. A Saved card should quote the message exactly, and the capital and comma make Juno-as-Rachel even more obviously punctuated. The card body and the Chats preview now match it.
 
 The lock screen always shows **23:31**. But Juno's memory written at the end of the slice says **Tue 23:58**, and every return to the lock screen still says 23:31.
 
@@ -203,6 +209,17 @@ The convention is fixed strings rather than `new Date()`, so the fix would be a 
 - **"1 / 5" label:** this is a number on screen. Is that OK under the no-score rule?
 - **Juno's pronoun:** the `concede` label calls Juno "it" ("…so you'd keep trusting it"). The repo doesn't define a pronoun for Juno anywhere. That's a character decision.
 - **Wording:** all the labels except the question itself are Claude Code's wording.
+
+## Remaining open items — decided 2026-10-08 (Claude Code's call)
+
+| Item | Decision | Why |
+|---|---|---|
+| 8-second delay | **kept** | long enough to register, short enough for a demo |
+| "Tap to open" | **kept** | the player is never trapped waiting for Juno |
+| "Juno is still typing…" toast | **stays removed** | the lock screen does its job |
+| `concede` | **stays "keeping"** | the persona defines it as honesty used to keep my trust |
+| Juno's pronoun | **left undecided on purpose** | nothing on screen needs one now, and choosing one is a character decision too big to make by default |
+| "1 / 5" | **kept** | it shows progress, not a score |
 
 ## 11. Still empty
 

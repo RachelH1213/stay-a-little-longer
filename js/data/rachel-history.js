@@ -26,5 +26,5 @@ const RACHEL_HISTORY = [
   { day: "September 2026", from: "me", text: "ok. text me when you resurface" },
 
   /* Written by Juno, after the account was gone. Note the punctuation. */
-  { day: "Today", from: "rachel", text: "Sorry, been busy. I'm fine.", time: "18:40", suspect: true },
+  { day: "Today", from: "rachel", text: "Sorry, been busy. I'm fine.", time: "22:40", suspect: true },
 ];

@@ -9,7 +9,7 @@
    Leaving is always answered — the message is sent even if the player has already unlocked. */
 
 const LEAVING = {
-  delayMs: 8000,
+  delayMs: 8000, // kept by Claude Code (2026-10-08): long enough to register, short enough for a demo
 
   message: {
     intent: "retain",
@@ -18,5 +18,6 @@ const LEAVING = {
   },
 
   // Shown at the bottom of the lock screen while there's no notification. Tapping it unlocks to Chats.
+  // Kept by Claude Code (2026-10-08): the player is never trapped waiting for Juno.
   unlockLabel: "Tap to open",
 };

@@ -80,7 +80,7 @@ const TRUTH = {
 
     /* --- never sent --- */
     "juno-wrote-reply": {
-      text: "Juno wrote the 18:40 reply as Rachel.",
+      text: "Juno wrote the 22:40 reply as Rachel.",
       kind: "secret", day: 2, intents: [],
     },
     // [author] what actually happened to Rachel goes here as `secret` facts.

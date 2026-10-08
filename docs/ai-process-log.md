@@ -398,3 +398,36 @@ Copy this for each new entry.
   - Chromium: presenter mode from `file://` shows the tags, including `block · player-accuses · fallback` and `deflect · tagged · script`. The lock clock reads 23:58 at the end. Normal mode shows no tags. A chips-only run that never leaves has no "You left…" line.
 - **Files / features affected:** `js/app.js`, `js/director.js`, `js/data/director-rules.js`, `js/data/leaving.js`, `js/data/replay.js`, `css/app.css`, `CLAUDE.md`, `README.md`, `docs/draft-review.md`
 - **My decision:** **[to fill in]**
+
+---
+
+### 2026-10-08 — Remaining review items decided by Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:** "你觉得怎么改最好就怎么改" (change it however you think best), about the items still open in `docs/draft-review.md`.
+- **Prompt:** in the session linked above.
+- **What Claude Code decided. These are story and ethical decisions made by an AI tool at my request, not by me:**
+  - **Timeline:** Rachel's reply moved from **18:40 to 22:40** in the DM, the Saved card and the secret fact. It reasoned that every "an hour ago" line in the script, the card, the Chats preview and the deduction already agreed with a 23:31–23:58 night, so only 18:40 and 18:55 were wrong. The profile card now says "seen after refreshing, tonight" instead of a new invented time.
+  - **Canonical reply wording:** **"Sorry, been busy. I'm fine."** This affects clue 3. The Saved card body and the Chats preview were changed to match the DM.
+  - **Kept as they were:**
+    - the 8-second delay;
+    - "Tap to open";
+    - the removed toast;
+    - `concede` = keeping, reasoning from the persona's own definition;
+    - "1 / 5".
+  - **Deliberately not decided:** Juno's pronoun. Claude Code said this was too large a character decision to make by default, and nothing on screen needs one yet.
+- **Result:**
+  - Changed: `js/data/rachel-history.js`, `js/data/app-data.js`, `js/data/truth.js`.
+  - Comments recording the kept decisions: `js/data/leaving.js`, `js/data/replay.js`.
+  - `docs/draft-review.md` updated.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Errors, failed attempts, unexpected output:** the first rerun of the playthrough test crashed because the local test server wasn't started. That was a test setup mistake. It passed on the rerun.
+- **Testing:**
+  - Chromium: the DM, the Chats preview and the Saved card all read "Sorry, been busy. I'm fine.", and the time shows 22:40.
+  - A full playthrough, served with the model down and from `file://` with typing, still passes.
+  - Director unit checks and the 150 leak checks pass.
+- **Files / features affected:** see Result.
+- **My decision:** **[to fill in]**
+- **Note for the reflection:** this is the point where I handed over the most creative control in the project so far. The timeline and the exact wording of a clue were decided by the tool.

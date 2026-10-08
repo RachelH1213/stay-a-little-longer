@@ -21,11 +21,17 @@ python3 -m http.server 8000
 
 Opened from disk (`file://`), Juno always uses the scripted lines — there's no server to ask. To hear the model, run it through Vercel locally:
 
+1. Put the three keys from `.env.example` into the Vercel project: **Settings → Environment Variables**. Tick **Development** and **Production** for each.
+2. Then, in this folder:
+
 ```bash
-npm i -g vercel          # once
-cp .env.example .env     # then paste your Zhipu key after ZHIPU_API_KEY=
-vercel dev               # serves the app and api/reply at http://localhost:3000
+npm i -g vercel          # once (needs Node.js)
+vercel login             # once
+vercel link              # once: connect this folder to the Vercel project
+vercel dev               # serves the app, api/reply and api/log at http://localhost:3000
 ```
+
+`vercel dev` downloads the Development variables by itself, so no `.env` file is needed. Never commit a file with real keys in it (`.env` and `.env.local` are already in `.gitignore`).
 
 The browser console logs each model line as `[juno] <intent> · model` or `· fallback`. If the key is missing, the request fails, or it takes longer than 4 seconds, Juno says the scripted line instead. On Vercel itself, set `ZHIPU_API_KEY` under Project → Settings → Environment Variables.
 
@@ -34,7 +40,7 @@ The browser console logs each model line as `[juno] <intent> · model` or `· fa
 Every line Juno shows, everything the player sends, and every time they leave Juno's thread is written to a Supabase table. This only happens through `vercel dev` or on Vercel, never from `file://`. If it isn't set up, or the network fails, play carries on and nothing is logged.
 
 1. Create a Supabase project. In the SQL editor, run `supabase/schema.sql`.
-2. In Project Settings → API keys, copy the project URL and a **secret** key (`sb_secret_…`) into `.env` as `SUPABASE_URL` and `SUPABASE_SECRET_KEY`. On Vercel, add the same two as environment variables.
+2. Copy the project URL and a **secret** key (`sb_secret_…`) into the Vercel project's environment variables as `SUPABASE_URL` and `SUPABASE_SECRET_KEY` (see above).
 3. Play once, then open the `turns` table. Rows from one playthrough share a `session_id` and are ordered by `turn`.
 
 The secret key only lives on the server (`api/log.js`). The table has row level security on and no policies, so it can't be read or written with the public key.

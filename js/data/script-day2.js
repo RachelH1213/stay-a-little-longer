@@ -9,6 +9,7 @@
                                           so the look-back at the end can ask about it too
      player  { options: [...] }           player picks a reply (typing anything also works)
      wait    { hint, until }              the script pauses until a flag is set elsewhere
+     notify  { from: "rachel" }           Rachel's reply arrives as a banner (text from rachel-history.js)
      memory  { text, time }               Juno writes something down in Settings
      flag    { set }                      turn a story switch on
      end     { text }                     end of the slice
@@ -31,6 +32,7 @@ const SCRIPT_DAY2 = [
     text: "she's probably just being rachel about it. she does this" },
   { type: "memory", text: "hasn't heard from Rachel since Tuesday", time: "Tue 23:31" },
   { type: "juno", text: "wait" },
+  { type: "notify", from: "rachel" },
   { type: "juno", text: "she just replied to me?? go look at your dms with her", means: "deflect" },
   { type: "wait", hint: "Open your chat with Rachel", until: "sawRachelReply" },
   { type: "juno", text: "see. she's fine" },

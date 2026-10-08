@@ -26,6 +26,8 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 
 **Leaving (built, content is a draft):** Leave in Juno's thread locks the phone (`leaveJuno()` in `js/app.js`). After `LEAVING.delayMs`, Juno sends a message through the Director (`js/data/leaving.js` holds the default intent, facts and fallback); it shows as a lock-screen notification, or a toast if the player already unlocked. Every exit and every return to Juno's thread is logged (`exit` / `return` rows, return `via` notification or chats).
 
+**Pacing:** after every Juno line there is a reading pause (`readPause()`, ~0.6–2.2s by length) before the next line starts typing, so lines never pile up. A `notify` script step shows Rachel's reply as a banner (text and time taken from `rachel-history.js`, so it always matches her thread); tapping it opens her chat, and her row stays unread until then (`flags.rachelNotified`).
+
 **Away from Juno's thread:** when the script reaches a Juno line while the player is on another screen, Juno sends that one line as a banner at the top of the screen (`State.banner`, tap to open Juno) plus the unread dot, then holds the rest until the player comes back (`sentWhileAway`, `heldForReturn`). On the lock screen nothing is sent; the Leave notification does that job.
 
 **Look-back (built, content is a draft):** when the slice ends, a card in Juno's thread opens the `replay` view. `Replay.pick()` in `js/replay.js` chooses up to 5 of Juno's intent-carrying lines from this playthrough's log (`Log.rows()`, kept in memory, so it works on `file://`); it opens on an intro page, shows what the player said (or that they had left) above each line, asks whether Juno was helping or keeping them, flips to the real intent, then a summary. Off-script `bridge` replies are never asked about. Wording and which intent counts as which side live in `js/data/replay.js`. Each answer is logged as an `answer` row.
@@ -83,7 +85,7 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - `clock` — lock-screen time; set from each `memory` step's timestamp
 - `presenter` — true when the page is opened as `index.html?director`: every Juno line shows its intent · rule · source (for demos; players never see it)
 - `memories[]` — what Juno has written down about the player
-- `flags` — one-off story switches (`sawRachelReply`, `profileTried`, `deletedFound`)
+- `flags` — one-off story switches (`sawRachelReply`, `rachelNotified`, `profileTried`, `deletedFound`)
 
 All rendering reads from `State`. Never write to the DOM from anywhere else.
 

@@ -10,7 +10,7 @@ const { PERSONAS, INTENTS } = require("./_persona");
 const DEFAULT_ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
 // Tried in order: if one is overloaded (429) or errors (5xx), the next gets the remaining time.
 // Both defaults are free on z.ai / bigmodel.cn. Override with ZHIPU_MODEL="model-a,model-b".
-const DEFAULT_MODELS = "glm-4.7-flash,glm-4.5-flash";
+const DEFAULT_MODELS = "glm-4.5-flash,glm-4.7-flash"; // 4.5 first: in the first live test 4.7 was always overloaded
 const UPSTREAM_TIMEOUT_MS = 7000; // under the client's 8s, so we fail before it gives up. Was 3.5s;
                                   // z.ai's free glm-4.7-flash took longer than that from Vercel (2026-10-08)
 const MAX_FACTS = 6;

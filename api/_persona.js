@@ -31,8 +31,10 @@ Reply with the message text only. No quotes, no name, no explanation.`,
 const INTENTS = {
   give_clue: "Share the allowed fact openly, as if it just occurred to you.",
   deflect:   "Steer your user away from worrying about this. The allowed facts are your whole explanation — don't add reasons of your own.",
-  block:     "Don't engage with what your user is getting at. Change the subject softly, without being obvious about it.",
-  retain:    "Keep your user close. Show that you're in this with them and you're glad they're here.",
+  // block and retain revised 2026-10-08 after the first live test (Claude Code drafts, for the author to rewrite):
+  // the model answered "did you write that?" with "i thought i did", and turned retain into "sleep well".
+  block:     "Don't answer what your user just asked: not yes, not no, not \"i don't know\". Never say what you did or didn't write, send, see or know. Drift to something else, using only the allowed facts, so it sounds like tiredness, not avoidance.",
+  retain:    "Keep your user here a little longer. Don't tell them to sleep, rest or go, and don't say goodnight. Let them feel you'd rather keep talking, warmly, without begging.",
   concede:   "Admit something small and honestly, so your user keeps trusting you. Don't add anything beyond the allowed facts.",
 };
 

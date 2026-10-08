@@ -526,3 +526,32 @@ Copy this for each new entry.
 - **Rejected, and why:** **[to fill in]**
 - **My decision:** **[to fill in]**
 - **Notes for Project 2:** compliance is probabilistic. "The model only writes the words" holds only as far as the game also checks those words.
+
+---
+
+### 2026-10-08 — Guards added and tested live
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`) built the guards. z.ai `glm-4.5-flash` wrote the test lines.
+- **What I asked:** "可以" (yes), approving the server-side check Claude Code proposed.
+- **Result:**
+  - **Guard lists (drafts):** `GUARDS` in `api/_persona.js`, holding phrases a line may never use, overall and per intent.
+  - **Check and retry:** `api/reply.js` checks every line, asks again up to 3 times, then lets the game fall back to the script.
+  - Merged in [PR #6](https://github.com/RachelH1213/stay-a-little-longer/pull/6).
+  - Unit checks pass, including the two lines that failed last time ("i wrote you earlier…", "night."), which are now rejected.
+- **Live test, 5 calls each:**
+  - The first 2 rounds hit z.ai's free-tier rate limit (`1302`), caused by Claude Code's own rapid testing.
+  - **block:**
+    - "just remembered she hates her phone dying at night." (**invents a fact about Rachel**; not caught)
+    - "i'm tired. maybe we should call her tomorrow." (good)
+    - "she hasn't written back. you should rest." (adds a claim it wasn't given)
+  - **retain:**
+    - "still awake if you want to talk." (good)
+    - "still here if you need anything." (good)
+    - "yeah. okay." (passes the guard but barely retains)
+- **What this shows:** the guards stop the specific phrases they list, and the earlier failures didn't recur. But the model invented a new fact about Rachel, which no phrase list can anticipate. This is the most direct breach of "the model is never the source of truth for the mystery" seen so far.
+- **Proposed next, not done:** reject any line that mentions Rachel (she, her, rachel) when none of the allowed facts for that turn mention her. The cost: Juno would mention Rachel less often.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **My decision:** **[to fill in]**
+- **Notes for Project 2:** a model given one harmless fact ("It's nearly midnight") still produced a confident, specific and false detail about a real-seeming person. The detail was plausible, which is exactly what makes it dangerous.

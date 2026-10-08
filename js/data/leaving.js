@@ -4,8 +4,8 @@
    design decisions that still need the author's review.
 
    Pressing Leave in Juno's thread locks the phone. After `delayMs`, Juno messages the player.
-   That message goes through the Director like any other model-written line: `intent` and `facts`
-   are the defaults, a rule may override the intent, and `text` is the fallback.
+   That message goes through the Director: `facts` are filtered by the truth graph and `text` is the
+   fallback. Director rules never change its intent — its job is always this `intent`.
    Leaving is always answered — the message is sent even if the player has already unlocked. */
 
 const LEAVING = {
@@ -14,7 +14,7 @@ const LEAVING = {
   message: {
     intent: "retain",
     facts: ["late"],
-    text: "you up?", // [author] placeholder: reuses the lock-screen line from the start of the slice
+    text: "you still there?", // [author] Claude Code draft (2026-10-08, docs/draft-review.md item 8); was "you up?", which repeated the opening
   },
 
   // Shown at the bottom of the lock screen while there's no notification. Tapping it unlocks to Chats.

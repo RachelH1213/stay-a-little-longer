@@ -59,6 +59,8 @@ The secret key only lives on the server (`api/log.js`). The table has row level 
 
 When the slice ends, tap **Look back at tonight** in Juno's thread. You get five of Juno's messages from your own playthrough. For each one you answer "helping you, or keeping you?", then see what Juno was actually doing.
 
+**For demos:** open `index.html?director` and every line from Juno shows a small tag with what the Director chose (intent · rule · source). Type to Juno instead of tapping the suggestions to see the rules change her strategy. Tapping a suggestion never triggers a rule.
+
 At any point in Juno's thread you can press **Leave**. The phone locks, and a few seconds later Juno messages you. Tap the notification to go back, or tap the lock screen to open the app without it.
 
 ## Files

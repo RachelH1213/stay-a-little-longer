@@ -1,6 +1,6 @@
 /* The Director. Reads State and the truth graph, returns what Juno wants to do this turn.
 
-   Director.decide(step, State) -> { intent, allowedFacts: [text…], factIds, rule, signals, fallback }
+   Director.decide(step, State, opts?) -> { intent, allowedFacts: [text…], factIds, rule, signals, fallback }
 
    The intent comes from DIRECTOR_RULES (or the step's own intent if no rule matches).
    The facts are filtered through TRUTH, so the model only ever gets facts that are
@@ -59,9 +59,11 @@ const Director = (function () {
       .slice(0, MAX_FACTS);
   }
 
-  function decide(step, state) {
+  // opts.rules === false: use the step's own intent, never a rule (used for notifications).
+  function decide(step, state, opts) {
     const text = latestPlayerText(state);
-    const rule = DIRECTOR_RULES.find((r) => matches(r.when, state, text));
+    const useRules = !opts || opts.rules !== false;
+    const rule = useRules ? DIRECTOR_RULES.find((r) => matches(r.when, state, text)) : undefined;
     const intent = rule ? rule.intent : step.intent;
     const ids = allowedIds((step.facts || []).concat(rule && rule.facts ? rule.facts : []), intent, state);
     return {

@@ -10,7 +10,7 @@ A review of the drafts Claude Code wrote while building Tasks 1–6:
 
 Claude Code wrote this review. It points out problems and gives options. **Every decision below is mine to make.** None of these files were changed by the review itself.
 
-**Update, 2026-10-08:** I asked Claude Code to handle items 1–4 using its recommended options. They're marked **Done (draft)** below. The wording it wrote is still a draft for me to rewrite.
+**Update, 2026-10-08:** I asked Claude Code to handle items 1–4, and then 5–10, using its recommended options. They're marked **Done (draft)** below. The wording it wrote is still a draft for me to rewrite.
 
 Each item says what kind of problem it is:
 
@@ -113,6 +113,8 @@ When a rule overrides the script and the model then fails, the screen shows the 
 ## 5. Design: with the chips alone, the Director never visibly changes anything — Verified
 
 > **Update:** since chips no longer trigger rules (item 4), this is now true by design. The Director only reacts when the player types. A demo has to include typing to show it.
+>
+> **Done:** there's now a **presenter mode**. Open `index.html?director`, which also works from disk, and every Juno line gets a small tag underneath, for example `block · player-accuses · fallback` or `deflect · tagged · script`. Players never see it without `?director`.
 
 
 Rules can only fire on a model-written line that comes straight after the player speaks. In Day 2 that's only:
@@ -130,7 +132,15 @@ So in a demo where people only tap chips, the Director's choices are never visib
 - make more lines model-written;
 - show the Director's choice somewhere in the presentation, for example the browser console, which already prints `[juno] block (player-accuses) · model`.
 
-## 6. Design: keyword lists catch the wrong things — Verified
+## 6. Design: keyword lists catch the wrong things — Verified, partly done (draft)
+
+> **What changed:**
+>
+> - Bare "off" is now "feels off", "something's off", "somethings off" and "seems off".
+> - Bare "later" is now "talk later" and "see you later".
+> - "she is off work" and "i will check later" no longer trigger anything.
+>
+> **Not fixed:** negation. "i don't think it's weird" still counts as doubt. A simple "not" filter would also break "that doesn't sound like her", which *is* doubt, so it was left alone.
 
 | Player types | Detected as |
 |---|---|
@@ -140,26 +150,53 @@ So in a demo where people only tap chips, the Director's choices are never visib
 
 This is the trade-off of keywords: predictable and explainable, but blind to meaning. **Options:** remove the riskiest words ("off", "later"), accept the misses for a prototype, or add a short list of "not" phrases that cancel a match. The lists are in `js/data/director-rules.js`.
 
-## 7. Design: the notification can turn into a subject change — Verified
+## 7. Design: the notification can turn into a subject change — Verified, Done (draft)
+
+> **What changed:** rules no longer apply to the notification after Leave. It always uses `LEAVING.message.intent` (`retain`). The truth graph still filters its facts.
 
 If my last message was "did you write that?" and I then press Leave, the message that's supposed to bring me back is chosen as `block`. Its only fact is "It's nearly midnight."
 
 That might be exactly right, because Juno avoids the question even while pulling me back. Or the notification should always be `retain`, whatever I last said. **Fix if I want it:** let rules apply to script lines only. That's a one-line change.
 
-## 8. `js/data/leaving.js`
+## 8. `js/data/leaving.js` — partly done (draft)
+
+> **What changed:** the fallback is now "you still there?" (draft). The 8-second delay, "Tap to open" and the removed toast are unchanged. Those are still mine to decide.
 
 - **Fallback message:** it's "you up?", the same as the opening lock screen. When the model fails, and every time from disk, Juno says "you up?" 8 seconds after I left. That reads oddly.
 - **Delay:** 8 seconds. It's short enough to test, but maybe too short to feel like leaving.
 - **"Tap to open":** this lets me unlock without waiting. Is being stuck on the lock screen the feeling I want instead?
 - **The old toast:** "Juno is still typing…" was removed. Do I want it back somewhere?
 
-## 9. Inconsistent: the lock-screen clock never moves
+## 9. Inconsistent: the lock-screen clock never moves — mechanism done, story times are mine
+
+> **What changed:** the lock-screen clock now follows Juno's memory timestamps, which are my own times from the script. It starts at 23:31 and reaches 23:58 after the last memory. No new times were invented.
+>
+> **New finding: the times in the story contradict each other.** This is for me to resolve, and nothing was changed:
+>
+> - Rachel's reply is stamped **18:40**, and its Saved card says "sent 1 hour ago" (`js/data/app-data.js`, `js/data/rachel-history.js`). That makes "now" about 19:40.
+> - The profile card says "seen after refreshing, today **18:55**".
+> - The lock screen and Juno's memories say **23:31 → 23:58**.
+> - At about 23:5x Juno says "her message came through an hour ago" (step 24), which would put the reply around 22:50.
+>
+> **Also: Rachel's reply is written two ways.**
+>
+> - Her DM thread says "**Sorry, been busy.** I'm fine." (`rachel-history.js`).
+> - The Saved card and the Chats preview say "**sorry been busy.** I'm fine." (`app-data.js`).
+>
+> Because the punctuation is clue 3, the two should match. Which version is canonical is my call.
 
 The lock screen always shows **23:31**. But Juno's memory written at the end of the slice says **Tue 23:58**, and every return to the lock screen still says 23:31.
 
 The convention is fixed strings rather than `new Date()`, so the fix would be a fixed clock string per point in the script. Which times appear is a story decision.
 
-## 10. `js/data/replay.js`
+## 10. `js/data/replay.js` — partly done (draft)
+
+> **What changed:**
+>
+> - The "You left … times" line is hidden when I never pressed Leave.
+> - The `concede` label is now "giving a little up to keep your trust", with no pronoun for Juno.
+> - "1 / 5" was kept: it's progress, not a score. That's Claude Code's call; I can still remove it.
+> - `concede` still counts as "keeping".
 
 - **`concede`:** it currently counts as "keeping". This is an ethical call (see item 3).
 - **Never left:** if I never press Leave, the summary says "You left 0 times. Juno wrote to bring you back 0 times…". **Fix:** hide that line when the count is 0.

@@ -362,3 +362,39 @@ Copy this for each new entry.
 - **Consequence:** the Director is now invisible to anyone who only taps chips (`docs/draft-review.md` item 5). A Project 1 demo has to include typing.
 - **Files / features affected:** `js/app.js`, `js/director.js`, `js/data/director-rules.js` (comment), `CLAUDE.md`, `docs/draft-review.md`
 - **My decision:** chips never trigger rules. **[to fill in]**: anything to add.
+
+---
+
+### 2026-10-08 — Review items 5–10, with Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:** "继续处理第 5 到第 10 条" (continue with items 5–10 of `docs/draft-review.md`). Claude Code applied its recommended options, the same way I'd asked for items 1–4, and marked the content as drafts.
+- **Prompt:** in the session linked above.
+- **What Claude Code chose (technical):**
+  - **Item 5:** a presenter mode, `index.html?director`. It tags every Juno line with intent · rule · source, so the Director can be shown in a demo. Players never see it.
+  - **Item 7:** rules never apply to the notification after Leave.
+  - **Item 9:** the lock-screen clock follows the timestamps of Juno's memory steps.
+  - **Item 10:** the summary hides the leave line when the count is 0.
+- **What Claude Code chose (content, drafts for me):**
+  - **Item 6:** it replaced the keywords "off" and "later" with longer phrases. It decided not to try handling negation.
+  - **Item 8:** a new fallback notification, "you still there?".
+  - **Item 10:** it reworded the `concede` label to avoid giving Juno a pronoun, and kept "1 / 5".
+- **Left for me, not changed:**
+  - the 8-second delay;
+  - "Tap to open";
+  - the removed "Juno is still typing…" toast;
+  - `concede` = keeping;
+  - Juno's pronoun.
+- **New findings from this round (story, mine to resolve):**
+  - **Times:** the times in the story contradict each other. The reply is at 18:40, "1 hour ago" and seen at 18:55, against 23:31–23:58 on the lock screen and in the memories.
+  - **The reply's wording:** Rachel's reply is written two ways, "Sorry, been busy. I'm fine." in the DM thread and "sorry been busy. I'm fine." on the Saved card and in the Chats preview. The punctuation matters for clue 3.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Errors, failed attempts, unexpected output:** none in the game. The Task 5 browser test was updated for the new fallback text.
+- **Testing:**
+  - Unit checks: the old false hits ("off work", "check later") no longer match; "something feels off" and "see you later" still do; the notification ignores rules after an accusation. The 150 leak checks still pass.
+  - The Task 5 leave scenarios still pass.
+  - Chromium: presenter mode from `file://` shows the tags, including `block · player-accuses · fallback` and `deflect · tagged · script`. The lock clock reads 23:58 at the end. Normal mode shows no tags. A chips-only run that never leaves has no "You left…" line.
+- **Files / features affected:** `js/app.js`, `js/director.js`, `js/data/director-rules.js`, `js/data/leaving.js`, `js/data/replay.js`, `css/app.css`, `CLAUDE.md`, `README.md`, `docs/draft-review.md`
+- **My decision:** **[to fill in]**

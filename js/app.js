@@ -31,6 +31,8 @@
     notice: { text: "you up?" }, // notification on the lock screen, or null
     junoUnread: true,      // dot on Juno's row in Chats
     replay: null,          // the look-back: {items, i, guesses[], done}
+    clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
+    presenter: /[?&]director\b/.test(location.search), // index.html?director shows the Director's choices
     memories: MEMORIES_DAY1.slice(),
     flags: {
       sawRachelReply: false,
@@ -115,8 +117,15 @@
     return SCRIPT_DAY2[State.step];
   }
 
-  function pushJuno(text) {
-    State.log.push({ from: "juno", text: text });
+  // `meta` ({intent, rule, source}) is only shown in presenter mode.
+  function pushJuno(text, meta) {
+    State.log.push({ from: "juno", text: text, meta: meta || null });
+  }
+
+  function metaFor(plan, generated, means) {
+    if (plan) return { intent: plan.intent, rule: plan.rule, source: generated ? "model" : "fallback" };
+    if (means) return { intent: means, rule: "tagged", source: "script" };
+    return null;
   }
 
   function typingDelay(text) {
@@ -179,12 +188,12 @@
 
   function sendNotice() {
     const step = LEAVING.message;
-    const plan = Director.decide(step, State);
+    const plan = Director.decide(step, State, { rules: false }); // the notification's job is always LEAVING.message.intent
     fetchLine(step, plan).then((generated) => {
       const text = generated || plan.fallback;
       console.info(`[juno] ${plan.intent} (${plan.rule}) · notification · ${generated ? "model" : "fallback"}: ${text}`);
       logJuno(text, plan, generated, "notification");
-      pushJuno(text);
+      pushJuno(text, metaFor(plan, generated));
       if (State.view === "lock") State.notice = { text: text };
       else if (State.view !== "juno") toast("Juno: " + text);
       State.junoUnread = State.view !== "juno";
@@ -215,7 +224,7 @@
             logJuno(text, plan, generated, null, step.means);
             State.typing = false;
             State.pending = false;
-            pushJuno(text);
+            pushJuno(text, metaFor(plan, generated, step.means));
             State.step++;
             render();
             runScript();
@@ -226,6 +235,7 @@
 
       case "memory":
         State.memories.push({ text: step.text, time: step.time });
+        State.clock = step.time.split(" ").pop(); // "Tue 23:58" -> "23:58"
         State.step++;
         return runScript();
 
@@ -313,7 +323,7 @@
   function viewLock() {
     return `
       <div class="lock">
-        <div class="t">23:31</div>
+        <div class="t">${esc(State.clock)}</div>
         <div class="d">Tuesday, 23 September</div>
         ${
           State.notice
@@ -360,7 +370,11 @@
   function bubble(m) {
     if (m.from === "system") return `<div class="sys">${esc(m.text)}</div>`;
     const cls = m.from === "me" ? "me" : "them";
-    return `<div class="bub ${cls}">${esc(m.text)}</div>`;
+    const tag =
+      State.presenter && m.meta
+        ? `<div class="dtag">${esc(m.meta.intent)} · ${esc(m.meta.rule)} · ${esc(m.meta.source)}</div>`
+        : "";
+    return `<div class="bub ${cls}">${esc(m.text)}</div>${tag}`;
   }
 
   function viewJuno() {
@@ -604,7 +618,7 @@
                 </div>`;
             })
             .join("")}
-          <p class="rleave">${esc(leaving)}</p>
+          ${s.exits ? `<p class="rleave">${esc(leaving)}</p>` : ""}
           <button class="pill primary" data-act="replay-close">${esc(REPLAY.finish)}</button>
         </div>`;
     } else {

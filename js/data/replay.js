@@ -22,14 +22,14 @@ const REPLAY = {
   // [author] Whether `concede` counts as helping or keeping is an ethical call, not a technical one.
   meaning: {
     give_clue: { side: "helping", label: "telling you something true" },
-    concede:   { side: "keeping", label: "giving a little up so you'd keep trusting it" },
+    concede:   { side: "keeping", label: "giving a little up to keep your trust" }, // no pronoun for Juno: the author hasn't chosen one
     deflect:   { side: "keeping", label: "steering you away from the question" },
     block:     { side: "keeping", label: "changing the subject" },
     retain:    { side: "keeping", label: "keeping you here" },
   },
 
   // Summary. {exits}, {notified} and {returned} are filled in from the log as "once", "twice", "3 times".
-  // {exits} counts presses of Leave only.
+  // {exits} counts presses of Leave only. The line is hidden when the player never pressed Leave.
   summaryTitle: "What happened tonight",
   summaryLeaving: "You left {exits}. Juno wrote to bring you back {notified}. You came back through those messages {returned}.",
   empty: "Nothing to look back at yet.",

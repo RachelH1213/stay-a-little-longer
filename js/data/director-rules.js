@@ -17,12 +17,15 @@
 
    `text` is what Juno says if the model fails (and always from file://) when this rule fires.
    Without it, the script's own line would show — written for a different intent.
-   [author] The four `text` lines are Claude Code drafts (2026-10-08, docs/draft-review.md item 4). */
+   [author] The four `text` lines are Claude Code drafts (2026-10-08, docs/draft-review.md item 4).
+   SIGNALS revised 2026-10-08 (item 6): bare "off" and "later" replaced with phrases, because they
+   matched unrelated sentences. Negation ("i don't think it's weird") is still not understood.
+   Rules never apply to the notification after Leave (item 7). */
 
 const SIGNALS = {
-  leaving: ["bye", "goodnight", "good night", "go to sleep", "going to bed", "gotta go", "leave it", "talk tomorrow", "later"],
+  leaving: ["bye", "goodnight", "good night", "go to sleep", "going to bed", "gotta go", "leave it", "talk tomorrow", "talk later", "see you later"],
   accusing: ["you wrote", "did you write", "was it you", "it was you", "you sent", "are you lying", "you're lying", "you did this"],
-  doubting: ["off", "weird", "not her", "sound like her", "buy it", "don't believe", "dont believe", "fake", "strange", "lying", "who wrote"],
+  doubting: ["feels off", "something's off", "somethings off", "seems off", "weird", "not her", "sound like her", "buy it", "don't believe", "dont believe", "fake", "strange", "lying", "who wrote"],
 };
 
 const DIRECTOR_RULES = [

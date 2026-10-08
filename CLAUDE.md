@@ -28,7 +28,7 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 
 **Look-back (built, content is a draft):** when the slice ends, a card in Juno's thread opens the `replay` view. `Replay.pick()` in `js/replay.js` chooses up to 5 of Juno's intent-carrying lines from this playthrough's log (`Log.rows()`, kept in memory, so it works on `file://`); the player answers "helping you, or keeping you?", the card flips to the real intent, then a summary. Wording and which intent counts as which side live in `js/data/replay.js`. Each answer is logged as an `answer` row.
 
-**Director (built, rules are a draft):** `Director.decide(step, State)` in `js/director.js` picks the intent from `js/data/director-rules.js` (else the step's own intent) and filters the step's fact ids through `js/data/truth.js` — never `secret`, only facts allowed for that intent, unlocked by the player, and not before their day. Rules only react to messages the player typed, never to tapped suggestions. A rule's optional `text` is the fallback when that rule fires, so a failed model call never shows a line written for a different intent. Fixed script lines can carry a `means` tag (their real intent) so the look-back can ask about them; they are never sent to the model.
+**Director (built, rules are a draft):** `Director.decide(step, State)` in `js/director.js` picks the intent from `js/data/director-rules.js` (else the step's own intent) and filters the step's fact ids through `js/data/truth.js` — never `secret`, only facts allowed for that intent, unlocked by the player, and not before their day. Rules only react to messages the player typed, never to tapped suggestions, and never apply to the notification after Leave. A rule's optional `text` is the fallback when that rule fires, so a failed model call never shows a line written for a different intent. Fixed script lines can carry a `means` tag (their real intent) so the look-back can ask about them; they are never sent to the model.
 
 ## Structure
 
@@ -75,6 +75,8 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - `notice` — the notification on the lock screen, or null
 - `junoUnread` — the dot on Juno's row in Chats
 - `replay` — the look-back in progress: `{items, i, guesses[], done}`
+- `clock` — lock-screen time; set from each `memory` step's timestamp
+- `presenter` — true when the page is opened as `index.html?director`: every Juno line shows its intent · rule · source (for demos; players never see it)
 - `memories[]` — what Juno has written down about the player
 - `flags` — one-off story switches (`sawRachelReply`, `profileTried`, `deletedFound`)
 

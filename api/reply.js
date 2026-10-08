@@ -5,7 +5,9 @@
 
 const { PERSONAS, INTENTS } = require("./_persona");
 
-const ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
+// Mainland China (open.bigmodel.cn) by default. For an international z.ai key, set
+// ZHIPU_API_URL=https://api.z.ai/api/paas/v4/chat/completions — same request format and model.
+const DEFAULT_ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
 const MODEL = "glm-4.7-flash";
 const UPSTREAM_TIMEOUT_MS = 3500; // under the client's 4s, so we fail before it gives up
 const MAX_FACTS = 6;
@@ -72,7 +74,7 @@ module.exports = async function handler(req, res) {
   const timer = setTimeout(() => ctrl.abort(), UPSTREAM_TIMEOUT_MS);
 
   try {
-    const r = await fetch(ENDPOINT, {
+    const r = await fetch(process.env.ZHIPU_API_URL || DEFAULT_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
       body: JSON.stringify({

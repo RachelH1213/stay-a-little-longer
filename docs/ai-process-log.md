@@ -431,3 +431,29 @@ Copy this for each new entry.
 - **Files / features affected:** see Result.
 - **My decision:** **[to fill in]**
 - **Note for the reflection:** this is the point where I handed over the most creative control in the project so far. The timeline and the exact wording of a clue were decided by the tool.
+
+---
+
+### 2026-10-08 — Setup questions and a configurable GLM endpoint, with Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:**
+  - how to set up the GLM key and Supabase;
+  - whether Node v24.13.0 is OK;
+  - whether to use the mainland China service (bigmodel.cn) or the international one (z.ai), and whether China would be slow;
+  - whether I had already connected a key earlier.
+- **Prompt:** in the session linked above.
+- **Result:**
+  - A step-by-step setup guide in chat. The README was corrected to set keys in Vercel's environment variables, which `vercel dev` downloads by itself.
+  - Node 24 is fine.
+  - Claude Code recommended **z.ai** (see Notes) and made the endpoint configurable: `api/reply.js` uses `ZHIPU_API_URL` if set, otherwise open.bigmodel.cn. Both URLs were tested with a fake upstream.
+  - On "already connected": no real key was ever used in this project's sessions. Every test so far used fake model and Supabase responses, as recorded in the earlier entries.
+- **Notes:**
+  - **Why z.ai:** I'm in New York, and Vercel's default server region is in the US. Calling a mainland China server from there adds distance and can be unreliable, and the game gives up after 4 seconds. Claude Code did not measure this. It's a reasoned guess.
+  - **Sources:** the z.ai endpoint URL and the model id came from third-party guides found by web search, because the official z.ai docs are blocked from Claude Code's network. Some guides say the free tier may allow only one request at a time. That's also unconfirmed.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Errors, failed attempts, unexpected output:** none.
+- **Files / features affected:** `api/reply.js`, `.env.example`, `README.md`, `CLAUDE.md`
+- **My decision:** **[to fill in]**: which service I signed up for.

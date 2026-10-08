@@ -21,7 +21,7 @@ python3 -m http.server 8000
 
 Opened from disk (`file://`), Juno always uses the scripted lines — there's no server to ask. To hear the model, run it through Vercel locally:
 
-1. Put the three keys from `.env.example` into the Vercel project: **Settings → Environment Variables**. Tick **Development** and **Production** for each.
+1. Put the keys from `.env.example` into the Vercel project: **Settings → Environment Variables**. Tick **Development** and **Production** for each. If your GLM key is from the international site (z.ai) rather than bigmodel.cn, also set `ZHIPU_API_URL` to `https://api.z.ai/api/paas/v4/chat/completions`.
 2. Then, in this folder:
 
 ```bash

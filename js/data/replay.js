@@ -10,6 +10,17 @@ const REPLAY = {
   count: 5,
 
   entryLabel: "Look back at tonight",      // the card in Juno's thread after the slice ends
+
+  // Intro page before the first card. Added 2026-10-08 after the author found the look-back abrupt.
+  // [author] Claude Code draft: framed as an Orbit feature, echoing APP.aboutLine in Settings.
+  introTitle: "Helping you, or keeping you?",
+  introBody: "Orbit is testing a new feature: a look behind your companion's messages.\n\nHere are five moments from tonight. For each one, decide whether Juno was helping you find Rachel, or keeping you here. Then see what was really going on.",
+  start: "Start",
+
+  // Shown above each Juno line, so the player remembers the moment.
+  youWrote: "You said",
+  youLeft: "You had just left the chat.",
+  questionLong: "When Juno said this, was it helping you find Rachel, or keeping you here?",
   title: "Tonight",                        // top bar of the look-back screen
   question: "helping you, or keeping you?",
   answers: { helping: "helping", keeping: "keeping" },

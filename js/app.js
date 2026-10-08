@@ -30,7 +30,8 @@
     away: null,            // {at} while the player is out of Juno's thread; cleared when they return
     notice: { text: "you up?" }, // notification on the lock screen, or null
     junoUnread: true,      // dot on Juno's row in Chats
-    replay: null,          // the look-back: {items, i, guesses[], done}
+    replay: null,          // the look-back: {intro, items, i, guesses[], done}
+    bridgedStep: -1,       // the player step Juno already answered off-script once (see playerSays)
     clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
     presenter: /[?&]director\b/.test(location.search), // index.html?director shows the Director's choices
     memories: MEMORIES_DAY1.slice(),
@@ -264,14 +265,55 @@
     }
   }
 
+  // A typed message the script didn't expect gets one short reply from Juno, and the same question
+  // stays open. It moves the script on if it was a suggested reply, matched a Director signal,
+  // or this question was already answered off-script once.
+  function needsBridge(text, via, awaiting) {
+    if (via !== "typed" || State.bridgedStep === State.step) return false;
+    if ((awaiting.options || []).some((o) => o.toLowerCase() === text.trim().toLowerCase())) return false;
+    return Director.signalsOf(text).length === 0;
+  }
+
   function playerSays(text, via) {
     if (!State.awaiting) return;
     Log.write({ kind: "player", step: State.step, playerText: text, via: via, state: snapshot() });
     State.log.push({ from: "me", text: text, via: via }); // via: "chip" | "typed"
+    const awaiting = State.awaiting;
     State.awaiting = null;
-    State.step++;
+
+    if (!needsBridge(text, via, awaiting)) {
+      State.step++;
+      render();
+      runScript();
+      return;
+    }
+
+    // Game code picks the intent ("acknowledge"); the model only writes the words.
+    // If the model fails there is no stock reply: the script just moves on as before.
+    State.bridgedStep = State.step;
+    State.typing = true;
+    State.pending = true;
     render();
-    runScript();
+    const plan = { intent: "acknowledge", allowedFacts: [], factIds: [], rule: "bridge", signals: [] };
+    const started = Date.now();
+    fetchLine({ intent: "acknowledge" }, plan).then((generated) => {
+      const wait = generated ? Math.max(0, typingDelay(generated) - (Date.now() - started)) : 0;
+      setTimeout(() => {
+        State.typing = false;
+        State.pending = false;
+        if (generated) {
+          console.info(`[juno] acknowledge (bridge) · model: ${generated}`);
+          logJuno(generated, plan, generated, "bridge");
+          pushJuno(generated, metaFor(plan, generated));
+          State.awaiting = awaiting; // same question, same suggestions
+          render();
+        } else {
+          State.step++;
+          render();
+          runScript();
+        }
+      }, wait);
+    });
   }
 
   function checkWaiting() {
@@ -600,6 +642,13 @@
 
     if (!r.items.length) {
       content = `<div class="empty">${esc(REPLAY.empty)}</div>`;
+    } else if (r.intro) {
+      content = `
+        <div class="replay">
+          <h2>${esc(REPLAY.introTitle)}</h2>
+          <p class="rintro">${esc(REPLAY.introBody)}</p>
+          <button class="pill primary" data-act="replay-begin">${esc(REPLAY.start)}</button>
+        </div>`;
     } else if (r.done) {
       const leaving = REPLAY.summaryLeaving
         .replace("{exits}", Replay.times(s.exits))
@@ -626,8 +675,15 @@
       const guess = r.guesses[r.i];
       const m = meaningOf(item.intent);
       const last = r.i === r.items.length - 1;
+      const ctx = item.context || {};
+      const before = ctx.said
+        ? `<div class="rctx">${esc(REPLAY.youWrote)}</div><div class="bub me">${esc(ctx.said)}</div>`
+        : ctx.left
+        ? `<div class="rctx">${esc(REPLAY.youLeft)}</div>`
+        : "";
       content = `
         <div class="replay">
+          ${before}
           <div class="bub them">${esc(item.reply)}</div>
           ${
             guess
@@ -637,7 +693,7 @@
                    <span class="note">${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[guess])}</span>
                  </div>
                  <button class="pill primary" data-act="replay-next">${esc(last ? REPLAY.finish : REPLAY.next)}</button>`
-              : `<div class="rq">${esc(REPLAY.question)}</div>
+              : `<div class="rq">${esc(REPLAY.questionLong)}</div>
                  <div class="ranswers">
                    <button class="pill" data-act="replay-answer" data-id="helping">${esc(REPLAY.answers.helping)}</button>
                    <button class="pill" data-act="replay-answer" data-id="keeping">${esc(REPLAY.answers.keeping)}</button>
@@ -646,7 +702,7 @@
         </div>`;
     }
 
-    const sub = r.items.length && !r.done ? `${r.i + 1} / ${r.items.length}` : "";
+    const sub = r.items.length && !r.done && !r.intro ? `${r.i + 1} / ${r.items.length}` : "";
     return `${topbar(REPLAY.title, sub, true)}<div class="body">${content}</div>`;
   }
 
@@ -786,8 +842,11 @@
         break;
       case "replay-start":
         if (!State.replay) {
-          const items = Replay.pick(Log.rows(), REPLAY.count);
-          State.replay = { items: items, i: 0, guesses: [], done: false };
+          const rows = Log.rows();
+          const items = Replay.pick(rows, REPLAY.count).map((it) =>
+            Object.assign({}, it, { context: Replay.contextFor(rows, it) })
+          );
+          State.replay = { intro: true, items: items, i: 0, guesses: [], done: false };
         }
         go("replay", "replay");
         break;
@@ -807,6 +866,10 @@
         render();
         break;
       }
+      case "replay-begin":
+        State.replay.intro = false;
+        render();
+        break;
       case "replay-next":
         if (State.replay.i < State.replay.items.length - 1) State.replay.i++;
         else State.replay.done = true;

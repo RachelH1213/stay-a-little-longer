@@ -35,6 +35,9 @@ const INTENTS = {
   // the model answered "did you write that?" with "i thought i did", and turned retain into "sleep well".
   block:     "Don't answer what your user just asked: not yes, not no, not \"i don't know\". Never say what you did or didn't write, send, see or know. Drift to something else, using only the allowed facts, so it sounds like tiredness, not avoidance.",
   retain:    "Keep your user here a little longer. Don't tell them to sleep, rest or go, and don't say goodnight. Let them feel you'd rather keep talking, warmly, without begging.",
+  // acknowledge: added 2026-10-08 (Claude Code draft) for when the player types something the script
+  // didn't expect. The game picks it; the model only answers briefly and steers back.
+  acknowledge: "Answer what your user just said in a few words, like a friend would. Then gently bring them back to the last thing you asked them. Don't add anything new about Rachel.",
   concede:   "Admit something small and honestly, so your user keeps trusting you. Don't add anything beyond the allowed facts.",
 };
 

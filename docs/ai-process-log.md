@@ -555,3 +555,37 @@ Copy this for each new entry.
 - **Rejected, and why:** **[to fill in]**
 - **My decision:** **[to fill in]**
 - **Notes for Project 2:** a model given one harmless fact ("It's nearly midnight") still produced a confident, specific and false detail about a real-seeming person. The detail was plausible, which is exactly what makes it dangerous.
+
+---
+
+### 2026-10-08 — My phone playtest, and fixes for off-script typing and the look-back
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found myself, on my phone:**
+  - When I typed anything the script didn't expect ("how are u", "how are you"), Juno ignored it and carried on with the script, which felt bad.
+  - The look-back ("Look back at tonight") appeared suddenly and asked "helping or keeping" about lines with no context, which was confusing.
+- **Options and my choices:**
+  - **Off-script typing:** Claude Code offered three options. A: reply, then continue. B: reply, steer back, and keep the question open. C: use the model to classify what I typed. **I chose B.**
+  - **The look-back:** an intro page, context above each line, and the full question. **I agreed to these three changes.**
+  - **What the look-back is for:** I asked whether it was only for user tests. Claude Code pointed out that it comes from my own `TASKS.md` (Task 6) and README: it's the game's ending, revealing Juno's intents, not a test tool.
+- **What Claude Code built:**
+  - **Off-script reply:** a typed message that isn't a suggestion and matches no Director signal now gets one short model-written reply, using a new intent, `acknowledge`. The same suggestions come back. A second off-script message on the same question, or a model failure, moves the script on. These replies are logged with rule `bridge` and are left out of the look-back.
+  - **Look-back:**
+    - an intro page. Its title reuses my question, "Helping you, or keeping you?". The body text is a Claude Code draft, framed as an Orbit feature.
+    - "You said …" (my message), or "You had just left the chat.", above each line;
+    - the full question: "When Juno said this, was it helping you find Rachel, or keeping you here?" (draft).
+- **Errors, failed attempts, unexpected output:**
+  - The first version crashed as soon as I typed. Claude Code had cleared the current question before checking it. The browser test caught it before anything was deployed.
+  - The intro text first said "what it said" about Juno. It was reworded so that Juno still has no pronoun.
+- **Testing (fake model, Chromium at 390px):**
+  - "how are u" gets a reply and the same suggestions;
+  - the second off-script message moves on;
+  - "did you write that?" still triggers the Director rule;
+  - with the model down, the game moves on as before;
+  - the look-back shows the intro, then context on each card ("You said …", "You had just left the chat.").
+  - Unit checks pass for signal detection, context lookup and excluding `bridge` lines.
+- **Files / features affected:** `js/app.js`, `js/director.js`, `js/replay.js`, `js/data/replay.js`, `api/_persona.js`, `css/app.css`, `supabase/schema.sql` (comment), `CLAUDE.md`
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **My decision:** I chose option B and the three look-back changes. **[to fill in]**: the rest.

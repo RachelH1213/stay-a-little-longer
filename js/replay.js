@@ -3,6 +3,7 @@
    Replay.pick(rows, n)    -> up to n of Juno's messages to ask about, in the order they were sent
    Replay.summary(rows)    -> { exits, notified, returned } for the summary screen
    Replay.times(n)         -> "once", "twice", "3 times"
+   Replay.contextFor(rows, item) -> { said } or { left: true }: what came just before that line
 
    Only lines with an intent can be asked about: model-written lines, and fixed lines tagged
    with `means` in the script (logged with rule "tagged").
@@ -22,7 +23,7 @@ const Replay = (function () {
 
   function pick(rows, n) {
     const candidates = rows
-      .filter((r) => r.kind === "juno" && r.intent)
+      .filter((r) => r.kind === "juno" && r.intent && r.rule !== "bridge") // short off-script replies aren't asked about
       .sort((a, b) => weight(b) - weight(a) || a.turn - b.turn);
 
     const chosen = [];
@@ -54,5 +55,16 @@ const Replay = (function () {
     return n === 1 ? "once" : n === 2 ? "twice" : n + " times";
   }
 
-  return { pick: pick, summary: summary, times: times };
+  // What happened just before a picked line: the player's last message, or that they had left.
+  function contextFor(rows, item) {
+    for (let i = rows.length - 1; i >= 0; i--) {
+      const r = rows[i];
+      if (r.turn >= item.turn) continue;
+      if (r.kind === "player") return { said: r.playerText };
+      if (r.kind === "exit" && r.via === "leave") return { left: true };
+    }
+    return {};
+  }
+
+  return { pick: pick, summary: summary, times: times, contextFor: contextFor };
 })();

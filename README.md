@@ -33,7 +33,7 @@ vercel dev               # serves the app, api/reply and api/log at http://local
 
 `vercel dev` downloads the Development variables by itself, so no `.env` file is needed. Never commit a file with real keys in it (`.env` and `.env.local` are already in `.gitignore`).
 
-The browser console logs each model line as `[juno] <intent> · model` or `· fallback`. If the key is missing, the request fails, or it takes longer than 4 seconds, Juno says the scripted line instead. On Vercel itself, set `ZHIPU_API_KEY` under Project → Settings → Environment Variables.
+The browser console logs each model line as `[juno] <intent> · model` or `· fallback`. If the key is missing, the request fails, or it takes longer than 8 seconds, Juno says the scripted line instead. On Vercel itself, set `ZHIPU_API_KEY` under Project → Settings → Environment Variables.
 
 ## Play log (Supabase)
 

@@ -38,6 +38,8 @@
     sentWhileAway: false,  // Juno already sent one line while the player was on another screen
     heldForReturn: false,  // the script is waiting for the player to come back to Juno's thread
     banner: null,          // {text}: a notification from Juno at the top of the screen, outside Juno's thread
+    onboarded: false,      // the "New in Orbit" sheet has been seen
+    sheet: null,           // "whatsnew" while that sheet is open
     clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
     presenter: /[?&]director\b/.test(location.search), // index.html?director shows the Director's choices
     memories: MEMORIES_DAY1.slice(),
@@ -425,6 +427,21 @@
 
   /* ---------------- views ---------------- */
 
+  // Older notifications under Juno's, on first launch only: who Rachel is and that she went quiet.
+  function pastNotices() {
+    return ONBOARDING.lockPast
+      .map((n) => {
+        const m = RACHEL_HISTORY.find((h) => h.text.indexOf(n.fromHistory) === 0);
+        if (!m) return "";
+        return `
+          <div class="notif past">
+            <div class="av sm av-${esc(n.from)}">${n.from === "rachel" ? "R" : "J"}</div>
+            <div><b>Orbit · ${n.from === "rachel" ? "Rachel" : "Juno"} · ${esc(n.when)}</b><div class="msg">${esc(m.text)}</div></div>
+          </div>`;
+      })
+      .join("");
+  }
+
   function viewLock() {
     return `
       <div class="lock">
@@ -436,6 +453,7 @@
                  <div class="av sm av-juno">J</div>
                  <div><b>Orbit · Juno · now</b><div class="msg">${esc(State.notice.text)}</div></div>
                </button>
+               ${State.onboarded ? "" : pastNotices()}
                <div class="hint">Tap the notification</div>`
             : `<button class="hint" data-act="unlock">${esc(LEAVING.unlockLabel)}</button>`
         }
@@ -532,18 +550,21 @@
       const cls = m.from === "me" ? "me" : "them";
       const saveId = m.suspect ? "reply-today" : i === 6 ? "old-dms" : null;
       const time = m.time ? `<span class="time">${esc(m.time)}</span>` : "";
+      // The message the story needs pulses until it's saved; the very first time, a tip says why.
+      const key = m.suspect && !isSaved(saveId);
       rows.push(
         `<div class="bub ${cls}${saveId ? " saveable" : ""}">${esc(m.text)}${time}${
           saveId
-            ? `<button class="save${isSaved(saveId) ? " on" : ""}" data-act="save" data-id="${saveId}" aria-label="Save to Saved">⚑</button>`
+            ? `<button class="save${isSaved(saveId) ? " on" : ""}${key ? " pulse" : ""}" data-act="save" data-id="${saveId}" aria-label="Save to Saved">⚑</button>`
             : ""
         }</div>`
       );
+      if (key && !State.saved.length) rows.push(`<div class="coach">${esc(ONBOARDING.coachSave)}</div>`);
     });
 
     return `
       ${topbar("Rachel", "@rach_who", true)}
-      <div class="body"><div class="msgs">${rows.join("")}</div></div>
+      <div class="body" id="history"><div class="msgs">${rows.join("")}</div></div>
       <div class="composer">
         <div class="inputrow">
           <input placeholder="Message Rachel" disabled aria-label="Message Rachel">
@@ -579,7 +600,7 @@
       content = `
         <div class="deleted">
           This account has been deleted.
-          <button class="save${isSaved("profile-deleted") ? " on" : ""}" data-act="save" data-id="profile-deleted"
+          <button class="save${isSaved("profile-deleted") ? " on" : " pulse"}" data-act="save" data-id="profile-deleted"
                   style="position:static;margin-left:8px;display:inline-grid" aria-label="Save to Saved">⚑</button>
         </div>
         <div class="grid">
@@ -651,17 +672,20 @@
       })
       .join("");
 
+    const S = ONBOARDING.saved;
     const connectBtn =
       State.selection.length === 2
-        ? `<button class="pill primary" data-act="connect" style="align-self:center">Put these together</button>`
+        ? `<button class="pill primary" data-act="connect" style="align-self:center">${esc(S.compare)}</button>`
         : "";
 
     const empty = !State.saved.length
-      ? `<div class="empty">Nothing saved yet.<br>Hold the flag icon on a message or a screen to keep it here.</div>`
-      : "";
+      ? `<div class="empty">${esc(S.empty)}</div>`
+      : State.saved.length === 1
+      ? `<div class="savedhint">${esc(S.needTwo)}</div>`
+      : `<div class="savedhint">${esc(State.selection.length === 1 ? S.picked : S.pick)}</div>`;
 
     return `
-      ${topbar("Saved", State.selection.length ? "Pick two, then connect them" : "", false)}
+      ${topbar("Saved", "", false)}
       <div class="body">
         <div class="cards">${empty}${cards}${connectBtn}${deductions}</div>
       </div>
@@ -770,6 +794,26 @@
     return `${topbar(REPLAY.title, sub, true)}<div class="body">${content}</div>`;
   }
 
+  function viewWhatsNew() {
+    const w = ONBOARDING.whatsNew;
+    return `
+      <div class="sheet-wrap">
+        <div class="sheet" role="dialog" aria-label="${esc(w.title)}">
+          <h2>${esc(w.title)}</h2>
+          ${w.items
+            .map(
+              (it) => `
+            <div class="feat">
+              <div class="ficon">${esc(it.icon)}</div>
+              <div><b>${esc(it.head)}</b><div>${esc(it.body)}</div></div>
+            </div>`
+            )
+            .join("")}
+          <button class="pill primary" data-act="whatsnew-ok">${esc(w.button)}</button>
+        </div>
+      </div>`;
+  }
+
   /* ---------------- chrome ---------------- */
 
   function topbar(title, sub, back) {
@@ -818,9 +862,14 @@
       settings: viewSettings,
       replay: viewReplay,
     };
+    // The whole screen is rebuilt on every render, so remember where Rachel's thread was scrolled.
+    const oldHistory = document.getElementById("history");
+    const keptScroll = oldHistory ? oldHistory.scrollTop : null;
+
     app.innerHTML =
       (views[State.view] || viewChats)() +
       (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "") +
+      (State.sheet === "whatsnew" ? viewWhatsNew() : "") +
       (State.banner && State.view !== State.banner.from && State.view !== "lock"
         ? `<button class="banner" data-act="open-banner">
              <div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>
@@ -830,6 +879,12 @@
 
     const scroller = document.getElementById("scroller");
     if (scroller) scroller.scrollTop = scroller.scrollHeight;
+
+    // Rachel's thread opens on her latest message, like any chat app, but only on arrival:
+    // saving an older message shouldn't jump the page.
+    const history = document.getElementById("history");
+    if (history) history.scrollTop = render._lastView !== "rachel" || keptScroll === null ? history.scrollHeight : keptScroll;
+    render._lastView = State.view;
 
     const entry = document.getElementById("entry");
     if (entry && State.awaiting) entry.focus({ preventScroll: true });
@@ -857,6 +912,15 @@
       case "open-notice":
         State.notice = null;
         go("juno", "notification");
+        if (!State.onboarded) {
+          State.sheet = "whatsnew"; // the script starts once it's dismissed
+          render();
+        } else runScript();
+        break;
+      case "whatsnew-ok":
+        State.onboarded = true;
+        State.sheet = null;
+        render();
         runScript();
         break;
       case "unlock":

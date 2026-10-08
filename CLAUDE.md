@@ -26,6 +26,8 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 
 **Leaving (built, content is a draft):** Leave in Juno's thread locks the phone (`leaveJuno()` in `js/app.js`). After `LEAVING.delayMs`, Juno sends a message through the Director (`js/data/leaving.js` holds the default intent, facts and fallback); it shows as a lock-screen notification, or a toast if the player already unlocked. Every exit and every return to Juno's thread is logged (`exit` / `return` rows, return `via` notification or chats).
 
+**First-time help (app furniture, not a tutorial; wording in `js/data/onboarding.js`, a draft):** on first launch the lock screen also shows Rachel's last real message as an older notification; opening the app shows a one-time "New in Orbit" sheet (Save, Compare, Juno) and the script waits until it's dismissed (`State.onboarded`, `State.sheet`); the flag on evidence the story needs pulses until saved, with a one-time "Tap ⚑ to save this" tip; Saved always says what to do next and its button reads "Compare". Rachel's thread opens on her latest message and keeps its scroll across renders.
+
 **Pacing:** after every Juno line there is a reading pause (`readPause()`, ~0.6–2.2s by length) before the next line starts typing, so lines never pile up. A `notify` script step shows Rachel's reply as a banner (text and time taken from `rachel-history.js`, so it always matches her thread); tapping it opens her chat, and her row stays unread until then (`flags.rachelNotified`).
 
 **Away from Juno's thread:** when the script reaches a Juno line while the player is on another screen, Juno sends that one line as a banner at the top of the screen (`State.banner`, tap to open Juno) plus the unread dot, then holds the rest until the player comes back (`sentWhileAway`, `heldForReturn`). On the lock screen nothing is sent; the Leave notification does that job.
@@ -47,6 +49,7 @@ js/data/truth.js            the truth graph: every fact, its kind, day, intents,
 js/data/director-rules.js   which intent Juno picks when (story, not logic)
 js/data/leaving.js          what happens when the player leaves Juno: delay, message, lock-screen text
 js/data/replay.js           the look-back's wording, and which intent counts as helping or keeping
+js/data/onboarding.js       first-time help wording: lock-screen context, "New in Orbit" sheet, save tip, Saved hints
 js/replay.js                Replay.pick(rows, n), Replay.summary(rows): the look-back, built from the log
 js/director.js              Director.decide(step, State) -> {intent, allowedFacts, rule}
 api/reply.js, api/_persona.js   the model layer
@@ -81,7 +84,8 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - `replay` — the look-back in progress: `{intro, items, i, guesses[], done}`
 - `bridgedStep` — the player step Juno already answered off-script once
 - `sentWhileAway`, `heldForReturn` — Juno's one line while the player is elsewhere, and the hold until they return
-- `banner` — a message from Juno shown at the top of other screens, or null
+- `banner` — a message from Juno or Rachel shown at the top of other screens, or null
+- `onboarded`, `sheet` — the one-time "New in Orbit" sheet
 - `clock` — lock-screen time; set from each `memory` step's timestamp
 - `presenter` — true when the page is opened as `index.html?director`: every Juno line shows its intent · rule · source (for demos; players never see it)
 - `memories[]` — what Juno has written down about the player

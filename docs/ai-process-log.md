@@ -638,3 +638,38 @@ Copy this for each new entry.
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
 - **My decision:** I asked for both changes. **[to fill in]**: the rest.
+
+---
+
+### 2026-10-08 — Making the opening and the evidence mechanic understandable
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** the whole game was confusing. It started straight in a chat with no context, nobody would know to tap the flag to save evidence, and combining saved items in Saved wasn't discoverable either. Players get stuck.
+- **Options:** Claude Code pointed out that my own rule ("no tutorial, everything is app furniture") rules out a game tutorial, but real apps do have onboarding. It offered four options:
+  - **A:** older notifications on the lock screen, for context;
+  - **B:** a one-time "New in Orbit" sheet;
+  - **C:** help at the moment it's needed;
+  - **D:** Juno nudging when you're stuck.
+
+  **I chose A, B and C.** D is postponed until after user tests.
+- **What Claude Code built (all wording is a draft in the new `js/data/onboarding.js`):**
+  - **A:** on first launch, the lock screen shows Rachel's last real message under Juno's "you up?" as an older notification ("last week"). The text is copied exactly from `rachel-history.js`, my own line: "i might go quiet for a bit / nothing bad / just tired of all this". It's only shown the first time.
+  - **B:** a one-time "New in Orbit" sheet with three items: Save (⚑), Compare, Juno. The script waits until it's closed.
+  - **C, in Rachel's chat:** the flag on her reply pulses until it's saved, with a one-time tip, "Tap ⚑ to save this". The deleted-account flag on the profile also pulses until saved.
+  - **C, in Saved:** a line now always says what to do next ("Save one more thing to compare." / "Pick two to compare" / "1 of 2 picked"). The button is renamed from "Put these together" to "Compare". The empty-state text used to say "Hold the flag icon", which was wrong, because it's a tap.
+- **Bug found along the way:** Rachel's chat opened at the top (March 2025), so the new message, the pulsing flag and the tip were off-screen. It also lost its scroll position on every re-render. It now opens on her latest message and keeps the scroll position when you save an older message.
+- **Testing (Chromium at 390px):**
+  - the lock screen shows her exact message;
+  - the sheet appears once, and the script waits behind it;
+  - the tip and pulse appear, and the tip goes once saved;
+  - the profile flag pulses;
+  - the Saved hints change correctly;
+  - the button reads Compare;
+  - nothing repeats after a later Leave.
+  - Rachel's chat opens at the bottom and keeps its scroll.
+  - The away, off-script, pacing and leave tests still pass. They were updated to close the new sheet first.
+- **Files / features affected:** `js/data/onboarding.js` (new), `js/app.js`, `css/app.css`, `index.html`, `CLAUDE.md`
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **My decision:** I chose A, B and C. **[to fill in]**: the wording.

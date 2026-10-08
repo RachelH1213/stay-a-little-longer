@@ -7,7 +7,8 @@
    If none match, the script's own intent is used.
 
    `when` can test:
-     said      the player's latest message (only if it came right before this line)
+     said      the player's latest message (only if it came right before this line, and only
+               if they typed it — tapping a suggested reply never triggers a rule)
                contains one of the phrases in that SIGNALS list
      minDeductions   the player has solved at least this many pairs in Saved
 

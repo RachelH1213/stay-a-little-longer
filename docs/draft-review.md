@@ -96,7 +96,7 @@ The secret `juno-wrote-reply` says Juno wrote the 18:40 reply. But:
 > | `doubt-with-proof` | "ok. you're right, something's wrong. i don't know where she is" |
 > | `doubt` | "she goes quiet sometimes. this isn't the first time" |
 >
-> **Side effect:** the first chip, "something feels off", triggers `doubt`. So when the model fails, and always from `file://`, a chips-only player now sees that draft line at step 14 instead of the script's "what do you mean? she said she's fine". To keep my script line there, I can delete the `doubt` rule's `text`, or make chips not trigger rules.
+> **Side effect, resolved 2026-10-08:** the first chip, "something feels off", used to trigger `doubt`, so a chips-only player saw the draft line at step 14 instead of my script line. My decision: **tapping a chip never triggers a rule. Only typed messages do.** Chip players now always get my script.
 
 
 When a rule overrides the script and the model then fails, the screen shows the script's line, which was written for the old intent:
@@ -111,6 +111,9 @@ When a rule overrides the script and the model then fails, the screen shows the 
 **Fix (needs my lines):** give each rule in `director-rules.js` an optional `text`, used as the fallback when that rule fires. Claude Code can build the mechanism. I write the lines.
 
 ## 5. Design: with the chips alone, the Director never visibly changes anything — Verified
+
+> **Update:** since chips no longer trigger rules (item 4), this is now true by design. The Director only reacts when the player types. A demo has to include typing to show it.
+
 
 Rules can only fire on a model-written line that comes straight after the player speaks. In Day 2 that's only:
 

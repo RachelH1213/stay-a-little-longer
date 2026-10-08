@@ -257,7 +257,7 @@
   function playerSays(text, via) {
     if (!State.awaiting) return;
     Log.write({ kind: "player", step: State.step, playerText: text, via: via, state: snapshot() });
-    State.log.push({ from: "me", text: text });
+    State.log.push({ from: "me", text: text, via: via }); // via: "chip" | "typed"
     State.awaiting = null;
     State.step++;
     render();

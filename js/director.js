@@ -16,10 +16,11 @@ const Director = (function () {
     return " " + s.toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim() + " ";
   }
 
-  // The player's message, but only if it's the last thing in the thread.
+  // The player's message, but only if it's the last thing in the thread and they typed it.
+  // Tapping a suggested reply never triggers a rule: the chips are the author's script.
   function latestPlayerText(state) {
     const last = state.log[state.log.length - 1];
-    return last && last.from === "me" ? normalize(last.text) : "";
+    return last && last.from === "me" && last.via !== "chip" ? normalize(last.text) : "";
   }
 
   function says(text, signal) {

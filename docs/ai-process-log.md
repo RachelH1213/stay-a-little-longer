@@ -339,3 +339,26 @@ Copy this for each new entry.
 - **Files / features affected:** see Result.
 - **My decision:** **[to fill in]**
 - **Notes for Project 2:** none new.
+
+---
+
+### 2026-10-08 — Chips no longer trigger Director rules, with Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:** "让点选项不触发规则，只有打字才触发" (make tapping chips not trigger rules; only typing should). This was **my own decision**, choosing between two options Claude Code offered for the side effect in `docs/draft-review.md` item 4.
+- **Prompt:** in the session linked above.
+- **Result:**
+  - Player messages in the thread now record whether they were tapped or typed.
+  - The Director ignores tapped chips, so rules only react to typed messages. The same words typed still trigger a rule.
+  - Chip players always see my script lines at the model-written steps when the model is down or offline. When the model works, the script's own intent is used.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** I didn't choose the other option, deleting the `doubt` rule's fallback line. **[to fill in]**: why.
+- **Errors, failed attempts, unexpected output:** none.
+- **Testing:**
+  - Unit checks: a chip never triggers a rule, and the same words typed do. The 150 leak checks still pass.
+  - Chromium with the model down, chips only: step 14 shows "what do you mean? she said she's fine" again.
+  - `file://` with typed messages: the accusation and doubt rules still fire, with their fallbacks.
+- **Consequence:** the Director is now invisible to anyone who only taps chips (`docs/draft-review.md` item 5). A Project 1 demo has to include typing.
+- **Files / features affected:** `js/app.js`, `js/director.js`, `js/data/director-rules.js` (comment), `CLAUDE.md`, `docs/draft-review.md`
+- **My decision:** chips never trigger rules. **[to fill in]**: anything to add.

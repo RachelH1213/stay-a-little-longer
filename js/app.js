@@ -32,6 +32,9 @@
     junoUnread: true,      // dot on Juno's row in Chats
     replay: null,          // the look-back: {intro, items, i, guesses[], done}
     bridgedStep: -1,       // the player step Juno already answered off-script once (see playerSays)
+    sentWhileAway: false,  // Juno already sent one line while the player was on another screen
+    heldForReturn: false,  // the script is waiting for the player to come back to Juno's thread
+    banner: null,          // {text}: a notification from Juno at the top of the screen, outside Juno's thread
     clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
     presenter: /[?&]director\b/.test(location.search), // index.html?director shows the Director's choices
     memories: MEMORIES_DAY1.slice(),
@@ -61,6 +64,7 @@
     }
     if (view === "juno" && State.view !== "juno") {
       State.junoUnread = false;
+      State.sentWhileAway = false;
       if (State.away) {
         const awayMs = Date.now() - State.away.at;
         State.away = null;
@@ -70,6 +74,10 @@
     State.view = view;
     State.selection = [];
     render();
+    if (view === "juno" && State.heldForReturn) {
+      State.heldForReturn = false;
+      runScript(); // pick up where Juno left off, one line at a time
+    }
     if (view === "rachel" && !State.flags.sawRachelReply) {
       State.flags.sawRachelReply = true;
       checkWaiting();
@@ -85,6 +93,18 @@
       flags: Object.assign({}, State.flags),
       exits: State.exits,
     };
+  }
+
+  // A message from Juno while the player is on another screen. Separate from toast(), which is
+  // the app talking ("Saved"), so one never hides the other. Tapping it opens Juno's thread.
+  function banner(text) {
+    State.banner = { text: text };
+    render();
+    clearTimeout(banner._t);
+    banner._t = setTimeout(() => {
+      State.banner = null;
+      render();
+    }, 4000);
   }
 
   function toast(text) {
@@ -196,7 +216,7 @@
       logJuno(text, plan, generated, "notification");
       pushJuno(text, metaFor(plan, generated));
       if (State.view === "lock") State.notice = { text: text };
-      else if (State.view !== "juno") toast("Juno: " + text);
+      else if (State.view !== "juno") banner(text);
       State.junoUnread = State.view !== "juno";
       render();
     });
@@ -209,6 +229,15 @@
 
     switch (step.type) {
       case "juno": {
+        // Away from Juno's thread, Juno sends one line as a nudge, then waits for the player
+        // to come back. On the lock screen the Leave notification does that job, so nothing is sent.
+        if (State.view !== "juno") {
+          if (State.view === "lock" || State.sentWhileAway) {
+            State.heldForReturn = true;
+            return;
+          }
+          State.sentWhileAway = true;
+        }
         // The request runs under the typing dots, so the model's latency reads as typing.
         State.typing = true;
         State.pending = true;
@@ -227,6 +256,10 @@
             State.pending = false;
             pushJuno(text, metaFor(plan, generated, step.means));
             State.step++;
+            if (State.view !== "juno" && State.view !== "lock") {
+              State.junoUnread = true;
+              banner(text); // the nudge: shown wherever the player is
+            }
             render();
             runScript();
           }, Math.max(0, left));
@@ -756,7 +789,13 @@
     };
     app.innerHTML =
       (views[State.view] || viewChats)() +
-      (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "");
+      (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "") +
+      (State.banner && State.view !== "juno" && State.view !== "lock"
+        ? `<button class="banner" data-act="open-banner">
+             <div class="av sm av-juno">J</div>
+             <div><b>Juno · now</b><div class="msg">${esc(State.banner.text)}</div></div>
+           </button>`
+        : "");
 
     const scroller = document.getElementById("scroller");
     if (scroller) scroller.scrollTop = scroller.scrollHeight;
@@ -774,6 +813,11 @@
     const id = el.dataset.id;
 
     switch (act) {
+      case "open-banner":
+        State.banner = null;
+        go("juno", "banner");
+        runScript();
+        break;
       case "open-notice":
         State.notice = null;
         go("juno", "notification");

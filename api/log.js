@@ -56,6 +56,16 @@ function headers(key) {
   return h;
 }
 
+// The upstream service's own error text, trimmed. Never contains our key; helps tell
+// "rate limited" from "no balance" from "table not found" without guessing.
+async function upstreamDetail(r) {
+  try {
+    return (await r.text()).replace(/\s+/g, " ").slice(0, 300);
+  } catch (e) {
+    return "";
+  }
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
 
@@ -73,13 +83,15 @@ module.exports = async function handler(req, res) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), UPSTREAM_TIMEOUT_MS);
   try {
-    const r = await fetch(url.replace(/\/+$/, "") + "/rest/v1/" + TABLE, {
+    // Accept the project URL with or without a trailing slash or /rest/v1.
+    const base = url.trim().replace(/\/+$/, "").replace(/\/rest\/v1$/, "");
+    const r = await fetch(base + "/rest/v1/" + TABLE, {
       method: "POST",
       headers: headers(key),
       body: JSON.stringify(row),
       signal: ctrl.signal,
     });
-    if (!r.ok) return res.status(502).json({ error: "upstream " + r.status });
+    if (!r.ok) return res.status(502).json({ error: "upstream " + r.status, detail: await upstreamDetail(r) });
     return res.status(204).end();
   } catch (e) {
     return res.status(504).json({ error: "timeout or network" });

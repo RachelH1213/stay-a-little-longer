@@ -56,6 +56,16 @@ function cleanLine(raw) {
     .slice(0, MAX_REPLY);
 }
 
+// The upstream service's own error text, trimmed. Never contains our key; helps tell
+// "rate limited" from "no balance" from "table not found" without guessing.
+async function upstreamDetail(r) {
+  try {
+    return (await r.text()).replace(/\s+/g, " ").slice(0, 300);
+  } catch (e) {
+    return "";
+  }
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
 
@@ -86,7 +96,7 @@ module.exports = async function handler(req, res) {
       }),
       signal: ctrl.signal,
     });
-    if (!r.ok) return res.status(502).json({ error: "upstream " + r.status });
+    if (!r.ok) return res.status(502).json({ error: "upstream " + r.status, detail: await upstreamDetail(r) });
 
     const data = await r.json();
     const text = cleanLine(data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content);

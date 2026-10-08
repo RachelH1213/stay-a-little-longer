@@ -4,7 +4,8 @@
    Replay.summary(rows)    -> { exits, notified, returned } for the summary screen
    Replay.times(n)         -> "once", "twice", "3 times"
 
-   Only lines with an intent can be asked about: fixed script lines have no intent to reveal.
+   Only lines with an intent can be asked about: model-written lines, and fixed lines tagged
+   with `means` in the script (logged with rule "tagged").
    The pick rule, in order of preference:
      1. lines where a Director rule overrode the script (the player's words changed Juno's strategy)
      2. lines Juno sent after the player left (notifications)
@@ -15,7 +16,8 @@ const Replay = (function () {
   "use strict";
 
   function weight(r) {
-    return (r.rule && r.rule !== "script" ? 2 : 0) + (r.via === "notification" ? 1 : 0);
+    const overridden = r.rule && r.rule !== "script" && r.rule !== "tagged";
+    return (overridden ? 2 : 0) + (r.via === "notification" ? 1 : 0);
   }
 
   function pick(rows, n) {

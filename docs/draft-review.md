@@ -8,7 +8,9 @@ A review of the drafts Claude Code wrote while building Tasks 1–6:
 - `js/data/leaving.js`
 - `js/data/replay.js`
 
-Claude Code wrote this review. It points out problems and gives options. **Every decision below is mine to make.** None of these files have been changed by the review.
+Claude Code wrote this review. It points out problems and gives options. **Every decision below is mine to make.** None of these files were changed by the review itself.
+
+**Update, 2026-10-08:** I asked Claude Code to handle items 1–4 using its recommended options. They're marked **Done (draft)** below. The wording it wrote is still a draft for me to rewrite.
 
 Each item says what kind of problem it is:
 
@@ -21,7 +23,10 @@ The items marked "Verified" were checked by running the Director on real inputs.
 
 ---
 
-## 1. Rule risk: `deflect` invites the model to invent explanations
+## 1. Rule risk: `deflect` invites the model to invent explanations — Done (draft)
+
+> **What changed:** `api/_persona.js` now says "If you have no fact for something, don't guess — no new reasons, places, people or events". `deflect` now says "The allowed facts are your whole explanation — don't add reasons of your own". **Not yet tested with the real model**, so whether GLM actually obeys this is still unknown.
+
 
 `api/_persona.js` tells the model "Do not invent new facts about Rachel". But the `deflect` intent asks it to "Offer a gentle, ordinary explanation".
 
@@ -37,7 +42,10 @@ The persona also says "If you don't know something, say so plainly". That pulls 
 
 This is my voice file, so I should write the wording. Claude Code can draft it if I ask.
 
-## 2. Inconsistent: two "real" facts contradict the secret
+## 2. Inconsistent: two "real" facts contradict the secret — Done (draft)
+
+> **What changed:** there's a new `lie` kind in `js/data/truth.js`. `reply-says-fine` is now a `lie`. `reply-an-hour-ago` now reads "A message from Rachel's account arrived about an hour ago."
+
 
 The secret `juno-wrote-reply` says Juno wrote the 18:40 reply. But:
 
@@ -50,7 +58,21 @@ The secret `juno-wrote-reply` says Juno wrote the 18:40 reply. But:
 - Reclassify `reply-says-fine`.
 - Add a new kind, such as `lie`, for things Juno says that Juno knows are false.
 
-## 3. Design: the quiz answer is always "keeping"
+## 3. Design: the quiz answer is always "keeping" — Done (draft)
+
+> **What changed:** fixed script lines can now carry a `means` tag, and the look-back can ask about them. `concede` still counts as "keeping". Six lines are tagged as drafts:
+>
+> | Line | Tagged as |
+> |---|---|
+> | "she just replied to me?? go look at your dms with her" | `deflect` |
+> | "god i feel stupid…" | `retain` |
+> | "what? no. it loads fine for me" | `deflect` |
+> | "…ok it doesn't load for me either. that's weird" | `give_clue`, the one **helping** line |
+> | "deletion takes a while to sync…" | `deflect` |
+> | "can we pick this up tomorrow?…" | `retain` |
+>
+> A chips-only playthrough now gets four "keeping" cards and one "helping" card.
+
 
 - No script step and no rule ever uses `give_clue`.
 - With the draft mapping in `js/data/replay.js`, every other intent counts as "keeping".
@@ -63,7 +85,19 @@ The secret `juno-wrote-reply` says Juno wrote the 18:40 reply. But:
 - (b) Give one or more model-written lines a `give_clue` intent.
 - (c) Let the quiz also ask about some fixed lines, by tagging what they really meant. For example, "she just replied to me?? go look at your dms with her" could be read as helping, since it sends me to real evidence. It could also be read as keeping, since it sends me to the fake message. Which reading is true is a story decision. Tagging fixed lines (a `means` field) is a small technical addition Claude Code can build.
 
-## 4. Inconsistent: a rule can change the intent, but the fallback line can't — Verified
+## 4. Inconsistent: a rule can change the intent, but the fallback line can't — Verified, Done (draft)
+
+> **What changed:** each rule in `js/data/director-rules.js` now has a `text` fallback (drafts):
+>
+> | Rule | Fallback line |
+> |---|---|
+> | `player-leaving` | "wait. stay a bit? i know it's late" |
+> | `player-accuses` | "it's nearly midnight. we're both tired" |
+> | `doubt-with-proof` | "ok. you're right, something's wrong. i don't know where she is" |
+> | `doubt` | "she goes quiet sometimes. this isn't the first time" |
+>
+> **Side effect:** the first chip, "something feels off", triggers `doubt`. So when the model fails, and always from `file://`, a chips-only player now sees that draft line at step 14 instead of the script's "what do you mean? she said she's fine". To keep my script line there, I can delete the `doubt` rule's `text`, or make chips not trigger rules.
+
 
 When a rule overrides the script and the model then fails, the screen shows the script's line, which was written for the old intent:
 

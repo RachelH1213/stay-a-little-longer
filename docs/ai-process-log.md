@@ -305,3 +305,37 @@ Copy this for each new entry.
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `docs/draft-review.md` (new), `CLAUDE.md` (flag names), `docs/ai-process-log.md`
 - **My decision:** **[to fill in]**
+
+---
+
+### 2026-10-08 — Fixing review items 1–4, with Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:** "先处理前四条" (handle the first four items). Claude Code asked four questions with recommended options. I dismissed the question form, then said "你来决定，按推荐的做" (you decide, do the recommended ones).
+- **Prompt:** in the session linked above. The items are in `docs/draft-review.md`.
+- **What Claude Code chose for me (each was a recommended option):**
+  1. **Fabrication risk:** it rewrote the persona and `deflect` wording itself (draft), instead of leaving the wording to me.
+  2. **The lie:** it added a new truth-graph kind, `lie`, and reworded the "real" fact.
+  3. **The quiz:** it added `means` tags on fixed lines and chose which six lines to tag and as what. It chose "…ok it doesn't load for me either. that's weird" as the one "helping" line. It left `concede` as "keeping".
+  4. **Fallback lines:** it built the per-rule fallback mechanism and wrote the four fallback lines itself.
+- **New dialogue written by an AI tool, all drafts for me to rewrite:**
+  - the four rule fallback lines in `js/data/director-rules.js`;
+  - two persona/intent sentences in `api/_persona.js`.
+
+  These are the first lines of Juno's on-screen dialogue in this project that I didn't write or ask for word by word.
+- **Result:** `api/_persona.js`, `js/data/truth.js`, `js/data/director-rules.js`, `js/director.js`, `js/data/script-day2.js`, `js/app.js`, `js/replay.js`, `supabase/schema.sql` (column comments only), `CLAUDE.md`, `docs/draft-review.md`.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Errors, failed attempts, unexpected output:**
+  - **Section order:** the new `lie` section was first inserted in the middle of the `claim` facts, so later claims looked like lies. It was moved before testing.
+  - **Side effect, found in testing:** the first chip, "something feels off", triggers the `doubt` rule. So when the model is down, and always offline, a chips-only player now sees the drafted line "she goes quiet sometimes. this isn't the first time" at step 14 instead of my script line. It's written up in `docs/draft-review.md` item 4.
+- **Testing:**
+  - Unit checks: truth graph kinds (including `lie`); every rule has a fallback; the accusation fallback; `means` tags are valid; at least one helping tag; overrides still preferred over tagged lines in the pick.
+  - 150 leak checks: still no secret reaches the model.
+  - Chromium with the model down, chips only: the look-back gave 4 keeping and 1 helping card.
+  - Chromium from `file://` with a typed accusation and doubt: Juno said the rule fallbacks, and "ok. me neither" no longer appears.
+  - Whether the model obeys the new no-guessing wording is **untested**, because there's still no real GLM key in testing.
+- **Files / features affected:** see Result.
+- **My decision:** **[to fill in]**
+- **Notes for Project 2:** none new.

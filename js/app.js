@@ -150,14 +150,15 @@
       .finally(() => clearTimeout(timer));
   }
 
-  function logJuno(text, plan, generated, via) {
+  // `means` is the tag on a fixed line (see script-day2.js); it lets the look-back ask about it.
+  function logJuno(text, plan, generated, via, means) {
     Log.write({
       kind: "juno",
       step: State.step,
       via: via || null,
       reply: text,
-      intent: plan ? plan.intent : null,
-      rule: plan ? plan.rule : null,
+      intent: plan ? plan.intent : means || null,
+      rule: plan ? plan.rule : means ? "tagged" : null,
       source: plan ? (generated ? "model" : "fallback") : "script",
       factIds: plan ? plan.factIds : null,
       state: Object.assign(snapshot(), { signals: plan ? plan.signals : [] }),
@@ -180,7 +181,7 @@
     const step = LEAVING.message;
     const plan = Director.decide(step, State);
     fetchLine(step, plan).then((generated) => {
-      const text = generated || step.text;
+      const text = generated || plan.fallback;
       console.info(`[juno] ${plan.intent} (${plan.rule}) · notification · ${generated ? "model" : "fallback"}: ${text}`);
       logJuno(text, plan, generated, "notification");
       pushJuno(text);
@@ -205,13 +206,13 @@
         const started = Date.now();
         const plan = step.intent ? Director.decide(step, State) : null;
         fetchLine(step, plan).then((generated) => {
-          const text = generated || step.text;
+          const text = generated || (plan ? plan.fallback : step.text);
           if (plan) {
             console.info(`[juno] ${plan.intent} (${plan.rule}) · ${generated ? "model" : "fallback"}: ${text}`);
           }
           const left = typingDelay(text) - (Date.now() - started);
           setTimeout(() => {
-            logJuno(text, plan, generated);
+            logJuno(text, plan, generated, null, step.means);
             State.typing = false;
             State.pending = false;
             pushJuno(text);

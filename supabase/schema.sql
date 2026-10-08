@@ -17,8 +17,8 @@ create table if not exists turns (
                              -- answer: 'helping' | 'keeping' (the player's guess in the look-back)
 
   reply       text,          -- kind = juno: the line shown
-  intent      text,          -- juno: the Director's intent (null for fixed lines)
-  rule        text,          -- juno: which rule chose it, or 'script'
+  intent      text,          -- juno: the Director's intent, or a fixed line's `means` tag, or null
+  rule        text,          -- juno: which rule chose it, 'script', or 'tagged' (fixed line with `means`)
   source      text,          -- juno: 'model' | 'fallback' | 'script'
   fact_ids    jsonb,         -- juno: ids from js/data/truth.js that were allowed
 

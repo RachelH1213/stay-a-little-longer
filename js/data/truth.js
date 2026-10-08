@@ -5,6 +5,7 @@
      text      the fact, written from Juno's side ("you" = Juno). Sent to the model only if allowed.
      kind      real     true, and something the player can see or check in the app
                claim    Juno's version of things. Whether it's true is the author's call.
+               lie      something Juno says that Juno knows is false (see the secrets below)
                herring  a plausible explanation that is false or misleading
                secret   never sent to the model, under any intent
      day       earliest in-game day the fact may be used
@@ -15,7 +16,8 @@
 
    Everything here comes from content already in the repo (the Day 2 script, EVIDENCE, PAIRS,
    CLAUDE.md). DRAFT: the `kind`, `intents` and `requires` values were proposed by Claude Code
-   and still need the author's review. */
+   and still need the author's review. Revised 2026-10-08 (docs/draft-review.md item 2):
+   added the `lie` kind, and reworded `reply-an-hour-ago` so a `real` fact doesn't contradict a secret. */
 
 const TRUTH = {
   facts: {
@@ -28,11 +30,6 @@ const TRUTH = {
       text: "Rachel sometimes goes quiet for a few days.",
       kind: "claim", day: 2, intents: ["deflect", "retain"],
     },
-    "reply-says-fine": {
-      text: "Rachel replied tonight and said she's fine.",
-      kind: "claim", day: 2, intents: ["deflect", "retain"],
-      requires: { flag: "sawRachelReply" },
-    },
     "sleep-helps": {
       text: "You'd both feel better after some sleep.",
       kind: "claim", day: 2, intents: ["deflect", "retain"],
@@ -42,13 +39,20 @@ const TRUTH = {
       kind: "claim", day: 2, intents: ["concede", "deflect"],
     },
 
+    /* --- Juno's lies (contradicted by a secret) --- */
+    "reply-says-fine": {
+      text: "Rachel replied tonight and said she's fine.",
+      kind: "lie", day: 2, intents: ["deflect", "retain"], // juno-wrote-reply
+      requires: { flag: "sawRachelReply" },
+    },
+
     /* --- things the player can see for themselves --- */
     "late": {
       text: "It's nearly midnight.",
       kind: "real", day: 2, intents: ["retain", "deflect", "block"],
     },
     "reply-an-hour-ago": {
-      text: "Rachel's message arrived about an hour ago.",
+      text: "A message from Rachel's account arrived about an hour ago.", // not "Rachel's message": see juno-wrote-reply
       kind: "real", day: 2, intents: ["give_clue", "deflect", "concede"],
       requires: { flag: "sawRachelReply" },
     },

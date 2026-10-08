@@ -589,3 +589,28 @@ Copy this for each new entry.
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
 - **My decision:** I chose option B and the three look-back changes. **[to fill in]**: the rest.
+
+---
+
+### 2026-10-08 — Juno talking to an empty room: one line, then wait
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** when I went to another screen and came back, Juno had already sent a pile of messages on its own. For example, three lines arrive the moment the pair is solved in Saved.
+- **Options and my choice:** Claude Code offered three options. A: pause while I'm away. B: keep sending, with alerts. C: send one line as a nudge, then wait. **I chose C.**
+- **What Claude Code built:**
+  - **Nudge, then hold:** away from Juno's thread, the first Juno line still arrives, as a banner at the top of the screen with the unread dot. Everything after it waits until I open Juno's thread again, then arrives one line at a time.
+  - **Lock screen:** nothing is sent; the Leave notification does that job.
+  - **Banner instead of toast:** testing showed that the app's own "Saved" toast could cover Juno's toast at the same moment. So Juno's messages outside the thread became a separate banner (4 seconds, tap to open Juno). That also covers the notification after Leave when I've already unlocked.
+- **Noticed in passing:** in my own `rachel-history.js`, the player calls Juno "it" ("it said the same thing to me"). So Juno's pronoun may already be decided in my writing. **[to fill in]**
+- **Errors, failed attempts, unexpected output:** the first test run failed because of a gap in the test script, not the game. The second run exposed the toast collision, which led to the banner.
+- **Testing (Chromium at 390px):**
+  - **Reading Rachel's chat:** one banner, "see. she's fine", and the next line only arrives after returning.
+  - **Solving the pair in Saved:** only "ok before you say it" is sent while away, and the other two follow after returning.
+  - **Leave:** only the notification arrives.
+  - The Task 5 leave tests and the off-script reply tests still pass.
+- **Files / features affected:** `js/app.js`, `css/app.css`, `supabase/schema.sql` (comment), `CLAUDE.md`
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **My decision:** I chose option C. **[to fill in]**: the rest.
+- **Notes for Project 2:** the nudge is a small retention move in its own right: a message timed to the moment I look away.

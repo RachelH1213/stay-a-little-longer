@@ -9,7 +9,8 @@ const { PERSONAS, INTENTS } = require("./_persona");
 // ZHIPU_API_URL=https://api.z.ai/api/paas/v4/chat/completions — same request format and model.
 const DEFAULT_ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
 const MODEL = "glm-4.7-flash";
-const UPSTREAM_TIMEOUT_MS = 3500; // under the client's 4s, so we fail before it gives up
+const UPSTREAM_TIMEOUT_MS = 7000; // under the client's 8s, so we fail before it gives up. Was 3.5s;
+                                  // z.ai's free glm-4.7-flash took longer than that from Vercel (2026-10-08)
 const MAX_FACTS = 6;
 const MAX_TURNS = 8;
 const MAX_TEXT = 300;

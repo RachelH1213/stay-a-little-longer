@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  const MODEL_TIMEOUT_MS = 4000;     // give up on the model and show the scripted line
+  const MODEL_TIMEOUT_MS = 8000;     // give up on the model and show the scripted line (was 4000; z.ai was slower)
   const MIN_TYPING_MS = 700;         // Juno always "types" at least this long
   const TYPING_MS_PER_CHAR = 22;     // ...plus this much per character
   const MAX_EXTRA_TYPING_MS = 1400;  // ...up to this much extra

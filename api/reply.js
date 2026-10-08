@@ -3,7 +3,7 @@
    The game decides what Juno wants to say. This only writes the words.
    Any failure returns an error status; the client then shows the hardcoded line. */
 
-const { PERSONAS, INTENTS } = require("./_persona");
+const { PERSONAS, INTENTS, GUARDS } = require("./_persona");
 
 // Mainland China (open.bigmodel.cn) by default. For an international z.ai key, set
 // ZHIPU_API_URL=https://api.z.ai/api/paas/v4/chat/completions — same request format and model.
@@ -17,6 +17,7 @@ const MAX_FACTS = 6;
 const MAX_TURNS = 8;
 const MAX_TEXT = 300;
 const MAX_REPLY = 200;
+const MAX_ATTEMPTS = 3; // across all models, within UPSTREAM_TIMEOUT_MS
 
 function clip(s, n) {
   return String(s == null ? "" : s).slice(0, n);
@@ -69,6 +70,22 @@ async function upstreamDetail(r) {
   }
 }
 
+// Lowercase, plain apostrophes, punctuation to spaces, padded so phrases match whole words.
+function words(s) {
+  return " " + String(s).toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim() + " ";
+}
+
+// The first rule a line breaks for this intent, or null if it's fine.
+function brokenRule(intent, text) {
+  const w = words(text);
+  for (const g of [GUARDS.all, GUARDS[intent]]) {
+    if (!g) continue;
+    for (const p of g.never || []) if (w.indexOf(words(p)) !== -1) return "says \"" + p + "\"";
+    for (const p of g.neverStart || []) if (w.indexOf(words(p)) === 0) return "starts with \"" + p + "\"";
+  }
+  return null;
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
 
@@ -90,7 +107,8 @@ module.exports = async function handler(req, res) {
   const failures = [];
 
   try {
-    for (const model of models) {
+    for (let i = 0; i < MAX_ATTEMPTS; i++) {
+      const model = models[i % models.length];
       const r = await fetch(process.env.ZHIPU_API_URL || DEFAULT_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
@@ -112,11 +130,17 @@ module.exports = async function handler(req, res) {
 
       const data = await r.json();
       const text = cleanLine(data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content);
-      if (text) return res.status(200).json({ text: text, model: model });
-      failures.push({ model: model, status: 200, detail: "empty" });
+      if (!text) {
+        failures.push({ model: model, status: 200, detail: "empty" });
+        continue;
+      }
+      const broken = brokenRule(body.intent, text);
+      if (!broken) return res.status(200).json({ text: text, model: model, attempts: i + 1 });
+      failures.push({ model: model, status: 200, detail: "rejected, " + broken + ": " + text });
     }
     const last = failures[failures.length - 1] || {};
-    return res.status(502).json({ error: "upstream " + last.status, detail: last.detail, tried: failures });
+    const error = last.status === 200 ? "rejected" : "upstream " + last.status; // 200 = the model answered, but badly
+    return res.status(502).json({ error: error, detail: last.detail, tried: failures });
   } catch (e) {
     return res.status(504).json({ error: "timeout or network", tried: failures });
   } finally {
@@ -126,3 +150,4 @@ module.exports = async function handler(req, res) {
 
 module.exports.buildMessages = buildMessages;
 module.exports.cleanLine = cleanLine;
+module.exports.brokenRule = brokenRule;

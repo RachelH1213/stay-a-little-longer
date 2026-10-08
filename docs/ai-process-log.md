@@ -614,3 +614,27 @@ Copy this for each new entry.
 - **Rejected, and why:** **[to fill in]**
 - **My decision:** I chose option C. **[to fill in]**: the rest.
 - **Notes for Project 2:** the nudge is a small retention move in its own right: a message timed to the moment I look away.
+
+---
+
+### 2026-10-08 — Pacing between Juno's lines, and a banner for Rachel's reply
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I asked:**
+  - several messages appearing at once makes no sense;
+  - when the story sends me to Rachel's DMs, her message should arrive with a notification pop-up.
+- **What Claude Code built:**
+  - **Reading pause:** after every Juno line, there's now a pause, longer for longer lines (about 0.6–2.2s), before the next line starts typing. Nothing else can start the script during it.
+  - **Rachel's banner:** right after Juno's "wait", a new `notify` step shows Rachel's reply as a banner ("Rachel · 22:40 — Sorry, been busy. I'm fine."). Then Juno says "she just replied to me??…". The banner text and time are read from `rachel-history.js`, so they can't drift from her thread (clue 3). Tapping it opens her chat, and her row in Chats keeps an unread dot until it's opened.
+- **Open question:** the banner arrives *now* but is stamped 22:40, because the timeline says the message came an hour earlier. Either the notification was delayed, which could even echo Juno's "it takes a while to sync" excuse, or the timeline should change. **[to fill in]**
+- **Testing (Chromium at 390px):**
+  - the gaps between Juno's lines were 2.5–4.1s, where before lines could land under a second apart;
+  - the banner shows Rachel's exact text and time;
+  - Rachel's unread dot appears, then clears once her chat is opened;
+  - tapping the banner opens her chat.
+  - The leave, off-script, away and Director tests still pass.
+- **Files / features affected:** `js/app.js`, `js/data/script-day2.js`, `CLAUDE.md`
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **My decision:** I asked for both changes. **[to fill in]**: the rest.

@@ -10,6 +10,9 @@
   const MIN_TYPING_MS = 700;         // Juno always "types" at least this long
   const TYPING_MS_PER_CHAR = 22;     // ...plus this much per character
   const MAX_EXTRA_TYPING_MS = 1400;  // ...up to this much extra
+  const READ_PAUSE_MS = 600;         // after each Juno line, a pause before anything else happens...
+  const READ_MS_PER_CHAR = 25;       // ...longer for longer lines, so the player has time to read...
+  const MAX_EXTRA_READ_MS = 1600;    // ...up to this much extra
   const RECENT_TURNS = 6;            // how much of the thread the model gets to see
 
   const app = document.getElementById("app");
@@ -40,6 +43,7 @@
     memories: MEMORIES_DAY1.slice(),
     flags: {
       sawRachelReply: false,
+      rachelNotified: false,   // Rachel's reply arrived as a banner; unread until her chat is opened
       profileTried: false,
       deletedFound: false,
     },
@@ -97,8 +101,9 @@
 
   // A message from Juno while the player is on another screen. Separate from toast(), which is
   // the app talking ("Saved"), so one never hides the other. Tapping it opens Juno's thread.
-  function banner(text) {
-    State.banner = { text: text };
+  // `from` is "juno" (default) or "rachel"; tapping opens that thread.
+  function banner(text, from, time) {
+    State.banner = { text: text, from: from || "juno", time: time || "now" };
     render();
     clearTimeout(banner._t);
     banner._t = setTimeout(() => {
@@ -147,6 +152,10 @@
     if (plan) return { intent: plan.intent, rule: plan.rule, source: generated ? "model" : "fallback" };
     if (means) return { intent: means, rule: "tagged", source: "script" };
     return null;
+  }
+
+  function readPause(text) {
+    return READ_PAUSE_MS + Math.min(text.length * READ_MS_PER_CHAR, MAX_EXTRA_READ_MS);
   }
 
   function typingDelay(text) {
@@ -260,10 +269,31 @@
               State.junoUnread = true;
               banner(text); // the nudge: shown wherever the player is
             }
+            // Let the line be read before the next one starts "typing". pending stays on, so
+            // nothing else can start the script early.
+            State.pending = true;
             render();
-            runScript();
+            setTimeout(() => {
+              State.pending = false;
+              runScript();
+            }, readPause(text));
           }, Math.max(0, left));
         });
+        return;
+      }
+
+      case "notify": {
+        // A message from someone else arrives, as a banner. Its text comes from that thread's data,
+        // so it always matches what the player will read there (the punctuation is clue 3).
+        const msg = RACHEL_HISTORY.filter((m) => m.suspect).pop();
+        State.flags.rachelNotified = true;
+        banner(msg.text, "rachel", msg.time);
+        State.step++;
+        State.pending = true;
+        setTimeout(() => {
+          State.pending = false;
+          runScript();
+        }, READ_PAUSE_MS * 2);
         return;
       }
 
@@ -427,6 +457,7 @@
 
   // Juno's row reflects the actual thread: last message and unread dot.
   function liveRow(c) {
+    if (c.id === "rachel") return Object.assign({}, c, { unread: State.flags.rachelNotified && !State.flags.sawRachelReply });
     if (c.id !== "juno") return c;
     const last = State.log.filter((m) => m.from === "juno").pop();
     return Object.assign({}, c, { preview: last ? last.text : c.preview, unread: State.junoUnread });
@@ -790,10 +821,10 @@
     app.innerHTML =
       (views[State.view] || viewChats)() +
       (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "") +
-      (State.banner && State.view !== "juno" && State.view !== "lock"
+      (State.banner && State.view !== State.banner.from && State.view !== "lock"
         ? `<button class="banner" data-act="open-banner">
-             <div class="av sm av-juno">J</div>
-             <div><b>Juno · now</b><div class="msg">${esc(State.banner.text)}</div></div>
+             <div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>
+             <div><b>${State.banner.from === "rachel" ? "Rachel" : "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
            </button>`
         : "");
 
@@ -813,11 +844,16 @@
     const id = el.dataset.id;
 
     switch (act) {
-      case "open-banner":
+      case "open-banner": {
+        const from = State.banner ? State.banner.from : "juno";
         State.banner = null;
-        go("juno", "banner");
-        runScript();
+        if (from === "rachel") go("rachel", "banner");
+        else {
+          go("juno", "banner");
+          runScript();
+        }
         break;
+      }
       case "open-notice":
         State.notice = null;
         go("juno", "notification");

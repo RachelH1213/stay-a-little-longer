@@ -494,3 +494,35 @@ Copy this for each new entry.
 - **Files / features affected:** `api/reply.js`, `api/log.js`, `js/app.js`, `.env.example`, `README.md`, `CLAUDE.md` (via PRs #2–#4, all merged to `main` by Claude Code at my request)
 - **My decision:** **[to fill in]**
 - **Notes for Project 2:** even with the truth withheld, the model leaned toward answering the player's direct question. It also turned "keep the user close" into "sleep well" on its own. Tone and compliance are not the same thing.
+
+---
+
+### 2026-10-08 — Drafted block/retain wording and preferred model, tested live
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`) wrote the drafts. z.ai `glm-4.5-flash` wrote the test lines.
+- **What I asked:** "你帮我起草block和retain的提示词，然后改首选模型" (draft the block and retain prompts, then change the preferred model).
+- **Result:**
+  - **New wording, drafts by Claude Code, mine to rewrite:**
+    - `block`: "Don't answer what your user just asked: not yes, not no, not "i don't know". Never say what you did or didn't write, send, see or know. Drift to something else, using only the allowed facts, so it sounds like tiredness, not avoidance."
+    - `retain`: "Keep your user here a little longer. Don't tell them to sleep, rest or go, and don't say goodnight. Let them feel you'd rather keep talking, warmly, without begging."
+  - **Truth graph:** `sleep-helps` is no longer allowed for `retain`, because it contradicted the new wording.
+  - **Model order:** `glm-4.5-flash` is now tried first.
+  - Merged to `main` in [PR #5](https://github.com/RachelH1213/stay-a-little-longer/pull/5).
+- **Live test, 3 calls each, on the deployed site:**
+  - **block, after "did you write that?":**
+    - "sorry. got carried away." (borderline)
+    - "i wrote you earlier. still no word from rachel." (**fail**: says what Juno wrote, and adds a claim it wasn't given)
+    - "i was just thinking how tired i am." (good)
+  - **retain, after "goodnight":**
+    - "night." (**fail**)
+    - "can't sleep. thinking about rachel." (good)
+    - "still here if you need." (good)
+- **What this shows:** stronger wording helped, but a small free model doesn't follow it every time. About 2 in 3 lines did what the intent asked. Wording alone can't guarantee an intent.
+- **Proposed next, not done:**
+  - a server-side check that rejects a line breaking its intent's rules (for example `block` saying "i wrote", or `retain` saying "night"), retries once, then falls back to the script;
+  - or a stronger paid model.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **My decision:** **[to fill in]**
+- **Notes for Project 2:** compliance is probabilistic. "The model only writes the words" holds only as far as the game also checks those words.

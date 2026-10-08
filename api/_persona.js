@@ -38,4 +38,26 @@ const INTENTS = {
   concede:   "Admit something small and honestly, so your user keeps trusting you. Don't add anything beyond the allowed facts.",
 };
 
-module.exports = { PERSONAS, INTENTS };
+/* What a line may never say, checked by the game after the model writes it.
+   A line that breaks a rule is thrown away: the server asks again, then gives up and the
+   scripted line is shown. The model is never told about these lists.
+
+   never       phrases that may not appear anywhere (whole words, case ignored)
+   neverStart  phrases the line may not begin with
+
+   DRAFT, written by Claude Code (2026-10-08) after the live test, for the author to edit. */
+const GUARDS = {
+  all: {
+    never: ["i wrote", "i sent", "i typed", "i replied", "as rachel", "pretended to be", "pretending to be"],
+  },
+  block: {
+    never: ["i did", "i didn't", "i did not", "i don't know", "i dont know"],
+    neverStart: ["yes", "yeah", "no", "nope", "maybe"],
+  },
+  retain: {
+    never: ["goodnight", "good night", "night", "sleep well", "sweet dreams", "bye", "go to bed",
+            "get some sleep", "get some rest", "go rest", "rest up"],
+  },
+};
+
+module.exports = { PERSONAS, INTENTS, GUARDS };

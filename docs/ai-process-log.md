@@ -273,3 +273,35 @@ Copy this for each new entry.
 - **Notes for Project 2:**
   - The look-back is the moment the game shows the player what the system was doing to them. It's a small model of the transparency the game argues real companion apps don't give.
   - The `answer` rows record whether players could tell helping from keeping. That might be evidence for Project 2 if I playtest with other people. If I do, I'd need their consent, which ties back to the open question from Task 4.
+
+---
+
+### 2026-10-08 — Review of the draft files, with Claude Code
+
+- **Tool / model:** Claude Code, same session as above. Model id `claude-opus-5-5`.
+- **What I asked:** "帮我审一遍草稿文件" (review the draft files for me).
+- **Prompt:** in the session linked above.
+- **Result:**
+  - **The review:** Claude Code reviewed the five drafts it had written earlier: `api/_persona.js`, `js/data/director-rules.js`, `js/data/truth.js`, `js/data/leaving.js` and `js/data/replay.js`. It wrote the findings to `docs/draft-review.md`.
+  - **What it changed:** none of the reviewed files. The findings are options for me to decide. The one edit it made was a factual fix in `CLAUDE.md`: the flag names didn't match the code.
+- **Main findings:**
+  - **Rule risk:** the `deflect` intent asks the model for an "explanation", which may lead it to invent facts about Rachel.
+  - **Inconsistent:** two "real" facts in the truth graph contradict the secret about who wrote the reply.
+  - **Design:** `give_clue` is never used, so every quiz answer is "keeping".
+  - **Inconsistent:** when a rule overrides the intent, the fallback line doesn't match. From `file://` that happens every time.
+  - **Design:** with chips only, the Director never visibly changes Juno's strategy.
+  - **Design:** the keyword lists miss negation and catch unrelated words.
+  - **Smaller issues:**
+    - the notification can become `block`;
+    - the lock-screen clock never moves;
+    - the summary says "0 times" when I never left;
+    - Juno is called "it" in one label;
+    - the real truth about Rachel isn't written yet.
+- **How the findings were checked:** the fallback mismatch, the narrow reach of the rules, the notification becoming `block` and the keyword misses were all confirmed by running the Director on real inputs, not just by reading.
+- **Something to think about for the reflection:** the review found problems in drafts written by the same tool, in the same session. Several are things I would have needed a playtest to notice, like the quiz always being "keeping". It also shows how many small creative decisions went into those drafts without me noticing.
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **Errors, failed attempts, unexpected output:** none.
+- **Files / features affected:** `docs/draft-review.md` (new), `CLAUDE.md` (flag names), `docs/ai-process-log.md`
+- **My decision:** **[to fill in]**

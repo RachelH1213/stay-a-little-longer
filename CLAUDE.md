@@ -76,7 +76,7 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - `junoUnread` — the dot on Juno's row in Chats
 - `replay` — the look-back in progress: `{items, i, guesses[], done}`
 - `memories[]` — what Juno has written down about the player
-- `flags` — one-off story switches (`rachelReplied`, `profileRefreshed`, `deletedFound`, …)
+- `flags` — one-off story switches (`sawRachelReply`, `profileTried`, `deletedFound`)
 
 All rendering reads from `State`. Never write to the DOM from anywhere else.
 

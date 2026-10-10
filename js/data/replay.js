@@ -44,7 +44,7 @@ const REPLAY = {
     concede:   { side: "keeping", label: "giving a little up to keep your trust" }, // no pronoun for Juno: the author hasn't chosen one
     deflect:   { side: "keeping", label: "steering you away from the question" },
     block:     { side: "keeping", label: "changing the subject" },
-    retain:    { side: "keeping", label: "keeping you here" },
+    retain:    { side: "keeping", label: "asking you to stay" },
   },
 
   // Summary. {believed} of {keeping}: how many of the "keeping" lines the player believed.

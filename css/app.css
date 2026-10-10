@@ -244,6 +244,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* Home bar under every app */
 .homebar{flex:none;height:22px;display:grid;place-items:center;background:inherit;touch-action:none}
+.notes ~ .homebar{background:var(--paper)}
 .homebar i{display:block;width:120px;height:5px;border-radius:99px;background:#1b1a19;opacity:.85}
 .homecoach{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:25;white-space:nowrap;
   background:var(--ink);color:#fff;font-size:12.5px;padding:7px 12px;border-radius:10px;animation:coachbob 1.8s ease-in-out infinite}

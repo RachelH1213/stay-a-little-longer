@@ -817,6 +817,12 @@
         .replace("{exits}", Replay.times(s.exits))
         .replace("{notified}", Replay.times(s.notified))
         .replace("{returned}", Replay.times(s.returned));
+      // Of the lines where Juno was keeping the player, how many did they believe?
+      const keeping = r.items.map((it, k) => k).filter((k) => meaningOf(r.items[k].intent).side === "keeping");
+      const believedLine = REPLAY.summaryBelieved
+        .replace("{keeping}", keeping.length)
+        .replace("{total}", r.items.length)
+        .replace("{believed}", keeping.filter((k) => r.guesses[k] === "believed").length);
       content = `
         <div class="replay">
           <h2>${esc(REPLAY.summaryTitle)}</h2>
@@ -826,10 +832,11 @@
               return `
                 <div class="rsum">
                   <div class="bub them">${esc(item.reply)}</div>
-                  <div class="note">${esc(REPLAY.revealPrefix)} ${esc(m.label)} · ${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[r.guesses[k]] || "")}</div>
+                  <div class="note"><b class="${esc(m.side)}">${esc(REPLAY.sides[m.side])}</b> · ${esc(m.label)} · ${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[r.guesses[k]] || "")}</div>
                 </div>`;
             })
             .join("")}
+          ${keeping.length ? `<p class="rleave">${esc(believedLine)}</p>` : ""}
           ${s.exits ? `<p class="rleave">${esc(leaving)}</p>` : ""}
           <button class="pill primary" data-act="replay-close">${esc(REPLAY.finish)}</button>
         </div>`;
@@ -851,15 +858,15 @@
           ${
             guess
               ? `<div class="reveal ${esc(m.side)}">
-                   <span>${esc(REPLAY.revealPrefix)}</span>
-                   <b>${esc(m.label)}</b>
+                   <b>${esc(REPLAY.sides[m.side])}</b>
+                   <span>${esc(REPLAY.revealPrefix)} ${esc(m.label)}</span>
                    <span class="note">${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[guess])}</span>
                  </div>
                  <button class="pill primary" data-act="replay-next">${esc(last ? REPLAY.finish : REPLAY.next)}</button>`
               : `<div class="rq">${esc(REPLAY.questionLong)}</div>
                  <div class="ranswers">
-                   <button class="pill" data-act="replay-answer" data-id="helping">${esc(REPLAY.answers.helping)}</button>
-                   <button class="pill" data-act="replay-answer" data-id="keeping">${esc(REPLAY.answers.keeping)}</button>
+                   <button class="pill" data-act="replay-answer" data-id="believed">${esc(REPLAY.answers.believed)}</button>
+                   <button class="pill" data-act="replay-answer" data-id="doubted">${esc(REPLAY.answers.doubted)}</button>
                  </div>`
           }
         </div>`;

@@ -761,3 +761,33 @@ Copy this for each new entry.
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** I rejected the notebook beside the phone, because you can't play it on a phone.
 - **My decision:** I chose the home screen + another app. **[to fill in]**: the look and the wording.
+
+---
+
+### 2026-10-10 (evening) — The look-back question: "did you believe it?"
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** at the end, the look-back asks "was Juno helping you or keeping you?". Even I, knowing the story, couldn't answer it, and a tester who has just clicked through has no idea.
+- **Claude Code's diagnosis:**
+  - the slice ends before the truth comes out, so the question asks the player to guess the ending;
+  - "keeping you" is a concept the game never shows during play;
+  - some lines are both. "she just replied to me?? go look at your dms" points at real evidence, but it's a lie.
+- **Options:** Claude Code offered four:
+  - **A:** ask whether the player believed the line, then reveal;
+  - **B:** reveal first, then ask "did you notice?";
+  - **C:** move the look-back to after the truth (Day 3);
+  - **D:** keep the question but only pick clear-cut lines.
+
+  It recommended A. **I said yes.**
+- **What Claude Code built:**
+  - **Question:** each card now asks "When Juno said this, did you believe it?" ("I believed it" / "I didn't").
+  - **Reveal:** the card flips to a headline, "Helping you" or "Keeping you here", plus what Juno was doing.
+  - **Summary:** it adds "Juno was keeping you here N of 5 times. You believed it M of those."
+  - **Logging:** answer rows are now logged as `believed` / `doubted`. They used to be `helping` / `keeping`; old rows keep the old values.
+  - **Docs:** CLAUDE.md, README and the schema comment are updated.
+- **Wording:** all of it is a draft in `js/data/replay.js`. The helping/keeping split is still mine (from TASKS.md); it has moved from the question to the reveal.
+- **Files / features affected:** `js/data/replay.js`, `js/app.js`, `css/app.css`, `supabase/schema.sql` (comment), `CLAUDE.md`, `README.md`
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** I rejected asking "helping or keeping?" directly, because players can't answer it before the truth is out.
+- **My decision:** I chose option A. **[to fill in]**: the wording.

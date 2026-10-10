@@ -16,6 +16,13 @@
   const RECENT_TURNS = 6;            // how much of the thread the model gets to see
 
   const app = document.getElementById("app");
+  const notebookRoot = document.getElementById("notebook");
+  const hudRoot = document.getElementById("hud");
+
+  // Phone-sized screen: the notebook slides over the phone instead of sitting beside it.
+  function compact() {
+    return window.matchMedia("(max-width: 860px)").matches;
+  }
 
   const State = {
     view: "lock",          // lock | chats | juno | rachel | dani | profile | saved | settings
@@ -38,8 +45,10 @@
     sentWhileAway: false,  // Juno already sent one line while the player was on another screen
     heldForReturn: false,  // the script is waiting for the player to come back to Juno's thread
     banner: null,          // {text}: a notification from Juno at the top of the screen, outside Juno's thread
-    onboarded: false,      // the "New in Orbit" sheet has been seen
-    sheet: null,           // "whatsnew" while that sheet is open
+    onboarded: false,      // the player has opened the app once (the lock screen's older notices go)
+    notebookOpen: false,   // phone-sized screens: the notebook is sliding over the phone
+    clipsSeen: 0,          // clippings the player has seen in the notebook (the rest are "new")
+    comparedOnce: false,   // the player has used Compare at least once
     clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
     presenter: /[?&]director\b/.test(location.search), // index.html?director shows the Director's choices
     memories: MEMORIES_DAY1.slice(),
@@ -128,15 +137,35 @@
     return State.saved.indexOf(id) !== -1;
   }
 
+  // Clipping is the player's own act, part of the notebook (game layer), not an Orbit feature.
   function saveCard(id) {
     if (isSaved(id)) {
       State.saved = State.saved.filter((x) => x !== id);
-      toast("Removed from Saved");
+      State.clipsSeen = Math.min(State.clipsSeen, State.saved.length);
+      toast(ONBOARDING.unclipped);
     } else {
       State.saved.push(id);
-      toast("Saved");
+      if (!compact()) State.clipsSeen = State.saved.length; // the notebook is already on screen
+      toast(ONBOARDING.clipped);
     }
     render();
+  }
+
+  function openNotebook() {
+    State.notebookOpen = true;
+    State.clipsSeen = State.saved.length;
+    render();
+  }
+
+  function closeNotebook() {
+    State.notebookOpen = false;
+    State.selection = [];
+    State.sentWhileAway = false;
+    render();
+    if (State.view === "juno" && State.heldForReturn) {
+      State.heldForReturn = false;
+      runScript();
+    }
   }
 
   /* ---------------- script runner ---------------- */
@@ -242,7 +271,8 @@
       case "juno": {
         // Away from Juno's thread, Juno sends one line as a nudge, then waits for the player
         // to come back. On the lock screen the Leave notification does that job, so nothing is sent.
-        if (State.view !== "juno") {
+        const covered = State.notebookOpen && compact(); // the notebook is over the phone
+        if (State.view !== "juno" || covered) {
           if (State.view === "lock" || State.sentWhileAway) {
             State.heldForReturn = true;
             return;
@@ -415,8 +445,9 @@
       (p) => p.cards.indexOf(a) !== -1 && p.cards.indexOf(b) !== -1
     );
     State.selection = [];
+    State.comparedOnce = true;
     if (!hit) {
-      toast("Those two don't say anything together");
+      toast(ONBOARDING.notebook.noMatch);
       render();
       return;
     }
@@ -491,9 +522,9 @@
       ${tabbar("chats")}`;
   }
 
-  function bubble(m) {
+  function bubble(m, i) {
     if (m.from === "system") return `<div class="sys">${esc(m.text)}</div>`;
-    const cls = m.from === "me" ? "me" : "them";
+    const cls = (m.from === "me" ? "me" : "them") + (i >= (render._seenLog || 0) ? " enter" : "");
     const tag =
       State.presenter && m.meta
         ? `<div class="dtag">${esc(m.meta.intent)} · ${esc(m.meta.rule)} · ${esc(m.meta.source)}</div>`
@@ -502,13 +533,12 @@
   }
 
   function viewJuno() {
-    const msgs = State.log.map(bubble).join("");
+    const msgs = State.log.map((m, i) => bubble(m, i)).join("");
     const typing = State.typing
       ? '<div class="dots" aria-label="Juno is typing"><i></i><i></i><i></i></div>'
       : "";
-    const hint = State.waiting
-      ? `<button class="hintcard" data-act="hint">${esc(State.waiting.hint)}</button>`
-      : State.ended
+    // What to do next lives in the notebook / floating bar (game layer), not in Juno's thread.
+    const hint = State.ended
       ? `<button class="hintcard" data-act="replay-start">${esc(REPLAY.entryLabel)}</button>`
       : "";
 
@@ -555,11 +585,11 @@
       rows.push(
         `<div class="bub ${cls}${saveId ? " saveable" : ""}">${esc(m.text)}${time}${
           saveId
-            ? `<button class="save${isSaved(saveId) ? " on" : ""}${key ? " pulse" : ""}" data-act="save" data-id="${saveId}" aria-label="Save to Saved">⚑</button>`
+            ? `<button class="save${isSaved(saveId) ? " on" : ""}${key ? " pulse" : ""}" data-act="save" data-id="${saveId}" aria-label="Clip to notebook">${ONBOARDING.clip}</button>`
             : ""
         }</div>`
       );
-      if (key && !State.saved.length) rows.push(`<div class="coach">${esc(ONBOARDING.coachSave)}</div>`);
+      if (key && !State.saved.length) rows.push(`<div class="coach">${esc(ONBOARDING.coachClip)}</div>`);
     });
 
     return `
@@ -601,7 +631,7 @@
         <div class="deleted">
           This account has been deleted.
           <button class="save${isSaved("profile-deleted") ? " on" : " pulse"}" data-act="save" data-id="profile-deleted"
-                  style="position:static;margin-left:8px;display:inline-grid" aria-label="Save to Saved">⚑</button>
+                  style="position:static;margin-left:8px;display:inline-grid" aria-label="Clip to notebook">${ONBOARDING.clip}</button>
         </div>
         <div class="grid">
           ${p.posts
@@ -623,7 +653,7 @@
              <div>“quiet”</div>
              <div style="font-size:12px;color:#a9a49a">Posted two days after this account was deleted.</div>
              <div style="display:flex;gap:8px;margin-top:6px">
-               <button class="pill primary" data-act="save" data-id="post-bench">${isSaved("post-bench") ? "Saved" : "Save this"}</button>
+               <button class="save inline${isSaved("post-bench") ? " on" : ""}" data-act="save" data-id="post-bench" aria-label="Clip to notebook">${ONBOARDING.clip}</button>
                <button class="pill" data-act="close-post" style="color:#f3f1ec;border-color:#4a4843">Close</button>
              </div>
            </div>`
@@ -649,14 +679,16 @@
       ${tabbar("chats")}`;
   }
 
-  function viewSaved() {
+  // The game layer: everything the player keeps and works out. Rendered beside the phone, or over it.
+  function viewNotebook() {
+    const N = ONBOARDING.notebook;
     const cards = State.saved
       .map((id) => {
         const e = EVIDENCE[id];
         if (!e) return "";
         const on = State.selection.indexOf(id) !== -1;
         return `
-          <button class="card ${e.kind === "system" ? "system" : ""}" aria-pressed="${on}"
+          <button class="clip ${e.kind === "system" ? "system" : ""}" aria-pressed="${on}"
                   data-act="select" data-id="${esc(id)}">
             <b>${esc(e.title)}</b>
             <div class="body">${esc(e.body)}</div>
@@ -665,31 +697,72 @@
       })
       .join("");
 
-    const deductions = State.deductions
-      .map((id) => {
-        const d = PAIRS.find((p) => p.id === id);
-        return `<div class="deduction"><span class="label">Noted</span><div>${esc(d.text)}</div></div>`;
-      })
-      .join("");
+    const know = State.deductions.length
+      ? State.deductions
+          .map((id) => `<li>${esc(PAIRS.find((p) => p.id === id).text)}</li>`)
+          .join("")
+      : `<li class="muted">${esc(N.knowEmpty)}</li>`;
 
-    const S = ONBOARDING.saved;
-    const connectBtn =
+    const help = !State.saved.length
+      ? N.empty
+      : State.saved.length === 1
+      ? N.needTwo
+      : State.selection.length === 1
+      ? N.picked
+      : N.pick;
+
+    const compareBtn =
       State.selection.length === 2
-        ? `<button class="pill primary" data-act="connect" style="align-self:center">${esc(S.compare)}</button>`
+        ? `<button class="nb-btn${State.comparedOnce ? "" : " pulse"}" data-act="connect">${esc(N.compare)}</button>`
         : "";
 
-    const empty = !State.saved.length
-      ? `<div class="empty">${esc(S.empty)}</div>`
-      : State.saved.length === 1
-      ? `<div class="savedhint">${esc(S.needTwo)}</div>`
-      : `<div class="savedhint">${esc(State.selection.length === 1 ? S.picked : S.pick)}</div>`;
+    const next = State.waiting
+      ? `<section class="nb-next">
+           <h3>${esc(N.next)}</h3>
+           <button data-act="hint">${esc(State.waiting.hint)} →</button>
+         </section>`
+      : "";
 
     return `
-      ${topbar("Saved", "", false)}
-      <div class="body">
-        <div class="cards">${empty}${cards}${connectBtn}${deductions}</div>
+      <div class="nb-head">
+        <h2>${esc(N.title)}</h2>
+        <button class="nb-close" data-act="notebook-close" aria-label="${esc(N.close)}">✕</button>
       </div>
-      ${tabbar("saved")}`;
+      <div class="nb-body" id="nbscroll">
+        ${next}
+        <section>
+          <h3>${esc(N.clippings)}</h3>
+          <p class="nb-help">${esc(help)}</p>
+          <div class="clips">${cards}</div>
+          ${compareBtn}
+        </section>
+        <section>
+          <h3>${esc(N.know)}</h3>
+          <ul class="know">${know}</ul>
+        </section>
+      </div>`;
+  }
+
+  // Phone-sized screens only: the notebook button, and what to do next, floating over the phone.
+  function viewHud() {
+    // A strip above the phone, never over it, so it can't cover anything Orbit shows.
+    // Kept while the drawer is open (it's underneath) so the phone doesn't change size.
+    if (!compact() || State.view === "lock" || State.view === "replay") return "";
+    const fresh = State.saved.length - State.clipsSeen;
+    const nudge = State.saved.length >= 2 && !State.deductions.length && fresh > 0;
+    return `
+      <div class="hud">
+        <button class="hud-nb${fresh > 0 ? " pulse" : ""}" data-act="notebook-open">
+          ${esc(ONBOARDING.notebook.title)}${fresh > 0 ? `<span class="hud-badge">${fresh}</span>` : ""}
+        </button>
+        ${
+          nudge
+            ? `<button class="hud-tip" data-act="notebook-open">${esc(ONBOARDING.coachCompare)}</button>`
+            : State.waiting
+            ? `<button class="hud-next" data-act="hint">${esc(ONBOARDING.notebook.next)}: ${esc(State.waiting.hint)}</button>`
+            : ""
+        }
+      </div>`;
   }
 
   function viewSettings() {
@@ -794,26 +867,6 @@
     return `${topbar(REPLAY.title, sub, true)}<div class="body">${content}</div>`;
   }
 
-  function viewWhatsNew() {
-    const w = ONBOARDING.whatsNew;
-    return `
-      <div class="sheet-wrap">
-        <div class="sheet" role="dialog" aria-label="${esc(w.title)}">
-          <h2>${esc(w.title)}</h2>
-          ${w.items
-            .map(
-              (it) => `
-            <div class="feat">
-              <div class="ficon">${esc(it.icon)}</div>
-              <div><b>${esc(it.head)}</b><div>${esc(it.body)}</div></div>
-            </div>`
-            )
-            .join("")}
-          <button class="pill primary" data-act="whatsnew-ok">${esc(w.button)}</button>
-        </div>
-      </div>`;
-  }
-
   /* ---------------- chrome ---------------- */
 
   function topbar(title, sub, back) {
@@ -839,11 +892,9 @@
     const tab = (id, glyph, label) => `
       <button data-act="tab" data-id="${id}" aria-current="${active === id}">
         <span class="glyph">${glyph}</span>${label}
-        ${id === "saved" && State.saved.length ? `<span class="badge">${State.saved.length}</span>` : ""}
       </button>`;
     return `<div class="tabbar">
       ${tab("chats", "◎", "Chats")}
-      ${tab("saved", "⚑", "Saved")}
       ${tab("settings", "⚙", "Settings")}
     </div>`;
   }
@@ -858,18 +909,18 @@
       rachel: viewRachel,
       dani: viewDani,
       profile: viewProfile,
-      saved: viewSaved,
       settings: viewSettings,
       replay: viewReplay,
     };
-    // The whole screen is rebuilt on every render, so remember where Rachel's thread was scrolled.
+    // The whole screen is rebuilt on every render, so remember where scrollable panes were.
     const oldHistory = document.getElementById("history");
     const keptScroll = oldHistory ? oldHistory.scrollTop : null;
+    const oldNb = document.getElementById("nbscroll");
+    const keptNb = oldNb ? oldNb.scrollTop : 0;
 
     app.innerHTML =
       (views[State.view] || viewChats)() +
       (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "") +
-      (State.sheet === "whatsnew" ? viewWhatsNew() : "") +
       (State.banner && State.view !== State.banner.from && State.view !== "lock"
         ? `<button class="banner" data-act="open-banner">
              <div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>
@@ -877,8 +928,23 @@
            </button>`
         : "");
 
+    // The game layer, outside the phone.
+    notebookRoot.innerHTML = viewNotebook();
+    notebookRoot.classList.toggle("open", State.notebookOpen);
+    hudRoot.innerHTML = viewHud();
+    const nb = document.getElementById("nbscroll");
+    if (nb) nb.scrollTop = keptNb;
+
+    // A new screen slides in; staying on the same screen doesn't re-animate it.
+    if (render._lastView !== State.view) {
+      app.classList.remove("view-enter");
+      void app.offsetWidth; // restart the animation
+      app.classList.add("view-enter");
+    }
+
     const scroller = document.getElementById("scroller");
     if (scroller) scroller.scrollTop = scroller.scrollHeight;
+    if (State.view === "juno") render._seenLog = State.log.length;
 
     // Rachel's thread opens on her latest message, like any chat app, but only on arrival:
     // saving an older message shouldn't jump the page.
@@ -892,7 +958,7 @@
 
   /* ---------------- events ---------------- */
 
-  app.addEventListener("click", (e) => {
+  document.addEventListener("click", (e) => {
     const el = e.target.closest("[data-act]");
     if (!el) return;
     const act = el.dataset.act;
@@ -911,17 +977,15 @@
       }
       case "open-notice":
         State.notice = null;
-        go("juno", "notification");
-        if (!State.onboarded) {
-          State.sheet = "whatsnew"; // the script starts once it's dismissed
-          render();
-        } else runScript();
-        break;
-      case "whatsnew-ok":
         State.onboarded = true;
-        State.sheet = null;
-        render();
+        go("juno", "notification");
         runScript();
+        break;
+      case "notebook-open":
+        openNotebook();
+        break;
+      case "notebook-close":
+        closeNotebook();
         break;
       case "unlock":
         go("chats");
@@ -976,9 +1040,13 @@
       }
       case "hint": {
         const until = State.waiting ? State.waiting.until : "";
-        if (until.indexOf("deduction:") === 0) go("saved", "hint");
-        else if (until === "deletedFound") go("profile", "hint");
-        else go("rachel", "hint");
+        if (until.indexOf("deduction:") === 0) {
+          if (compact()) openNotebook(); // beside the phone on wide screens, already open
+        } else {
+          if (State.notebookOpen) closeNotebook();
+          if (until === "deletedFound") go("profile", "hint");
+          else go("rachel", "hint");
+        }
         break;
       }
       case "leave":
@@ -1025,7 +1093,7 @@
     }
   });
 
-  app.addEventListener("keydown", (e) => {
+  document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter") return;
     const input = document.getElementById("entry");
     if (input && document.activeElement === input && input.value.trim()) {

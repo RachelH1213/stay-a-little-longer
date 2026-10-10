@@ -1,34 +1,38 @@
-/* How a first-time player learns where they are and how the app works — all as app furniture,
-   never as a game tutorial. Edit freely — this file is wording, not logic.
+/* Wording for the game layer and first-time help. Edit freely — this file is wording, not logic.
 
-   DRAFT, written by Claude Code (2026-10-08) after the author found the opening confusing.
+   The phone is Orbit and stays real app furniture. The notebook beside it (or sliding over it on
+   a phone) is the player's own game layer: clippings, comparing them, what they know, what to do
+   next. Game words are allowed there, never inside the phone.
+
+   DRAFT, written by Claude Code (2026-10-08, reworked 2026-10-10 for the notebook layer).
    [author] Every string here is a placeholder for the author's own wording. */
 
 const ONBOARDING = {
-  // A: older notifications under Juno's on the lock screen, so the player starts with context.
+  // Inside the phone, first launch only: older notifications under Juno's on the lock screen.
   // `fromHistory` copies a message from rachel-history.js exactly (her punctuation is clue 3).
   lockPast: [
     { from: "rachel", when: "last week", fromHistory: "i might go quiet for a bit" },
   ],
 
-  // B: shown once, the first time the player opens the app, like a real app's "what's new" sheet.
-  whatsNew: {
-    title: "New in Orbit",
-    items: [
-      { icon: "⚑", head: "Save", body: "Tap the flag on a message or a screen to keep it in Saved." },
-      { icon: "⇄", head: "Compare", body: "In Saved, pick two things to see how they fit together." },
-      { icon: "J", head: "Juno", body: "Your companion is here whenever you want to talk." },
-    ],
-    button: "Got it",
-  },
-
-  // C: help at the moment it's needed.
-  coachSave: "Tap ⚑ to save this",
-  saved: {
-    empty: "Nothing saved yet.\nTap ⚑ on a message or a screen to keep it here.",
-    needTwo: "Save one more thing to compare.",
-    pick: "Pick two to compare",
+  // The game layer.
+  notebook: {
+    title: "Notebook",
+    next: "Next",
+    clippings: "Clippings",
+    know: "What I know",
+    empty: "Nothing clipped yet.\nTap 📎 on a message or a screen in the phone to keep it here.",
+    needTwo: "Clip one more thing, then compare them.",
+    pick: "Pick two clippings that don't fit together.",
     picked: "1 of 2 picked",
     compare: "Compare",
+    noMatch: "Those two don't say anything together.",
+    knowEmpty: "Nothing yet.",
+    close: "Back to the phone",
   },
+
+  clip: "📎",
+  clipped: "Clipped to your notebook",
+  unclipped: "Removed from your notebook",
+  coachClip: "Clip this to your notebook",      // first time evidence appears in the phone
+  coachCompare: "Two clippings — compare them",  // first time the player has two clippings
 };

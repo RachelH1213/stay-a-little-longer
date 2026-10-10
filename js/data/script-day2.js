@@ -47,7 +47,7 @@ const SCRIPT_DAY2 = [
   { type: "player", options: ["her account is deleted", "when did you last actually see her online?"] },
   { type: "juno", text: "what? no. it loads fine for me", means: "deflect" },
   { type: "juno", text: "...ok it doesn't load for me either. that's weird", means: "give_clue" },
-  { type: "wait", hint: "Two things you saved don't fit together. Open Saved.", until: "deduction:deleted-replied" },
+  { type: "wait", hint: "Two things you clipped don't fit together. Open your notebook.", until: "deduction:deleted-replied" }, // reworded 2026-10-10 for the notebook (was "...you saved... Open Saved.")
   { type: "juno", text: "ok before you say it" },
   { type: "juno", text: "deletion takes a while to sync. it's a known thing, it happens all the time", means: "deflect" },
   { type: "juno", text: "her message came through an hour ago. deleted people don't send messages" },

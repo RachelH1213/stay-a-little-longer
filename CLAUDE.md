@@ -26,7 +26,7 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 
 **Leaving (built, content is a draft):** Leave in Juno's thread locks the phone (`leaveJuno()` in `js/app.js`). After `LEAVING.delayMs`, Juno sends a message through the Director (`js/data/leaving.js` holds the default intent, facts and fallback); it shows as a lock-screen notification, or a toast if the player already unlocked. Every exit and every return to Juno's thread is logged (`exit` / `return` rows, return `via` notification or chats).
 
-**Notebook, the game layer (built, look and wording are a draft):** the phone is Orbit and stays real app furniture; evidence lives outside it, in the player's notebook (`#notebook` beside the phone, `viewNotebook()` in `js/app.js`, wording in `js/data/onboarding.js`). On a wide screen it sits next to the phone; at ≤860px it is a drawer opened from the `#hud` button above the phone (`viewHud()`), which also carries a badge for new clippings and the "Next" hint. The 📎 button on messages, the profile and posts clips evidence (`saveCard()`); the notebook shows Clippings, Compare (pick two) and What I know, plus Next while the script waits. Teaching happens where it's needed: the 📎 on evidence the story needs pulses with a one-time "Clip this" tip, the HUD says "compare them" the first time there are two clippings, and Compare pulses until first used. While the drawer covers the phone, Juno's lines are held as if the player were away. On first launch the lock screen also shows Rachel's last real message as an older notification (`State.onboarded` = the app has been opened once). Rachel's thread opens on her latest message and keeps its scroll across renders.
+**Home screen and Notes (built, look and wording are a draft):** the phone has a home screen (`viewHome()` in `js/app.js`) with two apps: Orbit, and the player's own **Notes** (`viewNotes()`). Nothing sits outside the phone; on a phone the whole screen is the game. A home bar under every app (`homebar()`) goes home on a tap or a swipe up; Orbit reopens where the player left it (`State.orbitView`). The 📎 button on messages, the profile and posts adds evidence to Notes (`saveCard()`); Notes holds the current to-do (the script's wait hint), the items from Orbit, Compare (pick two) and What I know. Teaching happens where it's needed: the 📎 on evidence the story needs pulses with a one-time "Add this to Notes" tip, the Notes icon carries a badge for new items and an unread to-do, a tip above the home bar ("Swipe up for Home, then open Notes") shows while there's an unread to-do, and Compare pulses until first used. Home and Notes count as "away from Juno's thread" (one nudge banner, then hold). Wording in `js/data/onboarding.js`. On first launch the lock screen also shows Rachel's last real message as an older notification (`State.onboarded`). Rachel's thread opens on her latest message and keeps its scroll across renders.
 
 **Pacing:** after every Juno line there is a reading pause (`readPause()`, ~0.6–2.2s by length) before the next line starts typing, so lines never pile up. A `notify` script step shows Rachel's reply as a banner (text and time taken from `rachel-history.js`, so it always matches her thread); tapping it opens her chat, and her row stays unread until then (`flags.rachelNotified`).
 
@@ -39,7 +39,7 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 ## Structure
 
 ```
-index.html            the whole app shell, one page: the phone (#app), the notebook (#notebook), the phone HUD (#hud)
+index.html            the whole app shell, one page: the phone (#app)
 css/app.css           all styles; design tokens live at the top
 js/app.js             state, routing, rendering, the script runner
 js/data/app-data.js   contacts, profile, settings, saved-card definitions
@@ -49,7 +49,7 @@ js/data/truth.js            the truth graph: every fact, its kind, day, intents,
 js/data/director-rules.js   which intent Juno picks when (story, not logic)
 js/data/leaving.js          what happens when the player leaves Juno: delay, message, lock-screen text
 js/data/replay.js           the look-back's wording, and which intent counts as helping or keeping
-js/data/onboarding.js       notebook (game layer) wording, clip tips, lock-screen context
+js/data/onboarding.js       home screen and Notes wording, add-to-Notes tips, lock-screen context
 js/replay.js                Replay.pick(rows, n), Replay.summary(rows): the look-back, built from the log
 js/director.js              Director.decide(step, State) -> {intent, allowedFacts, rule}
 api/reply.js, api/_persona.js   the model layer
@@ -62,9 +62,9 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 
 ## Conventions
 
-- **The phone is always real app furniture; the notebook outside it is the player's game layer.** Nothing inside the phone may use game vocabulary (no score, no "chapter", no tutorial, no title screen). Words like "clip", "compare" and "next" belong in the notebook or the HUD only. (Changed 2026-10-10, the author's choice of direction 2.)
+- **Everything is phone furniture, and nothing sits outside the phone.** No score, no "chapter", no tutorial, no title screen. Orbit only has what a real social app would have; the investigating (keeping evidence, comparing, the to-do) happens in the player's own Notes app on the same phone. (Changed 2026-10-10: first a notebook beside the phone, then, at the author's call, a home screen + Notes app, because a panel outside the phone doesn't work when the game is played on a phone.)
 - Phone-first. Test at 390px wide.
-- Evidence is clipped with the 📎 button into the notebook. The case board is the notebook, with comparing.
+- Evidence is added to Notes with the 📎 button. The case board is Notes, with comparing.
 - Rachel never uses full stops in her own messages. Anything written by Juno as Rachel is punctuated. Keep this consistent — it is clue 3 and it breaks silently if someone "fixes the typos".
 - Times in the fiction are fixed strings, not `new Date()`, so screenshots stay reproducible.
 
@@ -72,10 +72,10 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 
 `State` in `js/app.js` holds everything:
 
-- `view`, `params` — current screen
+- `view`, `params` — current screen (`lock`, `home`, `notes` are the phone; the rest are Orbit)
 - `day` — in-game day; facts in the truth graph unlock by day
 - `step` — position in the day script
-- `saved[]` — evidence card ids the player clipped to the notebook
+- `saved[]` — evidence card ids the player added to Notes
 - `deductions[]` — pairs the player has solved
 - `exits` — times the player has left Juno's thread
 - `away` — set while the player is out of Juno's thread, cleared when they come back
@@ -86,8 +86,8 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - `sentWhileAway`, `heldForReturn` — Juno's one line while the player is elsewhere, and the hold until they return
 - `banner` — a message from Juno or Rachel shown at the top of other screens, or null
 - `onboarded` — the player has opened the app once (hides the older lock-screen notification)
-- `notebookOpen` — the notebook drawer is open (phone widths only)
-- `clipsSeen` — clippings the player has already seen in the notebook (the HUD badge counts the rest)
+- `orbitView` — the Orbit screen to reopen from the home screen
+- `clipsSeen`, `todoSeen` — what the player has already seen in Notes (the Notes badge counts the rest)
 - `comparedOnce` — Compare has been used once, so it stops pulsing
 - `clock` — lock-screen time; set from each `memory` step's timestamp
 - `presenter` — true when the page is opened as `index.html?director`: every Juno line shows its intent · rule · source (for demos; players never see it)

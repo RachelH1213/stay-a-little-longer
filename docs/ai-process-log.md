@@ -715,3 +715,48 @@ Copy this for each new entry.
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
 - **My decision:** I chose direction 2 and approved the polish. **[to fill in]**: the notebook's look and wording.
+
+---
+
+### 2026-10-10 (later) — Home screen + Notes app instead of the notebook; fixing the bounce
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:**
+  - The notebook beside the phone doesn't work on a phone. There, the whole screen is the game, and an extra panel or strip leaves no room to play.
+  - Every tap made the whole chat jump and flash.
+- **Options:** Claude Code listed five other places for the evidence system:
+  - taking screenshots;
+  - a phone home screen with another app;
+  - a sticky-note tab at the screen edge;
+  - showing the evidence to Juno;
+  - different layouts for desktop and phone.
+
+  It recommended screenshots plus the home screen. **I chose the home screen + another app.**
+- **What Claude Code built:**
+  - **Home screen:** the phone now has one, with two apps: Orbit and my own Notes. The notebook panel and the top strip are removed, so nothing sits outside the phone.
+  - **Home bar:** a bar under every app goes home on a tap or a swipe up. Orbit reopens where I left it.
+  - **Notes:** 📎 in Orbit now means "Add to Notes". Notes holds the to-do (the script's wait hint), the items from Orbit, Compare and What I know.
+  - **Teaching in place:**
+    - the 📎 on needed evidence pulses with a one-time "Add this to Notes" tip;
+    - the Notes icon has a badge for new items and an unread to-do;
+    - while there's an unread to-do, a tip above the home bar says "Swipe up for Home, then open Notes".
+  - **Juno:** being on the home screen or in Notes counts as away from Juno (one banner, then hold).
+  - **CLAUDE.md:** the convention now says nothing sits outside the phone, and the investigating happens in Notes. This is Claude Code's wording of my choice.
+- **The bounce, cause and fix:** the screen is rebuilt on every tap. The "slide in" class added for a new screen was never removed, so every rebuild played the slide-in again. It's now removed on the next render.
+- **Placeholder:** the home screen and Notes look are Claude Code's placeholder. All wording in `js/data/onboarding.js` is a draft.
+- **Testing (Chromium at 390px and 1280px):**
+  - nothing renders outside the phone;
+  - the tip and pulse appear;
+  - the slide-in doesn't replay on a re-render;
+  - badges show on the home screen;
+  - items appear in Notes;
+  - Orbit reopens where it was;
+  - the home-bar tip and the to-do appear;
+  - a swipe up goes home;
+  - Compare adds to What I know;
+  - Juno's nudge banner arrives while I'm in Notes, and the rest follow on return.
+- **Files / features affected:** `index.html`, `js/app.js`, `css/app.css`, `js/data/onboarding.js` (rewritten), `supabase/schema.sql` (comment only: new `via` values), `CLAUDE.md`, `README.md`
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** I rejected the notebook beside the phone, because you can't play it on a phone.
+- **My decision:** I chose the home screen + another app. **[to fill in]**: the look and the wording.

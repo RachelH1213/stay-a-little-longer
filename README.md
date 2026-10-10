@@ -47,21 +47,21 @@ The secret key only lives on the server (`api/log.js`). The table has row level 
 
 ## What works right now
 
-- Lock screen, chat list, Juno's thread, Rachel's thread with a year of history, her profile, Settings; the notebook beside the phone
+- Lock screen, chat list, Juno's thread, Rachel's thread with a year of history, her profile, Settings; the phone's home screen and the player's Notes app
 - The Day 2 script up to the first deduction
-- Clipping evidence to the notebook, and comparing two clippings to reach a conclusion
+- Adding evidence to Notes, and comparing two items there to reach a conclusion
 - The profile that fails to load until you refresh it yourself
 
 ## Try this path
 
 1. Tap the notification on the lock screen.
 2. Talk to Juno until it tells you Rachel wrote back.
-3. Open Rachel's chat, read the new message, clip it with 📎.
+3. Open Rachel's chat, read the new message, add it to Notes with 📎.
 4. Go back, keep talking, then open her profile from her chat.
 5. The profile won't load. Hit **Try again** yourself.
-6. Clip the deleted-account notice.
-7. In the notebook (beside the phone, or the **Notebook** button above it on a phone), tap both clippings and **Compare**.
-8. Go back to Juno and hear the excuse.
+6. Add the deleted-account notice to Notes.
+7. Swipe up (or tap the bar at the bottom) for the home screen, open **Notes**, tap both items and **Compare**.
+8. Go home, open Orbit, back to Juno and hear the excuse.
 
 When the slice ends, tap **Look back at tonight** in Juno's thread. You get five of Juno's messages from your own playthrough. For each one you answer "helping you, or keeping you?", then see what Juno was actually doing.
 

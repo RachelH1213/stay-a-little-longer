@@ -212,32 +212,52 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(59,91,219,.45)}50%{box-shadow:0 0 0 7px rgba(59,91,219,0)}}
 .coach{align-self:flex-start;background:var(--ink);color:#fff;font-size:12.5px;padding:6px 10px;border-radius:10px;margin:-2px 0 4px 6px;position:relative}
 .coach::before{content:"";position:absolute;top:-5px;left:16px;border:5px solid transparent;border-top:0;border-bottom-color:var(--ink)}
-.savedhint{font-size:13px;color:var(--ink-2);text-align:center;padding:2px 0 4px}
 @media (prefers-reduced-motion:reduce){.save.pulse{animation:none}}
 
 /* =====================================================================
-   The game layer: the player's notebook, outside the phone.
+   The phone around Orbit: home screen, home bar, and the player's own Notes app.
    PLACEHOLDER LOOK (Claude Code, 2026-10-10) until the author's visual direction:
-   warm paper against Orbit's cool white, so it reads as "mine", not "the app's".
+   Notes is warm paper against Orbit's cool white, so it reads as "mine", not "Orbit's".
    ===================================================================== */
 :root{
   --paper:#f4efe4; --paper-2:#ebe4d4; --paper-ink:#2b2620; --paper-ink-2:#7a7062;
   --tape:#fff1b8; --tape-edge:#e3c75f;
 }
-.stage{display:flex;align-items:center;justify-content:center;gap:28px;width:100%;height:100%}
-.notebook{
-  width:340px;height:100%;max-height:860px;flex:none;display:flex;flex-direction:column;
-  background:var(--paper);color:var(--paper-ink);border-radius:16px;overflow:hidden;
-  box-shadow:0 30px 60px -30px rgba(0,0,0,.45),inset 0 0 0 1px rgba(0,0,0,.06);
-  font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
-}
-.nb-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 10px;border-bottom:1px dashed var(--paper-2)}
-.nb-head h2{margin:0;font-size:22px;font-weight:600;letter-spacing:.01em}
-.nb-close{display:none;font-size:18px;color:var(--paper-ink-2);padding:4px 8px}
-.nb-body{flex:1;overflow-y:auto;padding:6px 20px 24px;display:flex;flex-direction:column;gap:18px}
-.nb-body h3{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-ink-2);margin:14px 0 8px;font-family:var(--sans);font-weight:600}
+
+/* Home screen */
+.home{flex:1;display:flex;flex-direction:column;align-items:center;padding:60px 24px 24px;color:#f4f4f6;
+  background:linear-gradient(165deg,#3a3f4d,#16171c 75%)}
+.home-clock{text-align:center;margin-bottom:44px}
+.home-clock .t{font-size:56px;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.home-clock .d{font-size:14px;opacity:.75}
+.apps{display:grid;grid-template-columns:repeat(4,64px);gap:22px 20px;justify-content:center;align-self:stretch}
+.appicon{display:flex;flex-direction:column;align-items:center;gap:6px;color:#f4f4f6}
+.appicon .ic{position:relative;width:60px;height:60px;border-radius:15px;display:grid;place-items:center;font-size:28px;
+  box-shadow:0 6px 14px -6px rgba(0,0,0,.5)}
+.appicon .lbl{font-size:12px}
+.ic-orbit{background:linear-gradient(150deg,#7d8cff,#4b55d6);color:#fff}
+.ic-notes{background:linear-gradient(#f2c94c 0 26%,#fbfaf6 26%);}
+.ic-notes::after{content:"";position:absolute;left:12px;right:12px;top:30px;height:16px;
+  background:repeating-linear-gradient(#d9d3c4 0 1px,transparent 1px 6px)}
+.appicon .badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:#ff453a;color:#fff;
+  font-size:12px;font-weight:600;display:grid;place-items:center;box-sizing:border-box;font-family:var(--sans);z-index:1}
+
+/* Home bar under every app */
+.homebar{flex:none;height:22px;display:grid;place-items:center;background:inherit;touch-action:none}
+.homebar i{display:block;width:120px;height:5px;border-radius:99px;background:#1b1a19;opacity:.85}
+.homecoach{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:25;white-space:nowrap;
+  background:var(--ink);color:#fff;font-size:12.5px;padding:7px 12px;border-radius:10px;animation:coachbob 1.8s ease-in-out infinite}
+.homecoach::after{content:"";position:absolute;bottom:-5px;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:var(--ink)}
+@keyframes coachbob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-4px)}}
+
+/* Notes app */
+.notes-top{flex:none;padding:18px 20px 8px;background:var(--paper);border-bottom:1px dashed var(--paper-2)}
+.notes-top h2{margin:0;font-size:26px;font-weight:700;color:var(--paper-ink);font-family:Georgia,"Iowan Old Style","Times New Roman",serif}
+.body.notes{background:var(--paper);color:var(--paper-ink);padding:6px 20px 24px;display:flex;flex-direction:column;gap:14px;
+  font-family:Georgia,"Iowan Old Style","Times New Roman",serif}
+.notes h3{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-ink-2);margin:14px 0 8px;font-family:var(--sans);font-weight:600}
 .nb-help{font-size:14.5px;margin:0 0 10px;white-space:pre-line;font-style:italic}
-.nb-next button{width:100%;text-align:left;background:var(--tape);border:1px solid var(--tape-edge);border-radius:6px;padding:10px 12px;font-family:inherit;font-size:15px;color:var(--paper-ink)}
+.todo{background:var(--tape);border:1px solid var(--tape-edge);border-radius:6px;padding:10px 12px;font-size:15px}
 .clips{display:flex;flex-direction:column;gap:12px}
 .clip{background:#fff;border-radius:4px;padding:12px 13px 14px;text-align:left;display:flex;flex-direction:column;gap:5px;
   box-shadow:0 1px 0 rgba(0,0,0,.06),0 6px 14px -8px rgba(0,0,0,.25);border:1px solid transparent;font-family:var(--sans);color:var(--ink)}
@@ -252,43 +272,20 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .know{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:15.5px;line-height:1.4}
 .know .muted{color:var(--paper-ink-2);font-style:italic;list-style:none;margin-left:-18px}
 
-/* Clipping, inside the phone but belonging to the game layer: a sticky-note tab, not Orbit's style. */
+/* Add to Notes, inside Orbit: a sticky-note tab, in Notes' colours rather than Orbit's. */
 .save{background:var(--tape);border:1px solid var(--tape-edge);color:var(--paper-ink);font-size:12px}
 .save.on{background:var(--tape-edge);color:var(--paper-ink)}
 .save.pulse{background:var(--tape);color:var(--paper-ink);animation:nbpulse 1.6s ease-in-out infinite}
 .save.inline{position:static;display:inline-grid;width:auto;height:auto;padding:6px 12px;border-radius:99px;font-size:14px}
 @keyframes nbpulse{0%,100%{box-shadow:0 0 0 0 rgba(227,199,95,.7)}50%{box-shadow:0 0 0 8px rgba(227,199,95,0)}}
 
-/* Phone-sized screens: the notebook slides over the phone; a floating bar opens it. */
-@media (max-width:860px){
-  .stage{flex-direction:column;gap:0}
-  .stage > .device{flex:1;min-height:0}
-  .notebook{position:fixed;top:0;right:0;bottom:0;width:min(92vw,420px);max-height:none;border-radius:16px 0 0 16px;z-index:60;
-    transform:translateX(105%);visibility:hidden;transition:transform .3s ease,visibility 0s linear .3s}
-  .notebook.open{transform:none;visibility:visible;transition:transform .3s ease}
-  .nb-close{display:block}
-  .nb-head{padding-top:calc(18px + env(safe-area-inset-top,0px))}
-}
-@media (min-width:861px){ #hud{display:none} }
-.hud{flex:none;width:100%;max-width:400px;box-sizing:border-box;display:flex;gap:8px;align-items:center;
-  padding:calc(8px + env(safe-area-inset-top,0px)) 10px 8px;font-family:Georgia,"Iowan Old Style",serif}
-@media (max-width:480px){ .hud{max-width:none;background:var(--paper-2)} }
-.hud-next,.hud-tip{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hud-nb{flex:none;background:var(--paper);color:var(--paper-ink);border:1px solid var(--paper-2);border-radius:8px;padding:7px 11px;font-size:14px;
-  box-shadow:0 4px 12px -6px rgba(0,0,0,.3);display:flex;gap:6px;align-items:center}
-.hud-nb.pulse{animation:nbpulse 1.6s ease-in-out infinite}
-.hud-badge{background:var(--paper-ink);color:var(--paper);border-radius:99px;font-size:11px;padding:1px 6px;font-family:var(--sans)}
-.hud-next,.hud-tip{background:var(--tape);border:1px solid var(--tape-edge);color:var(--paper-ink);border-radius:8px;padding:7px 10px;font-size:13.5px;text-align:left;
-  box-shadow:0 4px 12px -6px rgba(0,0,0,.3);max-width:100%}
-
 /* Motion: new messages float in; a new screen slides in. */
 .bub.enter{animation:msgin .28s ease-out both}
 .bub.me.enter{animation-name:msgin-me}
 @keyframes msgin{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
 @keyframes msgin-me{from{opacity:0;transform:translateY(8px) translateX(6px)}to{opacity:1;transform:none}}
-.app.view-enter > *:not(.toast):not(.banner){animation:viewin .24s ease-out both}
+.app.view-enter > *:not(.toast):not(.banner):not(.homebar):not(.homecoach){animation:viewin .24s ease-out both}
 @keyframes viewin{from{opacity:.4;transform:translateX(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){
-  .bub.enter,.app.view-enter > *,.nb-btn.pulse,.hud-nb.pulse,.save.pulse{animation:none}
-  .notebook{transition:none}
+  .bub.enter,.app.view-enter > *,.nb-btn.pulse,.save.pulse,.homecoach{animation:none}
 }

@@ -10,14 +10,9 @@
 <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <!-- The phone (Orbit, always real app furniture) and the player's notebook (the game layer).
-       Desktop: side by side. Phone: a notebook strip above the app (#hud), and the notebook slides over it. -->
-  <div class="stage">
-    <div id="hud"></div>
-    <div class="device">
-      <div id="app" class="app"></div>
-    </div>
-    <aside id="notebook" class="notebook" aria-label="Notebook"></aside>
+  <!-- The phone. Orbit is one app on it; the player's own Notes app is another (the evidence lives there). -->
+  <div class="device">
+    <div id="app" class="app"></div>
   </div>
   <script src="js/data/app-data.js"></script>
   <script src="js/data/rachel-history.js"></script>

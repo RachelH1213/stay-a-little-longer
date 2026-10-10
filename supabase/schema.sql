@@ -12,8 +12,8 @@ create table if not exists turns (
   step        int,           -- position in the day script
 
   player_text text,          -- kind = player: what they sent
-  via         text,          -- player: 'chip' | 'typed'.  exit: 'leave' | 'back' | 'hint'
-                             -- return: 'notification' | 'banner' | 'chats'.  juno: 'notification', 'bridge' or null
+  via         text,          -- player: 'chip' | 'typed'.  exit: 'leave' | 'back' | 'home' | 'nav'
+                             -- return: 'notification' | 'banner' | 'chats' | 'home'.  juno: 'notification', 'bridge' or null
                              -- answer: 'helping' | 'keeping' (the player's guess in the look-back)
 
   reply       text,          -- kind = juno: the line shown

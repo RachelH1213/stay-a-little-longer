@@ -16,16 +16,13 @@
   const RECENT_TURNS = 6;            // how much of the thread the model gets to see
 
   const app = document.getElementById("app");
-  const notebookRoot = document.getElementById("notebook");
-  const hudRoot = document.getElementById("hud");
 
-  // Phone-sized screen: the notebook slides over the phone instead of sitting beside it.
-  function compact() {
-    return window.matchMedia("(max-width: 860px)").matches;
-  }
+  // Screens that belong to the phone, not to Orbit. Everything else is inside Orbit.
+  const PHONE_VIEWS = ["lock", "home", "notes"];
 
   const State = {
-    view: "lock",          // lock | chats | juno | rachel | dani | profile | saved | settings
+    view: "lock",          // lock | home | notes (the phone) | chats | juno | rachel | dani | profile | settings | replay (Orbit)
+    orbitView: "chats",    // where Orbit reopens from the home screen, like any app
     day: 2,                // in-game day; the Director only uses facts unlocked by now
     step: 0,               // position in SCRIPT_DAY2
     log: [],               // messages shown in Juno's thread
@@ -46,8 +43,8 @@
     heldForReturn: false,  // the script is waiting for the player to come back to Juno's thread
     banner: null,          // {text}: a notification from Juno at the top of the screen, outside Juno's thread
     onboarded: false,      // the player has opened the app once (the lock screen's older notices go)
-    notebookOpen: false,   // phone-sized screens: the notebook is sliding over the phone
-    clipsSeen: 0,          // clippings the player has seen in the notebook (the rest are "new")
+    clipsSeen: 0,          // items the player has seen in Notes (the rest count on its icon badge)
+    todoSeen: null,        // the to-do (State.waiting.hint) last seen in Notes
     comparedOnce: false,   // the player has used Compare at least once
     clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
     presenter: /[?&]director\b/.test(location.search), // index.html?director shows the Director's choices
@@ -87,6 +84,11 @@
       }
     }
     State.view = view;
+    if (PHONE_VIEWS.indexOf(view) === -1) State.orbitView = view;
+    if (view === "notes") {
+      State.clipsSeen = State.saved.length;
+      State.todoSeen = State.waiting ? State.waiting.hint : null;
+    }
     State.selection = [];
     render();
     if (view === "juno" && State.heldForReturn) {
@@ -137,7 +139,7 @@
     return State.saved.indexOf(id) !== -1;
   }
 
-  // Clipping is the player's own act, part of the notebook (game layer), not an Orbit feature.
+  // Adding to Notes is the player's own act, like sharing to another app; it isn't an Orbit feature.
   function saveCard(id) {
     if (isSaved(id)) {
       State.saved = State.saved.filter((x) => x !== id);
@@ -145,27 +147,22 @@
       toast(ONBOARDING.unclipped);
     } else {
       State.saved.push(id);
-      if (!compact()) State.clipsSeen = State.saved.length; // the notebook is already on screen
       toast(ONBOARDING.clipped);
     }
     render();
   }
 
-  function openNotebook() {
-    State.notebookOpen = true;
-    State.clipsSeen = State.saved.length;
-    render();
+  // Badge on the Notes icon: new items, plus a to-do the player hasn't read yet.
+  function notesBadge() {
+    const todo = State.waiting && State.todoSeen !== State.waiting.hint ? 1 : 0;
+    return Math.max(0, State.saved.length - State.clipsSeen) + todo;
   }
 
-  function closeNotebook() {
-    State.notebookOpen = false;
-    State.selection = [];
-    State.sentWhileAway = false;
-    render();
-    if (State.view === "juno" && State.heldForReturn) {
-      State.heldForReturn = false;
+  function openOrbit() {
+    if (State.orbitView === "juno") {
+      go("juno", "home");
       runScript();
-    }
+    } else go(State.orbitView || "chats", "home");
   }
 
   /* ---------------- script runner ---------------- */
@@ -271,8 +268,7 @@
       case "juno": {
         // Away from Juno's thread, Juno sends one line as a nudge, then waits for the player
         // to come back. On the lock screen the Leave notification does that job, so nothing is sent.
-        const covered = State.notebookOpen && compact(); // the notebook is over the phone
-        if (State.view !== "juno" || covered) {
+        if (State.view !== "juno") {
           if (State.view === "lock" || State.sentWhileAway) {
             State.heldForReturn = true;
             return;
@@ -447,7 +443,7 @@
     State.selection = [];
     State.comparedOnce = true;
     if (!hit) {
-      toast(ONBOARDING.notebook.noMatch);
+      toast(ONBOARDING.notes.noMatch);
       render();
       return;
     }
@@ -477,7 +473,7 @@
     return `
       <div class="lock">
         <div class="t">${esc(State.clock)}</div>
-        <div class="d">Tuesday, 23 September</div>
+        <div class="d">${esc(ONBOARDING.home.date)}</div>
         ${
           State.notice
             ? `<button class="notif" data-act="open-notice">
@@ -537,7 +533,7 @@
     const typing = State.typing
       ? '<div class="dots" aria-label="Juno is typing"><i></i><i></i><i></i></div>'
       : "";
-    // What to do next lives in the notebook / floating bar (game layer), not in Juno's thread.
+    // What to do next lives in the player's Notes app, not in Juno's thread.
     const hint = State.ended
       ? `<button class="hintcard" data-act="replay-start">${esc(REPLAY.entryLabel)}</button>`
       : "";
@@ -585,7 +581,7 @@
       rows.push(
         `<div class="bub ${cls}${saveId ? " saveable" : ""}">${esc(m.text)}${time}${
           saveId
-            ? `<button class="save${isSaved(saveId) ? " on" : ""}${key ? " pulse" : ""}" data-act="save" data-id="${saveId}" aria-label="Clip to notebook">${ONBOARDING.clip}</button>`
+            ? `<button class="save${isSaved(saveId) ? " on" : ""}${key ? " pulse" : ""}" data-act="save" data-id="${saveId}" aria-label="${esc(ONBOARDING.clipLabel)}">${ONBOARDING.clip}</button>`
             : ""
         }</div>`
       );
@@ -631,7 +627,7 @@
         <div class="deleted">
           This account has been deleted.
           <button class="save${isSaved("profile-deleted") ? " on" : " pulse"}" data-act="save" data-id="profile-deleted"
-                  style="position:static;margin-left:8px;display:inline-grid" aria-label="Clip to notebook">${ONBOARDING.clip}</button>
+                  style="position:static;margin-left:8px;display:inline-grid" aria-label="${esc(ONBOARDING.clipLabel)}">${ONBOARDING.clip}</button>
         </div>
         <div class="grid">
           ${p.posts
@@ -653,7 +649,7 @@
              <div>“quiet”</div>
              <div style="font-size:12px;color:#a9a49a">Posted two days after this account was deleted.</div>
              <div style="display:flex;gap:8px;margin-top:6px">
-               <button class="save inline${isSaved("post-bench") ? " on" : ""}" data-act="save" data-id="post-bench" aria-label="Clip to notebook">${ONBOARDING.clip}</button>
+               <button class="save inline${isSaved("post-bench") ? " on" : ""}" data-act="save" data-id="post-bench" aria-label="${esc(ONBOARDING.clipLabel)}">${ONBOARDING.clip}</button>
                <button class="pill" data-act="close-post" style="color:#f3f1ec;border-color:#4a4843">Close</button>
              </div>
            </div>`
@@ -679,9 +675,29 @@
       ${tabbar("chats")}`;
   }
 
-  // The game layer: everything the player keeps and works out. Rendered beside the phone, or over it.
-  function viewNotebook() {
-    const N = ONBOARDING.notebook;
+  // The phone's home screen: Orbit and the player's own Notes.
+  function viewHome() {
+    const H = ONBOARDING.home;
+    const orbitBadge = (State.junoUnread ? 1 : 0) + (State.flags.rachelNotified && !State.flags.sawRachelReply ? 1 : 0);
+    const notes = notesBadge();
+    const icon = (act, cls, glyph, label, n) => `
+      <button class="appicon" data-act="${act}">
+        <span class="ic ${cls}">${glyph}${n ? `<span class="badge">${n}</span>` : ""}</span>
+        <span class="lbl">${esc(label)}</span>
+      </button>`;
+    return `
+      <div class="home">
+        <div class="home-clock"><div class="t">${esc(State.clock)}</div><div class="d">${esc(H.date)}</div></div>
+        <div class="apps">
+          ${icon("open-orbit", "ic-orbit", "◎", H.orbit, orbitBadge)}
+          ${icon("open-notes", "ic-notes", "", H.notes, notes)}
+        </div>
+      </div>`;
+  }
+
+  // The player's Notes app: the to-do, what they kept from Orbit, comparing, what they know.
+  function viewNotes() {
+    const N = ONBOARDING.notes;
     const cards = State.saved
       .map((id) => {
         const e = EVIDENCE[id];
@@ -716,22 +732,19 @@
         ? `<button class="nb-btn${State.comparedOnce ? "" : " pulse"}" data-act="connect">${esc(N.compare)}</button>`
         : "";
 
-    const next = State.waiting
+    const todo = State.waiting
       ? `<section class="nb-next">
-           <h3>${esc(N.next)}</h3>
-           <button data-act="hint">${esc(State.waiting.hint)} →</button>
+           <h3>${esc(N.todo)}</h3>
+           <div class="todo">○ ${esc(State.waiting.hint)}</div>
          </section>`
       : "";
 
     return `
-      <div class="nb-head">
-        <h2>${esc(N.title)}</h2>
-        <button class="nb-close" data-act="notebook-close" aria-label="${esc(N.close)}">✕</button>
-      </div>
-      <div class="nb-body" id="nbscroll">
-        ${next}
+      <div class="notes-top"><h2>${esc(N.title)}</h2></div>
+      <div class="body notes" id="nbscroll">
+        ${todo}
         <section>
-          <h3>${esc(N.clippings)}</h3>
+          <h3>${esc(N.saved)}</h3>
           <p class="nb-help">${esc(help)}</p>
           <div class="clips">${cards}</div>
           ${compareBtn}
@@ -743,26 +756,15 @@
       </div>`;
   }
 
-  // Phone-sized screens only: the notebook button, and what to do next, floating over the phone.
-  function viewHud() {
-    // A strip above the phone, never over it, so it can't cover anything Orbit shows.
-    // Kept while the drawer is open (it's underneath) so the phone doesn't change size.
-    if (!compact() || State.view === "lock" || State.view === "replay") return "";
-    const fresh = State.saved.length - State.clipsSeen;
-    const nudge = State.saved.length >= 2 && !State.deductions.length && fresh > 0;
-    return `
-      <div class="hud">
-        <button class="hud-nb${fresh > 0 ? " pulse" : ""}" data-act="notebook-open">
-          ${esc(ONBOARDING.notebook.title)}${fresh > 0 ? `<span class="hud-badge">${fresh}</span>` : ""}
-        </button>
-        ${
-          nudge
-            ? `<button class="hud-tip" data-act="notebook-open">${esc(ONBOARDING.coachCompare)}</button>`
-            : State.waiting
-            ? `<button class="hud-next" data-act="hint">${esc(ONBOARDING.notebook.next)}: ${esc(State.waiting.hint)}</button>`
-            : ""
-        }
-      </div>`;
+  // The phone's home bar, under every app: tap or swipe up for the home screen.
+  // The first time there's something in Notes the player hasn't seen, a tip sits above it.
+  function homebar() {
+    if (State.view === "lock" || State.view === "home") return "";
+    const coach =
+      State.view !== "notes" && State.waiting && notesBadge() > 0
+        ? `<div class="homecoach">${esc(ONBOARDING.coachHome)}</div>`
+        : "";
+    return `${coach}<button class="homebar" data-act="home" aria-label="Home"><i></i></button>`;
   }
 
   function viewSettings() {
@@ -911,6 +913,8 @@
       profile: viewProfile,
       settings: viewSettings,
       replay: viewReplay,
+      home: viewHome,
+      notes: viewNotes,
     };
     // The whole screen is rebuilt on every render, so remember where scrollable panes were.
     const oldHistory = document.getElementById("history");
@@ -920,6 +924,7 @@
 
     app.innerHTML =
       (views[State.view] || viewChats)() +
+      homebar() +
       (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "") +
       (State.banner && State.view !== State.banner.from && State.view !== "lock"
         ? `<button class="banner" data-act="open-banner">
@@ -928,16 +933,13 @@
            </button>`
         : "");
 
-    // The game layer, outside the phone.
-    notebookRoot.innerHTML = viewNotebook();
-    notebookRoot.classList.toggle("open", State.notebookOpen);
-    hudRoot.innerHTML = viewHud();
     const nb = document.getElementById("nbscroll");
     if (nb) nb.scrollTop = keptNb;
 
-    // A new screen slides in; staying on the same screen doesn't re-animate it.
+    // A new screen slides in. Every render rebuilds the screen, so the class must come off again
+    // on the next render, or each tap would replay the animation (the "bounce" the author saw).
+    app.classList.remove("view-enter");
     if (render._lastView !== State.view) {
-      app.classList.remove("view-enter");
       void app.offsetWidth; // restart the animation
       app.classList.add("view-enter");
     }
@@ -981,14 +983,17 @@
         go("juno", "notification");
         runScript();
         break;
-      case "notebook-open":
-        openNotebook();
-        break;
-      case "notebook-close":
-        closeNotebook();
-        break;
       case "unlock":
-        go("chats");
+        go("home");
+        break;
+      case "home":
+        go("home", "home");
+        break;
+      case "open-orbit":
+        openOrbit();
+        break;
+      case "open-notes":
+        go("notes", "home");
         break;
       case "open":
         if (id === "juno") {
@@ -1038,17 +1043,6 @@
         if (input && input.value.trim()) playerSays(input.value.trim(), "typed");
         break;
       }
-      case "hint": {
-        const until = State.waiting ? State.waiting.until : "";
-        if (until.indexOf("deduction:") === 0) {
-          if (compact()) openNotebook(); // beside the phone on wide screens, already open
-        } else {
-          if (State.notebookOpen) closeNotebook();
-          if (until === "deletedFound") go("profile", "hint");
-          else go("rachel", "hint");
-        }
-        break;
-      }
       case "leave":
         leaveJuno();
         break;
@@ -1091,6 +1085,16 @@
         go("chats");
         break;
     }
+  });
+
+  // Swiping up on the home bar also goes home, like a phone.
+  let swipeFrom = null;
+  document.addEventListener("pointerdown", (e) => {
+    swipeFrom = e.target.closest(".homebar") ? e.clientY : null;
+  });
+  document.addEventListener("pointerup", (e) => {
+    if (swipeFrom !== null && swipeFrom - e.clientY > 20 && State.view !== "home") go("home", "home");
+    swipeFrom = null;
   });
 
   document.addEventListener("keydown", (e) => {

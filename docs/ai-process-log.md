@@ -755,6 +755,7 @@ Copy this for each new entry.
   - a swipe up goes home;
   - Compare adds to What I know;
   - Juno's nudge banner arrives while I'm in Notes, and the rest follow on return.
+  - The away, off-script, look-back, pacing and leave tests were updated for the home screen (unlocking now opens Home; Orbit reopens where I left it) and rerun. All pass.
 - **Files / features affected:** `index.html`, `js/app.js`, `css/app.css`, `js/data/onboarding.js` (rewritten), `supabase/schema.sql` (comment only: new `via` values), `CLAUDE.md`, `README.md`
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**

@@ -14,7 +14,7 @@ create table if not exists turns (
   player_text text,          -- kind = player: what they sent
   via         text,          -- player: 'chip' | 'typed'.  exit: 'leave' | 'back' | 'home' | 'nav'
                              -- return: 'notification' | 'banner' | 'chats' | 'home'.  juno: 'notification', 'bridge' or null
-                             -- answer: 'helping' | 'keeping' (the player's guess in the look-back)
+                             -- answer: 'believed' | 'doubted' (did the player believe that line; was 'helping' | 'keeping' before 2026-10-10)
 
   reply       text,          -- kind = juno: the line shown
   intent      text,          -- juno: the Director's intent, or a fixed line's `means` tag, or null

@@ -63,7 +63,7 @@ The secret key only lives on the server (`api/log.js`). The table has row level 
 7. Swipe up (or tap the bar at the bottom) for the home screen, open **Notes**, tap both items and **Compare**.
 8. Go home, open Orbit, back to Juno and hear the excuse.
 
-When the slice ends, tap **Look back at tonight** in Juno's thread. You get five of Juno's messages from your own playthrough. For each one you answer "helping you, or keeping you?", then see what Juno was actually doing.
+When the slice ends, tap **Look back at tonight** in Juno's thread. You get five of Juno's messages from your own playthrough. For each one you say whether you believed it at the time, then see what Juno was actually doing: helping you, or keeping you.
 
 **For demos:** open `index.html?director` and every line from Juno shows a small tag with what the Director chose (intent · rule · source). Type to Juno instead of tapping the suggestions to see the rules change her strategy. Tapping a suggestion never triggers a rule.
 

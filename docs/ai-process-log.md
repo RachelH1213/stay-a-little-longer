@@ -673,3 +673,45 @@ Copy this for each new entry.
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
 - **My decision:** I chose A, B and C. **[to fill in]**: the wording.
+
+---
+
+### 2026-10-10 — Splitting the phone from the game: the notebook layer
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** the "New in Orbit" sheet presented Save and Compare as app features, but they aren't things a real app would have; they're how the game is played. A card at the start also doesn't teach anything. Help should appear on the page where it's needed. The game also looks crude and lacks texture.
+- **Options:** I asked what changes if I loosen my CLAUDE.md rule ("everything the player sees is app furniture"). Claude Code described two directions: (1) keep everything in the phone and treat evidence as my own notes; (2) keep the phone fully real and move the evidence system outside it, as a game layer. **I chose 2.** I also asked whether to move to Unity. Claude Code recommended staying on the web, because the game *is* a web/phone UI. I stayed. I also approved basic polish (motion).
+- **What Claude Code built:**
+  - **Layout:** a "Notebook" panel outside the phone. On a wide screen it sits beside the phone. On a phone-sized screen it's a drawer, opened from a paper strip above the phone. The strip never covers the app.
+  - **Clipping:** evidence is clipped with 📎 (was ⚑ "save"). The Saved tab and the "New in Orbit" sheet are removed.
+  - **Notebook contents:** Next (what to do now), Clippings, Compare, What I know.
+  - **Teaching in place:**
+    - the 📎 on needed evidence pulses with a one-time "Clip this to your notebook" tip;
+    - the strip shows a badge for new clippings;
+    - the strip says "Two clippings — compare them" the first time;
+    - Compare pulses until it's used once.
+  - **Juno while the drawer is open:** the drawer covers the phone, so Juno is treated as if I were away (one line, then wait).
+  - **Motion:** messages float in, and screens slide in. Both are off under reduced-motion.
+  - **CLAUDE.md:** the rule is now "The phone is always real app furniture; the notebook outside it is the player's game layer". This is Claude Code's wording of my choice.
+  - The wait hint in the script is reworded for the notebook.
+- **Placeholder:** the notebook's look (warm paper, serif, tape-yellow notes) is Claude Code's placeholder, not my visual direction. All notebook wording in `js/data/onboarding.js` is a draft.
+- **Found while testing:**
+  - The first version floated the strip over the phone, and it covered the profile's buttons. It was moved above the phone.
+  - The closed drawer could still be reached by keyboard. It's now hidden when closed.
+- **Testing (Chromium at 1280px, 390px and 700px):**
+  - no Saved tab;
+  - Next works;
+  - clip pulse and tip;
+  - badge;
+  - compare tip;
+  - drawer opens and closes;
+  - Compare adds to What I know;
+  - only one Juno line arrives while the drawer is open, and the rest follow after it closes;
+  - the strip sits above the phone.
+  - The away, off-script, pacing, leave and look-back tests were updated for the notebook and rerun.
+- **Not solved:** the look-back is still inside the phone, framed as "Orbit is testing a feature". It might belong in the game layer instead.
+- **Files / features affected:** `index.html`, `js/app.js`, `css/app.css`, `js/data/onboarding.js` (rewritten), `js/data/script-day2.js`, `CLAUDE.md`, `README.md`
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **My decision:** I chose direction 2 and approved the polish. **[to fill in]**: the notebook's look and wording.

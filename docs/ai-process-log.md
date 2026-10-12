@@ -888,3 +888,23 @@ Copy this for each new entry.
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
 - **My decision:** I wrote the direction and most of the wording. **[to fill in]**: Claude Code's drafts (intent ↔ effect mapping, effect sentences, "what did i miss").
+
+---
+
+### 2026-10-12 (night) — Banner shaking; no detour through Notes for Rachel's reply
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:**
+  1. On other chat screens, the notification banner at the top kept dropping in again and again, so it shook.
+  2. When Rachel's reply arrived, the game told me to go to Notes, and Notes told me to open Rachel's chat. I could have opened her chat directly.
+- **Causes, as Claude Code found them:**
+  1. The screen is rebuilt on every change (e.g. while Juno is typing), and the banner's drop-in animation replayed each time. This is the same kind of bug as the earlier "every tap bounces".
+  2. The "go Home, open Notes" tip showed for every unread to-do, even one the story already points at (Rachel's banner, her unread dot, Juno saying "go look").
+- **Fixes:**
+  1. The banner animates only on its first appearance.
+  2. Script wait steps can be marked `inPlace`. For those, there's no tip to go to Notes and no Notes badge. Rachel's reply step is marked. The profile and comparing steps still point to Notes.
+- **Testing (Chromium at 390px):**
+  - a new test checks that the banner drops in exactly once while Juno keeps typing, that there's no Notes tip during Rachel's step, and that there's no Notes badge for it;
+  - the clue-3, away, look-back and feedback tests were rerun and pass.
+- **Files / features affected:** `js/app.js`, `css/app.css`, `js/data/script-day2.js`, `CLAUDE.md`
+- **My decision:** **[to fill in]**

@@ -113,7 +113,9 @@
   // the app talking ("Saved"), so one never hides the other. Tapping it opens Juno's thread.
   // `from` is "juno" (default) or "rachel"; tapping opens that thread.
   function banner(text, from, time) {
-    State.banner = { text: text, from: from || "juno", time: time || "now" };
+    // `fresh`: slide in on the first render only. Every render rebuilds the screen, so without it
+    // the banner replayed its drop-in each time Juno typed (the "shaking" the author saw, 2026-10-12).
+    State.banner = { text: text, from: from || "juno", time: time || "now", fresh: true };
     render();
     clearTimeout(banner._t);
     banner._t = setTimeout(() => {
@@ -150,8 +152,14 @@
   }
 
   // Badge on the Notes icon: new items, plus a to-do the player hasn't read yet.
+  // A to-do the player hasn't read in Notes yet. Steps the story already points at in place
+  // (`inPlace`, e.g. Rachel's reply: banner, unread dot, Juno saying "go look") don't send them to Notes.
+  function unreadTodo() {
+    return !!(State.waiting && !State.waiting.inPlace && State.todoSeen !== State.waiting.hint);
+  }
+
   function notesBadge() {
-    const todo = State.waiting && State.todoSeen !== State.waiting.hint ? 1 : 0;
+    const todo = unreadTodo() ? 1 : 0;
     return Math.max(0, State.saved.length - State.clipsSeen) + todo;
   }
 
@@ -337,7 +345,7 @@
         return;
 
       case "wait":
-        State.waiting = { hint: step.hint, until: step.until };
+        State.waiting = { hint: step.hint, until: step.until, inPlace: !!step.inPlace };
         render();
         checkWaiting(); // the player may have done it already
         return;
@@ -772,7 +780,7 @@
   function homebar() {
     if (State.view === "lock" || State.view === "home") return "";
     const coach =
-      State.view !== "notes" && State.waiting && notesBadge() > 0
+      State.view !== "notes" && unreadTodo()
         ? `<div class="homecoach">${esc(ONBOARDING.coachHome)}</div>`
         : "";
     return `${coach}<button class="homebar" data-act="home" aria-label="Home"><i></i></button>`;
@@ -962,7 +970,7 @@
       homebar() +
       (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "") +
       (State.banner && State.view !== State.banner.from && State.view !== "lock"
-        ? `<div class="banner">
+        ? `<div class="banner${State.banner.fresh ? " enter" : ""}">
              <button class="banner-open" data-act="open-banner">
                <div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>
                <div><b>${State.banner.from === "rachel" ? "Rachel" : "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
@@ -971,6 +979,7 @@
            </div>`
         : "");
 
+    if (State.banner) State.banner.fresh = false; // animate once (see banner())
     const nb = document.getElementById("nbscroll");
     if (nb) nb.scrollTop = keptNb;
 

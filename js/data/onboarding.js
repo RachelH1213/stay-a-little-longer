@@ -16,6 +16,9 @@ const ONBOARDING = {
     { from: "rachel", when: "last week", fromHistory: "i might go quiet for a bit" },
   ],
 
+  // Under Juno's name in its thread: says plainly that Juno is Orbit's AI companion, not a friend.
+  junoSub: "your Orbit companion",
+
   // Home screen.
   home: {
     date: "Tuesday, 23 September",
@@ -36,6 +39,11 @@ const ONBOARDING = {
     compare: "Compare",
     noMatch: "Those two don't say anything together.",
     knowEmpty: "Nothing yet.",
+    // The player's own goal and an older note, there from the start. The note only restates
+    // rachel-history.js ("i might go quiet for a bit", shown on the lock screen as "last week").
+    // Added 2026-10-12, a draft.
+    goal: "Find out where Rachel is",
+    ownNote: { when: "Last week", text: "Rachel said she might go quiet for a bit. Check in on her." },
   },
 
   clip: "📎",

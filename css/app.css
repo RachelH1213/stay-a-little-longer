@@ -259,6 +259,9 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   font-family:Georgia,"Iowan Old Style","Times New Roman",serif}
 .notes h3{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-ink-2);margin:14px 0 8px;font-family:var(--sans);font-weight:600}
 .nb-help{font-size:14.5px;margin:0 0 10px;white-space:pre-line;font-style:italic}
+.goal{padding:6px 2px 0;font-size:15px}
+.nb-next .todo + .goal{color:var(--paper-ink-2)}
+.ownnote p{margin:0;font-size:15px;font-style:italic;color:var(--paper-ink-2)}
 .todo{background:var(--tape);border:1px solid var(--tape-edge);border-radius:6px;padding:10px 12px;font-size:15px}
 .clips{display:flex;flex-direction:column;gap:12px}
 .clip{background:#fff;border-radius:4px;padding:12px 13px 14px;text-align:left;display:flex;flex-direction:column;gap:5px;

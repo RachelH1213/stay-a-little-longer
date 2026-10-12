@@ -19,5 +19,5 @@ const LEAVING = {
 
   // Shown at the bottom of the lock screen while there's no notification. Tapping it unlocks to Chats.
   // Kept by Claude Code (2026-10-08): the player is never trapped waiting for Juno.
-  unlockLabel: "Tap to open",
+  unlockLabel: "Swipe up to open", // tapping works too; was "Tap to open" (not what a phone says)
 };

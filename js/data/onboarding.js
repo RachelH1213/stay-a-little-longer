@@ -32,7 +32,7 @@ const ONBOARDING = {
     todo: "To do",
     saved: "From Orbit",
     know: "What I know",
-    empty: "Nothing here yet.\nTap 📎 on a message or a screen in Orbit to add it.",
+    empty: "Nothing here yet.\nTap the paperclip on a message or a screen in Orbit to add it.",
     needTwo: "Add one more thing, then compare them.",
     pick: "Something here contradicts what Orbit is showing you. Connect two pieces of evidence.", // author's wording, 2026-10-12
     picked: "1 of 2 picked",
@@ -52,7 +52,6 @@ const ONBOARDING = {
     ownNote: { when: "Last week", text: "Rachel said she might go quiet for a bit. Check in on her." },
   },
 
-  clip: "📎",
   clipLabel: "Add to Notes",
   clipped: "Added to Notes",
   unclipped: "Removed from Notes",

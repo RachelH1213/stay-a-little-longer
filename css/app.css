@@ -301,3 +301,119 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){
   .bub.enter,.app.view-enter > *,.nb-btn.pulse,.save.pulse,.homecoach{animation:none}
 }
+
+/* =====================================================================
+   iOS fidelity pass (Claude Code, 2026-10-12): real proportions, status bar, system font,
+   iOS metrics. Overrides the earlier placeholder sizes above. Colours are still placeholders:
+   the visual identity (part two) is the author's.
+   ===================================================================== */
+:root{
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro",system-ui,"Inter","Segoe UI",Roboto,sans-serif;
+  --sb:54px;                 /* status bar height inside the desktop frame (iPhone with Dynamic Island) */
+  --hairline:rgba(60,60,67,.18);
+  --label-2:rgba(60,60,67,.6);
+}
+html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+body{background:#d9d6d1;overscroll-behavior:none;min-height:100dvh}
+
+/* The phone: 390 × 844 at real proportions, scaled to fit (--fit is set by fitDevice()). */
+.device{
+  width:390px;height:844px;max-width:none;max-height:none;flex:none;
+  border:11px solid #0e0e10;border-radius:62px;zoom:var(--fit,1);
+  box-shadow:0 0 0 1.5px #3a3a3e,0 40px 80px -30px rgba(0,0,0,.55);
+  background:#000;
+}
+.app{border-radius:51px;background:var(--surface);padding-top:var(--sb)}
+
+/* Status bar */
+.statusbar{position:absolute;top:0;left:0;right:0;height:54px;z-index:45;display:flex;align-items:center;justify-content:space-between;
+  padding:0 30px 0 44px;color:#000;pointer-events:none}
+.statusbar.light{color:#fff}
+.sb-time{font-size:16.5px;font-weight:600;letter-spacing:-.01em;width:54px;text-align:center;padding-top:2px}
+.sb-icons{display:flex;gap:6px;align-items:center;padding-top:2px}
+.island{position:absolute;left:50%;top:11px;width:124px;height:36px;margin-left:-62px;border-radius:20px;background:#000}
+
+/* Each screen's colour fills the status bar area too */
+.app[data-view="home"]{background:linear-gradient(165deg,#3a3f4d,#16171c 75%)}
+.app[data-view="notes"]{background:var(--paper)}
+.app[data-view="lock"]{background:#111216}
+.home{background:none;padding:28px 22px 24px}
+.apps{grid-template-columns:repeat(4,1fr);gap:24px 0;width:100%}
+.appicon .ic{width:62px;height:62px;border-radius:14px}
+.appicon .lbl{font-size:12px;font-weight:500}
+
+/* Lock screen: date above a large time, like iOS */
+.lock{padding:calc(var(--sb) + 18px) 14px 26px;gap:0}
+.lock .d{font-size:19px;font-weight:600;opacity:.92;margin:0}
+.lock .t{font-size:88px;font-weight:700;letter-spacing:-.02em;line-height:1;margin:0 0 34px}
+.notif{border-radius:22px;padding:13px 15px;margin-top:8px;background:rgba(245,245,250,.16)}
+.lock .hint{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:13px;opacity:.7;color:inherit}
+.lock .hint i{display:block;width:134px;height:5px;border-radius:99px;background:#fff;opacity:.9}
+
+/* Navigation bar: 44pt; centred title on pushed screens; large title on top-level screens */
+.topbar{min-height:44px;padding:0 8px;display:grid;grid-template-columns:72px 1fr 72px;align-items:center;gap:0;
+  background:var(--surface);border-bottom:.5px solid var(--hairline)}
+.topbar .tb-title{text-align:center;min-width:0}
+.topbar h1{font-size:17px;font-weight:600;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .sub{font-size:12px;color:var(--label-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar:not(.large) > :last-child:not(.tb-title){justify-self:end}
+.back{color:var(--accent);padding:6px 0 6px 0;display:flex;align-items:center;margin-left:-4px}
+.leave{border:0;padding:6px 8px;font-size:17px;color:var(--accent)}
+.topbar.large{display:block;min-height:0;padding:6px 16px 8px;border-bottom:0}
+.topbar.large h1{font-size:34px;font-weight:700;letter-spacing:.01em}
+
+/* Tab bar: 49pt plus home indicator room */
+.tabbar{border-top:.5px solid var(--hairline);background:rgba(249,249,249,.94);backdrop-filter:blur(20px)}
+.tabbar button{padding:6px 0 4px;gap:2px;font-size:10px;font-weight:500;color:#8e8e93}
+.tabbar .glyph{display:block;height:28px}
+.tabbar button[aria-current="true"]{color:var(--accent)}
+
+/* Home indicator */
+.homebar{height:34px;align-content:center}
+.homebar i{width:134px;height:5px;background:#000;opacity:1}
+.app[data-view="home"] .homebar{display:none}
+
+/* Chat list: inset separators, iOS type sizes */
+.row{padding:10px 16px;gap:12px;border-bottom:0;position:relative;background:none}
+.row::after{content:"";position:absolute;left:80px;right:0;bottom:0;border-bottom:.5px solid var(--hairline)}
+.row .av{width:52px;height:52px;font-size:19px}
+.row .nm b{font-size:17px}
+.row .nm span{font-size:13px;color:var(--label-2)}
+.row .pv{font-size:15px;color:var(--label-2)}
+.row .rt{font-size:15px;color:var(--label-2)}
+.row .dot{width:10px;height:10px}
+
+/* Messages: iMessage-like metrics */
+.app[data-view="juno"] .body,.app[data-view="rachel"] .body,.app[data-view="dani"] .body{background:var(--surface)}
+.msgs{padding:12px 14px 8px;gap:3px}
+.bub{font-size:17px;line-height:1.3;padding:7px 12px;border-radius:19px;max-width:76%;margin-top:4px;letter-spacing:-.01em}
+.bub.them{border-bottom-left-radius:19px}
+.bub.me{border-bottom-right-radius:19px}
+.daymark{font-size:12px;font-weight:500;color:var(--label-2);padding:10px 0 6px}
+.dots{border-radius:19px;padding:12px 14px;margin-top:4px}
+
+/* Composer */
+.composer{border-top:0;padding:6px 10px 8px;background:var(--surface)}
+.chip{font-size:15px;padding:7px 14px;border-color:var(--hairline);background:var(--surface)}
+.inputrow{position:relative}
+.inputrow input{font-size:17px;padding:7px 44px 7px 14px;border:1px solid var(--hairline);background:var(--surface);border-radius:20px;min-height:36px}
+.send{position:absolute;right:3px;width:30px;height:30px}
+
+/* Add-to-Notes button: a small paperclip in Notes' colours */
+.save{width:26px;height:26px}
+.save svg{display:block}
+
+/* Banner: below the status bar, like an iOS notification */
+.banner{top:calc(var(--sb) + 2px);border-radius:22px;border:0;background:rgba(250,250,252,.96);backdrop-filter:blur(20px);
+  box-shadow:0 8px 30px rgba(0,0,0,.16);padding:12px 12px 12px 14px}
+.banner-x{display:flex;align-items:center}
+
+/* Phone-sized screens: full bleed; the phone's own status bar replaces the drawn one. Kept last so it wins. */
+@media (max-width:480px){
+  :root{--sb:env(safe-area-inset-top,0px)}
+  .device{width:100%;height:100dvh;border:0;border-radius:0;box-shadow:none;zoom:1}
+  .app{border-radius:0}
+  .statusbar{display:none}
+  .lock{padding-top:calc(var(--sb) + 40px)}
+}
+.inputrow input:focus{outline:none;border-color:var(--hairline)}

@@ -34,7 +34,9 @@ const SCRIPT_DAY2 = [
   { type: "juno", text: "wait" },
   { type: "notify", from: "rachel" },
   { type: "juno", text: "she just replied to me?? go look at your dms with her", means: "deflect" },
-  { type: "wait", hint: "Open your chat with Rachel", until: "sawRachelReply" },
+  // inPlace: Rachel's banner, her unread dot and Juno's "go look" already point the way, so the
+  // game doesn't send the player round through Notes for this one (author's feedback, 2026-10-12).
+  { type: "wait", hint: "Open your chat with Rachel", until: "sawRachelReply", inPlace: true },
   { type: "juno", text: "see. she's fine" },
   { type: "juno", text: "god i feel stupid. i really wound myself up about this", means: "retain" },
   { type: "player", options: ["something feels off", "ok good", "does that sound like her to you?"] },

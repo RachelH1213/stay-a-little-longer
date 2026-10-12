@@ -37,12 +37,13 @@ const ONBOARDING = {
     pick: "Pick two that don't fit together.",
     picked: "1 of 2 picked",
     compare: "Compare",
-    noMatch: "Those two don't say anything together.",
+    noMatch: "Those two don't contradict each other. Look for two things that can't both be true.",
     knowEmpty: "Nothing yet.",
     // The player's own goal and an older note, there from the start. The note only restates
     // rachel-history.js ("i might go quiet for a bit", shown on the lock screen as "last week").
     // Added 2026-10-12, a draft.
     goal: "Find out where Rachel is",
+    goalLater: "Find out where Rachel is (tomorrow night)",
     ownNote: { when: "Last week", text: "Rachel said she might go quiet for a bit. Check in on her." },
   },
 
@@ -51,5 +52,7 @@ const ONBOARDING = {
   clipped: "Added to Notes",
   unclipped: "Removed from Notes",
   coachClip: "Add this to Notes",               // first time evidence the story needs appears in Orbit
-  coachHome: "Swipe up for Home, then open Notes", // when there's something to do in Notes the player hasn't seen
+  coachHome: "Tap the bar below for Home, then open Notes", // when there's something to do in Notes the player hasn't seen
+                                                // (was "Swipe up…": testers didn't find the swipe; tapping always works)
+  typeOwn: "Pick a reply, or type your own",    // the message box while reply suggestions are showing
 };

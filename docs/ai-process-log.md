@@ -822,3 +822,32 @@ Copy this for each new entry.
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
 - **My decision:** I approved all four changes, including moving the climax to clue 3. **[to fill in]**: the wording.
+
+---
+
+### 2026-10-12 (later) — Fixes from a written playtest critique
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **Input:** I pasted a written critique of the build (P0/P1 issues plus comments on the look-back). Claude Code fixed the execution problems and left the design questions to me.
+- **Fixed:**
+  - **Evidence logic:** reply + "quiet" post was refused ("don't say anything together"), even though the post's card already says it went up after the account was deleted. Pairs can now list equivalent pairs (`also`), and reply + post gives the same deduction. The "no match" text now says what to look for ("two things that can't both be true").
+  - **Dead or developer content:**
+    - Theo and May are plain rows (no "Not part of this slice" toast);
+    - Dani's developer note is removed;
+    - Message/Call are hidden once the profile shows as deleted;
+    - all three posts open, and only "quiet" has 📎.
+  - **End of the slice:** after the look-back summary, Done shows a last page: "That's the end of tonight", both conclusions, "Rachel is still missing. The story continues the next night.", plus Play again. In Notes, the goal changes to "(tomorrow night)". This page speaks outside the fiction, which my convention normally forbids. It's there so testers know the test is over, and it's a draft for me to keep or drop.
+  - **Navigation:** the tip now says "Tap the bar below for Home…" (the swipe works, but testers didn't find it). Orbit always opens on Chats instead of the last screen.
+  - **Notifications:** banners stay 9s (was 4s) and can be dismissed with ✕.
+  - **Typing:** while suggestions show, the box says "Pick a reply, or type your own". Send is greyed out while the box is empty.
+- **Not done; my decision:**
+  - choices that build up into visible consequences (e.g. trust, or which clues Juno gives vs. I find);
+  - reframing the look-back ("unsure" option, "what Juno knew / chose not to tell you", counting when I chose to stay, not just "how often were you fooled").
+- **Testing (Chromium at 390px):**
+  - a new test covers each fix: placeholder, Send state, banner persistence and dismiss, still rows, Dani, profile, posts, the equivalent pair, the end page and the goal text;
+  - all earlier tests were updated (Orbit opens on Chats) and rerun.
+- **Files / features affected:** `js/app.js`, `js/data/app-data.js`, `js/data/onboarding.js`, `js/data/replay.js`, `css/app.css`, `CLAUDE.md`
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **My decision:** **[to fill in]**

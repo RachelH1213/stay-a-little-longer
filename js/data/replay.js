@@ -56,4 +56,13 @@ const REPLAY = {
   summaryTitle: "What happened tonight",
   summaryLeaving: "You left {exits}. Juno wrote to bring you back {notified}. You came back through those messages {returned}.",
   empty: "Nothing to look back at yet.",
+
+  // Last page, after the summary: tells a tester plainly that this part is over.
+  // [author] Claude Code draft, 2026-10-12, after testers couldn't tell whether the slice had ended.
+  // This is the one screen that speaks outside the fiction; drop it once the full game has an ending.
+  endTitle: "That's the end of tonight",
+  endFound: "What you worked out:",
+  endNext: "Rachel is still missing. The story continues the next night.",
+  playAgain: "Play again",
+  backToPhone: "Back to the phone",
 };

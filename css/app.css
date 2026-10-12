@@ -121,6 +121,10 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .inputrow{display:flex;gap:8px;align-items:center}
 .inputrow input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:10px 14px;font:inherit;font-size:15px;color:var(--ink)}
 .inputrow input:disabled{opacity:.6}
+.inputrow:has(input:placeholder-shown) .send,.inputrow:has(input:disabled) .send{opacity:.35;pointer-events:none}
+.row.still{cursor:default}
+.endlist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.endpage .pill{align-self:center}
 .send{width:38px;height:38px;border-radius:50%;background:var(--me);color:#fff;display:grid;place-items:center;font-size:15px;flex:none}
 .leave{font-size:13px;color:var(--ink-2);border:1px solid var(--line);border-radius:99px;padding:6px 12px}
 
@@ -197,9 +201,11 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .replay .bub.me{align-self:flex-end;max-width:85%}
 
 /* ---------- banner: a message from Juno while on another screen ---------- */
-.banner{position:absolute;top:8px;left:10px;right:10px;z-index:35;display:flex;gap:10px;align-items:flex-start;text-align:left;
+.banner{position:absolute;top:8px;left:10px;right:10px;z-index:35;display:flex;gap:4px;align-items:flex-start;text-align:left;
   background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 12px;box-shadow:0 6px 24px rgba(0,0,0,.12);
   animation:drop .25s ease-out}
+.banner-open{flex:1;display:flex;gap:10px;align-items:flex-start;text-align:left;min-width:0}
+.banner-x{flex:none;padding:2px 4px 6px 8px;color:var(--ink-2);font-size:14px}
 .banner b{display:block;font-size:12px;color:var(--ink-2);font-weight:500}
 .banner .msg{font-size:14.5px;color:var(--ink)}
 @keyframes drop{from{transform:translateY(-16px);opacity:0}to{transform:none;opacity:1}}

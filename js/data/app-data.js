@@ -54,29 +54,70 @@ const EVIDENCE = {
   },
 };
 
-/* Pairing two saved cards produces a deduction. Order does not matter.
-   `also` lists other pairs that prove the same thing. */
+/* Questions in Notes. Each one is answered by picking ONE card against a card that's already
+   pinned (`anchor`), so the player reasons about one question at a time instead of trying every pair.
+   Changed 2026-10-12 (the author's call, after testers got stuck pairing cards at random).
+
+   opensWhen  when the question appears in Notes: { flag }, { waiting } (the script is waiting for this
+              deduction) or { saved } (a card is in Notes)
+   anchor     the card the question starts from; shown pinned, whether or not the player added it
+   answers    the card(s) that answer it
+   optional   true: the story doesn't wait for it (a reward for players who look further)
+   text       the conclusion, added to What I know
+   wrong      a nudge for a specific wrong card; `wrongOther` for anything else
+   second     after two misses on this question: says plainly what to look for
+   missing    when no card in Notes can answer it yet: where to find one
+
+   [author] All question and hint wording is a Claude Code draft (2026-10-12), except the conclusions. */
 const PAIRS = [
   {
-    cards: ["reply-today", "profile-deleted"],
-    // The post's card also says the account was deleted, so reply + post proves the same thing.
-    // Added 2026-10-12 after a tester's correct pair was rejected.
-    also: [["reply-today", "post-bench"]],
     id: "deleted-replied",
+    question: "How could Rachel reply after her account was deleted?",
+    opensWhen: { flag: "deletedFound" },
+    anchor: "reply-today",
+    answers: ["profile-deleted"],
     text: "Rachel's account was already deleted when the reply arrived.", // the author's wording, 2026-10-12
     unlocks: "ask-juno-sync",
+    wrong: {
+      "post-bench": "That's about her posts, not when the reply came. Keep it: it answers a different question.",
+      "old-dms": "That's about how she writes. This question is about when the reply came.",
+    },
+    wrongOther: "That doesn't show when the reply came.",
+    second: "Look at what her profile says now.",
+    missing: "Nothing here answers it yet. What does her profile say now?",
   },
   {
-    cards: ["old-dms", "reply-today"],
     id: "not-her-typing",
+    question: "Does the reply sound like Rachel?",
+    opensWhen: { waiting: "deduction:not-her-typing" },
+    anchor: "reply-today",
+    answers: ["old-dms"],
     text: "The reply doesn't sound like Rachel. It closes the conversation in a way she never did.", // the author's wording, 2026-10-12
     unlocks: "ask-juno-typing",
+    wrong: {
+      "profile-deleted": "That's about her account. This question is about her voice.",
+      "post-bench": "A caption doesn't tell you much. Find something she wrote to you.",
+    },
+    wrongOther: "That doesn't show how Rachel talks.",
+    second: "Scroll up in your chat with Rachel. How did she come back the last time she went quiet?",
+    missing: "Scroll up in your chat with Rachel and add something she wrote before.",
   },
   {
-    cards: ["profile-deleted", "post-bench"],
     id: "posted-after",
-    text: "Something posted from her account after it was gone.",
+    question: "What kept posting after Rachel left?",
+    opensWhen: { saved: "post-bench" },
+    optional: true,
+    anchor: "profile-deleted",
+    answers: ["post-bench"],
+    text: "Rachel's account kept posting after it was deleted.", // the author's critique's wording, 2026-10-12
     unlocks: "ask-juno-post",
+    wrong: {
+      "reply-today": "You've worked that one out already. What else happened after the account was gone?",
+      "old-dms": "That's from long before she left.",
+    },
+    wrongOther: "That isn't from after the account was gone.",
+    second: "Look at the dates on her posts.",
+    missing: "Open her posts. Is anything dated after the account was deleted?",
   },
 ];
 

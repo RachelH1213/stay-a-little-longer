@@ -948,3 +948,38 @@ Copy this for each new entry.
   - the clue-3, feedback, banner, home, look-back, away and leave tests were rerun.
 - **Files / features affected:** `css/app.css`, `js/app.js`, `index.html`, `manifest.webmanifest` (new), `icons/` (new), `js/data/onboarding.js`, `js/data/leaving.js`, `CLAUDE.md`
 - **My decision:** I chose to do part one first. **[to fill in]**
+
+---
+
+### 2026-10-12 (late night) — Notes: from free pairing to questions
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** in Notes, players had to try card pairs at random until the right ones turned up. Four cards make six pairs. Nothing said how many conclusions there were, whether a card could be reused, or why a pair failed, so players got stuck.
+- **Options:**
+  - Claude Code offered three: question + pick one card; keep pairing but pre-select one card; or automatic discovery.
+  - I also got a detailed proposal from another chat:
+    - question-driven pairing with a pinned card;
+    - visible progress;
+    - wrong-pick feedback that gives a direction, and a plainer hint after two misses;
+    - questions that open as the story goes;
+    - the story needing only two conclusions, with the third optional.
+  - I asked which was better. Claude Code said the other proposal was better (it combines its first two options and adds what it lacked), and suggested three changes:
+    - a ✓/○ list of questions instead of a "1/3" counter, so it doesn't read as a score;
+    - tapping one card answers directly, with no Compare button;
+    - no TIME/ACCOUNT/VOICE tags for now.
+  - **I said to do it that way.**
+- **What Claude Code built:**
+  - **Questions:** Notes shows questions one at a time. Each pins a card ("Starting from") and asks "Which of these answers it?"; tapping one card answers.
+    - Q1 "How could Rachel reply after her account was deleted?" opens once the deleted profile is found; it pins the reply, and the answer is the profile.
+    - Q2 "Does the reply sound like Rachel?" opens when the script reaches clue 3; it pins the reply, and the answer is her February message.
+    - Q3 "What kept posting after Rachel left?" opens once the "quiet" post is in Notes; it's optional, pins the profile, and the answer is the post.
+  - **Wrong picks:** a specific nudge per card (e.g. "That's about her posts, not when the reply came. Keep it: it answers a different question."). A second miss gives a plainer hint ("Look at what her profile says now."). If the answer isn't in Notes yet, it says where to find it.
+  - **Right picks:** "Found it." or "Found it. One question still open.", the question ticks, and the conclusion goes into What I know.
+  - **Story progression:** the story still waits only on Q1 and Q2.
+  - Free pairing, the Compare button and the `also` pairs are removed.
+- **Wording:** all question, nudge and hint wording is Claude Code's draft. The conclusions are mine. Q3's conclusion is from the critique: "Rachel's account kept posting after it was deleted."
+- **Testing (Chromium at 390px):**
+  - a new test covers question 1 opening with the reply pinned, the "where to find it" line, only one card to choose from, the specific nudge, the plainer hint after two misses, the answer, "One question still open", and optional question 3;
+  - all earlier flow tests were updated and rerun.
+- **Files / features affected:** `js/data/app-data.js` (PAIRS), `js/app.js`, `js/data/onboarding.js`, `js/data/script-day2.js`, `css/app.css`, `CLAUDE.md`
+- **My decision:** I asked for this approach. **[to fill in]**: the question and hint wording.

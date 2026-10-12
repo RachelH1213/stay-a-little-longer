@@ -908,3 +908,43 @@ Copy this for each new entry.
   - the clue-3, away, look-back and feedback tests were rerun and pass.
 - **Files / features affected:** `js/app.js`, `css/app.css`, `js/data/script-day2.js`, `CLAUDE.md`
 - **My decision:** **[to fill in]**
+
+---
+
+### 2026-10-12 (late) — Making it look like a real phone (part one: fidelity, not style)
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** the pages look ugly, like an obvious AI-made web prototype. It doesn't look like a real phone, and even the proportions are wrong.
+- **Claude Code's diagnosis:** it split the problem in two.
+  - **Fidelity problems, which have standard answers:**
+    - the frame's height followed the browser window, so on a laptop it became about 1:1.9 instead of a real iPhone's 1:2.17;
+    - there was no status bar or Dynamic Island;
+    - icons were text symbols (◎ ⚙ ‹ ↑ 📎);
+    - sizes weren't iOS's;
+    - a web font (Inter) was used instead of the system font;
+    - on a real phone the browser's address bar shows;
+    - the lock screen said "Tap the notification".
+  - **Design problems, which are mine to decide:** Orbit's brand, colours, avatars and post images. All of these are still Claude Code's placeholders.
+- **I chose:** do part one now. For part two, I'll provide references.
+- **What Claude Code built:**
+  - **Frame:** a fixed 390 × 844 phone (iPhone proportions) in a drawn frame, scaled to fit the window. It has a status bar (time, signal, Wi-Fi, battery) and a Dynamic Island. On a phone-sized screen it goes full screen, and the phone's own status bar shows.
+  - **iOS sizes:**
+    - centred title and back chevron on pushed screens, large titles on Chats and Settings;
+    - tab bar and home indicator;
+    - chat list with inset separators;
+    - iMessage-like bubbles;
+    - composer with the send button inside the field;
+    - banners below the status bar.
+  - **Font:** the system font first, so it's SF Pro on iPhone and Mac.
+  - **Icons:** SVG line icons (back, send, chats, settings, paperclip, close, Orbit).
+  - **Lock screen:** the date sits above a large time. "Tap the notification" is removed, and with no notification it says "Swipe up to open". Swiping up works on the lock screen and on the home bar; tapping still works.
+  - **Home screen:** the big clock is removed (a real home screen has none).
+  - **Message box:** 17px text, so iPhone no longer zooms in when you type.
+  - **"Add to Home Screen":** a web app manifest, Apple meta tags and a placeholder app icon. Opened from the home screen, it runs full screen with no address bar.
+- **Placeholder:** colours, avatars, post images and the app icon are still placeholders until my visual direction.
+- **Testing (Chromium at 1440 × 760 and 390 × 844):**
+  - screenshots of the lock screen, Juno, Chats and Home were checked;
+  - two layout bugs were found and fixed: a right-aligned large title, and the drawn status bar showing on phones;
+  - the clue-3, feedback, banner, home, look-back, away and leave tests were rerun.
+- **Files / features affected:** `css/app.css`, `js/app.js`, `index.html`, `manifest.webmanifest` (new), `icons/` (new), `js/data/onboarding.js`, `js/data/leaving.js`, `CLAUDE.md`
+- **My decision:** I chose to do part one first. **[to fill in]**

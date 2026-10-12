@@ -18,6 +18,41 @@
 
   const app = document.getElementById("app");
 
+  // Line icons in the style of iOS system icons (placeholders until the author's visual pass).
+  const svg = (body, w) =>
+    `<svg viewBox="0 0 24 24" width="${w || 24}" height="${w || 24}" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
+  const ICONS = {
+    back: svg('<path d="M15 5l-7 7 7 7"/>', 28),
+    send: svg('<path d="M12 19V6M6.5 11.5 12 6l5.5 5.5"/>', 20),
+    chats: svg('<path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.1A8 8 0 1 1 20 12z"/>', 27),
+    settings: svg('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>', 27),
+    clip: svg('<path d="M21 11.5l-8.6 8.6a5 5 0 0 1-7.1-7.1l8.6-8.6a3.3 3.3 0 0 1 4.7 4.7l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4l7.9-7.9"/>', 16),
+    close: svg('<path d="M6 6l12 12M18 6 6 18"/>', 16),
+    orbit: svg('<circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(-24 12 12)"/>', 34),
+  };
+
+  // The status bar drawn inside the desktop phone frame. On a real phone the phone's own shows instead (CSS hides this).
+  function statusbar() {
+    const dark = ["lock", "home"].indexOf(State.view) !== -1;
+    return `
+      <div class="statusbar${dark ? " light" : ""}" aria-hidden="true">
+        <span class="sb-time">${State.view === "lock" ? "" : esc(State.clock)}</span>
+        <span class="island"></span>
+        <span class="sb-icons">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .7 10.2 10.2 0 0 0 .9 3.5L2 4.7a8.6 8.6 0 0 1 6-2.4zm0 3.3c1.4 0 2.6.5 3.6 1.4l1.1-1.2A6.8 6.8 0 0 0 8 4a6.8 6.8 0 0 0-4.7 1.8L4.4 7c1-.9 2.2-1.4 3.6-1.4zm0 3.3c-.6 0-1.2.2-1.6.6L8 11.3l1.6-1.8c-.4-.4-1-.6-1.6-.6z"/></svg>
+          <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="16" height="9" rx="2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"/></svg>
+        </span>
+      </div>`;
+  }
+
+  // Desktop: keep the phone at real proportions (390 × 844) and scale it to fit the window.
+  function fitDevice() {
+    const scale = Math.min(1, (window.innerHeight - 48) / 844, (window.innerWidth - 32) / 390);
+    document.documentElement.style.setProperty("--fit", String(Math.max(0.5, scale)));
+  }
+  window.addEventListener("resize", fitDevice);
+
 
   const State = {
     view: "lock",          // lock | home | notes (the phone) | chats | juno | rachel | dani | profile | settings | replay (Orbit)
@@ -474,17 +509,16 @@
   function viewLock() {
     return `
       <div class="lock">
-        <div class="t">${esc(State.clock)}</div>
         <div class="d">${esc(ONBOARDING.home.date)}</div>
+        <div class="t">${esc(State.clock)}</div>
         ${
           State.notice
             ? `<button class="notif" data-act="open-notice">
                  <div class="av sm av-juno">J</div>
                  <div><b>Orbit · Juno · now</b><div class="msg">${esc(State.notice.text)}</div></div>
                </button>
-               ${State.onboarded ? "" : pastNotices()}
-               <div class="hint">Tap the notification</div>`
-            : `<button class="hint" data-act="unlock">${esc(LEAVING.unlockLabel)}</button>`
+               ${State.onboarded ? "" : pastNotices()}`
+            : `<button class="hint" data-act="unlock">${esc(LEAVING.unlockLabel)}<i></i></button>`
         }
       </div>`;
   }
@@ -566,7 +600,7 @@
         <div class="inputrow">
           <input id="entry" placeholder="${State.awaiting ? esc(State.awaiting.options.length ? ONBOARDING.typeOwn : "Message Juno") : "…"}"
                  ${State.awaiting ? "" : "disabled"} autocomplete="off" aria-label="Message Juno">
-          <button class="send" data-act="send" aria-label="Send">↑</button>
+          <button class="send" data-act="send" aria-label="Send">${ICONS.send}</button>
         </div>
       </div>`;
   }
@@ -589,7 +623,7 @@
       rows.push(
         `<div class="bub ${cls}${saveId ? " saveable" : ""}">${esc(m.text)}${time}${
           saveId
-            ? `<button class="save${isSaved(saveId) ? " on" : ""}${key ? " pulse" : ""}" data-act="save" data-id="${saveId}" aria-label="${esc(ONBOARDING.clipLabel)}">${ONBOARDING.clip}</button>`
+            ? `<button class="save${isSaved(saveId) ? " on" : ""}${key ? " pulse" : ""}" data-act="save" data-id="${saveId}" aria-label="${esc(ONBOARDING.clipLabel)}">${ICONS.clip}</button>`
             : ""
         }</div>`
       );
@@ -602,7 +636,7 @@
       <div class="composer">
         <div class="inputrow">
           <input placeholder="Message Rachel" disabled aria-label="Message Rachel">
-          <button class="send" aria-label="Send" disabled>↑</button>
+          <button class="send" aria-label="Send" disabled>${ICONS.send}</button>
         </div>
       </div>`;
   }
@@ -634,7 +668,7 @@
         <div class="deleted">
           This account has been deleted.
           <button class="save${isSaved("profile-deleted") ? " on" : " pulse"}" data-act="save" data-id="profile-deleted"
-                  style="position:static;margin-left:8px;display:inline-grid" aria-label="${esc(ONBOARDING.clipLabel)}">${ONBOARDING.clip}</button>
+                  style="position:static;margin-left:8px;display:inline-grid" aria-label="${esc(ONBOARDING.clipLabel)}">${ICONS.clip}</button>
         </div>
         <div class="grid">
           ${p.posts
@@ -657,7 +691,7 @@
            <div>“${esc(post.caption)}”</div>
            ${post.id === "p1" ? `<div style="font-size:12px;color:#a9a49a">Posted two days after this account was deleted.</div>` : ""}
            <div style="display:flex;gap:8px;margin-top:6px">
-             ${post.id === "p1" ? `<button class="save inline${isSaved("post-bench") ? " on" : ""}" data-act="save" data-id="post-bench" aria-label="${esc(ONBOARDING.clipLabel)}">${ONBOARDING.clip}</button>` : ""}
+             ${post.id === "p1" ? `<button class="save inline${isSaved("post-bench") ? " on" : ""}" data-act="save" data-id="post-bench" aria-label="${esc(ONBOARDING.clipLabel)}">${ICONS.clip}</button>` : ""}
              <button class="pill" data-act="close-post" style="color:#f3f1ec;border-color:#4a4843">Close</button>
            </div>
          </div>`
@@ -695,9 +729,8 @@
       </button>`;
     return `
       <div class="home">
-        <div class="home-clock"><div class="t">${esc(State.clock)}</div><div class="d">${esc(H.date)}</div></div>
         <div class="apps">
-          ${icon("open-orbit", "ic-orbit", "◎", H.orbit, orbitBadge)}
+          ${icon("open-orbit", "ic-orbit", ICONS.orbit, H.orbit, orbitBadge)}
           ${icon("open-notes", "ic-notes", "", H.notes, notes)}
         </div>
       </div>`;
@@ -914,15 +947,16 @@
 
   /* ---------------- chrome ---------------- */
 
+  // iOS layout: top-level screens get a large title; pushed screens a centred title with a back chevron.
   function topbar(title, sub, back) {
+    if (!back) return `<div class="topbar large"><h1>${esc(title)}</h1></div>`;
     return `
       <div class="topbar">
-        ${back ? '<button class="back" data-act="back" aria-label="Back">‹</button>' : ""}
-        <div>
+        <button class="back" data-act="back" aria-label="Back">${ICONS.back}</button>
+        <div class="tb-title">
           <h1>${esc(title)}</h1>
           ${sub ? `<div class="sub">${esc(sub)}</div>` : ""}
         </div>
-        <div class="spacer"></div>
         ${
           State.view === "juno"
             ? '<button class="leave" data-act="leave">Leave</button>'
@@ -936,11 +970,11 @@
   function tabbar(active) {
     const tab = (id, glyph, label) => `
       <button data-act="tab" data-id="${id}" aria-current="${active === id}">
-        <span class="glyph">${glyph}</span>${label}
+        <span class="glyph">${glyph}</span><span>${label}</span>
       </button>`;
     return `<div class="tabbar">
-      ${tab("chats", "◎", "Chats")}
-      ${tab("settings", "⚙", "Settings")}
+      ${tab("chats", ICONS.chats, "Chats")}
+      ${tab("settings", ICONS.settings, "Settings")}
     </div>`;
   }
 
@@ -966,6 +1000,7 @@
     const keptNb = oldNb ? oldNb.scrollTop : 0;
 
     app.innerHTML =
+      statusbar() +
       (views[State.view] || viewChats)() +
       homebar() +
       (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "") +
@@ -975,7 +1010,7 @@
                <div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>
                <div><b>${State.banner.from === "rachel" ? "Rachel" : "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
              </button>
-             <button class="banner-x" data-act="close-banner" aria-label="Dismiss">✕</button>
+             <button class="banner-x" data-act="close-banner" aria-label="Dismiss">${ICONS.close}</button>
            </div>`
         : "");
 
@@ -985,6 +1020,8 @@
 
     // A new screen slides in. Every render rebuilds the screen, so the class must come off again
     // on the next render, or each tap would replay the animation (the "bounce" the author saw).
+    app.dataset.view = State.view; // the status bar area takes each screen's background
+    fitDevice();
     app.classList.remove("view-enter");
     if (render._lastView !== State.view) {
       void app.offsetWidth; // restart the animation
@@ -1146,10 +1183,11 @@
   // Swiping up on the home bar also goes home, like a phone.
   let swipeFrom = null;
   document.addEventListener("pointerdown", (e) => {
-    swipeFrom = e.target.closest(".homebar") ? e.clientY : null;
+    swipeFrom = e.target.closest(".homebar, .lock") ? e.clientY : null;
   });
   document.addEventListener("pointerup", (e) => {
-    if (swipeFrom !== null && swipeFrom - e.clientY > 20 && State.view !== "home") go("home", "home");
+    // Swipe up: home from any app; on the lock screen, unlock (like tapping "Swipe up to open").
+    if (swipeFrom !== null && swipeFrom - e.clientY > 20 && State.view !== "home") go("home", State.view === "lock" ? "nav" : "home");
     swipeFrom = null;
   });
 

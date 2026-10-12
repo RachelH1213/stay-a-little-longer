@@ -40,6 +40,7 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 
 ```
 index.html            the whole app shell, one page: the phone (#app)
+manifest.webmanifest, icons/   "Add to Home Screen" (full screen, no address bar); the icon is a placeholder
 css/app.css           all styles; design tokens live at the top
 js/app.js             state, routing, rendering, the script runner
 js/data/app-data.js   contacts, profile, settings, saved-card definitions
@@ -63,7 +64,7 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 ## Conventions
 
 - **Everything is phone furniture, and nothing sits outside the phone.** No score, no "chapter", no tutorial, no title screen. Orbit only has what a real social app would have; the investigating (keeping evidence, comparing, the to-do) happens in the player's own Notes app on the same phone. (Changed 2026-10-10: first a notebook beside the phone, then, at the author's call, a home screen + Notes app, because a panel outside the phone doesn't work when the game is played on a phone.)
-- Phone-first. Test at 390px wide.
+- Phone-first. Test at 390px wide. The phone is 390 × 844 at real proportions: on a desktop it sits in a drawn iPhone frame with a status bar and Dynamic Island, scaled to fit the window (`fitDevice()`, `--fit`); at ≤480px it goes full bleed and the phone's own status bar shows instead. iOS metrics (44pt nav bar, large titles on top-level screens, 49pt tab bar, home indicator), the system font (SF on Apple devices) and line icons (`ICONS` in `js/app.js`). `manifest.webmanifest` + Apple meta tags let "Add to Home Screen" open it full screen.
 - Evidence is added to Notes with the 📎 button. The case board is Notes, with comparing. A pair may list `also` pairs that prove the same thing, so a correct deduction is never refused for using the "wrong" card.
 - Nothing tappable may fail silently, and nothing on screen may be a developer note. Contacts without a thread are plain rows (`OPEN_THREADS`); every post opens.
 - Rachel never uses full stops in her own messages; she turns bad news into a specific joke and always asks something back. Anything Juno writes as Rachel is punctuated, short and closed, with no question back. Keep this consistent — it is clue 3 and it breaks silently if someone "fixes the typos".

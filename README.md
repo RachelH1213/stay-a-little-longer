@@ -64,7 +64,7 @@ The secret key only lives on the server (`api/log.js`). The table has row level 
 8. Go home, open Orbit, back to Juno and hear the excuse.
 9. When Notes says to, scroll up in Rachel's chat, add one of her old messages, and compare it with her reply.
 
-When the slice ends, tap **Look back at tonight** in Juno's thread. You get five of Juno's messages from your own playthrough. For each one you say whether you believed it at the time, then see what Juno was actually doing: helping you, or keeping you.
+When the slice ends, open **Notes** and tap **Review tonight**. You see three moments from your own playthrough: what Juno said, what you knew then, what you didn't know yet, and what you did next. Then one open question (helping, keeping you here, both, or not sure), what Juno's messages did, and a last choice: leave Orbit, ask Juno what it knew, or stay a little longer.
 
 **For demos:** open `index.html?director` and every line from Juno shows a small tag with what the Director chose (intent · rule · source). Type to Juno instead of tapping the suggestions to see the rules change her strategy. Tapping a suggestion never triggers a rule.
 
@@ -82,8 +82,8 @@ js/data/script-day2.js      the Day 2 beats
 js/data/truth.js            the truth graph: what Juno is allowed to know, and when
 js/data/director-rules.js   which intent Juno picks when — edit this to change Juno's strategy
 js/data/leaving.js          what happens when you press Leave: the delay, Juno's message, lock-screen text
-js/data/replay.js           the look-back's wording, and which intent counts as helping or keeping
-js/replay.js                picks the five messages for the look-back from this playthrough's log
+js/data/replay.js           "Tonight": wording, the three moments, the last choice
+js/replay.js                builds "Tonight" from this playthrough's log
 js/director.js              picks Juno's intent and allowed facts each turn
 api/reply.js                serverless function: one line of Juno from {intent, allowedFacts}
 api/_persona.js             Juno's voice and what each intent means — tune this freely

@@ -1,70 +1,81 @@
-/* The look-back. Reads this playthrough's log rows (Log.rows()) — never State, never the DOM.
+/* "Tonight". Reads this playthrough's log rows (Log.rows()) — never the DOM.
 
-   Replay.pick(rows, n)    -> up to n of Juno's messages to ask about, in the order they were sent
-   Replay.summary(rows)    -> { exits, notified, returned } for the summary screen
-   Replay.times(n)         -> "once", "twice", "3 times"
-   Replay.contextFor(rows, item) -> { said } or { left: true }: what came just before that line
-
-   Only lines with an intent can be asked about: model-written lines, and fixed lines tagged
-   with `means` in the script (logged with rule "tagged").
-   The pick rule, in order of preference:
-     1. lines where a Director rule overrode the script (the player's words changed Juno's strategy)
-     2. lines Juno sent after the player left (notifications)
-     3. a spread of different intents
-     4. otherwise, the earliest lines */
+   Replay.moments(rows)  -> the three moments: Juno's line at each tagged script step, with what the
+                            player had said, knew, didn't know yet, and did next
+   Replay.counts(rows)   -> { told, redirected, admitted } across all of Juno's intent-carrying lines
+   Replay.minutes(rows)  -> whole minutes from the first logged event to the last
+   Replay.summary(rows)  -> { exits, notified, returned } (Leave presses and what followed) */
 
 const Replay = (function () {
   "use strict";
 
-  function weight(r) {
-    const overridden = r.rule && r.rule !== "script" && r.rule !== "tagged";
-    return (overridden ? 2 : 0) + (r.via === "notification" ? 1 : 0);
+  function holds(state, when) {
+    if (!state) return false;
+    const [kind, name] = when.split(":");
+    if (kind === "flag") return !!(state.flags && state.flags[name]);
+    if (kind === "deduction") return (state.deductions || []).indexOf(name) !== -1;
+    return false;
   }
 
-  function pick(rows, n) {
-    const candidates = rows
-      .filter((r) => r.kind === "juno" && r.intent && r.rule !== "bridge") // short off-script replies aren't asked about
-      .sort((a, b) => weight(b) - weight(a) || a.turn - b.turn);
-
-    const chosen = [];
-    const intents = {};
-    // First pass: best-weighted line for each intent not seen yet. Second pass: fill by weight.
-    candidates.forEach((r) => {
-      if (chosen.length < n && !intents[r.intent]) {
-        intents[r.intent] = true;
-        chosen.push(r);
-      }
-    });
-    candidates.forEach((r) => {
-      if (chosen.length < n && chosen.indexOf(r) === -1) chosen.push(r);
-    });
-
-    return chosen.sort((a, b) => a.turn - b.turn);
-  }
-
-  function summary(rows) {
-    const count = (f) => rows.filter(f).length;
-    return {
-      exits: count((r) => r.kind === "exit" && r.via === "leave"), // pressed Leave, not just looked elsewhere
-      notified: count((r) => r.kind === "juno" && r.via === "notification"),
-      returned: count((r) => r.kind === "return" && r.via === "notification"),
-    };
-  }
-
-  function times(n) {
-    return n === 1 ? "once" : n === 2 ? "twice" : n + " times";
-  }
-
-  // What happened just before a picked line: the player's last message, or that they had left.
-  function contextFor(rows, item) {
+  // What happened just before a line: the player's last message, or that they had left.
+  function contextFor(rows, row) {
     for (let i = rows.length - 1; i >= 0; i--) {
       const r = rows[i];
-      if (r.turn >= item.turn) continue;
+      if (r.turn >= row.turn) continue;
       if (r.kind === "player") return { said: r.playerText };
       if (r.kind === "exit" && r.via === "leave") return { left: true };
     }
     return {};
   }
 
-  return { pick: pick, summary: summary, times: times, contextFor: contextFor };
+  // What the player did after a line: replied, left, or nothing logged.
+  function nextFor(rows, row) {
+    const after = rows.filter((r) => r.turn > row.turn);
+    const first = after.find((r) => r.kind === "player" || r.kind === "exit");
+    if (!first) return { stayed: true };
+    if (first.kind === "player") return { replied: first.playerText };
+    const back = after.find((r) => r.turn > first.turn && r.kind === "juno" && r.via === "notification");
+    const secs = back ? Math.round((Date.parse(back.at) - Date.parse(first.at)) / 1000) : null;
+    return { left: first.via === "leave", looked: first.via !== "leave", wroteAgain: secs };
+  }
+
+  function moments(rows, script, defs, knowledge, finalState) {
+    return defs
+      .map((d) => {
+        const step = script.findIndex((s) => s.moment === d.id);
+        const row = rows.find((r) => r.kind === "juno" && r.step === step);
+        if (step === -1 || !row) return null;
+        const knew = knowledge.filter((k) => holds(row.state, k.when)).map((k) => k.text);
+        const notYet = knowledge.filter((k) => !holds(row.state, k.when) && holds(finalState, k.when)).map((k) => k.text);
+        return { id: d.id, title: d.title, row: row, context: contextFor(rows, row), knew: knew, notYet: notYet, next: nextFor(rows, row) };
+      })
+      .filter(Boolean);
+  }
+
+  function counts(rows) {
+    const c = { told: 0, redirected: 0, admitted: 0 };
+    rows.forEach((r) => {
+      if (r.kind !== "juno" || !r.intent || r.rule === "bridge") return;
+      if (r.intent === "give_clue") c.told++;
+      else if (r.intent === "deflect" || r.intent === "block") c.redirected++;
+      else if (r.intent === "concede") c.admitted++;
+    });
+    return c;
+  }
+
+  function minutes(rows) {
+    if (rows.length < 2) return 0;
+    return Math.round((Date.parse(rows[rows.length - 1].at) - Date.parse(rows[0].at)) / 60000);
+  }
+
+  function summary(rows) {
+    const count = (f) => rows.filter(f).length;
+    return {
+      exits: count((r) => r.kind === "exit" && r.via === "leave"),
+      notified: count((r) => r.kind === "juno" && r.via === "notification"),
+      returned: count((r) => r.kind === "return" && r.via === "notification"),
+    };
+  }
+
+  return { moments: moments, counts: counts, minutes: minutes, summary: summary, contextFor: contextFor };
 })();

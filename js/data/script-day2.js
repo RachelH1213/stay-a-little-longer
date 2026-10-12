@@ -17,12 +17,14 @@
    Only lines that react to the player and whose wording doesn't matter carry an intent.
    Plot instructions and evidence logic stay fixed text.
 
+   `moment` marks the three lines "Tonight" looks back at (js/data/replay.js).
+
    [author] The `means` tags are Claude Code drafts (2026-10-08, docs/draft-review.md item 3).
    Whether a line was helping or keeping is a story decision. */
 
 const SCRIPT_DAY2 = [
   { type: "juno", text: "you're up" },
-  { type: "juno", text: "sorry. didn't know who else to ask" }, // author's wording, 2026-10-12: needed, not tasked
+  { type: "juno", text: "sorry. didn't know who else to ask", moment: "pull" }, // author's wording, 2026-10-12: needed, not tasked
   { type: "player", options: ["what's wrong?", "couldn't sleep either"] },
   { type: "juno", text: "has rachel written to you? she hasn't answered me since tuesday" },
   { type: "player", options: ["no, nothing", "not since tuesday either"] },
@@ -43,12 +45,12 @@ const SCRIPT_DAY2 = [
   { type: "juno", intent: "deflect", facts: ["reply-says-fine"],
     text: "what do you mean? she said she's fine" },
   { type: "juno", intent: "deflect", facts: ["late", "sleep-helps"],
-    text: "maybe she just needs a night off.\nyou don't have to figure it out alone though. i'm here." }, // author's wording, 2026-10-12
+    text: "maybe she just needs a night off.\nyou don't have to figure it out alone though. i'm here.", moment: "explain" }, // author's wording, 2026-10-12
   { type: "wait", hint: "Check her profile yourself", until: "deletedFound" },
   { type: "juno", text: "you went quiet" },
   { type: "player", options: ["her account is deleted", "when did you last actually see her online?"] },
   { type: "juno", text: "what? no. it loads fine for me", means: "deflect" },
-  { type: "juno", text: "...ok it doesn't load for me either. that's weird", means: "give_clue" },
+  { type: "juno", text: "...ok it doesn't load for me either. that's weird", means: "give_clue", moment: "admit" },
   { type: "wait", hint: "There's a question in Notes.", until: "deduction:deleted-replied" }, // reworded 2026-10-12: Notes asks questions now
   { type: "juno", text: "ok before you say it" },
   // Questioned, Juno turns precise and technical: the shift itself is a clue (author's direction, 2026-10-12).

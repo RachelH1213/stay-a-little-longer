@@ -32,7 +32,7 @@ When the LLM is added, it slots in at one place only: turning `{intent, allowedF
 
 **Away from Juno's thread:** when the script reaches a Juno line while the player is on another screen, Juno sends that one line as a banner at the top of the screen (`State.banner`, tap to open Juno, ✕ to dismiss; it stays `BANNER_MS`, 9s) plus the unread dot, then holds the rest until the player comes back (`sentWhileAway`, `heldForReturn`). On the lock screen nothing is sent; the Leave notification does that job.
 
-**Look-back (built, content is a draft):** when the slice ends, a card in Juno's thread opens the `replay` view. `Replay.pick()` in `js/replay.js` chooses up to 5 of Juno's intent-carrying lines from this playthrough's log (`Log.rows()`, kept in memory, so it works on `file://`); it opens on an intro page, shows what the player said (or that they had left) above each line, asks whether the player believed that line at the time (`believed` / `doubted`), then flips to show what that message did (an observable effect, e.g. "Asked for more time", not a motive); the summary leaves the judgement open ("Four of Juno's five messages kept the conversation going. One helped you verify what happened. Were those the same thing to Juno?"); Done then shows a last page listing what the player worked out and that the story continues (the one screen that speaks outside the fiction, for testers; a draft). (Changed 2026-10-10 from asking "helping or keeping?" directly, which nobody could answer before the truth is out.) Off-script `bridge` replies are never asked about. Wording and which intent counts as which side live in `js/data/replay.js`. Each answer is logged as an `answer` row.
+**Tonight, the look-back (built, content is a draft):** when the slice ends, a "Tonight" section appears in **Notes** (the player's own reconstruction; Orbit would never show this) and opens the `replay` view, styled as a Notes page. It is a replay, not a quiz (rebuilt 2026-10-12 after three rounds of testers not knowing what to choose): three moments tied to script steps tagged `moment` (`pull`, `explain`, `admit`), each showing the line Juno actually said this playthrough, what the player had said, what they knew then, what they didn't know yet, and what they did next — all from the log (`Replay.moments()` in `js/replay.js`, reading `Log.rows()`, so it works on `file://`). Then one open question with no right answer ("Do you think Juno was helping you, keeping you here, or doing both?" — Helping / Keeping me here / Both / I'm not sure), a summary of what Juno's messages observably did ("It told you one true thing. It redirected you 7 times. …" plus real minutes spent), and a last choice: **Leave Orbit** (the phone locks; Juno answers with a notification), **Ask Juno what it knew**, or **Stay a little longer** (Juno replies in the thread). Then the end page (the one screen that speaks outside the fiction, for testers). The open answer and the choice are logged as `answer` rows (`via` = the answer, or `ending:<choice>`). Wording, the three moments, the knowledge list and the ending replies live in `js/data/replay.js`.
 
 **Director (built, rules are a draft):** `Director.decide(step, State)` in `js/director.js` picks the intent from `js/data/director-rules.js` (else the step's own intent) and filters the step's fact ids through `js/data/truth.js` — never `secret`, only facts allowed for that intent, unlocked by the player, and not before their day. A typed message that isn't a suggestion and matches no Director signal gets one short model-written reply (intent `acknowledge`, rule `bridge`) and the same question stays open; a second off-script message on that question, or a model failure, moves the script on. Rules only react to messages the player typed, never to tapped suggestions, and never apply to the notification after Leave. A rule's optional `text` is the fallback when that rule fires, so a failed model call never shows a line written for a different intent. Fixed script lines can carry a `means` tag (their real intent) so the look-back can ask about them; they are never sent to the model.
 
@@ -49,9 +49,9 @@ js/data/script-day2.js      the hardcoded Day 2 beat script
 js/data/truth.js            the truth graph: every fact, its kind, day, intents, unlock
 js/data/director-rules.js   which intent Juno picks when (story, not logic)
 js/data/leaving.js          what happens when the player leaves Juno: delay, message, lock-screen text
-js/data/replay.js           the look-back's wording, and which intent counts as helping or keeping
+js/data/replay.js           "Tonight": wording, the three moments, what the player could know, the last choice and Juno's replies
 js/data/onboarding.js       home screen and Notes wording, add-to-Notes tips, lock-screen context
-js/replay.js                Replay.pick(rows, n), Replay.summary(rows): the look-back, built from the log
+js/replay.js                Replay.moments(), counts(), minutes(): "Tonight", built from the log
 js/director.js              Director.decide(step, State) -> {intent, allowedFacts, rule}
 api/reply.js, api/_persona.js   the model layer
 js/log.js, api/log.js       the play log (Supabase); supabase/schema.sql is the table
@@ -84,7 +84,8 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - `away` — set while the player is out of Juno's thread, cleared when they come back
 - `notice` — the notification on the lock screen, or null
 - `junoUnread` — the dot on Juno's row in Chats
-- `replay` — the look-back in progress: `{intro, items, i, guesses[], done, finished}`
+- `replay` — "Tonight" in progress: `{page, moments, overall, finished}`
+- `finale`, `finaleDone` — the last choice (leave / ask / stay) and whether Juno has answered it
 - `bridgedStep` — the player step Juno already answered off-script once
 - `sentWhileAway`, `heldForReturn` — Juno's one line while the player is elsewhere, and the hold until they return
 - `banner` — a message from Juno or Rachel shown at the top of other screens, or null

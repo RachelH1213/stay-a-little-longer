@@ -349,7 +349,7 @@
 
       case "end":
         State.ended = true;
-        State.log.push({ from: "system", text: step.text });
+        if (step.text) State.log.push({ from: "system", text: step.text });
         State.step++;
         render();
         return;
@@ -548,7 +548,7 @@
         : "";
 
     return `
-      ${topbar("Juno", State.typing ? "typing…" : "online", true)}
+      ${topbar("Juno", State.typing ? "typing…" : ONBOARDING.junoSub, true)}
       <div class="body" id="scroller">
         <div class="msgs">
           <div class="daymark">Today</div>
@@ -577,7 +577,9 @@
       const saveId = m.suspect ? "reply-today" : i === 6 ? "old-dms" : null;
       const time = m.time ? `<span class="time">${esc(m.time)}</span>` : "";
       // The message the story needs pulses until it's saved; the very first time, a tip says why.
-      const key = m.suspect && !isSaved(saveId);
+      // The old message only pulses once the to-do points at it (clue 3).
+      const wantOld = State.waiting && State.waiting.until === "deduction:not-her-typing";
+      const key = saveId && !isSaved(saveId) && (m.suspect || (saveId === "old-dms" && wantOld));
       rows.push(
         `<div class="bub ${cls}${saveId ? " saveable" : ""}">${esc(m.text)}${time}${
           saveId
@@ -732,12 +734,12 @@
         ? `<button class="nb-btn${State.comparedOnce ? "" : " pulse"}" data-act="connect">${esc(N.compare)}</button>`
         : "";
 
-    const todo = State.waiting
-      ? `<section class="nb-next">
+    // The player's own goal sits under the to-do from the start; the script's current step on top.
+    const todo = `<section class="nb-next">
            <h3>${esc(N.todo)}</h3>
-           <div class="todo">○ ${esc(State.waiting.hint)}</div>
-         </section>`
-      : "";
+           ${State.waiting ? `<div class="todo">○ ${esc(State.waiting.hint)}</div>` : ""}
+           <div class="goal">○ ${esc(N.goal)}</div>
+         </section>`;
 
     return `
       <div class="notes-top"><h2>${esc(N.title)}</h2></div>
@@ -752,6 +754,10 @@
         <section>
           <h3>${esc(N.know)}</h3>
           <ul class="know">${know}</ul>
+        </section>
+        <section class="ownnote">
+          <h3>${esc(N.ownNote.when)}</h3>
+          <p>${esc(N.ownNote.text)}</p>
         </section>
       </div>`;
   }

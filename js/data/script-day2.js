@@ -47,7 +47,7 @@ const SCRIPT_DAY2 = [
   { type: "player", options: ["her account is deleted", "when did you last actually see her online?"] },
   { type: "juno", text: "what? no. it loads fine for me", means: "deflect" },
   { type: "juno", text: "...ok it doesn't load for me either. that's weird", means: "give_clue" },
-  { type: "wait", hint: "Two things you clipped don't fit together. Open your notebook.", until: "deduction:deleted-replied" }, // reworded 2026-10-10 for the notebook (was "...you saved... Open Saved.")
+  { type: "wait", hint: "Two things in Notes don't fit together. Compare them.", until: "deduction:deleted-replied" }, // reworded 2026-10-10 for Notes (was "...you saved... Open Saved.")
   { type: "juno", text: "ok before you say it" },
   { type: "juno", text: "deletion takes a while to sync. it's a known thing, it happens all the time", means: "deflect" },
   { type: "juno", text: "her message came through an hour ago. deleted people don't send messages" },
@@ -55,6 +55,9 @@ const SCRIPT_DAY2 = [
   { type: "juno", intent: "concede", facts: ["dont-know-where", "reply-an-hour-ago"],
     text: "i don't know. but she wrote to you, so she's somewhere" },
   { type: "memory", text: "doesn't believe the sync explanation", time: "Tue 23:58" },
+  // Clue 3 closes the slice (author's call, 2026-10-12): the reply isn't in Rachel's voice.
+  // The player finds an old message, adds it to Notes, and compares it with the reply (PAIRS "not-her-typing").
+  { type: "wait", hint: "Scroll up in your chat with Rachel. Does that reply sound like her?", until: "deduction:not-her-typing" },
   { type: "juno", text: "can we pick this up tomorrow? i'll look into it tonight, i promise", means: "retain" },
-  { type: "end", text: "End of the Day 2 slice. Next: the DM history, the voice note, Dani, and the leave-and-notification loop." },
+  { type: "end" }, // no on-screen text: the slice ends on Juno's line, then the look-back card
 ];

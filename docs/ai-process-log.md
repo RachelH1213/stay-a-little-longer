@@ -791,3 +791,34 @@ Copy this for each new entry.
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** I rejected asking "helping or keeping?" directly, because players can't answer it before the truth is out.
 - **My decision:** I chose option A. **[to fill in]**: the wording.
+
+---
+
+### 2026-10-12 — Clarity pass: premise, goal, clue 3 as the ending
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** the game still felt unclear: the story, the flow and the design. I didn't know how to fix it and asked Claude Code to suggest the best approach.
+- **Claude Code's diagnosis (playing it as a first-timer):**
+  - nothing says who the player is, who Rachel is, or that Juno is an AI;
+  - there is no stated goal;
+  - the slice ended on the first deduction, which only feels "odd";
+  - the last thing on screen was a developer note ("End of the Day 2 slice. Next: …");
+  - there are too many systems for five minutes;
+  - the three visual styles don't match.
+- **Its proposal:** don't add new story. Surface material I had already written:
+  1. Juno's thread header says "your Orbit companion" (was "online").
+  2. Notes starts with the goal "Find out where Rachel is", plus an older note of mine that restates Rachel's own message ("Rachel said she might go quiet for a bit. Check in on her.").
+  3. The slice now ends on **clue 3**, my existing pair in `app-data.js`: "She never used full stops. Whoever wrote that does." After Juno's sync excuse, a to-do says "Scroll up in your chat with Rachel. Does that reply sound like her?". The old message pulses, I add it to Notes and compare it with the reply.
+  4. The developer note is removed. The slice ends on Juno's existing line "can we pick this up tomorrow? i'll look into it tonight, i promise", which arrives as a banner just as I work out clue 3. Then the look-back card appears.
+  5. Leave, typing and the failing profile stay as they are. The visual pass waits for my moodboard.
+
+  It flagged that moving the climax to clue 3 changes the slice's story structure, so it's my decision. **I said "做" (do it).**
+- **Draft wording:** "your Orbit companion", the goal, the older note and the to-do are Claude Code's drafts (`js/data/onboarding.js`, `js/data/script-day2.js`).
+- **Testing (Chromium at 390px):**
+  - a new end-to-end test covers the label, the goal in Notes, the held last line, the to-do, the pulsing old message, the clue-3 deduction, the banner, the look-back card and no developer note;
+  - the older tests were updated for the extra step and rerun.
+- **Files / features affected:** `js/data/script-day2.js`, `js/data/onboarding.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`, `README.md`
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **My decision:** I approved all four changes, including moving the climax to clue 3. **[to fill in]**: the wording.

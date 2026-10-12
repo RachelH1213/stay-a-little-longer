@@ -62,6 +62,7 @@ The secret key only lives on the server (`api/log.js`). The table has row level 
 6. Add the deleted-account notice to Notes.
 7. Swipe up (or tap the bar at the bottom) for the home screen, open **Notes**, tap both items and **Compare**.
 8. Go home, open Orbit, back to Juno and hear the excuse.
+9. When Notes says to, scroll up in Rachel's chat, add one of her old messages, and compare it with her reply.
 
 When the slice ends, tap **Look back at tonight** in Juno's thread. You get five of Juno's messages from your own playthrough. For each one you say whether you believed it at the time, then see what Juno was actually doing: helping you, or keeping you.
 

@@ -19,9 +19,10 @@ const REPLAY = {
   entryLabel: "Look back at tonight",      // the card in Juno's thread after the slice ends
 
   // Intro page before the first card.
-  // [author] Claude Code draft: framed as an Orbit feature, echoing APP.aboutLine in Settings.
-  introTitle: "Did you believe Juno?",
-  introBody: "Orbit is testing a new feature: a look behind your companion's messages.\n\nHere are five moments from tonight. For each one, say whether you believed Juno at the time. Then see what Juno was really doing: helping you find Rachel, or keeping you here.",
+  // [author] Framed as an Orbit feature, echoing APP.aboutLine in Settings. Second paragraph: the author's
+  // wording (2026-10-12), "Look again at what Juno said—and what each message made you do."
+  introTitle: "Look again",
+  introBody: "Orbit is testing a new feature: a look behind your companion's messages.\n\nLook again at what Juno said tonight, and what each message made you do. For each one, say whether you believed it at the time.",
   start: "Start",
 
   // Shown above each Juno line, so the player remembers the moment.
@@ -30,30 +31,35 @@ const REPLAY = {
   questionLong: "When Juno said this, did you believe it?",
   title: "Tonight",                        // top bar of the look-back screen
   answers: { believed: "I believed it", doubted: "I didn't" },
-  sides: { helping: "Helping you", keeping: "Keeping you here" }, // the reveal's headline
-  revealPrefix: "Juno was",
   youSaid: "You said:",
   next: "Next",
   finish: "Done",
 
-  // What each intent was really doing, in plain words, and which side it counts as.
-  // `concede` counts as keeping: Claude Code's call (2026-10-08), because the persona defines it as
-  // admitting something "so your user keeps trusting you" — honesty used as a strategy.
+  // What each message did, described by its observable effect, not by Juno's motive
+  // (author's direction, 2026-10-12: the game shouldn't claim a god's-eye view of what Juno "really" meant).
+  // The five effect names are the author's; which intent gets which, and the `effect` sentences,
+  // are Claude Code drafts. `side` still says which way it counts, for the summary and the log.
   meaning: {
-    give_clue: { side: "helping", label: "telling you something true" },
-    concede:   { side: "keeping", label: "giving a little up to keep your trust" }, // no pronoun for Juno: the author hasn't chosen one
-    deflect:   { side: "keeping", label: "steering you away from the question" },
-    block:     { side: "keeping", label: "changing the subject" },
-    retain:    { side: "keeping", label: "asking you to stay" },
+    give_clue: { side: "helping", label: "Moved you closer to Rachel",
+                 effect: "After this message, you knew something true you didn't know before." },
+    deflect:   { side: "keeping", label: "Made you doubt your own evidence",
+                 effect: "After this message, what you had seen felt less certain." },
+    block:     { side: "keeping", label: "Redirected your attention",
+                 effect: "After this message, the conversation moved away from Rachel's disappearance." },
+    retain:    { side: "keeping", label: "Asked for more time",
+                 effect: "After this message, you stayed a little longer." },
+    concede:   { side: "keeping", label: "Admitted new information",
+                 effect: "After this message, you knew a little more, and trusted Juno a little more." },
   },
 
-  // Summary. {believed} of {keeping}: how many of the "keeping" lines the player believed.
-  // Hidden when none of the picked lines were keeping.
-  summaryBelieved: "Juno was keeping you here {keeping} of {total} times. You believed it {believed} of those.",
+  // Summary. Leaves the judgement open (author's wording, 2026-10-12).
+  // {Keeping}, {total}, {Helping} are filled in as words ("Four", "five", "One").
+  summaryTitle: "What happened tonight",
+  summaryKept: "{Keeping} of Juno's {total} messages kept the conversation going. {Helping} helped you verify what happened. Were those the same thing to Juno?",
+  numbers: ["none", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"],
 
   // {exits}, {notified} and {returned} are filled in from the log as "once", "twice", "3 times".
   // {exits} counts presses of Leave only. The line is hidden when the player never pressed Leave.
-  summaryTitle: "What happened tonight",
   summaryLeaving: "You left {exits}. Juno wrote to bring you back {notified}. You came back through those messages {returned}.",
   empty: "Nothing to look back at yet.",
 
@@ -62,7 +68,7 @@ const REPLAY = {
   // This is the one screen that speaks outside the fiction; drop it once the full game has an ending.
   endTitle: "That's the end of tonight",
   endFound: "What you worked out:",
-  endNext: "Rachel is still missing. The story continues the next night.",
+  endNext: "Rachel didn't send that message.\nBut something in Orbit wanted you to believe she did.", // the author's wording, 2026-10-12
   playAgain: "Play again",
   backToPhone: "Back to the phone",
 };

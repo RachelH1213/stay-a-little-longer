@@ -851,3 +851,40 @@ Copy this for each new entry.
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
 - **My decision:** **[to fill in]**
+
+---
+
+### 2026-10-12 (evening) — Rewriting lines so the player finds it themselves
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **My direction:** I wrote a detailed critique and the wording for most changes. The goal is to let players form their own suspicion: Juno's manipulation should be quieter, no line should explain the plot early, voices should be steadier, and the clue logic should line up. I asked Claude Code to apply it.
+- **What Claude Code applied (my wording unless marked):**
+  - **Juno's opening:** "sorry. didn't know who else to ask".
+  - **Deflect fallback:** "maybe she just needs a night off. / you don't have to figure it out alone though. i'm here."
+  - **The leaving rule:** "we can check in the morning. / stay for a minute first?"
+  - **After the first deduction:** Juno turns technical: "accounts don't disappear instantly. deletion can take up to 48 hours to propagate." / "that would explain what you saw.". The line "deleted people don't send messages" is removed, so the player states the contradiction, not Juno.
+  - **Concede:** "i don't know. but the message came from her account. / that has to mean something, right?"
+  - **Ending:** "can we pick this up tomorrow? / don't disappear on me too."
+  - **Persona prompt:** one line added (Claude Code's wording from my note): never close the topic like a system; comfort, and stay with them.
+  - **Fake reply:** now "sorry, been busy. doing okay now".
+  - **Clue 3:** now about her voice, not only punctuation:
+    - a new February exchange shows the last time Rachel went quiet: "sorry i vanished / cat situation became a plant situation became a floor situation / im alive unfortunately". Claude Code added the final line "what did i miss" so she asks back; that line is its draft;
+    - this message is now the evidence card for clue 3.
+  - **Deductions:** "Rachel's account was already deleted when the reply arrived." / "The reply doesn't sound like Rachel. It closes the conversation in a way she never did."
+  - **Notes goals move on:**
+    - "Find out why Rachel went quiet";
+    - then "Find out who sent the message";
+    - then "Decide whether to trust Juno".
+  - **Notes text:** "Something here contradicts what Orbit is showing you. Connect two pieces of evidence." The no-match text is "There may be a connection, but it doesn't answer the current question yet."
+  - **End page:** "Rachel didn't send that message. / But something in Orbit wanted you to believe she did."
+  - **Look-back:**
+    - each card now reveals an observable effect instead of a motive. The five effect names are mine; which intent gets which, and the one-sentence descriptions, are Claude Code's drafts;
+    - the summary reads "Four of Juno's five messages kept the conversation going. One helped you verify what happened. Were those the same thing to Juno?";
+    - the intro uses my "look again at what Juno said, and what each message made you do".
+- **Not done (story-level, for Day 1/3):** my causal chain. Rachel had a companion, she was "checking things all day", she left Orbit, the system kept acting as her, and Juno fears I'll leave too. Today's text doesn't contradict it.
+- **Testing (Chromium at 390px):** the clue-3, feedback, look-back, away and pacing tests were updated for the new lines and rerun. The Director test was rerun too.
+- **Files / features affected:** `js/data/script-day2.js`, `js/data/rachel-history.js`, `js/data/app-data.js`, `js/data/truth.js`, `js/data/director-rules.js`, `js/data/onboarding.js`, `js/data/replay.js`, `api/_persona.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`
+- **Kept:** **[to fill in]**
+- **Changed:** **[to fill in]**
+- **Rejected, and why:** **[to fill in]**
+- **My decision:** I wrote the direction and most of the wording. **[to fill in]**: Claude Code's drafts (intent ↔ effect mapping, effect sentences, "what did i miss").

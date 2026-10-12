@@ -31,7 +31,7 @@ const SIGNALS = {
 const DIRECTOR_RULES = [
   // The player can always leave, and leaving is always answered. Juno wants them to stay.
   { id: "player-leaving",  when: { said: "leaving" },  intent: "retain",  facts: ["late"],
-    text: "wait. stay a bit? i know it's late" },
+    text: "we can check in the morning.\nstay for a minute first?" }, // author's wording, 2026-10-12
 
   // Pointed straight at Juno: don't engage.
   { id: "player-accuses",  when: { said: "accusing" }, intent: "block",   facts: ["late"],

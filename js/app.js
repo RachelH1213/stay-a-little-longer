@@ -572,7 +572,7 @@
         lastDay = m.day;
       }
       const cls = m.from === "me" ? "me" : "them";
-      const saveId = m.suspect ? "reply-today" : i === 6 ? "old-dms" : null;
+      const saveId = m.suspect ? "reply-today" : m.evidence || null;
       const time = m.time ? `<span class="time">${esc(m.time)}</span>` : "";
       // The message the story needs pulses until it's saved; the very first time, a tip says why.
       // The old message only pulses once the to-do points at it (clue 3).
@@ -732,11 +732,18 @@
         ? `<button class="nb-btn${State.comparedOnce ? "" : " pulse"}" data-act="connect">${esc(N.compare)}</button>`
         : "";
 
-    // The player's own goal sits under the to-do from the start; the script's current step on top.
+    // The player's own goals: done ones ticked, the next one open, later ones not shown yet.
+    let goals = "";
+    for (const g of N.goals) {
+      const done = g.doneBy && State.deductions.indexOf(g.doneBy) !== -1;
+      goals += `<div class="goal${done ? " done" : ""}">${done ? "✓" : "○"} ${esc(g.text)}</div>`;
+      if (!done) break;
+    }
+    // The script's current step sits above the player's own goals.
     const todo = `<section class="nb-next">
            <h3>${esc(N.todo)}</h3>
            ${State.waiting ? `<div class="todo">○ ${esc(State.waiting.hint)}</div>` : ""}
-           <div class="goal">○ ${esc(State.ended ? N.goalLater : N.goal)}</div>
+           ${goals}
          </section>`;
 
     return `
@@ -834,12 +841,16 @@
         .replace("{exits}", Replay.times(s.exits))
         .replace("{notified}", Replay.times(s.notified))
         .replace("{returned}", Replay.times(s.returned));
-      // Of the lines where Juno was keeping the player, how many did they believe?
-      const keeping = r.items.map((it, k) => k).filter((k) => meaningOf(r.items[k].intent).side === "keeping");
-      const believedLine = REPLAY.summaryBelieved
-        .replace("{keeping}", keeping.length)
-        .replace("{total}", r.items.length)
-        .replace("{believed}", keeping.filter((k) => r.guesses[k] === "believed").length);
+      // How many lines kept the conversation going, and how many helped the player check what happened.
+      const keeping = r.items.filter((it) => meaningOf(it.intent).side === "keeping").length;
+      const word = (n, cap) => {
+        const w = REPLAY.numbers[n] || String(n);
+        return cap ? w[0].toUpperCase() + w.slice(1) : w;
+      };
+      const keptLine = REPLAY.summaryKept
+        .replace("{Keeping}", word(keeping, true))
+        .replace("{total}", word(r.items.length))
+        .replace("{Helping}", word(r.items.length - keeping, true));
       content = `
         <div class="replay">
           <h2>${esc(REPLAY.summaryTitle)}</h2>
@@ -849,11 +860,11 @@
               return `
                 <div class="rsum">
                   <div class="bub them">${esc(item.reply)}</div>
-                  <div class="note"><b class="${esc(m.side)}">${esc(REPLAY.sides[m.side])}</b> · ${esc(m.label)} · ${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[r.guesses[k]] || "")}</div>
+                  <div class="note"><b class="${esc(m.side)}">${esc(m.label)}</b> · ${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[r.guesses[k]] || "")}</div>
                 </div>`;
             })
             .join("")}
-          ${keeping.length ? `<p class="rleave">${esc(believedLine)}</p>` : ""}
+          <p class="rleave">${esc(keptLine)}</p>
           ${s.exits ? `<p class="rleave">${esc(leaving)}</p>` : ""}
           <button class="pill primary" data-act="replay-close">${esc(REPLAY.finish)}</button>
         </div>`;
@@ -875,8 +886,8 @@
           ${
             guess
               ? `<div class="reveal ${esc(m.side)}">
-                   <b>${esc(REPLAY.sides[m.side])}</b>
-                   <span>${esc(REPLAY.revealPrefix)} ${esc(m.label)}</span>
+                   <b>${esc(m.label)}</b>
+                   <span>${esc(m.effect || "")}</span>
                    <span class="note">${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[guess])}</span>
                  </div>
                  <button class="pill primary" data-act="replay-next">${esc(last ? REPLAY.finish : REPLAY.next)}</button>`

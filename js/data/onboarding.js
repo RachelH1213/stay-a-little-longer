@@ -34,16 +34,21 @@ const ONBOARDING = {
     know: "What I know",
     empty: "Nothing here yet.\nTap 📎 on a message or a screen in Orbit to add it.",
     needTwo: "Add one more thing, then compare them.",
-    pick: "Pick two that don't fit together.",
+    pick: "Something here contradicts what Orbit is showing you. Connect two pieces of evidence.", // author's wording, 2026-10-12
     picked: "1 of 2 picked",
     compare: "Compare",
-    noMatch: "Those two don't contradict each other. Look for two things that can't both be true.",
+    noMatch: "There may be a connection, but it doesn't answer the current question yet.", // author's wording, 2026-10-12
     knowEmpty: "Nothing yet.",
     // The player's own goal and an older note, there from the start. The note only restates
     // rachel-history.js ("i might go quiet for a bit", shown on the lock screen as "last week").
     // Added 2026-10-12, a draft.
-    goal: "Find out where Rachel is",
-    goalLater: "Find out where Rachel is (tomorrow night)",
+    // The goal moves on as the player works things out (author's direction, 2026-10-12): the slice
+    // never promises to find where Rachel is. Key = the deduction that completes that goal.
+    goals: [
+      { text: "Find out why Rachel went quiet", doneBy: "deleted-replied" },
+      { text: "Find out who sent the message", doneBy: "not-her-typing" },
+      { text: "Decide whether to trust Juno", doneBy: null },
+    ],
     ownNote: { when: "Last week", text: "Rachel said she might go quiet for a bit. Check in on her." },
   },
 

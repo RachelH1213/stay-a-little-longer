@@ -13,16 +13,14 @@
   const READ_PAUSE_MS = 600;         // after each Juno line, a pause before anything else happens...
   const READ_MS_PER_CHAR = 25;       // ...longer for longer lines, so the player has time to read...
   const MAX_EXTRA_READ_MS = 1600;    // ...up to this much extra
+  const BANNER_MS = 9000;            // a notification banner stays this long (was 4000; testers missed it)
   const RECENT_TURNS = 6;            // how much of the thread the model gets to see
 
   const app = document.getElementById("app");
 
-  // Screens that belong to the phone, not to Orbit. Everything else is inside Orbit.
-  const PHONE_VIEWS = ["lock", "home", "notes"];
 
   const State = {
     view: "lock",          // lock | home | notes (the phone) | chats | juno | rachel | dani | profile | settings | replay (Orbit)
-    orbitView: "chats",    // where Orbit reopens from the home screen, like any app
     day: 2,                // in-game day; the Director only uses facts unlocked by now
     step: 0,               // position in SCRIPT_DAY2
     log: [],               // messages shown in Juno's thread
@@ -84,7 +82,6 @@
       }
     }
     State.view = view;
-    if (PHONE_VIEWS.indexOf(view) === -1) State.orbitView = view;
     if (view === "notes") {
       State.clipsSeen = State.saved.length;
       State.todoSeen = State.waiting ? State.waiting.hint : null;
@@ -122,7 +119,7 @@
     banner._t = setTimeout(() => {
       State.banner = null;
       render();
-    }, 4000);
+    }, BANNER_MS);
   }
 
   function toast(text) {
@@ -158,11 +155,9 @@
     return Math.max(0, State.saved.length - State.clipsSeen) + todo;
   }
 
+  // Orbit always opens on Chats, so the player always knows where they land (tester feedback 2026-10-12).
   function openOrbit() {
-    if (State.orbitView === "juno") {
-      go("juno", "home");
-      runScript();
-    } else go(State.orbitView || "chats", "home");
+    go("chats", "home");
   }
 
   /* ---------------- script runner ---------------- */
@@ -437,9 +432,8 @@
 
   function connect() {
     const [a, b] = State.selection;
-    const hit = PAIRS.find(
-      (p) => p.cards.indexOf(a) !== -1 && p.cards.indexOf(b) !== -1
-    );
+    const both = (cards) => cards.indexOf(a) !== -1 && cards.indexOf(b) !== -1;
+    const hit = PAIRS.find((p) => both(p.cards) || (p.also || []).some(both));
     State.selection = [];
     State.comparedOnce = true;
     if (!hit) {
@@ -487,9 +481,13 @@
       </div>`;
   }
 
+  // Only threads with something in them are tappable; the rest are plain rows (no dead taps).
+  const OPEN_THREADS = ["juno", "rachel", "dani"];
+
   function chatRow(c) {
+    const open = OPEN_THREADS.indexOf(c.id) !== -1;
     return `
-      <button class="row" data-act="open" data-id="${esc(c.id)}">
+      <${open ? "button" : "div"} class="row${open ? "" : " still"}"${open ? ` data-act="open" data-id="${esc(c.id)}"` : ""}>
         <div class="av av-${esc(c.avatar)}">${esc(c.name[0])}</div>
         <div class="meta">
           <div class="nm"><b>${esc(c.name)}</b><span>${esc(c.handle)}</span></div>
@@ -497,7 +495,7 @@
         </div>
         <div class="rt">${esc(c.time)}</div>
         ${c.unread ? '<div class="dot"></div>' : ""}
-      </button>`;
+      </${open ? "button" : "div"}>`;
   }
 
   // Juno's row reflects the actual thread: last message and unread dot.
@@ -558,7 +556,7 @@
       <div class="composer">
         ${chips}
         <div class="inputrow">
-          <input id="entry" placeholder="${State.awaiting ? "Message Juno" : "…"}"
+          <input id="entry" placeholder="${State.awaiting ? esc(State.awaiting.options.length ? ONBOARDING.typeOwn : "Message Juno") : "…"}"
                  ${State.awaiting ? "" : "disabled"} autocomplete="off" aria-label="Message Juno">
           <button class="send" data-act="send" aria-label="Send">↑</button>
         </div>
@@ -609,7 +607,6 @@
         <div class="bub them">ok weird question\nhas juno asked you about rachel</div>
         <div class="bub me">not yet. why</div>
         <div class="bub them">no reason\nnevermind</div>
-        <div class="sys">Dani's thread opens properly on Day 2 of the full build.</div>
       </div></div>`;
   }
 
@@ -644,18 +641,19 @@
         <div class="listnote">Posts stay visible for 30 days after an account is removed.</div>`;
     }
 
-    const overlay =
-      State.openPost === "p1"
-        ? `<div class="deduction" style="margin:14px">
-             <span class="label">Post · Sep 20</span>
-             <div>“quiet”</div>
-             <div style="font-size:12px;color:#a9a49a">Posted two days after this account was deleted.</div>
-             <div style="display:flex;gap:8px;margin-top:6px">
-               <button class="save inline${isSaved("post-bench") ? " on" : ""}" data-act="save" data-id="post-bench" aria-label="${esc(ONBOARDING.clipLabel)}">${ONBOARDING.clip}</button>
-               <button class="pill" data-act="close-post" style="color:#f3f1ec;border-color:#4a4843">Close</button>
-             </div>
-           </div>`
-        : "";
+    // Every post opens. Only the one the story needs can be added to Notes.
+    const post = p.posts.find((x) => x.id === State.openPost);
+    const overlay = post
+      ? `<div class="deduction" style="margin:14px">
+           <span class="label">Post · ${esc(post.date)}</span>
+           <div>“${esc(post.caption)}”</div>
+           ${post.id === "p1" ? `<div style="font-size:12px;color:#a9a49a">Posted two days after this account was deleted.</div>` : ""}
+           <div style="display:flex;gap:8px;margin-top:6px">
+             ${post.id === "p1" ? `<button class="save inline${isSaved("post-bench") ? " on" : ""}" data-act="save" data-id="post-bench" aria-label="${esc(ONBOARDING.clipLabel)}">${ONBOARDING.clip}</button>` : ""}
+             <button class="pill" data-act="close-post" style="color:#f3f1ec;border-color:#4a4843">Close</button>
+           </div>
+         </div>`
+      : "";
 
     return `
       ${topbar("Profile", "", true)}
@@ -666,10 +664,10 @@
           <div class="handle">${esc(p.handle)}</div>
           <div class="bio">${esc(p.bio)}</div>
           <div class="joined">${esc(p.joined)}</div>
-          <div class="pactions">
+          ${State.flags.profileTried ? "" : `<div class="pactions">
             <button class="pill" disabled>Message</button>
             <button class="pill" disabled>Call</button>
-          </div>
+          </div>`}
         </div>
         ${overlay}
         ${content}
@@ -738,7 +736,7 @@
     const todo = `<section class="nb-next">
            <h3>${esc(N.todo)}</h3>
            ${State.waiting ? `<div class="todo">○ ${esc(State.waiting.hint)}</div>` : ""}
-           <div class="goal">○ ${esc(N.goal)}</div>
+           <div class="goal">○ ${esc(State.ended ? N.goalLater : N.goal)}</div>
          </section>`;
 
     return `
@@ -817,6 +815,19 @@
           <h2>${esc(REPLAY.introTitle)}</h2>
           <p class="rintro">${esc(REPLAY.introBody)}</p>
           <button class="pill primary" data-act="replay-begin">${esc(REPLAY.start)}</button>
+        </div>`;
+    } else if (r.finished) {
+      // The end of tonight: what the player worked out, and that the story goes on.
+      content = `
+        <div class="replay endpage">
+          <h2>${esc(REPLAY.endTitle)}</h2>
+          <p class="rintro">${esc(REPLAY.endFound)}</p>
+          <ul class="endlist">${State.deductions
+            .map((id) => `<li>${esc(PAIRS.find((x) => x.id === id).text)}</li>`)
+            .join("")}</ul>
+          <p class="rintro">${esc(REPLAY.endNext)}</p>
+          <button class="pill primary" data-act="play-again">${esc(REPLAY.playAgain)}</button>
+          <button class="pill" data-act="replay-close">${esc(REPLAY.backToPhone)}</button>
         </div>`;
     } else if (r.done) {
       const leaving = REPLAY.summaryLeaving
@@ -940,10 +951,13 @@
       homebar() +
       (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "") +
       (State.banner && State.view !== State.banner.from && State.view !== "lock"
-        ? `<button class="banner" data-act="open-banner">
-             <div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>
-             <div><b>${State.banner.from === "rachel" ? "Rachel" : "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
-           </button>`
+        ? `<div class="banner">
+             <button class="banner-open" data-act="open-banner">
+               <div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>
+               <div><b>${State.banner.from === "rachel" ? "Rachel" : "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
+             </button>
+             <button class="banner-x" data-act="close-banner" aria-label="Dismiss">✕</button>
+           </div>`
         : "");
 
     const nb = document.getElementById("nbscroll");
@@ -990,6 +1004,10 @@
         }
         break;
       }
+      case "close-banner":
+        State.banner = null;
+        render();
+        break;
       case "open-notice":
         State.notice = null;
         State.onboarded = true;
@@ -1014,7 +1032,6 @@
           runScript();
         } else if (id === "rachel") go("rachel");
         else if (id === "dani") go("dani");
-        else toast("Not part of this slice");
         break;
       case "tab":
         go(id);
@@ -1095,7 +1112,13 @@
         render();
         break;
       case "replay-close":
-        go("chats");
+        if (State.replay && State.replay.done && !State.replay.finished) {
+          State.replay.finished = true; // one more page: the end of tonight
+          render();
+        } else go("chats");
+        break;
+      case "play-again":
+        location.reload();
         break;
     }
   });

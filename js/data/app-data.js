@@ -54,10 +54,14 @@ const EVIDENCE = {
   },
 };
 
-/* Pairing two saved cards produces a deduction. Order does not matter. */
+/* Pairing two saved cards produces a deduction. Order does not matter.
+   `also` lists other pairs that prove the same thing. */
 const PAIRS = [
   {
     cards: ["reply-today", "profile-deleted"],
+    // The post's card also says the account was deleted, so reply + post proves the same thing.
+    // Added 2026-10-12 after a tester's correct pair was rejected.
+    also: [["reply-today", "post-bench"]],
     id: "deleted-replied",
     text: "A deleted account answered me an hour ago.",
     unlocks: "ask-juno-sync",

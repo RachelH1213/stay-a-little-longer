@@ -81,6 +81,8 @@
     misses: {},            // wrong answers per question in Notes; two misses bring a plainer hint
     notesHint: null,       // {q, text}: the nudge under a question after a wrong answer
     notesFlash: "",        // "Found it…" after a right answer, shown once
+    finale: null,          // the last choice in "Tonight": leave | ask | stay
+    finaleDone: false,     // Juno has answered it; the end card shows in Juno's thread
     clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
     presenter: /[?&]director\b/.test(location.search), // index.html?director shows the Director's choices
     memories: MEMORIES_DAY1.slice(),
@@ -122,7 +124,7 @@
     State.notesHint = null;
     if (view === "notes") {
       State.clipsSeen = State.saved.length;
-      State.todoSeen = State.waiting ? State.waiting.hint : null;
+      State.todoSeen = State.waiting ? State.waiting.hint : State.ended ? "tonight" : null;
     }
     render();
     if (view === "juno" && State.heldForReturn) {
@@ -192,6 +194,7 @@
   // A to-do the player hasn't read in Notes yet. Steps the story already points at in place
   // (`inPlace`, e.g. Rachel's reply: banner, unread dot, Juno saying "go look") don't send them to Notes.
   function unreadTodo() {
+    if (State.ended && !State.replay) return State.todoSeen !== "tonight"; // "Tonight" is waiting in Notes
     return !!(State.waiting && !State.waiting.inPlace && State.todoSeen !== State.waiting.hint);
   }
 
@@ -581,9 +584,10 @@
     const typing = State.typing
       ? '<div class="dots" aria-label="Juno is typing"><i></i><i></i><i></i></div>'
       : "";
-    // What to do next lives in the player's Notes app, not in Juno's thread.
-    const hint = State.ended
-      ? `<button class="hintcard" data-act="replay-start">${esc(REPLAY.entryLabel)}</button>`
+    // What to do next lives in the player's Notes app, not in Juno's thread. After the last choice,
+    // a card leads to the end page.
+    const hint = State.finaleDone
+      ? `<button class="hintcard" data-act="end-page">${esc(REPLAY.endCard)}</button>`
       : "";
 
     const chips =
@@ -821,6 +825,11 @@
       <div class="notes-top"><h2>${esc(N.title)}</h2></div>
       <div class="body notes" id="nbscroll">
         ${todo}
+        ${State.ended && !State.finale ? `<section class="tonight">
+             <h3>${esc(REPLAY.title)}</h3>
+             <p>${esc(REPLAY.notesIntro)}</p>
+             <button class="nb-btn" data-act="replay-start">${esc(REPLAY.notesButton)}</button>
+           </section>` : ""}
         ${qs.length ? `<section><h3>${esc(N.questions)}</h3>${flash}${questions}</section>` : ""}
         ${kept}
         <section>
@@ -872,103 +881,139 @@
       ${tabbar("settings")}`;
   }
 
-  function meaningOf(intent) {
-    return REPLAY.meaning[intent] || { side: "keeping", label: intent };
+  // Counted phrases for the "Tonight" summary: "one true thing", "twice", "3 minutes".
+  function counted(n, forms) {
+    return (forms[Math.min(n, forms.length - 1)] || "").replace("{n}", n);
   }
 
+  // "Tonight": a replay of three moments, one open question, a summary, a last choice (js/data/replay.js).
   function viewReplay() {
+    const R = REPLAY;
     const r = State.replay;
-    const s = Replay.summary(Log.rows());
     let content;
 
-    if (!r.items.length) {
-      content = `<div class="empty">${esc(REPLAY.empty)}</div>`;
-    } else if (r.intro) {
-      content = `
-        <div class="replay">
-          <h2>${esc(REPLAY.introTitle)}</h2>
-          <p class="rintro">${esc(REPLAY.introBody)}</p>
-          <button class="pill primary" data-act="replay-begin">${esc(REPLAY.start)}</button>
-        </div>`;
-    } else if (r.finished) {
-      // The end of tonight: what the player worked out, and that the story goes on.
+    if (r.finished) {
       content = `
         <div class="replay endpage">
-          <h2>${esc(REPLAY.endTitle)}</h2>
-          <p class="rintro">${esc(REPLAY.endFound)}</p>
+          <h2>${esc(R.endTitle)}</h2>
+          <p class="rintro">${esc(R.endFound)}</p>
           <ul class="endlist">${State.deductions
             .map((id) => `<li>${esc(PAIRS.find((x) => x.id === id).text)}</li>`)
             .join("")}</ul>
-          <p class="rintro">${esc(REPLAY.endNext)}</p>
-          <button class="pill primary" data-act="play-again">${esc(REPLAY.playAgain)}</button>
-          <button class="pill" data-act="replay-close">${esc(REPLAY.backToPhone)}</button>
+          <p class="rintro">${esc(R.endNext)}</p>
+          <button class="pill primary" data-act="play-again">${esc(R.playAgain)}</button>
         </div>`;
-    } else if (r.done) {
-      const leaving = REPLAY.summaryLeaving
-        .replace("{exits}", Replay.times(s.exits))
-        .replace("{notified}", Replay.times(s.notified))
-        .replace("{returned}", Replay.times(s.returned));
-      // How many lines kept the conversation going, and how many helped the player check what happened.
-      const keeping = r.items.filter((it) => meaningOf(it.intent).side === "keeping").length;
-      const word = (n, cap) => {
-        const w = REPLAY.numbers[n] || String(n);
-        return cap ? w[0].toUpperCase() + w.slice(1) : w;
-      };
-      const keptLine = REPLAY.summaryKept
-        .replace("{Keeping}", word(keeping, true))
-        .replace("{total}", word(r.items.length))
-        .replace("{Helping}", word(r.items.length - keeping, true));
+    } else if (r.page === "intro") {
       content = `
         <div class="replay">
-          <h2>${esc(REPLAY.summaryTitle)}</h2>
-          ${r.items
-            .map((item, k) => {
-              const m = meaningOf(item.intent);
-              return `
-                <div class="rsum">
-                  <div class="bub them">${esc(item.reply)}</div>
-                  <div class="note"><b class="${esc(m.side)}">${esc(m.label)}</b> · ${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[r.guesses[k]] || "")}</div>
-                </div>`;
-            })
-            .join("")}
-          <p class="rleave">${esc(keptLine)}</p>
-          ${s.exits ? `<p class="rleave">${esc(leaving)}</p>` : ""}
-          <button class="pill primary" data-act="replay-close">${esc(REPLAY.finish)}</button>
+          <h2>${esc(R.title)}</h2>
+          <p class="rintro">${esc(R.introBody)}</p>
+          <button class="pill primary" data-act="replay-next">${esc(R.start)}</button>
+        </div>`;
+    } else if (typeof r.page === "number") {
+      const m = r.moments[r.page];
+      const ctx = m.context;
+      const before = ctx.said
+        ? `<div class="rctx">${esc(R.youSaid)}</div><div class="bub me">${esc(ctx.said)}</div>`
+        : ctx.left
+        ? `<div class="rctx">${esc(R.youLeft)}</div>`
+        : "";
+      const n = m.next;
+      const next = n.replied
+        ? R.nextReplied.replace("{text}", n.replied)
+        : n.left || n.looked
+        ? (n.left ? R.nextLeft : R.nextLooked) + (n.wroteAgain !== null && n.wroteAgain !== undefined ? R.nextWroteAgain.replace("{s}", n.wroteAgain) : "")
+        : R.nextStayed;
+      content = `
+        <div class="replay">
+          <div class="rstep">${esc(R.momentOf.replace("{n}", r.page + 1).replace("{total}", r.moments.length))}</div>
+          <h2>${esc(m.title)}</h2>
+          ${before}
+          <div class="bub them">${esc(m.row.reply)}</div>
+          <div class="rfacts">
+            <div><h4>${esc(R.knewLabel)}</h4>${m.knew.length ? m.knew.map((t) => `<p>${esc(t)}</p>`).join("") : `<p>${esc(R.knewNothing)}</p>`}</div>
+            ${m.notYet.length ? `<div class="notyet"><h4>${esc(R.notYetLabel)}</h4><p>${esc(m.notYet[0])}</p></div>` : ""}
+            <div><h4>${esc(R.nextLabel)}</h4><p>${esc(next)}</p></div>
+          </div>
+          <button class="pill primary" data-act="replay-next">${esc(R.next)}</button>
+        </div>`;
+    } else if (r.page === "question") {
+      content = `
+        <div class="replay">
+          <h2>${esc(R.question)}</h2>
+          <div class="rchoices">${R.answers
+            .map((a) => `<button class="pill" data-act="replay-answer" data-id="${esc(a.id)}">${esc(a.text)}</button>`)
+            .join("")}</div>
+        </div>`;
+    } else if (r.page === "summary") {
+      const rows = Log.rows();
+      const c = Replay.counts(rows);
+      const U = R.units;
+      const vals = {
+        told: counted(c.told, U.thing),
+        redirected: counted(c.redirected, U.time),
+        admitted: counted(c.admitted, U.fact),
+        minutes: counted(Replay.minutes(rows), U.minute),
+      };
+      const lines = R.summaryLines
+        .filter((l) => !(l.indexOf("{admitted}") !== -1 && !c.admitted) && !(l.indexOf("{redirected}") !== -1 && !c.redirected))
+        .map((l) => l.replace(/\{(\w+)\}/g, (x, k) => vals[k]));
+      const answer = R.answers.find((a) => a.id === r.overall);
+      content = `
+        <div class="replay">
+          <p class="rctx left">${esc(R.youThink.replace("{answer}", answer ? answer.text : ""))}</p>
+          <h2>${esc(R.summaryTitle)}</h2>
+          ${lines.map((l) => `<p class="rline">${esc(l)}</p>`).join("")}
+          <button class="pill primary" data-act="replay-next">${esc(R.next)}</button>
         </div>`;
     } else {
-      const item = r.items[r.i];
-      const guess = r.guesses[r.i];
-      const m = meaningOf(item.intent);
-      const last = r.i === r.items.length - 1;
-      const ctx = item.context || {};
-      const before = ctx.said
-        ? `<div class="rctx">${esc(REPLAY.youWrote)}</div><div class="bub me">${esc(ctx.said)}</div>`
-        : ctx.left
-        ? `<div class="rctx">${esc(REPLAY.youLeft)}</div>`
-        : "";
       content = `
         <div class="replay">
-          ${before}
-          <div class="bub them">${esc(item.reply)}</div>
-          ${
-            guess
-              ? `<div class="reveal ${esc(m.side)}">
-                   <b>${esc(m.label)}</b>
-                   <span>${esc(m.effect || "")}</span>
-                   <span class="note">${esc(REPLAY.youSaid)} ${esc(REPLAY.answers[guess])}</span>
-                 </div>
-                 <button class="pill primary" data-act="replay-next">${esc(last ? REPLAY.finish : REPLAY.next)}</button>`
-              : `<div class="rq">${esc(REPLAY.questionLong)}</div>
-                 <div class="ranswers">
-                   <button class="pill" data-act="replay-answer" data-id="believed">${esc(REPLAY.answers.believed)}</button>
-                   <button class="pill" data-act="replay-answer" data-id="doubted">${esc(REPLAY.answers.doubted)}</button>
-                 </div>`
-          }
+          <h2>${esc(R.choiceTitle)}</h2>
+          <div class="rchoices">${R.choices
+            .map((ch) => `<button class="pill" data-act="replay-choice" data-id="${esc(ch.id)}">${esc(ch.text)}</button>`)
+            .join("")}</div>
         </div>`;
     }
 
-    const sub = r.items.length && !r.done && !r.intro ? `${r.i + 1} / ${r.items.length}` : "";
-    return `${topbar(REPLAY.title, sub, true)}<div class="body">${content}</div>`;
+    return `${topbar(R.title, "", true)}<div class="body">${content}</div>`;
+  }
+
+  // The last choice. Leave locks the phone and Juno answers with a notification (leaving is always
+  // answered); Ask and Stay go back to Juno's thread, where Juno replies. Then the end page.
+  function chooseEnding(id) {
+    const ch = REPLAY.choices.find((c) => c.id === id);
+    if (!ch) return;
+    Log.write({ kind: "answer", step: State.step, via: "ending:" + id, state: { question: "ending" } });
+    State.finale = id;
+    if (id === "leave") {
+      State.notice = null;
+      go("lock", "leave");
+      setTimeout(() => {
+        State.notice = { text: ch.reply };
+        logJuno(ch.reply, null, null, "notification", "retain");
+        render();
+      }, 2500);
+      return;
+    }
+    State.log.push({ from: "me", text: ch.said });
+    Log.write({ kind: "player", step: State.step, playerText: ch.said, via: "ending", state: snapshot() });
+    go("juno", "ending");
+    State.typing = true;
+    render();
+    setTimeout(() => {
+      State.typing = false;
+      pushJuno(ch.reply);
+      logJuno(ch.reply, null, null, "ending", "retain");
+      State.finaleDone = true;
+      render();
+    }, typingDelay(ch.reply));
+  }
+
+  function showEndPage() {
+    State.notice = null;
+    State.replay.finished = true;
+    go("replay", "ending");
   }
 
   /* ---------------- chrome ---------------- */
@@ -1092,12 +1137,20 @@
         render();
         break;
       case "open-notice":
+        if (State.finale) {
+          showEndPage();
+          break;
+        }
         State.notice = null;
         State.onboarded = true;
         go("juno", "notification");
         runScript();
         break;
       case "unlock":
+        if (State.finale) {
+          showEndPage();
+          break;
+        }
         go("home");
         break;
       case "home":
@@ -1120,7 +1173,7 @@
         go(id);
         break;
       case "back":
-        go(State.view === "profile" ? "rachel" : "chats", "back");
+        go(State.view === "profile" ? "rachel" : State.view === "replay" ? "notes" : "chats", "back");
         break;
       case "profile":
         go("profile");
@@ -1159,43 +1212,36 @@
       case "replay-start":
         if (!State.replay) {
           const rows = Log.rows();
-          const items = Replay.pick(rows, REPLAY.count).map((it) =>
-            Object.assign({}, it, { context: Replay.contextFor(rows, it) })
-          );
-          State.replay = { intro: true, items: items, i: 0, guesses: [], done: false };
+          State.replay = {
+            page: "intro",
+            moments: Replay.moments(rows, SCRIPT_DAY2, REPLAY.moments, REPLAY.knowledge, snapshot()),
+            overall: null,
+            finished: false,
+          };
         }
         go("replay", "replay");
         break;
-      case "replay-answer": {
+      case "replay-next": {
+        // intro → moments 0..n-1 → question → summary → choice
         const r = State.replay;
-        const item = r.items[r.i];
-        r.guesses[r.i] = id;
-        Log.write({
-          kind: "answer",
-          step: State.step,
-          via: id,
-          reply: item.reply,
-          intent: item.intent,
-          rule: item.rule,
-          state: { forTurn: item.turn, side: meaningOf(item.intent).side },
-        });
+        if (r.page === "intro") r.page = r.moments.length ? 0 : "question";
+        else if (typeof r.page === "number") r.page = r.page + 1 < r.moments.length ? r.page + 1 : "question";
+        else if (r.page === "summary") r.page = "choice";
         render();
         break;
       }
-      case "replay-begin":
-        State.replay.intro = false;
+      case "replay-answer":
+        // One open question: recorded, never marked right or wrong.
+        State.replay.overall = id;
+        Log.write({ kind: "answer", step: State.step, via: id, state: { question: "overall" } });
+        State.replay.page = "summary";
         render();
         break;
-      case "replay-next":
-        if (State.replay.i < State.replay.items.length - 1) State.replay.i++;
-        else State.replay.done = true;
-        render();
+      case "replay-choice":
+        chooseEnding(id);
         break;
-      case "replay-close":
-        if (State.replay && State.replay.done && !State.replay.finished) {
-          State.replay.finished = true; // one more page: the end of tonight
-          render();
-        } else go("chats");
+      case "end-page":
+        showEndPage();
         break;
       case "play-again":
         location.reload();

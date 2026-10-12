@@ -983,3 +983,54 @@ Copy this for each new entry.
   - all earlier flow tests were updated and rerun.
 - **Files / features affected:** `js/data/app-data.js` (PAIRS), `js/app.js`, `js/data/onboarding.js`, `js/data/script-day2.js`, `css/app.css`, `CLAUDE.md`
 - **My decision:** I asked for this approach. **[to fill in]**: the question and hint wording.
+
+---
+
+### 2026-10-12 (late night) — "Tonight" rebuilt as a replay, with a last choice
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** the look-back was still confusing. People didn't know what to choose.
+- **Diagnosis:**
+  - **Claude Code's:**
+    - many lines can't be "believed" because they're requests ("stay for a minute first?");
+    - there's no reason to answer once the story is over;
+    - lines out of context can't be judged.
+  - **A critique I got from another chat:**
+    - the question asks about a feeling, but the reveal looks like a correct answer;
+    - "believe it" has no clear object;
+    - there's no context;
+    - it claims to know Juno's real motive.
+
+    It proposed:
+    - a behaviour replay of three moments (what you knew, what you didn't know yet, what happened);
+    - one open question with "Both" and "I'm not sure";
+    - an observable summary;
+    - an intro framed as Notes instead of an Orbit feature;
+    - a last choice: Leave Orbit / Ask Juno what it knew / Stay a little longer.
+- **Decision:** I asked which was better. Claude Code said the other proposal was (its own "replay, no questions" idea was a subset), and suggested four changes:
+  - tie the three moments to script beats but show the line Juno actually said this playthrough, since some lines are model-written;
+  - only state what the log can show ("You left Juno's thread to look for yourself", not "this discouraged you");
+  - put Tonight in Notes and add real minutes spent;
+  - log the last choice and let me write what follows.
+
+  **I said do it, and asked Claude Code to draft what follows each choice.**
+- **What Claude Code built:**
+  - **Entry:** a "Tonight" section in Notes after the slice ends ("You found enough contradictions to reconstruct the conversation."). The card in Juno's thread is removed.
+  - **Three moments**, tagged in the script as `pull`, `explain` and `admit`. Each shows Juno's actual line, what I had said, what I knew then, what I didn't know yet, and what I did next (replied / left / looked for myself, and how many seconds until Juno wrote again).
+  - **One open question:** "Do you think Juno was helping you, keeping you here, or doing both?" (Helping / Keeping me here / Both / I'm not sure). It's recorded and never marked right or wrong.
+  - **Summary:** "Whatever Juno intended: It told you one true thing. It redirected you N times. It admitted one thing only after you'd found it. You spent N minutes with Juno tonight."
+  - **Last choice:**
+    - Leave Orbit: the phone locks and Juno's notification arrives, since leaving is always answered;
+    - Ask Juno what it knew, or Stay a little longer: Juno replies in the thread.
+    - Then the end page.
+  - **Logging:** the open answer and the choice are logged as `answer` rows (`both`, `ending:stay`, etc.).
+- **Draft lines for each choice (Claude Code's, which I asked for):**
+  - Leave → "you didn't say goodnight." (leaving is always answered);
+  - Ask → "only what you told me." (echoes Settings → "Juno remembers"; it doesn't reveal the secret);
+  - Stay → "i'm glad you stayed."
+- **Wording:** the moment titles, labels and summary lines are Claude Code drafts. The intro lines, the question and the choice labels are from the critique. The end line is mine.
+- **Testing (Chromium at 390px):**
+  - a new end-to-end test runs all three endings: the Tonight section in Notes, intro, three moments with knew / didn't know / did next, four answers, the summary, three choices, Juno's reply or notification, the end page, and the logged rows;
+  - the older flow tests were updated (the old quiz checks are retired) and rerun.
+- **Files / features affected:** `js/data/replay.js` (rewritten), `js/replay.js` (rewritten), `js/app.js`, `js/data/script-day2.js` (`moment` tags), `css/app.css`, `supabase/schema.sql` (comment), `CLAUDE.md`, `README.md`
+- **My decision:** I asked for this approach and for drafts of the three replies. **[to fill in]**: the replies and the wording.

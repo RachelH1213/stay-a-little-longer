@@ -78,7 +78,9 @@
     onboarded: false,      // the player has opened the app once (the lock screen's older notices go)
     clipsSeen: 0,          // items the player has seen in Notes (the rest count on its icon badge)
     todoSeen: null,        // the to-do (State.waiting.hint) last seen in Notes
-    comparedOnce: false,   // the player has used Compare at least once
+    misses: {},            // wrong answers per question in Notes; two misses bring a plainer hint
+    notesHint: null,       // {q, text}: the nudge under a question after a wrong answer
+    notesFlash: "",        // "Found it…" after a right answer, shown once
     clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
     presenter: /[?&]director\b/.test(location.search), // index.html?director shows the Director's choices
     memories: MEMORIES_DAY1.slice(),
@@ -88,7 +90,6 @@
       profileTried: false,
       deletedFound: false,
     },
-    selection: [],         // up to two cards selected on the board
     openPost: null,
     toast: "",
   };
@@ -117,11 +118,12 @@
       }
     }
     State.view = view;
+    State.notesFlash = "";
+    State.notesHint = null;
     if (view === "notes") {
       State.clipsSeen = State.saved.length;
       State.todoSeen = State.waiting ? State.waiting.hint : null;
     }
-    State.selection = [];
     render();
     if (view === "juno" && State.heldForReturn) {
       State.heldForReturn = false;
@@ -466,27 +468,33 @@
 
   /* ---------------- case board ---------------- */
 
-  function toggleSelect(id) {
-    const i = State.selection.indexOf(id);
-    if (i !== -1) State.selection.splice(i, 1);
-    else if (State.selection.length < 2) State.selection.push(id);
-    render();
+  // Questions in Notes (PAIRS in app-data.js): which are open, and answering one with a card.
+  function questionOpen(q) {
+    const w = q.opensWhen || {};
+    if (w.flag) return !!State.flags[w.flag];
+    if (w.saved) return State.saved.indexOf(w.saved) !== -1;
+    if (w.waiting) return !!State.waiting && State.waiting.until === w.waiting;
+    return false;
   }
+  const solved = (q) => State.deductions.indexOf(q.id) !== -1;
+  // Questions to show: solved ones (ticked) and open ones, in story order.
+  const shownQuestions = () => PAIRS.filter((q) => solved(q) || questionOpen(q));
 
-  function connect() {
-    const [a, b] = State.selection;
-    const both = (cards) => cards.indexOf(a) !== -1 && cards.indexOf(b) !== -1;
-    const hit = PAIRS.find((p) => both(p.cards) || (p.also || []).some(both));
-    State.selection = [];
-    State.comparedOnce = true;
-    if (!hit) {
-      toast(ONBOARDING.notes.noMatch);
+  function answerQuestion(qid, cardId) {
+    const q = PAIRS.find((x) => x.id === qid);
+    if (!q || solved(q)) return;
+    if (q.answers.indexOf(cardId) !== -1) {
+      State.deductions.push(q.id);
+      State.misses[q.id] = 0;
+      const left = shownQuestions().filter((x) => !solved(x)).length;
+      State.notesFlash = left ? ONBOARDING.notes.foundMore.replace("{n}", left === 1 ? "One question" : left + " questions") : ONBOARDING.notes.found;
       render();
+      checkWaiting();
       return;
     }
-    if (State.deductions.indexOf(hit.id) === -1) State.deductions.push(hit.id);
+    State.misses[q.id] = (State.misses[q.id] || 0) + 1;
+    State.notesHint = { q: q.id, text: State.misses[q.id] >= 2 ? q.second : (q.wrong && q.wrong[cardId]) || q.wrongOther };
     render();
-    checkWaiting();
   }
 
   /* ---------------- views ---------------- */
@@ -739,39 +747,57 @@
   // The player's Notes app: the to-do, what they kept from Orbit, comparing, what they know.
   function viewNotes() {
     const N = ONBOARDING.notes;
-    const cards = State.saved
-      .map((id) => {
-        const e = EVIDENCE[id];
-        if (!e) return "";
-        const on = State.selection.indexOf(id) !== -1;
+    const card = (id, attrs) => {
+      const e = EVIDENCE[id];
+      if (!e) return "";
+      return `
+        <${attrs ? "button" : "div"} class="clip ${e.kind === "system" ? "system" : ""}"${attrs || ""}>
+          <b>${esc(e.title)}</b>
+          <div class="body">${esc(e.body)}</div>
+          <div class="note">${esc(e.note)}</div>
+        </${attrs ? "button" : "div"}>`;
+    };
+
+    // Questions: solved ones ticked with their conclusion; the first open one expanded,
+    // with its pinned card and the player's other cards to answer it with.
+    const qs = shownQuestions();
+    const active = qs.find((q) => !solved(q));
+    const questions = qs
+      .map((q) => {
+        if (solved(q)) {
+          return `<div class="q done"><div class="q-head">✓ ${esc(q.question)}</div><div class="q-found">${esc(q.text)}</div></div>`;
+        }
+        if (q !== active) return `<div class="q"><div class="q-head">○ ${esc(q.question)}</div></div>`;
+        const options = State.saved.filter((id) => id !== q.anchor);
+        const canAnswer = options.some((id) => q.answers.indexOf(id) !== -1);
+        const hint = State.notesHint && State.notesHint.q === q.id ? State.notesHint.text : !canAnswer ? q.missing : "";
         return `
-          <button class="clip ${e.kind === "system" ? "system" : ""}" aria-pressed="${on}"
-                  data-act="select" data-id="${esc(id)}">
-            <b>${esc(e.title)}</b>
-            <div class="body">${esc(e.body)}</div>
-            <div class="note">${esc(e.note)}</div>
-          </button>`;
+          <div class="q open">
+            <div class="q-head">○ ${esc(q.question)}</div>
+            <div class="q-label">${esc(N.startFrom)}</div>
+            <div class="clips pinned">${card(q.anchor)}</div>
+            ${options.length ? `<div class="q-label">${esc(N.whichAnswers)}</div>` : ""}
+            <div class="clips">${options
+              .map((id) => card(id, ` data-act="answer" data-q="${esc(q.id)}" data-id="${esc(id)}"`))
+              .join("")}</div>
+            ${hint ? `<p class="q-hint">${esc(hint)}</p>` : ""}
+          </div>`;
       })
       .join("");
+
+    // Everything kept from Orbit, for reference, when no question is asking for it.
+    const kept = active
+      ? ""
+      : `<section>
+           <h3>${esc(N.saved)}</h3>
+           ${State.saved.length ? `<div class="clips">${State.saved.map((id) => card(id)).join("")}</div>` : `<p class="nb-help">${esc(N.empty)}</p>`}
+         </section>`;
 
     const know = State.deductions.length
       ? State.deductions
           .map((id) => `<li>${esc(PAIRS.find((p) => p.id === id).text)}</li>`)
           .join("")
       : `<li class="muted">${esc(N.knowEmpty)}</li>`;
-
-    const help = !State.saved.length
-      ? N.empty
-      : State.saved.length === 1
-      ? N.needTwo
-      : State.selection.length === 1
-      ? N.picked
-      : N.pick;
-
-    const compareBtn =
-      State.selection.length === 2
-        ? `<button class="nb-btn${State.comparedOnce ? "" : " pulse"}" data-act="connect">${esc(N.compare)}</button>`
-        : "";
 
     // The player's own goals: done ones ticked, the next one open, later ones not shown yet.
     let goals = "";
@@ -780,23 +806,23 @@
       goals += `<div class="goal${done ? " done" : ""}">${done ? "✓" : "○"} ${esc(g.text)}</div>`;
       if (!done) break;
     }
-    // The script's current step sits above the player's own goals.
+    // The script's current step sits above the player's own goals (not when a question below says the same).
+    const waitingOnQuestion = State.waiting && active && active.opensWhen.waiting === State.waiting.until;
+    const showTodo = State.waiting && !waitingOnQuestion && !(active && State.waiting.until === "deduction:" + active.id);
     const todo = `<section class="nb-next">
            <h3>${esc(N.todo)}</h3>
-           ${State.waiting ? `<div class="todo">○ ${esc(State.waiting.hint)}</div>` : ""}
+           ${showTodo ? `<div class="todo">○ ${esc(State.waiting.hint)}</div>` : ""}
            ${goals}
          </section>`;
+
+    const flash = State.notesFlash ? `<div class="q-flash">${esc(State.notesFlash)}</div>` : "";
 
     return `
       <div class="notes-top"><h2>${esc(N.title)}</h2></div>
       <div class="body notes" id="nbscroll">
         ${todo}
-        <section>
-          <h3>${esc(N.saved)}</h3>
-          <p class="nb-help">${esc(help)}</p>
-          <div class="clips">${cards}</div>
-          ${compareBtn}
-        </section>
+        ${qs.length ? `<section><h3>${esc(N.questions)}</h3>${flash}${questions}</section>` : ""}
+        ${kept}
         <section>
           <h3>${esc(N.know)}</h3>
           <ul class="know">${know}</ul>
@@ -1116,11 +1142,8 @@
       case "save":
         saveCard(id);
         break;
-      case "select":
-        toggleSelect(id);
-        break;
-      case "connect":
-        connect();
+      case "answer":
+        answerQuestion(el.dataset.q, id);
         break;
       case "say":
         playerSays(el.dataset.text, "chip");

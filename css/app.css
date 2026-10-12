@@ -417,3 +417,15 @@ body{background:#d9d6d1;overscroll-behavior:none;min-height:100dvh}
   .lock{padding-top:calc(var(--sb) + 40px)}
 }
 .inputrow input:focus{outline:none;border-color:var(--hairline)}
+
+/* Questions in Notes: one question at a time, a pinned card, pick the card that answers it */
+.q{padding:8px 0;border-bottom:1px dashed var(--paper-2)}
+.q:last-child{border-bottom:0}
+.q-head{font-size:16px;line-height:1.35}
+.q.done .q-head{color:var(--paper-ink-2)}
+.q-found{font-size:14.5px;font-style:italic;margin:4px 0 0 18px}
+.q-label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--paper-ink-2);font-family:var(--sans);margin:12px 0 6px}
+.clips.pinned .clip{box-shadow:0 0 0 2px var(--tape-edge);transform:none}
+.q.open .clips button.clip:active{transform:scale(.98)}
+.q-hint{margin:10px 0 0;font-size:14.5px;background:var(--tape);border:1px solid var(--tape-edge);border-radius:6px;padding:8px 10px}
+.q-flash{font-size:15px;font-weight:600;margin:0 0 6px;color:var(--ok)}

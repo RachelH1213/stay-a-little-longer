@@ -49,7 +49,7 @@ const SCRIPT_DAY2 = [
   { type: "player", options: ["her account is deleted", "when did you last actually see her online?"] },
   { type: "juno", text: "what? no. it loads fine for me", means: "deflect" },
   { type: "juno", text: "...ok it doesn't load for me either. that's weird", means: "give_clue" },
-  { type: "wait", hint: "Two things in Notes don't fit together. Compare them.", until: "deduction:deleted-replied" }, // reworded 2026-10-10 for Notes (was "...you saved... Open Saved.")
+  { type: "wait", hint: "There's a question in Notes.", until: "deduction:deleted-replied" }, // reworded 2026-10-12: Notes asks questions now
   { type: "juno", text: "ok before you say it" },
   // Questioned, Juno turns precise and technical: the shift itself is a clue (author's direction, 2026-10-12).
   // Juno no longer states the contradiction; the player found it in Notes.

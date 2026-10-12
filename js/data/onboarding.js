@@ -33,11 +33,12 @@ const ONBOARDING = {
     saved: "From Orbit",
     know: "What I know",
     empty: "Nothing here yet.\nTap the paperclip on a message or a screen in Orbit to add it.",
-    needTwo: "Add one more thing, then compare them.",
-    pick: "Something here contradicts what Orbit is showing you. Connect two pieces of evidence.", // author's wording, 2026-10-12
-    picked: "1 of 2 picked",
-    compare: "Compare",
-    noMatch: "There may be a connection, but it doesn't answer the current question yet.", // author's wording, 2026-10-12
+    // Questions (PAIRS in app-data.js). Claude Code drafts, 2026-10-12.
+    questions: "Questions",
+    startFrom: "Starting from",
+    whichAnswers: "Which of these answers it?",
+    found: "Found it.",
+    foundMore: "Found it. {n} still open.",
     knowEmpty: "Nothing yet.",
     // The player's own goal and an older note, there from the start. The note only restates
     // rachel-history.js ("i might go quiet for a bit", shown on the lock screen as "last week").

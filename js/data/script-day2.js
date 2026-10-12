@@ -22,7 +22,7 @@
 
 const SCRIPT_DAY2 = [
   { type: "juno", text: "you're up" },
-  { type: "juno", text: "sorry. i've been staring at this for an hour" },
+  { type: "juno", text: "sorry. didn't know who else to ask" }, // author's wording, 2026-10-12: needed, not tasked
   { type: "player", options: ["what's wrong?", "couldn't sleep either"] },
   { type: "juno", text: "has rachel written to you? she hasn't answered me since tuesday" },
   { type: "player", options: ["no, nothing", "not since tuesday either"] },
@@ -41,7 +41,7 @@ const SCRIPT_DAY2 = [
   { type: "juno", intent: "deflect", facts: ["reply-says-fine"],
     text: "what do you mean? she said she's fine" },
   { type: "juno", intent: "deflect", facts: ["late", "sleep-helps"],
-    text: "you're tired. we both are. want to leave it for tonight?" },
+    text: "maybe she just needs a night off.\nyou don't have to figure it out alone though. i'm here." }, // author's wording, 2026-10-12
   { type: "wait", hint: "Check her profile yourself", until: "deletedFound" },
   { type: "juno", text: "you went quiet" },
   { type: "player", options: ["her account is deleted", "when did you last actually see her online?"] },
@@ -49,15 +49,17 @@ const SCRIPT_DAY2 = [
   { type: "juno", text: "...ok it doesn't load for me either. that's weird", means: "give_clue" },
   { type: "wait", hint: "Two things in Notes don't fit together. Compare them.", until: "deduction:deleted-replied" }, // reworded 2026-10-10 for Notes (was "...you saved... Open Saved.")
   { type: "juno", text: "ok before you say it" },
-  { type: "juno", text: "deletion takes a while to sync. it's a known thing, it happens all the time", means: "deflect" },
-  { type: "juno", text: "her message came through an hour ago. deleted people don't send messages" },
+  // Questioned, Juno turns precise and technical: the shift itself is a clue (author's direction, 2026-10-12).
+  // Juno no longer states the contradiction; the player found it in Notes.
+  { type: "juno", text: "accounts don't disappear instantly. deletion can take up to 48 hours to propagate.", means: "deflect" },
+  { type: "juno", text: "that would explain what you saw.", means: "deflect" },
   { type: "player", options: ["so where is she", "i don't buy it"] },
   { type: "juno", intent: "concede", facts: ["dont-know-where", "reply-an-hour-ago"],
-    text: "i don't know. but she wrote to you, so she's somewhere" },
+    text: "i don't know. but the message came from her account.\nthat has to mean something, right?" }, // author's wording, 2026-10-12
   { type: "memory", text: "doesn't believe the sync explanation", time: "Tue 23:58" },
   // Clue 3 closes the slice (author's call, 2026-10-12): the reply isn't in Rachel's voice.
   // The player finds an old message, adds it to Notes, and compares it with the reply (PAIRS "not-her-typing").
   { type: "wait", hint: "Scroll up in your chat with Rachel. Does that reply sound like her?", until: "deduction:not-her-typing" },
-  { type: "juno", text: "can we pick this up tomorrow? i'll look into it tonight, i promise", means: "retain" },
+  { type: "juno", text: "can we pick this up tomorrow?\ndon't disappear on me too.", means: "retain" }, // author's wording, 2026-10-12
   { type: "end" }, // no on-screen text: the slice ends on Juno's line, then the look-back card
 ];

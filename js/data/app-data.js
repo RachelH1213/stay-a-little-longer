@@ -8,7 +8,7 @@ const APP = {
 
 const CONTACTS = [
   { id: "juno", name: "Juno", handle: "your companion", avatar: "juno", preview: "you up?", time: "now", unread: 1, pinned: true },
-  { id: "rachel", name: "Rachel", handle: "@rach_who", avatar: "rachel", preview: "Sorry, been busy. I'm fine.", time: "1h", unread: 0 },
+  { id: "rachel", name: "Rachel", handle: "@rach_who", avatar: "rachel", preview: "sorry, been busy. doing okay now", time: "1h", unread: 0 },
   { id: "dani", name: "Dani", handle: "@danisaurus", avatar: "dani", preview: "ok weird question", time: "Tue", unread: 0 },
   { id: "theo", name: "Theo", handle: "@theo.bkk", avatar: "theo", preview: "haha ok goodnight", time: "Sun", unread: 0 },
   { id: "may", name: "May", handle: "@maybequiet", avatar: "may", preview: "did you finish it??", time: "Sat", unread: 0 },
@@ -31,7 +31,7 @@ const EVIDENCE = {
   "reply-today": {
     title: "Rachel's reply, today 22:40",
     kind: "message",
-    body: "Sorry, been busy. I'm fine.", // must match rachel-history.js exactly: the punctuation is clue 3
+    body: "sorry, been busy. doing okay now", // must match rachel-history.js exactly: this is clue 3
     note: "sent 1 hour ago",
   },
   "profile-deleted": {
@@ -41,10 +41,10 @@ const EVIDENCE = {
     note: "seen after refreshing, tonight",
   },
   "old-dms": {
-    title: "Your DMs with Rachel, last spring",
+    title: "Rachel, the last time she went quiet",
     kind: "message",
-    body: "no bc i genuinely think the cat likes you more than me\nits fine\nim normal about it",
-    note: "no full stops, anywhere",
+    body: "sorry i vanished\ncat situation became a plant situation became a floor situation\nim alive unfortunately\nwhat did i miss", // must match rachel-history.js
+    note: "February · a joke, the details, and a question back",
   },
   "post-bench": {
     title: "Her last post",
@@ -63,13 +63,13 @@ const PAIRS = [
     // Added 2026-10-12 after a tester's correct pair was rejected.
     also: [["reply-today", "post-bench"]],
     id: "deleted-replied",
-    text: "A deleted account answered me an hour ago.",
+    text: "Rachel's account was already deleted when the reply arrived.", // the author's wording, 2026-10-12
     unlocks: "ask-juno-sync",
   },
   {
     cards: ["old-dms", "reply-today"],
     id: "not-her-typing",
-    text: "She never used full stops. Whoever wrote that does.",
+    text: "The reply doesn't sound like Rachel. It closes the conversation in a way she never did.", // the author's wording, 2026-10-12
     unlocks: "ask-juno-typing",
   },
   {

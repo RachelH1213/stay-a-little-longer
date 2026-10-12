@@ -67,7 +67,7 @@ const TRUTH = {
       requires: { deduction: "deleted-replied" },
     },
     "no-full-stops": {
-      text: "Rachel never uses full stops in her messages.",
+      text: "Rachel's real messages joke, give details and ask something back; the 22:40 reply does none of that.",
       kind: "real", day: 2, intents: [], // clue 3 points at Juno, so Juno never raises it
     },
 

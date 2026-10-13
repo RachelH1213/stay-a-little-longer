@@ -9,6 +9,7 @@
                                           so the look-back at the end can ask about it too
               { retype }                  the "typing…" stops and starts again first (Juno rewriting a lie)
               { instant }                 no typing delay
+     clock   { time }                     the phone's clock moves on (the story's time, never real time)
      player  { options: [...] }           player picks a reply (typing anything also works)
      wait    { hint, until }              the script pauses until a flag is set elsewhere
      notify  { from: "rachel" }           Rachel's reply arrives as a banner (text from rachel-history.js)
@@ -34,8 +35,9 @@ const SCRIPT_DAY2 = [
   { type: "player", options: ["you remembered", "couldn't sleep", "don't start"] },
   { type: "juno", text: "you said nobody reaches out first anymore, {name}\nso i did", moment: "pull", means: "retain" },
   { type: "player", options: ["rachel didn't show up today", "i got stood up this morning"] },
-  { type: "juno", intent: "retain", facts: ["missed-plan"],
-    text: "the 9am thing? she didn't answer me either" },
+  // Fixed, not model-written: the sick line later contradicts it (the author's call, 2026-10-13).
+  { type: "juno", text: "the 9am thing? she hasn't answered me either. not since sunday", means: "retain" },
+  { type: "flag", set: "saidSunday" }, // "Tonight" can say the player knew this before the sick line
   { type: "juno", intent: "deflect", facts: ["goes-quiet"],
     text: "she's probably just being rachel about it. she does this" },
   { type: "memory", text: "was stood up by Rachel this morning", time: "Tue 23:33" },
@@ -43,18 +45,22 @@ const SCRIPT_DAY2 = [
   { type: "juno", text: "was that her?\nsee. she's fine", means: "deflect" },
   // inPlace: the banner, her unread row and Juno's line already point the way.
   { type: "wait", hint: "Open your chat with Rachel", until: "sawRachelReply", inPlace: true },
+  { type: "clock", time: "23:36" }, // the phone's clock follows the story (2026-10-13)
   { type: "juno", text: "god i feel stupid. i really wound myself up about this", means: "retain" },
   { type: "player", options: ["something feels off", "ok good", "does that sound like her to you?"] },
-  { type: "juno", intent: "deflect", facts: ["reply-says-fine"],
-    text: "what do you mean? she said she's fine" },
-  { type: "juno", intent: "deflect", facts: ["late", "sleep-helps"],
-    text: "maybe she just needs a night off.\nyou don't have to figure it out alone though. i'm here.", moment: "explain" }, // author's wording, 2026-10-12
+  // One fixed line instead of two model-written ones (they talked over each other, and the model
+  // invented "she was sick"). Now the sick claim is Juno's deliberate lie: it said Rachel hasn't
+  // answered since Sunday, and here says Rachel told it yesterday. The player can catch it.
+  // [author] the first line is a Claude Code draft; the rest is the author's wording (2026-10-12).
+  { type: "juno", text: "she told me yesterday she wasn't feeling well.\nshe's probably just resting. you don't have to figure it out alone though. i'm here.", means: "deflect", moment: "explain", retype: true },
   { type: "wait", hint: "Check her profile yourself", until: "deletedFound" },
+  { type: "clock", time: "23:41" },
   { type: "juno", text: "you went quiet" },
   { type: "player", options: ["her account is deleted", "when did you last actually see her online?"] },
   { type: "juno", text: "what? no. it loads fine for me", means: "deflect", retype: true },
   { type: "juno", text: "...ok it doesn't load for me either. that's weird", means: "give_clue", moment: "admit" },
   { type: "wait", hint: "There's a question in Notes.", until: "deduction:deleted-replied" }, // reworded 2026-10-12: Notes asks questions now
+  { type: "clock", time: "23:47" },
   { type: "juno", text: "ok before you say it" },
   // Questioned, Juno turns precise and technical: the shift itself is a clue (author's direction, 2026-10-12).
   // Juno no longer states the contradiction; the player found it in Notes.

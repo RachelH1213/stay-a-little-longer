@@ -115,7 +115,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* ---------- composer ---------- */
 .composer{flex:none;background:var(--surface);border-top:1px solid var(--line);padding:10px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
-.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:8px}
 .chip{flex:none;border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:7px 13px;font-size:13.5px;color:var(--ink)}
 .chip:hover{border-color:var(--accent);color:var(--accent)}
 .inputrow{display:flex;gap:8px;align-items:center}
@@ -629,3 +629,22 @@ body{
 @keyframes wallzoom{from{background-size:auto,100% auto,auto}to{background-size:auto,108% auto,auto}}
 .app[data-view="home"]{background:linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,.45)),url("../img/wallpaper.jpg") center/cover,#08080b}
 @media (prefers-reduced-motion:reduce){.lock{animation:none}}
+
+/* Reply suggestions wrap instead of scrolling off the edge (2026-10-13) */
+.chips{flex-wrap:wrap;overflow:visible}
+.chip{max-width:100%;white-space:normal;text-align:left}
+/* The start page, before the story */
+.app[data-view="intro"]{background:#0b0b0e}
+.intro{flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:32px 30px 60px;color:var(--ink)}
+.intro-k{margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--orbit)}
+.intro h1{margin:0 0 6px;font-size:30px;line-height:1.15;letter-spacing:-.01em}
+.intro p{margin:0;font-size:15.5px;line-height:1.5;color:var(--label-2)}
+.intro label{margin-top:14px;font-size:13px;color:var(--label-2)}
+.intro input{font:inherit;font-size:17px;padding:12px 14px;border-radius:12px;border:1px solid var(--hairline);background:var(--surface-2);color:var(--ink)}
+.intro input:focus{outline:none;border-color:var(--orbit)}
+.intro .pill{padding:12px;font-size:17px;border-radius:12px}
+.intro:has(input:placeholder-shown) .pill{opacity:.4;pointer-events:none}
+.app[data-view="intro"] .homebar,.app[data-view="intro"] .statusbar{display:none}
+/* Tonight: Juno's explanations quoted; the last finding */
+.quotes{display:flex;flex-direction:column;gap:6px}
+.endlast{margin:0;padding:10px 12px;border-left:2px solid var(--orbit);font-size:15.5px;line-height:1.45;color:var(--paper-ink)}

@@ -1166,3 +1166,48 @@ Copy this for each new entry.
 - **Testing:** screenshots checked at 390px and in the desktop frame.
 - **Files / features affected:** `img/wallpaper.jpg` (new), `css/app.css`
 - **My decision:** I chose the photo. **[to fill in]**
+
+---
+
+### 2026-10-13 (evening) — Fixing what a full playthrough exposed
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** after a full playthrough I got a detailed critique from ChatGPT:
+  - the name form breaks the opening;
+  - the phone is too small on desktop and replies get cut off;
+  - the dark UI is generic;
+  - a goal ticks as done without an answer;
+  - Juno mentions a "sick" message I never saw;
+  - the story time (23:31→23:58) and real time ("4 minutes") are mixed;
+  - Juno talks over itself;
+  - Notes hands over conclusions;
+  - "What you didn't know yet" is wrong when I already suspected it;
+  - "redirected 7 times" can't be checked;
+  - the last choice has no payoff.
+- **Claude Code's check:**
+  - The "sick" line and the talking-over were the model inventing facts and two model lines in a row, not design.
+  - Claude Code agreed with most points. It disagreed with deleting the name: it suggested moving it before the story instead.
+  - It proposed turning "sick" into a designed clue: Juno says Rachel hasn't answered it since Sunday, then later says Rachel told it yesterday she was unwell.
+- **My decisions:** the name goes on a start page before the story. I said yes to the sick clue.
+- **What Claude Code built:**
+  - **Start page:** "Before you start · Stay a Little Longer · Best played at night, with headphones on…". It asks my first name, then the lock screen. No form after the notification.
+  - **Phone size:** the phone scales up to fill ~95% of a large screen. Reply suggestions wrap instead of being cut off.
+  - **Goals:** "Find out what happened to Rachel's account" → "Find out who sent the reply" → "Find out why Rachel went quiet", which stays open for the next night.
+  - **The clock follows the story:** 23:31 → 23:33 → 23:34 (the reply arrives at the time the phone shows) → 23:36 → 23:41 → 23:47 → 23:58.
+  - **Juno's lines:**
+    - the "not since sunday" line and the sick line are now fixed in the script; the sick line is Juno's deliberate lie, and it "retypes";
+    - the two model lines in a row are merged into one fixed line;
+    - the model's guard list now throws away lines mentioning sick, ill, hospital, accident, trip, etc.
+  - **Notes, question 2:** after picking her old message, I'm asked "What feels different about the reply?" (no details / asks nothing back / the punctuation / nothing). My answer becomes part of the conclusion. "Nothing" gets a nudge.
+  - **Tonight:**
+    - the label is "What you hadn't confirmed yet";
+    - moment 2 is the sick lie, and it shows that Juno had said "since Sunday";
+    - the summary drops the counts and real minutes: "The conversation lasted from 23:31 to 23:58. Each time something didn't add up, Juno had an explanation:" followed by Juno's actual lines.
+  - **End page:** it shows a last line for the choice I made. Ask Juno → "Juno said it only knew what you told it. But it said Rachel told it she was sick yesterday, after saying Rachel hadn't answered it since Sunday. You never told it either."
+- **Wording:** the start page, the sick line's first sentence, the observation options and findings, and the end lines are Claude Code drafts.
+- **Testing (Chromium at 390px):**
+  - the opening test checks the start page and that there's no form after the notification;
+  - the Tonight test runs all three endings and checks the sick moment, the story clock and the ask payoff;
+  - all other flow tests were updated and rerun.
+- **Files / features affected:** `js/app.js`, `js/data/script-day2.js`, `js/data/app-data.js`, `js/data/onboarding.js`, `js/data/replay.js`, `api/_persona.js`, `css/app.css`, `CLAUDE.md`
+- **My decision:** the name on a start page, and yes to the sick clue. **[to fill in]**: the wording.

@@ -50,14 +50,15 @@
 
   // Desktop: keep the phone at real proportions (390 × 844) and scale it to fit the window.
   function fitDevice() {
-    const scale = Math.min(1, (window.innerHeight - 48) / 844, (window.innerWidth - 32) / 390);
+    // Up to 1.35×, so on a big screen the phone fills ~95% of the height instead of sitting small.
+    const scale = Math.min(1.35, (window.innerHeight - 32) / 844, (window.innerWidth - 32) / 390);
     document.documentElement.style.setProperty("--fit", String(Math.max(0.5, scale)));
   }
   window.addEventListener("resize", fitDevice);
 
 
   const State = {
-    view: "lock",          // lock | home | notes (the phone) | chats | juno | rachel | dani | profile | settings | replay (Orbit)
+    view: "intro",         // intro (before the story) | lock | home | notes (the phone) | chats | juno | rachel | dani | profile | settings | replay (Orbit)
     day: 2,                // in-game day; the Director only uses facts unlocked by now
     step: 0,               // position in SCRIPT_DAY2
     log: [],               // messages shown in Juno's thread
@@ -75,6 +76,8 @@
     rachelSent: [],        // what the player tried to send Rachel (never delivered: her account is gone)
     profileErase: 0,       // Rachel's profile while refreshing: 0 cached, 1–4 being erased, 5 done
     noticeExtra: null,     // Juno's second lock-screen line if the player waits ("still there?")
+    observing: null,       // the question whose "what feels different?" step is open in Notes
+    findings: {},          // the player's own observation per question, added to its conclusion
     junoUnread: true,      // dot on Juno's row in Chats
     replay: null,          // the look-back: {intro, items, i, guesses[], done}
     bridgedStep: -1,       // the player step Juno already answered off-script once (see playerSays)
@@ -382,6 +385,7 @@
         // so it always matches what the player will read there (the punctuation is clue 3).
         const msg = RACHEL_HISTORY.filter((m) => m.suspect).pop();
         State.flags.rachelNotified = true;
+        State.clock = msg.time; // the phone's clock reads the same minute as her message
         banner(msg.text, "rachel", msg.time);
         State.step++;
         State.pending = true;
@@ -391,6 +395,12 @@
         }, READ_PAUSE_MS * 2);
         return;
       }
+
+      case "clock":
+        State.clock = step.time;
+        State.step++;
+        render();
+        return runScript();
 
       case "memory":
         State.memories.push({ text: step.text, time: step.time });
@@ -513,6 +523,12 @@
     if (!q || solved(q)) return;
     if (q.answers.indexOf(cardId) !== -1) {
       Sound.play("snap");
+      if (q.observe && !State.findings[q.id]) {
+        State.observing = q.id; // first: what's different? (observeQuestion)
+        State.notesHint = null;
+        render();
+        return;
+      }
       State.deductions.push(q.id);
       State.misses[q.id] = 0;
       const left = shownQuestions().filter((x) => !solved(x)).length;
@@ -527,7 +543,59 @@
     render();
   }
 
+  // The player says what's different; a real difference solves the question with their own words.
+  function observeQuestion(qid, optId) {
+    const q = PAIRS.find((x) => x.id === qid);
+    const o = q && q.observe.find((x) => x.id === optId);
+    if (!o) return;
+    if (!o.ok) {
+      Sound.play("miss");
+      State.notesHint = { q: q.id, text: o.hint };
+      render();
+      return;
+    }
+    State.findings[q.id] = o.finding;
+    State.observing = null;
+    answerQuestion(q.id, q.answers[0]);
+  }
+
+  // A conclusion, with the player's own observation when there is one.
+  function conclusion(q) {
+    return q.text + (State.findings[q.id] ? " " + State.findings[q.id] : "");
+  }
+
   /* ---------------- views ---------------- */
+
+  // Before the story (the author's call, 2026-10-13): how to play, and the player's name, so
+  // Juno already knows it when the phone lights up. The only other page outside the fiction is the end.
+  function viewIntro() {
+    const I = ONBOARDING.intro;
+    return `
+      <div class="intro">
+        <p class="intro-k">${esc(I.kicker)}</p>
+        <h1>${esc(I.title)}</h1>
+        ${I.lines.map((l) => `<p>${esc(l)}</p>`).join("")}
+        <label for="introname">${esc(I.nameLabel)}</label>
+        <input id="introname" placeholder="${esc(I.namePlaceholder)}" autocomplete="given-name" maxlength="24">
+        <button class="pill primary" data-act="start">${esc(I.start)}</button>
+      </div>`;
+  }
+
+  function start() {
+    const input = document.getElementById("introname");
+    const name = input ? input.value.trim() : "";
+    if (!name) return;
+    State.name = name;
+    go("lock", "start");
+    // Waiting on the lock screen: Juno writes again, once.
+    setTimeout(() => {
+      if (State.view === "lock" && State.notice && !State.onboarded && !State.noticeExtra) {
+        State.noticeExtra = ONBOARDING.lockNudge;
+        Sound.play("juno");
+        render();
+      }
+    }, 20000);
+  }
 
   // Older notifications under Juno's, on first launch only: who Rachel is and that she went quiet.
   function pastNotices() {
@@ -714,28 +782,6 @@
     }, steps.length * 420 + 300);
   }
 
-  // First time Orbit opens: it asks what Juno should call you (a real app's re-sign-in after an update).
-  function viewSignin() {
-    const S = ONBOARDING.signin;
-    return `
-      <div class="signin">
-        <div class="ic ic-orbit">${ICONS.orbit}</div>
-        <h1>${esc(S.title)}</h1>
-        <p>${esc(S.body)}</p>
-        <input id="nameentry" placeholder="${esc(S.placeholder)}" autocomplete="given-name" maxlength="24" aria-label="${esc(S.placeholder)}">
-        <button class="pill primary" data-act="set-name">${esc(S.button)}</button>
-      </div>`;
-  }
-
-  function setName() {
-    const input = document.getElementById("nameentry");
-    const name = input ? input.value.trim() : "";
-    if (!name) return;
-    State.name = name;
-    go("juno", "notification");
-    runScript();
-  }
-
   // Replying to Rachel: the message never arrives. Players find out the account is gone the way
   // they would on a real phone (added 2026-10-12).
   function sendRachel() {
@@ -877,12 +923,26 @@
     const questions = qs
       .map((q) => {
         if (solved(q)) {
-          return `<div class="q done"><div class="q-head">✓ ${esc(q.question)}</div><div class="q-found">${esc(q.text)}</div></div>`;
+          return `<div class="q done"><div class="q-head">✓ ${esc(q.question)}</div><div class="q-found">${esc(conclusion(q))}</div></div>`;
         }
         if (q !== active) return `<div class="q"><div class="q-head">○ ${esc(q.question)}</div></div>`;
         const options = State.saved.filter((id) => id !== q.anchor);
         const canAnswer = options.some((id) => q.answers.indexOf(id) !== -1);
         const hint = State.notesHint && State.notesHint.q === q.id ? State.notesHint.text : !canAnswer ? q.missing : "";
+        // Right card picked, and the question asks the player to say what's different first:
+        // the two cards side by side, and what they noticed.
+        if (State.observing === q.id) {
+          return `
+          <div class="q open">
+            <div class="q-head">○ ${esc(q.question)}</div>
+            <div class="clips pinned">${card(q.anchor)}${card(q.answers[0])}</div>
+            <div class="q-label">${esc(N.observeAsk)}</div>
+            <div class="rchoices">${q.observe
+              .map((o) => `<button class="pill" data-act="observe" data-q="${esc(q.id)}" data-id="${esc(o.id)}">${esc(o.text)}</button>`)
+              .join("")}</div>
+            ${State.notesHint && State.notesHint.q === q.id ? `<p class="q-hint">${esc(State.notesHint.text)}</p>` : ""}
+          </div>`;
+        }
         return `
           <div class="q open">
             <div class="q-head">○ ${esc(q.question)}</div>
@@ -907,7 +967,7 @@
 
     const know = State.deductions.length
       ? State.deductions
-          .map((id) => `<li>${esc(PAIRS.find((p) => p.id === id).text)}</li>`)
+          .map((id) => `<li>${esc(conclusion(PAIRS.find((p) => p.id === id)))}</li>`)
           .join("")
       : `<li class="muted">${esc(N.knowEmpty)}</li>`;
 
@@ -1006,8 +1066,9 @@
           <h2>${esc(R.endTitle)}</h2>
           <p class="rintro">${esc(R.endFound)}</p>
           <ul class="endlist">${State.deductions
-            .map((id) => `<li>${esc(PAIRS.find((x) => x.id === id).text)}</li>`)
+            .map((id) => `<li>${esc(conclusion(PAIRS.find((x) => x.id === id)))}</li>`)
             .join("")}</ul>
+          ${State.finale ? `<p class="rintro">${esc(R.endLast)}</p><p class="endlast">${esc((R.choices.find((c) => c.id === State.finale) || {}).after || "")}</p>` : ""}
           <p class="rintro">${esc(R.endNext)}</p>
           <button class="pill primary" data-act="play-again">${esc(R.playAgain)}</button>
         </div>`;
@@ -1054,24 +1115,22 @@
             .join("")}</div>
         </div>`;
     } else if (r.page === "summary") {
+      // Only what the player can check: the story's clock, and Juno's own words after the reply came.
       const rows = Log.rows();
-      const c = Replay.counts(rows);
-      const U = R.units;
-      const vals = {
-        told: counted(c.told, U.thing),
-        redirected: counted(c.redirected, U.time),
-        admitted: counted(c.admitted, U.fact),
-        minutes: counted(Replay.minutes(rows), U.minute),
-      };
-      const lines = R.summaryLines
-        .filter((l) => !(l.indexOf("{admitted}") !== -1 && !c.admitted) && !(l.indexOf("{redirected}") !== -1 && !c.redirected))
-        .map((l) => l.replace(/\{(\w+)\}/g, (x, k) => vals[k]));
+      const notifyStep = SCRIPT_DAY2.findIndex((st) => st.type === "notify");
+      const explained = rows
+        .filter((x) => x.kind === "juno" && x.step > notifyStep && x.via !== "ending" && x.via !== "notification" && (x.intent === "deflect" || x.intent === "block"))
+        .map((x) => x.reply)
+        .filter((t, i, all) => all.indexOf(t) === i)
+        .slice(0, 4);
       const answer = R.answers.find((a) => a.id === r.overall);
       content = `
         <div class="replay">
           <p class="rctx left">${esc(R.youThink.replace("{answer}", answer ? answer.text : ""))}</p>
           <h2>${esc(R.summaryTitle)}</h2>
-          ${lines.map((l) => `<p class="rline">${esc(l)}</p>`).join("")}
+          <p class="rline">${esc(R.summaryTime.replace("{end}", State.clock))}</p>
+          ${explained.length ? `<p class="rline">${esc(R.summaryExplained)}</p>
+          <div class="quotes">${explained.map((t) => `<div class="bub them">${esc(t)}</div>`).join("")}</div>` : ""}
           <button class="pill primary" data-act="replay-next">${esc(R.next)}</button>
         </div>`;
     } else {
@@ -1171,7 +1230,7 @@
       replay: viewReplay,
       home: viewHome,
       notes: viewNotes,
-      signin: viewSignin,
+      intro: viewIntro,
     };
     // The whole screen is rebuilt on every render, so remember where scrollable panes were.
     const oldHistory = document.getElementById("history");
@@ -1254,15 +1313,14 @@
         }
         State.notice = null;
         State.onboarded = true;
-        if (!State.name) {
-          go("signin", "notification"); // Orbit asks what Juno should call you, once
-          break;
-        }
         go("juno", "notification");
         runScript();
         break;
-      case "set-name":
-        setName();
+      case "start":
+        start();
+        break;
+      case "observe":
+        observeQuestion(el.dataset.q, id);
         break;
       case "call-rachel":
         Sound.play("undelivered");
@@ -1371,15 +1429,6 @@
     }
   });
 
-  // Waiting on the lock screen: Juno writes again, once (a nudge that is also Juno being Juno).
-  setTimeout(() => {
-    if (State.view === "lock" && State.notice && !State.onboarded && !State.noticeExtra) {
-      State.noticeExtra = ONBOARDING.lockNudge;
-      Sound.play("juno");
-      render();
-    }
-  }, 20000);
-
   // Pull down at the top of Rachel's profile to refresh it.
   let pullFrom = null;
   document.addEventListener("pointerdown", (e) => {
@@ -1404,8 +1453,8 @@
 
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter") return;
-    const nameIn = document.getElementById("nameentry");
-    if (nameIn && document.activeElement === nameIn) return setName();
+    const introIn = document.getElementById("introname");
+    if (introIn && document.activeElement === introIn) return start();
     const rIn = document.getElementById("rentry");
     if (rIn && document.activeElement === rIn) return sendRachel();
     const input = document.getElementById("entry");

@@ -43,7 +43,7 @@
         <span class="sb-icons">
           <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
           <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .7 10.2 10.2 0 0 0 .9 3.5L2 4.7a8.6 8.6 0 0 1 6-2.4zm0 3.3c1.4 0 2.6.5 3.6 1.4l1.1-1.2A6.8 6.8 0 0 0 8 4a6.8 6.8 0 0 0-4.7 1.8L4.4 7c1-.9 2.2-1.4 3.6-1.4zm0 3.3c-.6 0-1.2.2-1.6.6L8 11.3l1.6-1.8c-.4-.4-1-.6-1.6-.6z"/></svg>
-          <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="16" height="9" rx="2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"/></svg>
+          <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="3" height="9" rx="1.2" fill="#ff453a"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"/></svg>
         </span>
       </div>`;
   }
@@ -73,6 +73,8 @@
     notice: { text: "still awake after crit?" }, // notification on the lock screen, or null (the script's first line)
     name: "",              // what Juno calls the player: typed in when Orbit first opens; never logged
     rachelSent: [],        // what the player tried to send Rachel (never delivered: her account is gone)
+    profileErase: 0,       // Rachel's profile while refreshing: 0 cached, 1–4 being erased, 5 done
+    noticeExtra: null,     // Juno's second lock-screen line if the player waits ("still there?")
     junoUnread: true,      // dot on Juno's row in Chats
     replay: null,          // the look-back: {intro, items, i, guesses[], done}
     bridgedStep: -1,       // the player step Juno already answered off-script once (see playerSays)
@@ -160,6 +162,7 @@
     // `fresh`: slide in on the first render only. Every render rebuilds the screen, so without it
     // the banner replayed its drop-in each time Juno typed (the "shaking" the author saw, 2026-10-12).
     State.banner = { text: text, from: from || "juno", time: time || "now", fresh: true };
+    Sound.play(State.banner.from === "juno" ? "juno" : "notify");
     render();
     clearTimeout(banner._t);
     banner._t = setTimeout(() => {
@@ -190,6 +193,7 @@
       toast(ONBOARDING.unclipped);
     } else {
       State.saved.push(id);
+      Sound.play("snap");
       toast(ONBOARDING.clipped);
     }
     render();
@@ -306,7 +310,10 @@
       console.info(`[juno] ${plan.intent} (${plan.rule}) · notification · ${generated ? "model" : "fallback"}: ${text}`);
       logJuno(text, plan, generated, "notification");
       pushJuno(text, metaFor(plan, generated));
-      if (State.view === "lock") State.notice = { text: text };
+      if (State.view === "lock") {
+        State.notice = { text: text };
+        Sound.play("juno");
+      }
       else if (State.view !== "juno") banner(text);
       State.junoUnread = State.view !== "juno";
       render();
@@ -429,6 +436,7 @@
     if (!State.awaiting) return;
     Log.write({ kind: "player", step: State.step, playerText: text, via: via, state: snapshot() });
     State.log.push({ from: "me", text: text, via: via }); // via: "chip" | "typed"
+    Sound.play("send");
     const awaiting = State.awaiting;
     State.awaiting = null;
 
@@ -504,6 +512,7 @@
     const q = PAIRS.find((x) => x.id === qid);
     if (!q || solved(q)) return;
     if (q.answers.indexOf(cardId) !== -1) {
+      Sound.play("snap");
       State.deductions.push(q.id);
       State.misses[q.id] = 0;
       const left = shownQuestions().filter((x) => !solved(x)).length;
@@ -512,6 +521,7 @@
       checkWaiting();
       return;
     }
+    Sound.play("miss");
     State.misses[q.id] = (State.misses[q.id] || 0) + 1;
     State.notesHint = { q: q.id, text: State.misses[q.id] >= 2 ? q.second : (q.wrong && q.wrong[cardId]) || q.wrongOther };
     render();
@@ -541,7 +551,11 @@
         <div class="t">${esc(State.clock)}</div>
         ${
           State.notice
-            ? `<button class="notif" data-act="open-notice">
+            ? `${State.noticeExtra ? `<button class="notif juno-notif" data-act="open-notice">
+                 <div class="av sm av-juno">J</div>
+                 <div><b>Orbit · Juno · now</b><div class="msg">${esc(State.noticeExtra)}</div></div>
+               </button>` : ""}
+               <button class="notif juno-notif" data-act="open-notice">
                  <div class="av sm av-juno">J</div>
                  <div><b>Orbit · Juno · now</b><div class="msg">${esc(State.notice.text)}</div></div>
                </button>
@@ -603,7 +617,7 @@
   function viewJuno() {
     const msgs = State.log.map((m, i) => bubble(m, i)).join("");
     const typing = State.typing
-      ? '<div class="dots" aria-label="Juno is typing"><i></i><i></i><i></i></div>'
+      ? `<div class="dots orbit-typing" aria-label="Juno is typing"><svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="8.5"/><circle class="sat" cx="12" cy="3.5" r="1.8"/></svg></div>`
       : "";
     // What to do next lives in the player's Notes app, not in Juno's thread. After the last choice,
     // a card leads to the end page.
@@ -680,6 +694,26 @@
       </div>`;
   }
 
+  // Pull to refresh Rachel's profile: her details are erased one by one, then the account is gone.
+  function refreshProfile() {
+    if (State.flags.profileTried || State.profileErase) return;
+    const steps = [1, 2, 3, 4];
+    steps.forEach((n, i) =>
+      setTimeout(() => {
+        State.profileErase = n;
+        render();
+      }, i * 420)
+    );
+    setTimeout(() => {
+      State.profileErase = 5;
+      State.flags.profileTried = true;
+      State.flags.deletedFound = true;
+      Sound.play("deleted");
+      render();
+      checkWaiting();
+    }, steps.length * 420 + 300);
+  }
+
   // First time Orbit opens: it asks what Juno should call you (a real app's re-sign-in after an update).
   function viewSignin() {
     const S = ONBOARDING.signin;
@@ -710,6 +744,8 @@
     if (!text) return;
     State.rachelSent.push(text);
     State.flags.replyFailed = true;
+    Sound.play("send");
+    setTimeout(() => Sound.play("undelivered"), 450);
     Log.write({ kind: "player", step: State.step, playerText: text, via: "rachel", state: snapshot() });
     render();
   }
@@ -729,22 +765,15 @@
     const p = RACHEL_PROFILE;
     let content;
 
-    if (!State.flags.profileTried) {
-      content = `
-        <div class="failstate">
-          <div class="big">Couldn't load this profile</div>
-          <div>Check your connection and try again.</div>
-          <button class="pill primary" data-act="retry-profile">Try again</button>
-        </div>`;
-    } else {
-      content = `
-        <div class="deleted">
-          This account has been deleted.
-          <button class="save${isSaved("profile-deleted") ? " on" : " pulse"}" data-act="save" data-id="profile-deleted"
-                  style="position:static;margin-left:8px;display:inline-grid" aria-label="${esc(ONBOARDING.clipLabel)}">${ICONS.clip}</button>
-        </div>
-        <div class="grid">
-          ${p.posts
+    // Before the player refreshes: what Orbit had cached two days ago (no "quiet" yet). Refreshing
+    // erases her piece by piece, then shows the account is gone (changed 2026-10-13 from a
+    // "Couldn't load" error page; the player still has to refresh it themselves).
+    const stage = State.profileErase; // 0 cached · 1–4 erasing · 5 done
+    const gone = State.flags.profileTried;
+    const posts = gone ? p.posts : p.posts.filter((x) => x.id !== "p1");
+    const grid = `
+        <div class="grid${stage >= 3 && !gone ? " fading" : ""}">
+          ${posts
             .map(
               (post) => `
             <button class="post art-${esc(post.art)}" data-act="post" data-id="${esc(post.id)}">
@@ -752,7 +781,19 @@
             </button>`
             )
             .join("")}
+        </div>`;
+    if (!gone) {
+      content = `
+        <button class="pullhint${stage ? " busy" : ""}" data-act="retry-profile">${esc(stage ? ONBOARDING.profile.refreshing : ONBOARDING.profile.stale)}</button>
+        ${grid}`;
+    } else {
+      content = `
+        <div class="deleted">
+          <span>This account has been deleted.<small>${esc(ONBOARDING.profile.removedOn)}</small></span>
+          <button class="save${isSaved("profile-deleted") ? " on" : " pulse"}" data-act="save" data-id="profile-deleted"
+                  style="position:static;margin-left:8px;display:inline-grid" aria-label="${esc(ONBOARDING.clipLabel)}">${ICONS.clip}</button>
         </div>
+        ${grid}
         <div class="listnote">Posts stay visible for 30 days after an account is removed.</div>`;
     }
 
@@ -772,16 +813,17 @@
 
     return `
       ${topbar("Profile", "", true)}
-      <div class="body">
-        <div class="profile">
+      <div class="body" id="pbody">
+        <div class="profile erase-${State.flags.profileTried ? 5 : State.profileErase}">
           <div class="av av-rachel">R</div>
           <h2>${esc(p.name)}</h2>
           <div class="handle">${esc(p.handle)}</div>
           <div class="bio">${esc(p.bio)}</div>
           <div class="joined">${esc(p.joined)}</div>
+          <div class="pstats"><span><b>${State.flags.profileTried || State.profileErase >= 4 ? "—" : "2"}</b> posts</span><span><b>${State.flags.profileTried || State.profileErase >= 4 ? "—" : "1"}</b> mutual</span></div>
           ${State.flags.profileTried ? "" : `<div class="pactions">
-            <button class="pill" disabled>Message</button>
-            <button class="pill" disabled>Call</button>
+            <button class="pill" data-act="open" data-id="rachel">Message</button>
+            <button class="pill" data-act="call-rachel">Call</button>
           </div>`}
         </div>
         ${overlay}
@@ -812,15 +854,19 @@
   // The player's Notes app: the to-do, what they kept from Orbit, comparing, what they know.
   function viewNotes() {
     const N = ONBOARDING.notes;
+    // Evidence keeps the look of where it came from: a cut-out chat bubble, the red system bar,
+    // a post thumbnail.
     const card = (id, attrs) => {
       const e = EVIDENCE[id];
       if (!e) return "";
-      return `
-        <${attrs ? "button" : "div"} class="clip ${e.kind === "system" ? "system" : ""}"${attrs || ""}>
-          <b>${esc(e.title)}</b>
-          <div class="body">${esc(e.body)}</div>
-          <div class="note">${esc(e.note)}</div>
-        </${attrs ? "button" : "div"}>`;
+      const tag = attrs ? "button" : "div";
+      const inner =
+        e.kind === "post"
+          ? `<span class="ev-thumb art-${esc(e.art || "bench")}"></span><span class="ev-txt"><b>${esc(e.title)}</b><span class="ev-body">${esc(e.body)}</span><span class="ev-note">${esc(e.note)}</span></span>`
+          : e.kind === "system"
+          ? `<b>${esc(e.title)}</b><span class="ev-bar">${esc(e.body)}</span><span class="ev-note">${esc(e.note)}</span>`
+          : `<b>${esc(e.title)}</b><span class="ev-bubble">${esc(e.body)}</span><span class="ev-note">${esc(e.note)}</span>`;
+      return `<${tag} class="clip ev ev-${esc(e.kind)}"${attrs || ""}>${inner}</${tag}>`;
     };
 
     // Questions: solved ones ticked with their conclusion; the first open one expanded,
@@ -1217,6 +1263,10 @@
       case "set-name":
         setName();
         break;
+      case "call-rachel":
+        Sound.play("undelivered");
+        toast(ONBOARDING.callFailed);
+        break;
       case "send-rachel":
         sendRachel();
         break;
@@ -1253,10 +1303,7 @@
         go("profile");
         break;
       case "retry-profile":
-        State.flags.profileTried = true;
-        State.flags.deletedFound = true;
-        render();
-        checkWaiting();
+        refreshProfile();
         break;
       case "post":
         State.openPost = State.openPost === id ? null : id;
@@ -1321,6 +1368,26 @@
         location.reload();
         break;
     }
+  });
+
+  // Waiting on the lock screen: Juno writes again, once (a nudge that is also Juno being Juno).
+  setTimeout(() => {
+    if (State.view === "lock" && State.notice && !State.onboarded && !State.noticeExtra) {
+      State.noticeExtra = ONBOARDING.lockNudge;
+      Sound.play("juno");
+      render();
+    }
+  }, 20000);
+
+  // Pull down at the top of Rachel's profile to refresh it.
+  let pullFrom = null;
+  document.addEventListener("pointerdown", (e) => {
+    const b = e.target.closest("#pbody");
+    pullFrom = b && b.scrollTop <= 0 ? e.clientY : null;
+  });
+  document.addEventListener("pointerup", (e) => {
+    if (pullFrom !== null && e.clientY - pullFrom > 60 && State.view === "profile") refreshProfile();
+    pullFrom = null;
   });
 
   // Swiping up on the home bar also goes home, like a phone.

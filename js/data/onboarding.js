@@ -27,8 +27,17 @@ const ONBOARDING = {
     button: "Continue",
   },
 
+  // Rachel's profile before and while refreshing (2026-10-13, Claude Code drafts).
+  profile: {
+    stale: "Updated 2 days ago · Pull down to refresh",
+    refreshing: "Refreshing…",
+    removedOn: "Removed Sep 22",
+  },
+  lockNudge: "still there?", // Juno's second notification if the player waits on the lock screen
+
   // Replying to Rachel (her account is gone).
   notDelivered: "Not Delivered",
+  callFailed: "Call Failed",
   cantReceive: "This account can't receive messages.",
 
   // Home screen.

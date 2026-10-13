@@ -57,6 +57,7 @@ js/replay.js                Replay.moments(), counts(), minutes(): "Tonight", bu
 js/director.js              Director.decide(step, State) -> {intent, allowedFacts, rule}
 api/reply.js, api/_persona.js   the model layer
 js/log.js, api/log.js       the play log (Supabase); supabase/schema.sql is the table
+js/sound.js                 synthesised sounds and vibration: Sound.play("juno" | "notify" | "snap" | …)
 ```
 
 No build step, no dependencies. Open `index.html` in a browser, or serve the folder.
@@ -70,6 +71,7 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - Evidence is added to Notes with the paperclip button. Deductions are question-driven, never free pairing: the player answers one question at a time by picking one card against a pinned one, and every wrong pick says which way to look (changed 2026-10-12, the author's call: free pairing made players try every combination). The story never waits on an optional question.
 - Nothing tappable may fail silently, and nothing on screen may be a developer note. Contacts without a thread are plain rows (`OPEN_THREADS`); every post opens.
 - Rachel never uses full stops in her own messages; she turns bad news into a specific joke and always asks something back. Anything Juno writes as Rachel is punctuated, short and closed, with no question back. Keep this consistent — it is clue 3 and it breaks silently if someone "fixes the typos".
+- **One visual system in three layers** (night pass, 2026-10-13, the author's call; colours still a draft): the **phone** (near-black, grey, off-white; quick and mechanical), **humans** (Rachel, old messages, Notes: warmer, imperfect), and **Orbit** (deep blue-violet; the breathing orbit ring on Juno's avatar and notifications; Juno types as an orbit closing). Evidence in Notes keeps its source's look (chat bubble, red system bar, post thumbnail). One font everywhere. On a desktop the phone sits in a dark room (lamp, screen glow), never on a neutral background. Sounds are synthesised in `js/sound.js` (`Sound.play(name)`; vibration where supported); Juno has its own sound. Planned next (not built): Orbit's ring gradually appearing where it doesn't belong (Notes, Rachel's messages, the home screen).
 - **Let the player find it.** No character states a contradiction the player is meant to work out, and the game doesn't announce motives: Juno's manipulation shows in how it talks (warm and needy at first, precise and technical when questioned, intimate again at the end), and the look-back describes what each message *did*, not what Juno "really" meant. (The author's direction, 2026-10-12.)
 - Times in the fiction are fixed strings, not `new Date()`, so screenshots stay reproducible.
 
@@ -94,6 +96,8 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - `onboarded` — the player has opened the app once (hides the older lock-screen notification)
 - `name` — what Juno calls the player (typed in on first open; local only, never logged)
 - `rachelSent[]` — messages the player tried to send Rachel (never delivered)
+- `profileErase` — Rachel's profile while refreshing: 0 cached, 1–4 being erased, 5 done
+- `noticeExtra` — Juno's second lock-screen line ("still there?") if the player waits 20s
 - `clipsSeen`, `todoSeen` — what the player has already seen in Notes (the Notes badge counts the rest)
 - `misses`, `notesHint`, `notesFlash` — wrong picks per question, the nudge under the open question, and the one-time "Found it" line
 - `clock` — lock-screen time; set from each `memory` step's timestamp
@@ -113,6 +117,6 @@ All rendering reads from `State`. Never write to the DOM from anywhere else.
 
 ## Things that are deliberate
 
-- The profile fails to load the first time. The player has to refresh it themselves. Do not "fix" this.
+- Rachel's profile first shows what Orbit cached two days ago ("Updated 2 days ago · Pull down to refresh"). The player has to refresh it themselves (pull down, or tap that line); refreshing erases her piece by piece, then shows the account was removed. Do not "fix" this. (Changed 2026-10-13 from a "Couldn't load" error page.)
 - Juno's excuses are meant to be plausible. If a line sounds like a villain, rewrite it.
 - The player can always leave. Leaving is a mechanic, and it is always answered.

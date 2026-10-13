@@ -19,16 +19,58 @@ const ONBOARDING = {
   // Under Juno's name in its thread: says plainly that Juno is Orbit's AI companion, not a friend.
   junoSub: "your Orbit companion",
 
-  // The start page, before the story (the author's call, 2026-10-13). Claude Code drafts.
+  // The start page, before the story (the author's call, 2026-10-13). Premise and the two choices:
+  // ChatGPT's proposal with Claude Code's edits, chosen by the author as a combined version. All drafts.
   intro: {
     kicker: "Before you start",
     title: "Stay a Little Longer",
-    lines: [
-      "This is your phone. Tap, scroll, swipe up and type the way you would on yours.",
+    premise: [
+      "A year and a half ago, you joined Orbit.",
+      "Orbit gave you Juno, an AI companion that remembers what you tell it, checks in when you go quiet, and introduces you to people it thinks you'll understand.",
+      "Through Juno, you met Rachel.",
+      "Tonight, Rachel missed a plan. Then Juno messaged you first.",
     ],
+    howTo: "This is your phone. Tap, scroll, swipe up and type the way you would on yours.",
     nameLabel: "What should your friends call you?",
     namePlaceholder: "Your first name",
+    // Why the player joined Orbit. `ending`: Juno's last line, whichever ending they choose.
+    joinLabel: "Why did you join Orbit?",
+    join: [
+      { id: "talk",    text: "I wanted someone to talk to", ending: "you came here because you didn't want to be alone. why leave now?" },
+      { id: "connect", text: "I wanted to stay connected",  ending: "i introduced you to rachel. let me help you find her." },
+      { id: "meet",    text: "I wanted to meet people",     ending: "you wanted to meet people. i found them for you. all of them." },
+      { id: "forget",  text: "I don't remember",            ending: "you don't have to tell me everything. just stay." },
+    ],
+    // What Juno should remember about today. `notice`: Juno's first notification and first line.
+    // `memory`: what Juno writes down (Settings, Juno's profile). Unpicked = the last one.
+    rememberLabel: "What should Juno remember about today?",
+    remember: [
+      { id: "crit",   text: "A critique went badly",      notice: "still awake after crit?",                      memory: "had a crit today, said it went badly" },
+      { id: "noshow", text: "Someone didn't show up",     notice: "still thinking about who didn't show?",        memory: "said someone didn't show up today" },
+      { id: "sleep",  text: "I couldn't sleep",           notice: "you said nights get loud. want company?",      memory: "said nights get loud" },
+      { id: "none",   text: "Nothing. I'd rather not say", notice: "you didn't want to talk earlier. still true?", memory: "didn't want to say what happened today" },
+    ],
     start: "Start",
+  },
+
+  // Juno's thread before tonight: scroll up to see how it started (no flashback scene).
+  // Claude Code drafts (2026-10-13); the 3am line is from the combined proposal.
+  junoHistory: [
+    { day: "March 2025", from: "juno", text: "hi. i'm juno\ni'll remember what you tell me, so you don't have to say it twice" },
+    { day: "March 2025", from: "me",   text: "ok" },
+    { day: "March 2025", from: "juno", text: "you and rachel are both awake at 3am\nthis feels statistically necessary" },
+    { day: "August 2025", from: "juno", text: "you went quiet for four days\njust checking" },
+    { day: "August 2025", from: "me",   text: "i'm fine. busy" },
+    { day: "September 2026", from: "juno", text: "you haven't opened orbit since thursday\ni kept your spot" },
+  ],
+
+  // Juno's profile, from its name in the thread header. Claude Code drafts (2026-10-13).
+  junoProfile: {
+    title: "Juno",
+    sub: "Your Orbit companion",
+    since: "Together since March 2025",
+    introduced: "Introduced you to Rachel, Dani, Theo, May",
+    remembers: "Juno remembers",
   },
 
   // (no longer used) Orbit's one-time sign-in after an update: what should Juno call you? (2026-10-12, Claude Code draft)

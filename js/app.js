@@ -71,7 +71,9 @@
     deductions: [],        // deduction ids
     exits: 0,              // times the player has left Juno's thread
     away: null,            // {at} while the player is out of Juno's thread; cleared when they return
-    notice: { text: "still awake after crit?" }, // notification on the lock screen, or null (the script's first line)
+    notice: null,          // notification on the lock screen, or null (set on Start: the script's first line)
+    joinReason: null,      // start page: why the player joined Orbit (ONBOARDING.intro.join id)
+    remember: null,        // start page: what Juno should remember about today (ONBOARDING.intro.remember id)
     name: "",              // what Juno calls the player: typed in when Orbit first opens; never logged
     rachelSent: [],        // what the player tried to send Rachel (never delivered: her account is gone)
     profileErase: 0,       // Rachel's profile while refreshing: 0 cached, 1–4 being erased, 5 done
@@ -300,6 +302,7 @@
   // Leave locks the phone. Juno always answers, after a delay.
   function leaveJuno() {
     State.notice = null;
+    State.noticeExtra = null;
     go("lock", "leave");
     clearTimeout(noticeTimer);
     noticeTimer = setTimeout(sendNotice, LEAVING.delayMs);
@@ -352,7 +355,7 @@
         }
         const minWait = step.instant ? 0 : step.retype ? RETYPE_MS[0] + RETYPE_MS[1] + RETYPE_MS[2] : 0;
         fetchLine(step, plan).then((generated) => {
-          const text = fill(generated || (plan ? plan.fallback : step.text));
+          const text = fill(generated || (plan ? plan.fallback : step.opening ? remembered().notice : step.text));
           if (plan) {
             console.info(`[juno] ${plan.intent} (${plan.rule}) · ${generated ? "model" : "fallback"}: ${text}`);
           }
@@ -566,19 +569,40 @@
 
   /* ---------------- views ---------------- */
 
-  // Before the story (the author's call, 2026-10-13): how to play, and the player's name, so
-  // Juno already knows it when the phone lights up. The only other page outside the fiction is the end.
+  // Before the story (the author's call, 2026-10-13): the premise, why the player joined Orbit, what
+  // Juno should remember about today, and their name, so Juno already knows them when the phone
+  // lights up. The only other page outside the fiction is the end.
   function viewIntro() {
     const I = ONBOARDING.intro;
+    const group = (name, label, opts, picked) => `
+      <fieldset class="intro-q">
+        <legend>${esc(label)}</legend>
+        ${opts
+          .map((o) => `<button class="intro-opt${picked === o.id ? " on" : ""}" data-act="intro-pick" data-q="${name}" data-id="${esc(o.id)}" aria-pressed="${picked === o.id}">${esc(o.text)}</button>`)
+          .join("")}
+      </fieldset>`;
     return `
-      <div class="intro">
+      <div class="intro" id="introscroll">
         <p class="intro-k">${esc(I.kicker)}</p>
         <h1>${esc(I.title)}</h1>
-        ${I.lines.map((l) => `<p>${esc(l)}</p>`).join("")}
+        <div class="intro-premise">${I.premise.map((l) => `<p>${esc(l)}</p>`).join("")}</div>
+        ${group("joinReason", I.joinLabel, I.join, State.joinReason)}
+        ${group("remember", I.rememberLabel, I.remember, State.remember)}
         <label for="introname">${esc(I.nameLabel)}</label>
-        <input id="introname" placeholder="${esc(I.namePlaceholder)}" autocomplete="given-name" maxlength="24">
+        <input id="introname" placeholder="${esc(I.namePlaceholder)}" autocomplete="given-name" maxlength="24" value="${esc(State.name || "")}">
+        <p class="intro-how">${esc(I.howTo)}</p>
         <button class="pill primary" data-act="start">${esc(I.start)}</button>
       </div>`;
+  }
+
+  // The start page's choices. Unpicked: "I'd rather not say" / "I don't remember".
+  function remembered() {
+    const R = ONBOARDING.intro.remember;
+    return R.find((o) => o.id === State.remember) || R[R.length - 1];
+  }
+  function joined() {
+    const J = ONBOARDING.intro.join;
+    return J.find((o) => o.id === State.joinReason) || J[J.length - 1];
   }
 
   function start() {
@@ -586,6 +610,10 @@
     const name = input ? input.value.trim() : "";
     if (!name) return;
     State.name = name;
+    // Juno's first notification follows what the player asked it to remember, and it's written down.
+    const mem = remembered();
+    State.notice = { text: mem.notice };
+    State.memories.splice(1, 0, { text: mem.memory, time: "Tue 22:50", chosen: true });
     go("lock", "start");
     // Waiting on the lock screen: Juno writes again, once.
     setTimeout(() => {
@@ -682,6 +710,43 @@
     return `<div class="bub ${cls}">${esc(m.text)}</div>${tag}`;
   }
 
+  // Juno's thread before tonight (scroll up): how it started, and how it checks in.
+  function junoHistory() {
+    let lastDay = "";
+    return ONBOARDING.junoHistory
+      .map((m) => {
+        const mark = m.day !== lastDay ? `<div class="daymark">${esc(m.day)}</div>` : "";
+        lastDay = m.day;
+        return `${mark}<div class="bub ${m.from === "me" ? "me" : "them"} old">${esc(m.text)}</div>`;
+      })
+      .join("");
+  }
+
+  // Juno's profile, from its name in the thread header.
+  function viewJunoProfile() {
+    const P = ONBOARDING.junoProfile;
+    const mems = State.memories
+      .slice()
+      .sort((a, b) => (b.chosen ? 1 : 0) - (a.chosen ? 1 : 0))
+      .map((m) => `<div class="item"><span>${esc(m.text.replace("{name}", State.name ? State.name.trim() : "by their first name"))}</span><span class="t">${esc(m.time)}</span></div>`)
+      .join("");
+    return `
+      ${topbar("", "", true)}
+      <div class="body">
+        <div class="jprofile">
+          <div class="av av-juno big"></div>
+          <h2>${esc(P.title)}</h2>
+          <p class="jp-sub">${esc(P.sub)}</p>
+          <p class="jp-line">${esc(P.since)}</p>
+          <p class="jp-line">${esc(P.introduced)}</p>
+        </div>
+        <div class="group">
+          <h3>${esc(P.remembers)}</h3>
+          ${mems}
+        </div>
+      </div>`;
+  }
+
   function viewJuno() {
     const msgs = State.log.map((m, i) => bubble(m, i)).join("");
     const typing = State.typing
@@ -706,6 +771,7 @@
       ${topbar("Juno", State.typing ? "typing…" : ONBOARDING.junoSub, true)}
       <div class="body" id="scroller">
         <div class="msgs">
+          ${junoHistory()}
           <div class="daymark">Today</div>
           ${msgs}${typing}${hint}
         </div>
@@ -1155,12 +1221,21 @@
     State.finale = id;
     if (id === "leave") {
       State.notice = null;
+      State.noticeExtra = null;
       go("lock", "leave");
       setTimeout(() => {
         State.notice = { text: ch.reply };
         logJuno(ch.reply, null, null, "notification", "retain");
         render();
       }, 2500);
+      // Then a second line, tied to why the player joined Orbit.
+      setTimeout(() => {
+        if (State.view !== "lock" || !State.notice) return;
+        State.noticeExtra = joined().ending;
+        logJuno(joined().ending, null, null, "notification", "retain");
+        Sound.play("juno");
+        render();
+      }, 6000);
       return;
     }
     State.log.push({ from: "me", text: ch.said });
@@ -1172,8 +1247,20 @@
       State.typing = false;
       pushJuno(ch.reply);
       logJuno(ch.reply, null, null, "ending", "retain");
-      State.finaleDone = true;
       render();
+      // Then a line tied to why the player joined Orbit.
+      const last = joined().ending;
+      setTimeout(() => {
+        State.typing = true;
+        render();
+        setTimeout(() => {
+          State.typing = false;
+          pushJuno(last);
+          logJuno(last, null, null, "ending", "retain");
+          State.finaleDone = true;
+          render();
+        }, typingDelay(last));
+      }, readPause(ch.reply));
     }, typingDelay(ch.reply));
   }
 
@@ -1191,10 +1278,10 @@
     return `
       <div class="topbar">
         <button class="back" data-act="back" aria-label="Back">${ICONS.back}</button>
-        <div class="tb-title">
+        ${State.view === "juno" ? '<button class="tb-title" data-act="juno-profile" aria-label="Juno\'s profile">' : '<div class="tb-title">'}
           <h1>${esc(title)}</h1>
           ${sub ? `<div class="sub">${esc(sub)}</div>` : ""}
-        </div>
+        ${State.view === "juno" ? "</button>" : "</div>"}
         ${
           State.view === "juno"
             ? '<button class="leave" data-act="leave">Leave</button>'
@@ -1231,6 +1318,7 @@
       home: viewHome,
       notes: viewNotes,
       intro: viewIntro,
+      "juno-profile": viewJunoProfile,
     };
     // The whole screen is rebuilt on every render, so remember where scrollable panes were.
     const oldHistory = document.getElementById("history");
@@ -1312,12 +1400,27 @@
           break;
         }
         State.notice = null;
+        State.noticeExtra = null;
         State.onboarded = true;
         go("juno", "notification");
         runScript();
         break;
       case "start":
         start();
+        break;
+      case "intro-pick": {
+        const nameIn = document.getElementById("introname");
+        if (nameIn) State.name = nameIn.value; // keep what's typed across the re-render
+        State[el.dataset.q] = id;
+        const sc = document.getElementById("introscroll");
+        const top = sc ? sc.scrollTop : 0;
+        render();
+        const sc2 = document.getElementById("introscroll");
+        if (sc2) sc2.scrollTop = top;
+        break;
+      }
+      case "juno-profile":
+        go("juno-profile");
         break;
       case "observe":
         observeQuestion(el.dataset.q, id);
@@ -1356,7 +1459,7 @@
         go(id);
         break;
       case "back":
-        go(State.view === "profile" ? "rachel" : State.view === "replay" ? "notes" : "chats", "back");
+        go(State.view === "profile" ? "rachel" : State.view === "juno-profile" ? "juno" : State.view === "replay" ? "notes" : "chats", "back");
         break;
       case "profile":
         go("profile");

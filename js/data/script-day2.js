@@ -31,7 +31,7 @@ const SCRIPT_DAY2 = [
   // reply arrives to the PLAYER. Juno only sounds relieved. Lines are Claude Code drafts built from
   // the author's critique. `instant`: no typing (the notification already showed it).
   // {name}: what the player typed when Orbit asked (lowercased in Juno's voice).
-  { type: "juno", text: "still awake after crit?", instant: true },
+  { type: "juno", text: "still awake after crit?", instant: true, opening: true }, // `opening`: the text follows the start page's "remember" choice
   { type: "player", options: ["you remembered", "couldn't sleep", "don't start"] },
   { type: "juno", text: "you said nobody reaches out first anymore, {name}\nso i did", moment: "pull", means: "retain" },
   { type: "player", options: ["rachel didn't show up today", "i got stood up this morning"] },

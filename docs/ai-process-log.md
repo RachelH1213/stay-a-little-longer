@@ -1219,3 +1219,28 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (`claude-opus-5-5`).
 - **My decision:** I removed "Best played at night, with headphones on." from the start page, because it isn't needed.
 - **Files / features affected:** `js/data/onboarding.js`, `CLAUDE.md`
+
+---
+
+### 2026-10-13 — Context for the player: who Juno is, why they're here
+
+- **Tool / model:** Claude Code.
+- **What I found:** without me explaining, a new player doesn't know what Orbit is, who Juno is, or what Juno does for them.
+- **What I asked for:** I compared ChatGPT's proposal with Claude Code's and chose a combined version.
+- **What Claude Code built:**
+  - **Start page:** a short premise ("A year and a half ago, you joined Orbit. Orbit gave you Juno, an AI companion that… Through Juno, you met Rachel. Tonight, Rachel missed a plan. Then Juno messaged you first."). Then two choices and my name:
+    - "Why did you join Orbit?" (someone to talk to / stay connected / meet people / I don't remember);
+    - "What should Juno remember about today?" (a critique went badly / someone didn't show up / I couldn't sleep / Nothing. I'd rather not say).
+  - **Juno's first notification follows that choice:** "still awake after crit?", "still thinking about who didn't show?", "you said nights get loud. want company?", or "you didn't want to talk earlier. still true?". The choice is also written into "Juno remembers". If the player picks nothing, it counts as "rather not say" / "don't remember".
+  - **No flashback scene:** Juno's thread has older messages above "Today" (March 2025 "you and rachel are both awake at 3am / this feels statistically necessary", a check-in when I went quiet, "i kept your spot").
+  - **Juno's profile:** tapping Juno's name in the thread shows "Your Orbit companion · Together since March 2025 · Introduced you to Rachel, Dani, Theo, May" and "Juno remembers", with my choice on top.
+  - **Ending:** after any of the three last choices, Juno adds one line tied to why I joined (e.g. someone to talk to → "you came here because you didn't want to be alone. why leave now?"). On Leave it's a second notification.
+- **Wording:**
+  - the premise, the choices, the four first lines, the "connect" and "don't remember" ending lines: ChatGPT's proposal with Claude Code's edits;
+  - Juno's older messages (except the 3am line), the profile, the memories and the "meet people" ending line: Claude Code drafts.
+- **Testing (Chromium at 390px):**
+  - a new test picks each "remember" option and checks the lock notice, Juno's first line, the older messages, the profile and the order of memories;
+  - the Tonight test checks the extra ending line for all three choices;
+  - all other flow tests were updated and rerun.
+- **Files / features affected:** `js/app.js`, `js/data/onboarding.js`, `js/data/app-data.js`, `js/data/script-day2.js`, `css/app.css`, `CLAUDE.md`
+- **My decision:** the combined version. **[to fill in]**: the wording.

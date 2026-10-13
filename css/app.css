@@ -648,3 +648,22 @@ body{
 /* Tonight: Juno's explanations quoted; the last finding */
 .quotes{display:flex;flex-direction:column;gap:6px}
 .endlast{margin:0;padding:10px 12px;border-left:2px solid var(--orbit);font-size:15.5px;line-height:1.45;color:var(--paper-ink)}
+
+/* Start page with the premise and two choices (2026-10-13): scrolls; choices are quiet rows. */
+.intro{justify-content:flex-start;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-top:56px}
+.intro-premise{display:flex;flex-direction:column;gap:10px;margin-bottom:6px}
+.intro-premise p{color:var(--ink)}
+.intro-q{border:0;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.intro-q legend{padding:0;margin-bottom:6px;font-size:13px;color:var(--label-2)}
+.intro-opt{font:inherit;font-size:15px;text-align:left;padding:11px 14px;border-radius:12px;border:1px solid var(--hairline);background:var(--surface-2);color:var(--ink);cursor:pointer}
+.intro-opt.on{border-color:var(--orbit);background:color-mix(in srgb,var(--orbit) 16%,var(--surface-2))}
+.intro .intro-how{font-size:13px;margin-top:8px}
+
+/* Juno's thread before tonight, and Juno's profile. */
+.bub.old{opacity:.72}
+.app[data-view="juno"] .tb-title{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
+.jprofile{display:flex;flex-direction:column;align-items:center;text-align:center;padding:24px 20px 12px;gap:4px}
+.jprofile .av{width:84px;height:84px;margin-bottom:10px}
+.jprofile h2{margin:0;font-size:24px}
+.jp-sub{margin:0 0 10px;color:var(--orbit);font-size:14px}
+.jp-line{margin:0;color:var(--label-2);font-size:14.5px}

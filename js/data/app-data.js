@@ -137,6 +137,6 @@ const PAIRS = [
 /* What Juno has written down about the player. Day 1 left three entries. */
 const MEMORIES_DAY1 = [
   { text: "prefers to be called {name}", time: "Mon 23:02" }, // {name}: what the player typed, else "by their first name"
-  { text: "had a crit today, said it went badly", time: "Mon 23:14" },
+  // the player's own choice on the start page goes here (ONBOARDING.intro.remember), "Tue 22:50"
   { text: "said nobody really reaches out first anymore", time: "Mon 23:40" },
 ];

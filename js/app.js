@@ -72,6 +72,7 @@
     exits: 0,              // times the player has left Juno's thread
     away: null,            // {at} while the player is out of Juno's thread; cleared when they return
     notice: null,          // notification on the lock screen, or null (set on Start: the script's first line)
+    introPage: 0,          // start page: 0 the premise, 1 the two choices and the name
     joinReason: null,      // start page: why the player joined Orbit (ONBOARDING.intro.join id)
     remember: null,        // start page: what Juno should remember about today (ONBOARDING.intro.remember id)
     name: "",              // what Juno calls the player: typed in when Orbit first opens; never logged
@@ -581,16 +582,23 @@
           .map((o) => `<button class="intro-opt${picked === o.id ? " on" : ""}" data-act="intro-pick" data-q="${name}" data-id="${esc(o.id)}" aria-pressed="${picked === o.id}">${esc(o.text)}</button>`)
           .join("")}
       </fieldset>`;
-    return `
-      <div class="intro" id="introscroll">
+    // Two short screens (the author's call, 2026-10-13): first the premise, then the choices and the name.
+    if (State.introPage === 0) {
+      return `
+      <div class="intro intro-first">
         <p class="intro-k">${esc(I.kicker)}</p>
         <h1>${esc(I.title)}</h1>
         <div class="intro-premise">${I.premise.map((l) => `<p>${esc(l)}</p>`).join("")}</div>
+        <p class="intro-how">${esc(I.howTo)}</p>
+        <button class="pill primary" data-act="intro-next">${esc(I.next)}</button>
+      </div>`;
+    }
+    return `
+      <div class="intro" id="introscroll">
         ${group("joinReason", I.joinLabel, I.join, State.joinReason)}
         ${group("remember", I.rememberLabel, I.remember, State.remember)}
         <label for="introname">${esc(I.nameLabel)}</label>
         <input id="introname" placeholder="${esc(I.namePlaceholder)}" autocomplete="given-name" maxlength="24" value="${esc(State.name || "")}">
-        <p class="intro-how">${esc(I.howTo)}</p>
         <button class="pill primary" data-act="start">${esc(I.start)}</button>
       </div>`;
   }
@@ -1412,6 +1420,10 @@
         break;
       case "start":
         start();
+        break;
+      case "intro-next":
+        State.introPage = 1;
+        render();
         break;
       case "intro-pick": {
         const nameIn = document.getElementById("introname");

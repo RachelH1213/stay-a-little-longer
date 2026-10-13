@@ -52,6 +52,7 @@ const ONBOARDING = {
       { id: "sleep",  text: "I couldn't sleep",           notice: "you said nights get loud. want company?",      follow: "i'm up too, {name}. i usually am when you are", memory: "said nights get loud" },
       { id: "none",   text: "Nothing. I'd rather not say", notice: "you didn't want to talk earlier. still true?", follow: "that's ok, {name}. you don't have to say", memory: "didn't want to say what happened today" },
     ],
+    next: "Continue", // first screen → second screen
     start: "Start",
   },
 

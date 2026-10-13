@@ -1273,3 +1273,18 @@ Copy this for each new entry.
   - all flow tests were rerun and pass. The leave test now waits for Juno's line before leaving, because the longer line arrived as a banner over the Chats row.
 - **Files / features affected:** `js/app.js`, `js/data/onboarding.js`, `js/data/script-day2.js`, `js/data/replay.js`, `js/data/truth.js`, `CLAUDE.md`
 - **My decision:** **[to fill in]**
+
+---
+
+### 2026-10-13 (night) — Start page in two screens
+
+- **Tool / model:** Claude Code.
+- **My decision:** split the start page into two screens, with the name on the second.
+- **What Claude Code built:**
+  - **Screen 1:** "Before you start · Stay a Little Longer", the premise and the how-to line, then "Continue".
+  - **Screen 2:** the two choices and the name, then "Start". At 390 × 844 it fits without scrolling.
+- **Wording:** "Continue" is a Claude Code draft.
+- **Testing (Chromium at 390px):**
+  - the opening test checks that screen 1 has no form, that screen 2 has the 8 choices and the name, and that Start is visible without scrolling;
+  - all flow tests were updated and rerun.
+- **Files / features affected:** `js/app.js`, `js/data/onboarding.js`, `css/app.css`, `CLAUDE.md`

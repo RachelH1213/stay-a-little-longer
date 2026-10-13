@@ -614,3 +614,10 @@ body{
   body{background:var(--bg)}
 }
 .av-juno{color:transparent}
+
+/* Photos (the author's, 2026-10-13): Rachel's avatar and her posts */
+.av-rachel{background:url("../img/rachel-avatar.jpg") center/cover,#6b5a4e;color:transparent}
+.post,.ev-thumb{background-size:cover;background-position:center}
+.post{filter:saturate(.9) brightness(.92)}
+.grid{grid-template-columns:repeat(3,1fr)}
+.post-full{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}

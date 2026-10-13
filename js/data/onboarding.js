@@ -19,7 +19,20 @@ const ONBOARDING = {
   // Under Juno's name in its thread: says plainly that Juno is Orbit's AI companion, not a friend.
   junoSub: "your Orbit companion",
 
-  // Orbit's one-time sign-in after an update: what should Juno call you? (2026-10-12, Claude Code draft)
+  // The start page, before the story (the author's call, 2026-10-13). Claude Code drafts.
+  intro: {
+    kicker: "Before you start",
+    title: "Stay a Little Longer",
+    lines: [
+      "Best played at night, with headphones on.",
+      "This is your phone. Tap, scroll, swipe up and type the way you would on yours.",
+    ],
+    nameLabel: "What should your friends call you?",
+    namePlaceholder: "Your first name",
+    start: "Start",
+  },
+
+  // (no longer used) Orbit's one-time sign-in after an update: what should Juno call you? (2026-10-12, Claude Code draft)
   signin: {
     title: "Welcome back",
     body: "Orbit updated overnight. What should Juno call you?",
@@ -66,11 +79,14 @@ const ONBOARDING = {
     // Added 2026-10-12, a draft.
     // The goal moves on as the player works things out (author's direction, 2026-10-12): the slice
     // never promises to find where Rachel is. Key = the deduction that completes that goal.
+    // Changed 2026-10-13: proving the account is gone doesn't explain why Rachel went quiet, so
+    // that stays open (the next night's question).
     goals: [
-      { text: "Find out why Rachel went quiet", doneBy: "deleted-replied" },
-      { text: "Find out who sent the message", doneBy: "not-her-typing" },
-      { text: "Decide whether to trust Juno", doneBy: null },
+      { text: "Find out what happened to Rachel's account", doneBy: "deleted-replied" },
+      { text: "Find out who sent the reply", doneBy: "not-her-typing" },
+      { text: "Find out why Rachel went quiet", doneBy: null },
     ],
+    observeAsk: "What feels different about the reply?",
     ownNote: { when: "Last week", text: "Rachel said she might go quiet for a bit. Check in on her." },
   },
 

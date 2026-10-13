@@ -53,7 +53,11 @@ const INTENTS = {
    DRAFT, written by Claude Code (2026-10-08) after the live test, for the author to edit. */
 const GUARDS = {
   all: {
-    never: ["i wrote", "i sent", "i typed", "i replied", "as rachel", "pretended to be", "pretending to be"],
+    never: ["i wrote", "i sent", "i typed", "i replied", "as rachel", "pretended to be", "pretending to be",
+            // Things that happened to Rachel that the game never told the model (added 2026-10-13 after
+            // it invented "she was sick"). A line that mentions them is thrown away and asked again.
+            "sick", "ill", "unwell", "hospital", "doctor", "fever", "flu", "covid", "accident", "hurt",
+            "police", "died", "dead", "funeral", "trip", "travelling", "traveling", "vacation", "her mom", "her dad"],
   },
   block: {
     never: ["i did", "i didn't", "i did not", "i don't know", "i dont know"],

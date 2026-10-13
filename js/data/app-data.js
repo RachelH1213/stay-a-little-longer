@@ -97,7 +97,15 @@ const PAIRS = [
     opensWhen: { waiting: "deduction:not-her-typing" },
     anchor: "reply-today",
     answers: ["old-dms"],
-    text: "The reply doesn't sound like Rachel. It closes the conversation in a way she never did.", // the author's wording, 2026-10-12
+    // After the right card, the player says what's different before the conclusion is written
+    // (2026-10-13: the player observes, Notes doesn't hand them the answer). Claude Code drafts.
+    observe: [
+      { id: "details",  text: "she gives no details",   ok: true, finding: "She always told you what happened. This tells you nothing." },
+      { id: "asksback", text: "she asks nothing back",  ok: true, finding: "She always asked something back. This closes the conversation." },
+      { id: "punct",    text: "the punctuation",        ok: true, finding: "She never used full stops. This one does." },
+      { id: "nothing",  text: "nothing",                ok: false, hint: "Read them side by side. How did she end her messages before?" },
+    ],
+    text: "The reply doesn't sound like Rachel.", // + the player's own observation (observe[].finding)
     unlocks: "ask-juno-typing",
     wrong: {
       "profile-deleted": "That's about her account. This question is about her voice.",

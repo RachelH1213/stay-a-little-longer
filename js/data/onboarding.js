@@ -133,6 +133,7 @@ const ONBOARDING = {
       { text: "Find out why Rachel went quiet", doneBy: null },
     ],
     observeAsk: "What feels different about the reply?",
+    toldHer: "You told her once: “{text}”", // above the options, when the player chose what they said back in her thread
     ownNote: { when: "Last week", text: "Rachel said she might go quiet for a bit. Check in on her." },
   },
 

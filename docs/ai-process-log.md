@@ -1288,3 +1288,21 @@ Copy this for each new entry.
   - the opening test checks that screen 1 has no form, that screen 2 has the 8 choices and the name, and that Start is visible without scrolling;
   - all flow tests were updated and rerun.
 - **Files / features affected:** `js/app.js`, `js/data/onboarding.js`, `css/app.css`, `CLAUDE.md`
+
+---
+
+### 2026-10-13 (night) — A choice inside Rachel's old messages
+
+- **Tool / model:** Claude Code.
+- **My decision:** add the choice ChatGPT proposed to Rachel's old messages, so what Rachel was like is something the player says, not something Notes tells them.
+- **What Claude Code built:**
+  - **Rachel's message:** in August 2025, Rachel asks: "ok real question / why did you keep talking to me / like after juno introduced us / most people ghost after a week lol". The player's reply under it is blank: "What did you say back?".
+  - **The choice:** tapping it offers four answers: "you always asked something back", "you made bad nights funny", "juno was right about us", "i don't know. i just did". The answer becomes the player's own message in the thread. It's logged (`recall:<id>`), and it's optional.
+  - **The link to Notes:** if the answer points at a difference, "What feels different about the reply?" shows it ("You told her once: “you made bad nights funny”") and lists the matching option first:
+    - asked back → "she asks nothing back";
+    - bad nights funny → "she gives no details".
+- **Wording:** Rachel's question (no full stops, as her rule says) and the "You told her once" line are Claude Code drafts. The four answers are from ChatGPT's proposal.
+- **Testing (Chromium at 390px):**
+  - a new test opens the choice, picks an answer, checks it becomes a message, and checks that Notes quotes it and orders the options;
+  - all flow tests were rerun and pass.
+- **Files / features affected:** `js/data/rachel-history.js`, `js/data/onboarding.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`

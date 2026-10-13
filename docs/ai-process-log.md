@@ -1155,3 +1155,14 @@ Copy this for each new entry.
 - **Testing (Chromium at 390px):** screenshots of the chat list, profile and opened post were checked. The Notes, clue-3, opening and home tests pass.
 - **Files / features affected:** `img/` (new), `js/data/app-data.js`, `js/app.js`, `css/app.css`
 - **My decision:** I chose and provided the photos. **[to fill in]**: the two captions.
+
+---
+
+### 2026-10-13 — Wallpaper
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I did:** I provided a night city photo for the phone's wallpaper.
+- **What Claude Code did:** it cropped the photo to phone proportions (`img/wallpaper.jpg`) and used it on the lock screen and the home screen. The photo is darkened so text stays readable, and the lock screen drifts very slowly (off under reduced motion). This replaces the placeholder gradient.
+- **Testing:** screenshots checked at 390px and in the desktop frame.
+- **Files / features affected:** `img/wallpaper.jpg` (new), `css/app.css`
+- **My decision:** I chose the photo. **[to fill in]**

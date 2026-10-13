@@ -667,3 +667,7 @@ body{
 .jprofile h2{margin:0;font-size:24px}
 .jp-sub{margin:0 0 10px;color:var(--orbit);font-size:14px}
 .jp-line{margin:0;color:var(--label-2);font-size:14.5px}
+/* Start page in two screens (2026-10-13): both centred when they fit. */
+.intro{justify-content:safe center;padding-top:40px;padding-bottom:40px}
+.intro-q:first-child{margin-top:0}
+.intro-first .pill{margin-top:14px}

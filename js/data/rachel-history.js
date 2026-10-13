@@ -6,6 +6,20 @@
    (Clue 3 widened 2026-10-12, the author's direction: from "no full stops" to "doesn't talk like her".)
    `evidence` marks the message the player can add to Notes for clue 3. */
 
+// What the player said back to "why did you keep talking to me". Tapping the empty reply in her
+// thread opens these; the choice becomes the player's message. `observe`: the "What feels different?"
+// option in Notes this answer points to (it's listed first, with the player's own words above it).
+// Claude Code drafts from ChatGPT's proposal (2026-10-13).
+const RACHEL_RECALL = {
+  prompt: "What did you say back?",
+  options: [
+    { id: "asks",  text: "you always asked something back", observe: "asksback" },
+    { id: "funny", text: "you made bad nights funny",       observe: "details" },
+    { id: "juno",  text: "juno was right about us" },
+    { id: "dunno", text: "i don't know. i just did" },
+  ],
+};
+
 const RACHEL_HISTORY = [
   { day: "March 2025", from: "rachel", text: "hi!! juno said we'd get along\nno pressure lol" },
   { day: "March 2025", from: "me", text: "it said the same thing to me. what did it tell you about me" },
@@ -20,6 +34,10 @@ const RACHEL_HISTORY = [
   { day: "August 2025", from: "rachel", text: "always\nwhats wrong" },
   { day: "August 2025", from: "me", text: "nothing really. just couldn't sleep" },
   { day: "August 2025", from: "rachel", text: "ok stay here then\nill talk about the plant until you get bored" },
+  // The player chooses what they said back (RACHEL_RECALL), so what Rachel was like to them is
+  // theirs to say (the author's call, 2026-10-13). Rachel's line is a Claude Code draft (no full stops).
+  { day: "August 2025", from: "rachel", text: "ok real question\nwhy did you keep talking to me\nlike after juno introduced us\nmost people ghost after a week lol" },
+  { day: "August 2025", from: "me", recall: true },
 
   { day: "January 2026", from: "rachel", text: "do you ever feel like you're just\nchecking things\nall day\nlike thats the whole day" },
   { day: "January 2026", from: "me", text: "constantly" },

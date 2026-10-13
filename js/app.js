@@ -79,6 +79,8 @@
     rachelSent: [],        // what the player tried to send Rachel (never delivered: her account is gone)
     profileErase: 0,       // Rachel's profile while refreshing: 0 cached, 1–4 being erased, 5 done
     noticeExtra: null,     // Juno's second lock-screen line if the player waits ("still there?")
+    whyRachel: null,       // what the player said back to Rachel's "why did you keep talking to me" (RACHEL_RECALL id)
+    recallOpen: false,     // those options are showing in her thread
     observing: null,       // the question whose "what feels different?" step is open in Notes
     findings: {},          // the player's own observation per question, added to its conclusion
     junoUnread: true,      // dot on Juno's row in Chats
@@ -641,7 +643,7 @@
   function pastNotices() {
     return ONBOARDING.lockPast
       .map((n) => {
-        const m = RACHEL_HISTORY.find((h) => h.text.indexOf(n.fromHistory) === 0);
+        const m = RACHEL_HISTORY.find((h) => (h.text || "").indexOf(n.fromHistory) === 0);
         if (!m) return "";
         return `
           <div class="notif past">
@@ -803,6 +805,16 @@
     let lastDay = "";
     RACHEL_HISTORY.forEach((m, i) => {
       if (m.suspect && !State.flags.rachelNotified) return; // her "reply" hasn't arrived yet
+      // The player's own old reply, left for them to remember (RACHEL_RECALL).
+      if (m.recall) {
+        const said = RACHEL_RECALL.options.find((o) => o.id === State.whyRachel);
+        if (said) rows.push(`<div class="bub me">${esc(said.text)}</div>`);
+        else if (!State.recallOpen) rows.push(`<button class="bub me recall" data-act="recall-open">${esc(RACHEL_RECALL.prompt)}</button>`);
+        else rows.push(`<div class="recall-opts">${RACHEL_RECALL.options
+          .map((o) => `<button class="chip" data-act="recall" data-id="${esc(o.id)}">${esc(o.text)}</button>`)
+          .join("")}</div>`);
+        return;
+      }
       if (m.day !== lastDay) {
         rows.push(`<div class="daymark">${esc(m.day)}</div>`);
         lastDay = m.day;
@@ -1010,12 +1022,18 @@
         // Right card picked, and the question asks the player to say what's different first:
         // the two cards side by side, and what they noticed.
         if (State.observing === q.id) {
+          // What the player once told Rachel, if it points at a difference: their words, that option first.
+          const said = RACHEL_RECALL.options.find((o) => o.id === State.whyRachel);
+          const told = said && said.observe ? said : null;
           return `
           <div class="q open">
             <div class="q-head">○ ${esc(q.question)}</div>
             <div class="clips pinned">${card(q.anchor)}${card(q.answers[0])}</div>
             <div class="q-label">${esc(N.observeAsk)}</div>
+            ${told ? `<p class="q-told">${esc(N.toldHer.replace("{text}", told.text))}</p>` : ""}
             <div class="rchoices">${q.observe
+              .slice()
+              .sort((a, b) => (told && b.id === told.observe ? 1 : 0) - (told && a.id === told.observe ? 1 : 0))
               .map((o) => `<button class="pill" data-act="observe" data-q="${esc(q.id)}" data-id="${esc(o.id)}">${esc(o.text)}</button>`)
               .join("")}</div>
             ${State.notesHint && State.notesHint.q === q.id ? `<p class="q-hint">${esc(State.notesHint.text)}</p>` : ""}
@@ -1421,6 +1439,20 @@
       case "start":
         start();
         break;
+      case "recall-open":
+        State.recallOpen = true;
+        render();
+        break;
+      case "recall": {
+        const o = RACHEL_RECALL.options.find((x) => x.id === id);
+        if (!o) break;
+        State.whyRachel = id;
+        State.recallOpen = false;
+        Sound.play("send");
+        Log.write({ kind: "answer", step: State.step, via: "recall:" + id, state: { question: "why-rachel" } });
+        render();
+        break;
+      }
       case "intro-next":
         State.introPage = 1;
         render();

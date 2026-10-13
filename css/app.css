@@ -671,3 +671,8 @@ body{
 .intro{justify-content:safe center;padding-top:40px;padding-bottom:40px}
 .intro-q:first-child{margin-top:0}
 .intro-first .pill{margin-top:14px}
+
+/* The player's old reply to Rachel, left to remember (2026-10-13). */
+.bub.me.recall{font:inherit;cursor:pointer;background:transparent;border:1.5px dashed var(--hairline);color:var(--label-2);font-style:italic}
+.recall-opts{align-self:flex-end;display:flex;flex-direction:column;align-items:flex-end;gap:6px;max-width:85%}
+.q-told{margin:0 0 8px;font-size:14px;color:var(--paper-ink);font-style:italic}

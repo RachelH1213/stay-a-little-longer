@@ -33,22 +33,24 @@ const ONBOARDING = {
     howTo: "This is your phone. Tap, scroll, swipe up and type the way you would on yours.",
     nameLabel: "What should your friends call you?",
     namePlaceholder: "Your first name",
-    // Why the player joined Orbit. `ending`: Juno's last line, whichever ending they choose.
+    // Why the player joined Orbit. `opening`: the second half of Juno's second line;
+    // `ending`: Juno's last line, whichever ending they choose. Both are used, so the player feels it twice.
     joinLabel: "Why did you join Orbit?",
     join: [
-      { id: "talk",    text: "I wanted someone to talk to", ending: "you came here because you didn't want to be alone. why leave now?" },
-      { id: "connect", text: "I wanted to stay connected",  ending: "i introduced you to rachel. let me help you find her." },
-      { id: "meet",    text: "I wanted to meet people",     ending: "you wanted to meet people. i found them for you. all of them." },
-      { id: "forget",  text: "I don't remember",            ending: "you don't have to tell me everything. just stay." },
+      { id: "talk",    text: "I wanted someone to talk to", opening: "you joined so you'd have someone to talk to. so talk to me", ending: "you came here because you didn't want to be alone. why leave now?" },
+      { id: "connect", text: "I wanted to stay connected",  opening: "you joined to stay connected. i'm trying to help with that", ending: "i introduced you to rachel. let me help you find her." },
+      { id: "meet",    text: "I wanted to meet people",     opening: "you joined to meet people. i still look out for you", ending: "you wanted to meet people. i found them for you. all of them." },
+      { id: "forget",  text: "I don't remember",            opening: "nobody reaches out first anymore. so i did", ending: "you don't have to tell me everything. just stay." },
     ],
-    // What Juno should remember about today. `notice`: Juno's first notification and first line.
+    // What Juno should remember about today. `notice`: Juno's first notification and first line;
+    // `follow`: Juno's answer to the player's reply, about the same thing (2026-10-13: it used to jump to another memory).
     // `memory`: what Juno writes down (Settings, Juno's profile). Unpicked = the last one.
     rememberLabel: "What should Juno remember about today?",
     remember: [
-      { id: "crit",   text: "A critique went badly",      notice: "still awake after crit?",                      memory: "had a crit today, said it went badly" },
-      { id: "noshow", text: "Someone didn't show up",     notice: "still thinking about who didn't show?",        memory: "said someone didn't show up today" },
-      { id: "sleep",  text: "I couldn't sleep",           notice: "you said nights get loud. want company?",      memory: "said nights get loud" },
-      { id: "none",   text: "Nothing. I'd rather not say", notice: "you didn't want to talk earlier. still true?", memory: "didn't want to say what happened today" },
+      { id: "crit",   text: "A critique went badly",      notice: "still awake after crit?",                      follow: "you said it went badly, {name}. i didn't want you sitting with that alone", memory: "had a crit today, said it went badly" },
+      { id: "noshow", text: "Someone didn't show up",     notice: "still thinking about who didn't show?",        follow: "you said someone missed a plan today, {name}. i didn't want you waiting alone", memory: "said someone didn't show up today" },
+      { id: "sleep",  text: "I couldn't sleep",           notice: "you said nights get loud. want company?",      follow: "i'm up too, {name}. i usually am when you are", memory: "said nights get loud" },
+      { id: "none",   text: "Nothing. I'd rather not say", notice: "you didn't want to talk earlier. still true?", follow: "that's ok, {name}. you don't have to say", memory: "didn't want to say what happened today" },
     ],
     start: "Start",
   },
@@ -124,7 +126,9 @@ const ONBOARDING = {
     // that stays open (the next night's question).
     goals: [
       { text: "Find out what happened to Rachel's account", doneBy: "deleted-replied" },
-      { text: "Find out who sent the reply", doneBy: "not-her-typing" },
+      // Comparing her voice only shows she probably didn't write it, not who did (2026-10-13).
+      { text: "Find out whether Rachel sent the reply", doneBy: "not-her-typing" },
+      { text: "Find out who, or what, sent it", doneBy: null }, // open goals stay open for the next night
       { text: "Find out why Rachel went quiet", doneBy: null },
     ],
     observeAsk: "What feels different about the reply?",

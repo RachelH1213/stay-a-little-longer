@@ -23,7 +23,7 @@ const TRUTH = {
   facts: {
     /* --- Juno's claims --- */
     "no-word-since-tue": {
-      text: "You haven't heard from Rachel since Tuesday either.",
+      text: "Juno hasn't heard from Rachel since Sunday either.", // was "since Tuesday": today is Tuesday (2026-10-13)
       kind: "claim", day: 2, intents: ["retain", "deflect", "concede"],
     },
     "missed-plan": {

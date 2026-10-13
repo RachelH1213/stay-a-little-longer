@@ -1244,3 +1244,32 @@ Copy this for each new entry.
   - all other flow tests were updated and rerun.
 - **Files / features affected:** `js/app.js`, `js/data/onboarding.js`, `js/data/app-data.js`, `js/data/script-day2.js`, `css/app.css`, `CLAUDE.md`
 - **My decision:** the combined version. **[to fill in]**: the wording.
+
+---
+
+### 2026-10-13 (night) — Fixes from a full playthrough with the new start page
+
+- **Tool / model:** Claude Code.
+- **What I found:** I played again from a fresh save (stay connected / someone didn't show up / Alex / Stay) and got a critique from ChatGPT. Three things were simply wrong:
+  - the goal "Find out who sent the reply" got ticked, but comparing her voice only shows Rachel probably didn't write it, not who did;
+  - after "still thinking about who didn't show?" → "you remembered", Juno jumped to a different memory ("you said nobody reaches out first anymore");
+  - Tonight said Rachel "hadn't answered since Tuesday", but today is Tuesday and Juno had said "since Sunday" (the same mistake was in one fact in `truth.js`).
+- **What Claude Code changed:**
+  - **Goals:**
+    - "Find out whether Rachel sent the reply" is now the one that gets ticked;
+    - "Find out who, or what, sent it" and "Find out why Rachel went quiet" stay open together for the next night.
+  - **Juno's second line:**
+    - it now answers about the memory the player chose (e.g. "you said someone missed a plan today, alex. i didn't want you waiting alone");
+    - it then says why the player joined (e.g. "you joined to stay connected. i'm trying to help with that");
+    - so the join reason is used twice, once at the start and once at the end.
+  - **Tonight:** it now reads "Only that Rachel had missed the 9am plan and hadn't answered you all day." The `truth.js` fact now says "since Sunday".
+- **Not changed:**
+  - the "What feels different?" step already accepted all three observations (details / asks back / punctuation), each with its own finding;
+  - splitting the start page into two screens, moving the name, a Rachel memory choice, the pacing and a Tonight timeline are design decisions left for me.
+- **Wording:** the eight new half-lines (`follow` and `opening` in `js/data/onboarding.js`) and the new goal wording are Claude Code drafts.
+- **Testing (Chromium at 390px):**
+  - the context test checks the second line for "didn't show" + "someone to talk to";
+  - the Tonight test checks the goals at the end and that "Tuesday" is gone;
+  - all flow tests were rerun and pass. The leave test now waits for Juno's line before leaving, because the longer line arrived as a banner over the Chats row.
+- **Files / features affected:** `js/app.js`, `js/data/onboarding.js`, `js/data/script-day2.js`, `js/data/replay.js`, `js/data/truth.js`, `CLAUDE.md`
+- **My decision:** **[to fill in]**

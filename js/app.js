@@ -355,7 +355,7 @@
         }
         const minWait = step.instant ? 0 : step.retype ? RETYPE_MS[0] + RETYPE_MS[1] + RETYPE_MS[2] : 0;
         fetchLine(step, plan).then((generated) => {
-          const text = fill(generated || (plan ? plan.fallback : step.opening ? remembered().notice : step.text));
+          const text = fill(generated || (plan ? plan.fallback : step.opening ? openingLine(step.opening) : step.text));
           if (plan) {
             console.info(`[juno] ${plan.intent} (${plan.rule}) · ${generated ? "model" : "fallback"}: ${text}`);
           }
@@ -599,6 +599,10 @@
   function remembered() {
     const R = ONBOARDING.intro.remember;
     return R.find((o) => o.id === State.remember) || R[R.length - 1];
+  }
+  // Juno's first two lines: the memory the player chose, then (second line) why they joined.
+  function openingLine(which) {
+    return which === "notice" ? remembered().notice : remembered().follow + "\n" + joined().opening;
   }
   function joined() {
     const J = ONBOARDING.intro.join;
@@ -1037,12 +1041,13 @@
           .join("")
       : `<li class="muted">${esc(N.knowEmpty)}</li>`;
 
-    // The player's own goals: done ones ticked, the next one open, later ones not shown yet.
+    // The player's own goals: done ones ticked, the next one open, later ones not shown yet
+    // (except the last open ones, which are all shown).
     let goals = "";
     for (const g of N.goals) {
       const done = g.doneBy && State.deductions.indexOf(g.doneBy) !== -1;
       goals += `<div class="goal${done ? " done" : ""}">${done ? "✓" : "○"} ${esc(g.text)}</div>`;
-      if (!done) break;
+      if (!done && g.doneBy) break; // the open questions at the end (doneBy null) show together
     }
     // The script's current step sits above the player's own goals (not when a question below says the same).
     const waitingOnQuestion = State.waiting && active && active.opensWhen.waiting === State.waiting.until;

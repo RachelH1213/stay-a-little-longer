@@ -13,11 +13,23 @@ const ONBOARDING = {
   // Inside the phone, first launch only: older notifications under Juno's on the lock screen.
   // `fromHistory` copies a message from rachel-history.js exactly (her punctuation is clue 3).
   lockPast: [
-    { from: "rachel", when: "last week", fromHistory: "i might go quiet for a bit" },
+    { from: "rachel", when: "Sunday", fromHistory: "tues 9am" }, // the plan she didn't turn up for (2026-10-12)
   ],
 
   // Under Juno's name in its thread: says plainly that Juno is Orbit's AI companion, not a friend.
   junoSub: "your Orbit companion",
+
+  // Orbit's one-time sign-in after an update: what should Juno call you? (2026-10-12, Claude Code draft)
+  signin: {
+    title: "Welcome back",
+    body: "Orbit updated overnight. What should Juno call you?",
+    placeholder: "Your first name",
+    button: "Continue",
+  },
+
+  // Replying to Rachel (her account is gone).
+  notDelivered: "Not Delivered",
+  cantReceive: "This account can't receive messages.",
 
   // Home screen.
   home: {

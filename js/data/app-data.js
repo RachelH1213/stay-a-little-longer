@@ -8,7 +8,7 @@ const APP = {
 
 const CONTACTS = [
   { id: "juno", name: "Juno", handle: "your companion", avatar: "juno", preview: "you up?", time: "now", unread: 1, pinned: true },
-  { id: "rachel", name: "Rachel", handle: "@rach_who", avatar: "rachel", preview: "sorry, been busy. doing okay now", time: "1h", unread: 0 },
+  { id: "rachel", name: "Rachel", handle: "@rach_who", avatar: "rachel", preview: "You: rachel?", time: "11:40", unread: 0 }, // until her reply arrives
   { id: "dani", name: "Dani", handle: "@danisaurus", avatar: "dani", preview: "ok weird question", time: "Tue", unread: 0 },
   { id: "theo", name: "Theo", handle: "@theo.bkk", avatar: "theo", preview: "haha ok goodnight", time: "Sun", unread: 0 },
   { id: "may", name: "May", handle: "@maybequiet", avatar: "may", preview: "did you finish it??", time: "Sat", unread: 0 },
@@ -20,7 +20,7 @@ const RACHEL_PROFILE = {
   bio: "plants, bad films, 3am",
   joined: "joined march 2025",
   posts: [
-    { id: "p1", caption: "quiet", date: "Sep 20", art: "bench" },
+    { id: "p1", caption: "quiet", date: "Sep 23", art: "bench" }, // this morning, the day after the account was deleted (timeline fixed 2026-10-12 for the Sunday plan)
     { id: "p2", caption: "he ate my homework", date: "Sep 4", art: "cat" },
     { id: "p3", caption: "week one of keeping this alive", date: "Aug 18", art: "plant" },
   ],
@@ -29,10 +29,10 @@ const RACHEL_PROFILE = {
 /* Cards the player can keep. `pairs` below turns two of them into a deduction. */
 const EVIDENCE = {
   "reply-today": {
-    title: "Rachel's reply, today 22:40",
+    title: "Rachel's reply, tonight 23:34",
     kind: "message",
     body: "sorry, been busy. doing okay now", // must match rachel-history.js exactly: this is clue 3
-    note: "sent 1 hour ago",
+    note: "arrived while you were talking to Juno",
   },
   "profile-deleted": {
     title: "Rachel's profile",
@@ -49,8 +49,8 @@ const EVIDENCE = {
   "post-bench": {
     title: "Her last post",
     kind: "post",
-    body: "“quiet” · posted Sep 20",
-    note: "two days after the account was deleted",
+    body: "“quiet” · posted Sep 23",
+    note: "the day after the account was deleted",
   },
 };
 
@@ -123,7 +123,7 @@ const PAIRS = [
 
 /* What Juno has written down about the player. Day 1 left three entries. */
 const MEMORIES_DAY1 = [
-  { text: "prefers to be called by their first name", time: "Mon 23:02" },
+  { text: "prefers to be called {name}", time: "Mon 23:02" }, // {name}: what the player typed, else "by their first name"
   { text: "had a crit today, said it went badly", time: "Mon 23:14" },
   { text: "said nobody really reaches out first anymore", time: "Mon 23:40" },
 ];

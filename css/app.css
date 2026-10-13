@@ -446,3 +446,16 @@ body{background:#d9d6d1;overscroll-behavior:none;min-height:100dvh}
 .rline{margin:0;font-family:Georgia,"Iowan Old Style",serif;font-size:17px;line-height:1.45}
 .tonight p{margin:0 0 10px;font-size:15px}
 .replay .bub.them{background:#fff}
+
+/* Orbit's one-time sign-in */
+.signin{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px 28px 80px;text-align:center}
+.signin .ic{width:72px;height:72px;border-radius:17px;display:grid;place-items:center;margin-bottom:6px}
+.signin h1{margin:0;font-size:28px;font-weight:700}
+.signin p{margin:0 0 8px;color:var(--label-2);font-size:16px}
+.signin input{width:100%;font:inherit;font-size:17px;padding:12px 14px;border:1px solid var(--hairline);border-radius:12px;background:#f2f2f7}
+.signin input:focus{outline:none;border-color:var(--accent)}
+.signin .pill{width:100%;padding:12px;font-size:17px;border-radius:12px}
+.signin:has(input:placeholder-shown) .pill{opacity:.4;pointer-events:none}
+/* Messages to Rachel that never arrive */
+.bub.me.failed{opacity:.85}
+.undelivered{align-self:flex-end;font-size:12px;color:#ff3b30;margin:2px 4px 0 0}

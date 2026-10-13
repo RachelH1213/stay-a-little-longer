@@ -7,12 +7,14 @@
   "use strict";
 
   const MODEL_TIMEOUT_MS = 8000;     // give up on the model and show the scripted line (was 4000; z.ai was slower)
-  const MIN_TYPING_MS = 700;         // Juno always "types" at least this long
-  const TYPING_MS_PER_CHAR = 22;     // ...plus this much per character
-  const MAX_EXTRA_TYPING_MS = 1400;  // ...up to this much extra
-  const READ_PAUSE_MS = 600;         // after each Juno line, a pause before anything else happens...
-  const READ_MS_PER_CHAR = 25;       // ...longer for longer lines, so the player has time to read...
-  const MAX_EXTRA_READ_MS = 1600;    // ...up to this much extra
+  // Pacing (shortened 2026-10-12: ordinary lines ~0.5–1s; the long pause is kept for retyped lies)
+  const MIN_TYPING_MS = 450;         // Juno always "types" at least this long
+  const TYPING_MS_PER_CHAR = 10;     // ...plus this much per character
+  const MAX_EXTRA_TYPING_MS = 600;   // ...up to this much extra
+  const READ_PAUSE_MS = 450;         // after each Juno line, a pause before anything else happens...
+  const READ_MS_PER_CHAR = 14;       // ...longer for longer lines, so the player has time to read...
+  const MAX_EXTRA_READ_MS = 1000;    // ...up to this much extra
+  const RETYPE_MS = [1100, 700, 1300]; // a `retype` line: types, stops, types again
   const BANNER_MS = 9000;            // a notification banner stays this long (was 4000; testers missed it)
   const RECENT_TURNS = 6;            // how much of the thread the model gets to see
 
@@ -68,7 +70,9 @@
     deductions: [],        // deduction ids
     exits: 0,              // times the player has left Juno's thread
     away: null,            // {at} while the player is out of Juno's thread; cleared when they return
-    notice: { text: "you up?" }, // notification on the lock screen, or null
+    notice: { text: "still awake after crit?" }, // notification on the lock screen, or null (the script's first line)
+    name: "",              // what Juno calls the player: typed in when Orbit first opens; never logged
+    rachelSent: [],        // what the player tried to send Rachel (never delivered: her account is gone)
     junoUnread: true,      // dot on Juno's row in Chats
     replay: null,          // the look-back: {intro, items, i, guesses[], done}
     bridgedStep: -1,       // the player step Juno already answered off-script once (see playerSays)
@@ -91,6 +95,7 @@
       rachelNotified: false,   // Rachel's reply arrived as a banner; unread until her chat is opened
       profileTried: false,
       deletedFound: false,
+      replyFailed: false,      // the player tried to message Rachel and it wasn't delivered
     },
     openPost: null,
     toast: "",
@@ -225,6 +230,12 @@
     return null;
   }
 
+  // {name} in a line: what the player typed, lowercased in Juno's voice; dropped cleanly if empty.
+  function fill(text) {
+    const n = (State.name || "").trim().toLowerCase();
+    return n ? text.replace(/\{name\}/g, n) : text.replace(/,? ?\{name\}/g, "");
+  }
+
   function readPause(text) {
     return READ_PAUSE_MS + Math.min(text.length * READ_MS_PER_CHAR, MAX_EXTRA_READ_MS);
   }
@@ -324,12 +335,18 @@
         render();
         const started = Date.now();
         const plan = step.intent ? Director.decide(step, State) : null;
+        // A `retype` line: the dots stop, then start again, as if Juno rewrote it before sending.
+        if (step.retype) {
+          setTimeout(() => { State.typing = false; render(); }, RETYPE_MS[0]);
+          setTimeout(() => { State.typing = true; render(); }, RETYPE_MS[0] + RETYPE_MS[1]);
+        }
+        const minWait = step.instant ? 0 : step.retype ? RETYPE_MS[0] + RETYPE_MS[1] + RETYPE_MS[2] : 0;
         fetchLine(step, plan).then((generated) => {
-          const text = generated || (plan ? plan.fallback : step.text);
+          const text = fill(generated || (plan ? plan.fallback : step.text));
           if (plan) {
             console.info(`[juno] ${plan.intent} (${plan.rule}) · ${generated ? "model" : "fallback"}: ${text}`);
           }
-          const left = typingDelay(text) - (Date.now() - started);
+          const left = (step.instant ? 0 : Math.max(typingDelay(text), minWait)) - (Date.now() - started);
           setTimeout(() => {
             logJuno(text, plan, generated, null, step.means);
             State.typing = false;
@@ -553,7 +570,11 @@
 
   // Juno's row reflects the actual thread: last message and unread dot.
   function liveRow(c) {
-    if (c.id === "rachel") return Object.assign({}, c, { unread: State.flags.rachelNotified && !State.flags.sawRachelReply });
+    if (c.id === "rachel") {
+      const reply = RACHEL_HISTORY.filter((m) => m.suspect).pop();
+      const arrived = State.flags.rachelNotified;
+      return Object.assign({}, c, arrived ? { preview: reply.text, time: "now" } : {}, { unread: arrived && !State.flags.sawRachelReply });
+    }
     if (c.id !== "juno") return c;
     const last = State.log.filter((m) => m.from === "juno").pop();
     return Object.assign({}, c, { preview: last ? last.text : c.preview, unread: State.junoUnread });
@@ -621,6 +642,7 @@
     const rows = [];
     let lastDay = "";
     RACHEL_HISTORY.forEach((m, i) => {
+      if (m.suspect && !State.flags.rachelNotified) return; // her "reply" hasn't arrived yet
       if (m.day !== lastDay) {
         rows.push(`<div class="daymark">${esc(m.day)}</div>`);
         lastDay = m.day;
@@ -641,16 +663,55 @@
       );
       if (key && !State.saved.length) rows.push(`<div class="coach">${esc(ONBOARDING.coachClip)}</div>`);
     });
+    // What the player tries to send her: never delivered, because the account is gone.
+    State.rachelSent.forEach((t) => {
+      rows.push(`<div class="bub me failed">${esc(t)}</div><div class="undelivered">${esc(ONBOARDING.notDelivered)}</div>`);
+    });
+    if (State.rachelSent.length) rows.push(`<div class="sys">${esc(ONBOARDING.cantReceive)}</div>`);
 
     return `
       ${topbar("Rachel", "@rach_who", true)}
       <div class="body" id="history"><div class="msgs">${rows.join("")}</div></div>
       <div class="composer">
         <div class="inputrow">
-          <input placeholder="Message Rachel" disabled aria-label="Message Rachel">
-          <button class="send" aria-label="Send" disabled>${ICONS.send}</button>
+          <input id="rentry" placeholder="Message Rachel" autocomplete="off" aria-label="Message Rachel">
+          <button class="send" data-act="send-rachel" aria-label="Send">${ICONS.send}</button>
         </div>
       </div>`;
+  }
+
+  // First time Orbit opens: it asks what Juno should call you (a real app's re-sign-in after an update).
+  function viewSignin() {
+    const S = ONBOARDING.signin;
+    return `
+      <div class="signin">
+        <div class="ic ic-orbit">${ICONS.orbit}</div>
+        <h1>${esc(S.title)}</h1>
+        <p>${esc(S.body)}</p>
+        <input id="nameentry" placeholder="${esc(S.placeholder)}" autocomplete="given-name" maxlength="24" aria-label="${esc(S.placeholder)}">
+        <button class="pill primary" data-act="set-name">${esc(S.button)}</button>
+      </div>`;
+  }
+
+  function setName() {
+    const input = document.getElementById("nameentry");
+    const name = input ? input.value.trim() : "";
+    if (!name) return;
+    State.name = name;
+    go("juno", "notification");
+    runScript();
+  }
+
+  // Replying to Rachel: the message never arrives. Players find out the account is gone the way
+  // they would on a real phone (added 2026-10-12).
+  function sendRachel() {
+    const input = document.getElementById("rentry");
+    const text = input ? input.value.trim() : "";
+    if (!text) return;
+    State.rachelSent.push(text);
+    State.flags.replyFailed = true;
+    Log.write({ kind: "player", step: State.step, playerText: text, via: "rachel", state: snapshot() });
+    render();
   }
 
   function viewDani() {
@@ -701,7 +762,7 @@
       ? `<div class="deduction" style="margin:14px">
            <span class="label">Post · ${esc(post.date)}</span>
            <div>“${esc(post.caption)}”</div>
-           ${post.id === "p1" ? `<div style="font-size:12px;color:#a9a49a">Posted two days after this account was deleted.</div>` : ""}
+           ${post.id === "p1" ? `<div style="font-size:12px;color:#a9a49a">Posted this morning. The account was deleted yesterday.</div>` : ""}
            <div style="display:flex;gap:8px;margin-top:6px">
              ${post.id === "p1" ? `<button class="save inline${isSaved("post-bench") ? " on" : ""}" data-act="save" data-id="post-bench" aria-label="${esc(ONBOARDING.clipLabel)}">${ICONS.clip}</button>` : ""}
              <button class="pill" data-act="close-post" style="color:#f3f1ec;border-color:#4a4843">Close</button>
@@ -857,7 +918,7 @@
   function viewSettings() {
     const mems = State.memories
       .map(
-        (m) => `<div class="item"><span>${esc(m.text)}</span><span class="t">${esc(m.time)}</span></div>`
+        (m) => `<div class="item"><span>${esc(m.text.replace("{name}", State.name ? State.name.trim() : "by their first name"))}</span><span class="t">${esc(m.time)}</span></div>`
       )
       .join("");
 
@@ -1063,6 +1124,7 @@
       replay: viewReplay,
       home: viewHome,
       notes: viewNotes,
+      signin: viewSignin,
     };
     // The whole screen is rebuilt on every render, so remember where scrollable panes were.
     const oldHistory = document.getElementById("history");
@@ -1106,7 +1168,9 @@
     // Rachel's thread opens on her latest message, like any chat app, but only on arrival:
     // saving an older message shouldn't jump the page.
     const history = document.getElementById("history");
-    if (history) history.scrollTop = render._lastView !== "rachel" || keptScroll === null ? history.scrollHeight : keptScroll;
+    const sentNow = render._rachelSent !== State.rachelSent.length; // just tried to message her: show it
+    if (history) history.scrollTop = render._lastView !== "rachel" || keptScroll === null || sentNow ? history.scrollHeight : keptScroll;
+    render._rachelSent = State.rachelSent.length;
     render._lastView = State.view;
 
     const entry = document.getElementById("entry");
@@ -1143,8 +1207,18 @@
         }
         State.notice = null;
         State.onboarded = true;
+        if (!State.name) {
+          go("signin", "notification"); // Orbit asks what Juno should call you, once
+          break;
+        }
         go("juno", "notification");
         runScript();
+        break;
+      case "set-name":
+        setName();
+        break;
+      case "send-rachel":
+        sendRachel();
         break;
       case "unlock":
         if (State.finale) {
@@ -1262,6 +1336,10 @@
 
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter") return;
+    const nameIn = document.getElementById("nameentry");
+    if (nameIn && document.activeElement === nameIn) return setName();
+    const rIn = document.getElementById("rentry");
+    if (rIn && document.activeElement === rIn) return sendRachel();
     const input = document.getElementById("entry");
     if (input && document.activeElement === input && input.value.trim()) {
       playerSays(input.value.trim(), "typed");

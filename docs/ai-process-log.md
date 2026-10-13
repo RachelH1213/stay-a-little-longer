@@ -1034,3 +1034,53 @@ Copy this for each new entry.
   - the older flow tests were updated (the old quiz checks are retired) and rerun.
 - **Files / features affected:** `js/data/replay.js` (rewritten), `js/replay.js` (rewritten), `js/app.js`, `js/data/script-day2.js` (`moment` tags), `css/app.css`, `supabase/schema.sql` (comment), `CLAUDE.md`, `README.md`
 - **My decision:** I asked for this approach and for drafts of the three replies. **[to fill in]**: the replies and the wording.
+
+---
+
+### 2026-10-13 — Immersion: a new opening, the player's name, "Not Delivered", faster pacing
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** players don't get into the game.
+- **Diagnosis:**
+  - **Claude Code's:** players don't care about Rachel before she disappears; "who am I" is unclear; it doesn't feel like using a phone (no sound, choices look like a menu).
+  - **A critique from another chat:** players don't quickly get "who am I / why does Rachel matter to me / why act now". The story is driven by Juno's worry, not the player's own relationship.
+
+    It proposed:
+    - the mystery should start between the player and Rachel (an unfinished plan, the reply arriving to the player);
+    - Juno should open with a private memory about the player;
+    - remove developer voice;
+    - Notes should read like personal notes;
+    - the player should find things with phone actions;
+    - shorter waits, with long ones kept for lies;
+    - choices that change Juno.
+- **Decision:** I asked which was better. Claude Code said the critique's core point was better, and pushed back on four parts:
+  - "don't answer that yet" makes Juno suspicious in the first minute (keep Juno warm and relieved);
+  - it quoted the old fake reply, and its "don't contact me" variant changes the plot;
+  - "choices change Juno" conflicts with my earlier "tapped choices never trigger rules";
+  - Notes need to keep some guidance.
+
+  It added the name input and the "Not Delivered" idea. **I said do it, with the name input.**
+- **What Claude Code built:**
+  - **Lock screen:** "still awake after crit?" from Juno (a Settings memory), and Rachel · Sunday "tues 9am / bring the blue charger".
+  - **Name:** first open of Orbit asks "Welcome back. Orbit updated overnight. What should Juno call you?". Juno uses the name; Settings shows "prefers to be called <name>". The name is never logged.
+  - **New opening script (Claude Code drafts from the critique):**
+    - Juno: "still awake after crit?" → you remembered / couldn't sleep / don't start;
+    - Juno: "you said nobody reaches out first anymore, <name> / so i did";
+    - me: rachel didn't show up today / i got stood up this morning;
+    - Juno: "the 9am thing? she didn't answer me either" → "she's probably just being rachel…";
+    - the reply arrives to me as a notification;
+    - Juno: "was that her? / see. she's fine".
+  - **Rachel's history:** Sunday "tues 9am / bring the blue charger" / "the one you said you lost?" / "found it in the plant somehow / dont ask". Today: my unanswered "you still coming?" (9:14) and "rachel?" (11:40).
+    - The critique's "tomorrow 9. bring…" had a full stop, which breaks clue 3. It's written without one.
+    - The reply now arrives at 23:34, during play, and is hidden from her thread until then.
+  - **Timeline fixed:** the account was deleted Monday (after Sunday's plan), and "quiet" was posted Tuesday morning.
+  - **"Not Delivered":** I can type to Rachel; messages show "Not Delivered" and "This account can't receive messages." (`flags.replyFailed`). The failing profile stays as the second confirmation.
+  - **Pacing:** ordinary lines ~0.5–1s. Juno's two lies ("it loads fine for me", the 48-hours line) show the typing dots stop and start again before sending.
+  - **Truth graph:** a new fact `missed-plan` (real).
+  - **Ending line:** now "don't disappear on me too, <name>."
+- **Later (not built):** sound and vibration, predictive-text choices, long-press "What feels wrong?", Notes in my own voice, choices that change Juno.
+- **Testing (Chromium at 390px):**
+  - a new opening test covers the lock screen, sign-in, first chips in under a second, the name used, the reply arriving to me, the plan in her thread, Not Delivered visible, and the name in Settings;
+  - all earlier flow tests were updated for the sign-in and the new lines and rerun.
+- **Files / features affected:** `js/data/script-day2.js`, `js/data/rachel-history.js`, `js/data/app-data.js`, `js/data/truth.js`, `js/data/onboarding.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`
+- **My decision:** I approved the plan and the name input. **[to fill in]**: the drafted lines.

@@ -621,3 +621,11 @@ body{
 .post{filter:saturate(.9) brightness(.92)}
 .grid{grid-template-columns:repeat(3,1fr)}
 .post-full{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+
+/* Wallpaper (the author's photo, 2026-10-13): lock and home screens. Darkened so text stays readable;
+   the lock screen drifts very slowly. */
+.lock{background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15) 40%,rgba(0,0,0,.55)),url("../img/wallpaper.jpg") center/cover,#08080b;
+  animation:wallzoom 40s ease-in-out infinite alternate}
+@keyframes wallzoom{from{background-size:auto,100% auto,auto}to{background-size:auto,108% auto,auto}}
+.app[data-view="home"]{background:linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,.45)),url("../img/wallpaper.jpg") center/cover,#08080b}
+@media (prefers-reduced-motion:reduce){.lock{animation:none}}

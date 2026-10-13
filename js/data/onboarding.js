@@ -24,7 +24,6 @@ const ONBOARDING = {
     kicker: "Before you start",
     title: "Stay a Little Longer",
     lines: [
-      "Best played at night, with headphones on.",
       "This is your phone. Tap, scroll, swipe up and type the way you would on yours.",
     ],
     nameLabel: "What should your friends call you?",

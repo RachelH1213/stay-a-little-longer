@@ -1211,3 +1211,11 @@ Copy this for each new entry.
   - all other flow tests were updated and rerun.
 - **Files / features affected:** `js/app.js`, `js/data/script-day2.js`, `js/data/app-data.js`, `js/data/onboarding.js`, `js/data/replay.js`, `api/_persona.js`, `css/app.css`, `CLAUDE.md`
 - **My decision:** the name on a start page, and yes to the sick clue. **[to fill in]**: the wording.
+
+---
+
+### 2026-10-13 — Start page: one line removed
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **My decision:** I removed "Best played at night, with headphones on." from the start page, because it isn't needed.
+- **Files / features affected:** `js/data/onboarding.js`, `CLAUDE.md`

@@ -34,5 +34,15 @@ const RACHEL_HISTORY = [
   { day: "September 2026", from: "me", text: "ok. text me when you resurface" },
 
   /* Written by Juno, after the account was gone. Note the punctuation. */
-  { day: "Today", from: "rachel", text: "sorry, been busy. doing okay now", time: "22:40", suspect: true }, // was "Sorry, been busy. I'm fine." (too obviously not her)
+  // A plan she never turned up for (added 2026-10-12, the author's call: the mystery starts between
+  // the player and Rachel). Wording from the author's critique, without full stops (Rachel's rule).
+  { day: "Sunday", from: "rachel", text: "tues 9am\nbring the blue charger" },
+  { day: "Sunday", from: "me", text: "the one you said you lost?" },
+  { day: "Sunday", from: "rachel", text: "found it in the plant somehow\ndont ask" },
+
+  { day: "Today", from: "me", text: "you still coming?", time: "9:14" },
+  { day: "Today", from: "me", text: "rachel?", time: "11:40" },
+
+  // Arrives during play (a `notify` step); hidden from her thread until then.
+  { day: "Today", from: "rachel", text: "sorry, been busy. doing okay now", time: "23:34", suspect: true },
 ];

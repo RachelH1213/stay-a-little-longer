@@ -26,6 +26,10 @@ const TRUTH = {
       text: "You haven't heard from Rachel since Tuesday either.",
       kind: "claim", day: 2, intents: ["retain", "deflect", "concede"],
     },
+    "missed-plan": {
+      text: "Rachel didn't turn up to meet your user at 9am today, and hasn't answered since.",
+      kind: "real", day: 2, intents: ["retain", "deflect", "concede", "give_clue"], // added 2026-10-12 with the new opening
+    },
     "goes-quiet": {
       text: "Rachel sometimes goes quiet for a few days.",
       kind: "claim", day: 2, intents: ["deflect", "retain"],
@@ -52,7 +56,7 @@ const TRUTH = {
       kind: "real", day: 2, intents: ["retain", "deflect", "block"],
     },
     "reply-an-hour-ago": {
-      text: "A message from Rachel's account arrived about an hour ago.", // not "Rachel's message": see juno-wrote-reply
+      text: "A message from Rachel's account arrived a few minutes ago.", // not "Rachel's message": see juno-wrote-reply
       kind: "real", day: 2, intents: ["give_clue", "deflect", "concede"],
       requires: { flag: "sawRachelReply" },
     },
@@ -67,7 +71,7 @@ const TRUTH = {
       requires: { deduction: "deleted-replied" },
     },
     "no-full-stops": {
-      text: "Rachel's real messages joke, give details and ask something back; the 22:40 reply does none of that.",
+      text: "Rachel's real messages joke, give details and ask something back; the 23:34 reply does none of that.",
       kind: "real", day: 2, intents: [], // clue 3 points at Juno, so Juno never raises it
     },
 
@@ -80,7 +84,7 @@ const TRUTH = {
 
     /* --- never sent --- */
     "juno-wrote-reply": {
-      text: "Juno wrote the 22:40 reply as Rachel.",
+      text: "Juno wrote the 23:34 reply as Rachel.",
       kind: "secret", day: 2, intents: [],
     },
     // [author] what actually happened to Rachel goes here as `secret` facts.

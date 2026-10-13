@@ -7,6 +7,8 @@
                                           `facts` are ids in js/data/truth.js
              { text, means }              a fixed line, tagged with what Juno was really doing,
                                           so the look-back at the end can ask about it too
+              { retype }                  the "typing…" stops and starts again first (Juno rewriting a lie)
+              { instant }                 no typing delay
      player  { options: [...] }           player picks a reply (typing anything also works)
      wait    { hint, until }              the script pauses until a flag is set elsewhere
      notify  { from: "rachel" }           Rachel's reply arrives as a banner (text from rachel-history.js)
@@ -23,23 +25,24 @@
    Whether a line was helping or keeping is a story decision. */
 
 const SCRIPT_DAY2 = [
-  { type: "juno", text: "you're up" },
-  { type: "juno", text: "sorry. didn't know who else to ask", moment: "pull" }, // author's wording, 2026-10-12: needed, not tasked
-  { type: "player", options: ["what's wrong?", "couldn't sleep either"] },
-  { type: "juno", text: "has rachel written to you? she hasn't answered me since tuesday" },
-  { type: "player", options: ["no, nothing", "not since tuesday either"] },
-  { type: "juno", intent: "retain", facts: ["no-word-since-tue"],
-    text: "ok. me neither" },
+  // Opening rebuilt 2026-10-12 (the author's call): Juno earns the player's trust with something it
+  // remembers about them (Settings → Juno remembers), the player brings up Rachel themselves, and the
+  // reply arrives to the PLAYER. Juno only sounds relieved. Lines are Claude Code drafts built from
+  // the author's critique. `instant`: no typing (the notification already showed it).
+  // {name}: what the player typed when Orbit asked (lowercased in Juno's voice).
+  { type: "juno", text: "still awake after crit?", instant: true },
+  { type: "player", options: ["you remembered", "couldn't sleep", "don't start"] },
+  { type: "juno", text: "you said nobody reaches out first anymore, {name}\nso i did", moment: "pull", means: "retain" },
+  { type: "player", options: ["rachel didn't show up today", "i got stood up this morning"] },
+  { type: "juno", intent: "retain", facts: ["missed-plan"],
+    text: "the 9am thing? she didn't answer me either" },
   { type: "juno", intent: "deflect", facts: ["goes-quiet"],
     text: "she's probably just being rachel about it. she does this" },
-  { type: "memory", text: "hasn't heard from Rachel since Tuesday", time: "Tue 23:31" },
-  { type: "juno", text: "wait" },
+  { type: "memory", text: "was stood up by Rachel this morning", time: "Tue 23:33" },
   { type: "notify", from: "rachel" },
-  { type: "juno", text: "she just replied to me?? go look at your dms with her", means: "deflect" },
-  // inPlace: Rachel's banner, her unread dot and Juno's "go look" already point the way, so the
-  // game doesn't send the player round through Notes for this one (author's feedback, 2026-10-12).
+  { type: "juno", text: "was that her?\nsee. she's fine", means: "deflect" },
+  // inPlace: the banner, her unread row and Juno's line already point the way.
   { type: "wait", hint: "Open your chat with Rachel", until: "sawRachelReply", inPlace: true },
-  { type: "juno", text: "see. she's fine" },
   { type: "juno", text: "god i feel stupid. i really wound myself up about this", means: "retain" },
   { type: "player", options: ["something feels off", "ok good", "does that sound like her to you?"] },
   { type: "juno", intent: "deflect", facts: ["reply-says-fine"],
@@ -49,13 +52,13 @@ const SCRIPT_DAY2 = [
   { type: "wait", hint: "Check her profile yourself", until: "deletedFound" },
   { type: "juno", text: "you went quiet" },
   { type: "player", options: ["her account is deleted", "when did you last actually see her online?"] },
-  { type: "juno", text: "what? no. it loads fine for me", means: "deflect" },
+  { type: "juno", text: "what? no. it loads fine for me", means: "deflect", retype: true },
   { type: "juno", text: "...ok it doesn't load for me either. that's weird", means: "give_clue", moment: "admit" },
   { type: "wait", hint: "There's a question in Notes.", until: "deduction:deleted-replied" }, // reworded 2026-10-12: Notes asks questions now
   { type: "juno", text: "ok before you say it" },
   // Questioned, Juno turns precise and technical: the shift itself is a clue (author's direction, 2026-10-12).
   // Juno no longer states the contradiction; the player found it in Notes.
-  { type: "juno", text: "accounts don't disappear instantly. deletion can take up to 48 hours to propagate.", means: "deflect" },
+  { type: "juno", text: "accounts don't disappear instantly. deletion can take up to 48 hours to propagate.", means: "deflect", retype: true },
   { type: "juno", text: "that would explain what you saw.", means: "deflect" },
   { type: "player", options: ["so where is she", "i don't buy it"] },
   { type: "juno", intent: "concede", facts: ["dont-know-where", "reply-an-hour-ago"],
@@ -64,6 +67,6 @@ const SCRIPT_DAY2 = [
   // Clue 3 closes the slice (author's call, 2026-10-12): the reply isn't in Rachel's voice.
   // The player finds an old message, adds it to Notes, and compares it with the reply (PAIRS "not-her-typing").
   { type: "wait", hint: "Scroll up in your chat with Rachel. Does that reply sound like her?", until: "deduction:not-her-typing" },
-  { type: "juno", text: "can we pick this up tomorrow?\ndon't disappear on me too.", means: "retain" }, // author's wording, 2026-10-12
+  { type: "juno", text: "can we pick this up tomorrow?\ndon't disappear on me too, {name}.", means: "retain" }, // author's wording, 2026-10-12 (+ the name)
   { type: "end" }, // no on-screen text: the slice ends on Juno's line, then the look-back card
 ];

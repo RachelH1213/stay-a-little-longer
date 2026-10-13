@@ -34,7 +34,7 @@ const REPLAY = {
   youSaid: "You had said",
   youLeft: "You had just left the chat.",
   knewLabel: "What you knew then",
-  knewNothing: "Only that Rachel hadn't answered since Tuesday.",
+  knewNothing: "Only that Rachel had missed the 9am plan and hadn't answered you all day.", // was "since Tuesday": wrong, today is Tuesday (2026-10-13)
   notYetLabel: "What you hadn't confirmed yet", // was "didn't know yet": players had often suspected it (2026-10-13)
   nextLabel: "What you did next",
   nextReplied: "You replied: “{text}”",

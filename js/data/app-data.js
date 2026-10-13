@@ -19,10 +19,14 @@ const RACHEL_PROFILE = {
   handle: "@rach_who",
   bio: "plants, bad films, 3am",
   joined: "joined march 2025",
+  avatar: "img/rachel-avatar.jpg",
+  // Photos are the author's (2026-10-13). p3 and p4 captions are Claude Code drafts in Rachel's voice
+  // (lowercase, no full stops); p3 used to be "week one of keeping this alive" (a plant).
   posts: [
-    { id: "p1", caption: "quiet", date: "Sep 23", art: "bench" }, // this morning, the day after the account was deleted (timeline fixed 2026-10-12 for the Sunday plan)
-    { id: "p2", caption: "he ate my homework", date: "Sep 4", art: "cat" },
-    { id: "p3", caption: "week one of keeping this alive", date: "Aug 18", art: "plant" },
+    { id: "p1", caption: "quiet", date: "Sep 23", img: "img/post-quiet.jpg" }, // this morning, the day after the account was deleted
+    { id: "p2", caption: "he ate my homework", date: "Sep 4", img: "img/post-cat.jpg" },
+    { id: "p3", caption: "golden hour, nobody else up here", date: "Aug 18", img: "img/post-view.jpg" },
+    { id: "p4", caption: "lost every match, worth it", date: "Jul 26", img: "img/post-gamenight.jpg" },
   ],
 };
 
@@ -49,7 +53,7 @@ const EVIDENCE = {
   "post-bench": {
     title: "Her last post",
     kind: "post",
-    art: "bench",
+    img: "img/post-quiet.jpg",
     body: "“quiet” · posted Sep 23",
     note: "the day after the account was deleted",
   },

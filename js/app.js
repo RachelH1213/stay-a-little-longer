@@ -776,7 +776,7 @@
           ${posts
             .map(
               (post) => `
-            <button class="post art-${esc(post.art)}" data-act="post" data-id="${esc(post.id)}">
+            <button class="post" style="background-image:url('${esc(post.img)}')" data-act="post" data-id="${esc(post.id)}">
               <span class="cap">${esc(post.caption)} · ${esc(post.date)}</span>
             </button>`
             )
@@ -802,6 +802,7 @@
     const overlay = post
       ? `<div class="deduction" style="margin:14px">
            <span class="label">Post · ${esc(post.date)}</span>
+           <img class="post-full" src="${esc(post.img)}" alt="">
            <div>“${esc(post.caption)}”</div>
            ${post.id === "p1" ? `<div style="font-size:12px;color:#a9a49a">Posted this morning. The account was deleted yesterday.</div>` : ""}
            <div style="display:flex;gap:8px;margin-top:6px">
@@ -820,7 +821,7 @@
           <div class="handle">${esc(p.handle)}</div>
           <div class="bio">${esc(p.bio)}</div>
           <div class="joined">${esc(p.joined)}</div>
-          <div class="pstats"><span><b>${State.flags.profileTried || State.profileErase >= 4 ? "—" : "2"}</b> posts</span><span><b>${State.flags.profileTried || State.profileErase >= 4 ? "—" : "1"}</b> mutual</span></div>
+          <div class="pstats"><span><b>${State.flags.profileTried || State.profileErase >= 4 ? "—" : "3"}</b> posts</span><span><b>${State.flags.profileTried || State.profileErase >= 4 ? "—" : "1"}</b> mutual</span></div>
           ${State.flags.profileTried ? "" : `<div class="pactions">
             <button class="pill" data-act="open" data-id="rachel">Message</button>
             <button class="pill" data-act="call-rachel">Call</button>
@@ -862,7 +863,7 @@
       const tag = attrs ? "button" : "div";
       const inner =
         e.kind === "post"
-          ? `<span class="ev-thumb art-${esc(e.art || "bench")}"></span><span class="ev-txt"><b>${esc(e.title)}</b><span class="ev-body">${esc(e.body)}</span><span class="ev-note">${esc(e.note)}</span></span>`
+          ? `<span class="ev-thumb" style="background-image:url('${esc(e.img)}')"></span><span class="ev-txt"><b>${esc(e.title)}</b><span class="ev-body">${esc(e.body)}</span><span class="ev-note">${esc(e.note)}</span></span>`
           : e.kind === "system"
           ? `<b>${esc(e.title)}</b><span class="ev-bar">${esc(e.body)}</span><span class="ev-note">${esc(e.note)}</span>`
           : `<b>${esc(e.title)}</b><span class="ev-bubble">${esc(e.body)}</span><span class="ev-note">${esc(e.note)}</span>`;

@@ -1136,3 +1136,22 @@ Copy this for each new entry.
 - **Testing (Chromium at 1440 and 390 wide):** screenshots of the lock screen, Juno, Rachel, the cached / erasing / deleted profile and Notes were checked. All flow tests were rerun.
 - **Files / features affected:** `css/app.css`, `js/app.js`, `js/sound.js` (new), `index.html`, `js/data/onboarding.js`, `js/data/app-data.js`, `CLAUDE.md`
 - **My decision:** I approved batch 1. **[to fill in]**: the colours and sounds.
+
+---
+
+### 2026-10-13 — Real photos for Rachel
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I did:** I provided five photos (a selfie, a dusk street, a cat in a cone collar, a sunset under a tree, a game night) and asked Claude Code to use them where they fit.
+- **What Claude Code did:**
+  - **Photos (cropped square and resized in `img/`):**
+    - the selfie became Rachel's avatar (chat list, profile, notifications);
+    - the dusk street became "quiet", the post from after her account was deleted;
+    - the cat became "he ate my homework";
+    - the sunset and the game night became two older posts.
+  - **Captions:** two new captions in Rachel's voice are Claude Code drafts: "golden hour, nobody else up here" and "lost every match, worth it". The plant post "week one of keeping this alive" is replaced by the sunset.
+  - **Profile:** the cached profile now shows 3 posts; "quiet" appears only after refreshing.
+  - **Opened post:** an opened post shows the photo, and the "quiet" evidence card in Notes uses its thumbnail.
+- **Testing (Chromium at 390px):** screenshots of the chat list, profile and opened post were checked. The Notes, clue-3, opening and home tests pass.
+- **Files / features affected:** `img/` (new), `js/data/app-data.js`, `js/app.js`, `css/app.css`
+- **My decision:** I chose and provided the photos. **[to fill in]**: the two captions.

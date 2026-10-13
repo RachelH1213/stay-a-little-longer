@@ -1084,3 +1084,55 @@ Copy this for each new entry.
   - all earlier flow tests were updated for the sign-in and the new lines and rerun.
 - **Files / features affected:** `js/data/script-day2.js`, `js/data/rachel-history.js`, `js/data/app-data.js`, `js/data/truth.js`, `js/data/onboarding.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`
 - **My decision:** I approved the plan and the name input. **[to fill in]**: the drafted lines.
+
+---
+
+### 2026-10-13 — Night pass: a visual system, game feel, sound
+
+- **Tool / model:** Claude Code (`claude-opus-5-5`).
+- **What I found:** the design still looks like an AI-generated demo, with no game feel.
+- **Diagnosis:**
+  - **Claude Code's:** default template look; no atmosphere for a late-night story; no feedback at key moments; placeholder images. It suggested found-phone games as references (Sara Is Missing, Simulacra, A Normal Lost Phone, Replica, Bury Me, My Love) and three style options.
+  - **A critique from another chat:** every page is a different generic template; all evidence looks like the same white card; actions have no weight; the UI isn't "contaminated" as the story goes; the grey background looks like a portfolio mockup.
+
+    It proposed a concept: "a familiar phone gradually taken over by Orbit". It also proposed:
+    - three visual layers (phone, human, Orbit);
+    - a drag-and-connect evidence board;
+    - a profile erased on refresh;
+    - Juno-specific motion and sound;
+    - a timeline Tonight.
+- **Decision:** I asked which was better. Claude Code said the critique's concept was better than its style options, and pushed back on two parts:
+  - free drag-and-connect would bring back the free pairing we removed; it suggested keeping one question at a time but making it physical later;
+  - the critique's deletion date (Sep 18) breaks the new timeline (Sep 22).
+
+  Claude Code proposed two batches. **I said yes.**
+- **What Claude Code built (batch 1):**
+  - **Three layers:**
+    - phone: near-black and grey, restrained;
+    - humans: Rachel's bubbles and Notes are warm and dark, and some of Rachel's bubbles are slightly irregular;
+    - Orbit: deep blue-violet; Juno's bubbles glow softly.
+  - **One font everywhere:** Notes' serif is removed.
+  - **The orbit ring:** it breathes on Juno's avatar and notifications. Juno's typing indicator is an orbit drawing itself, with a small satellite.
+  - **Evidence cards keep their source's look:** chat bubble, red system bar, post thumbnail.
+  - **Rachel's profile:**
+    - it first shows the cached version ("Updated 2 days ago · Pull down to refresh"), without "quiet";
+    - pulling down or tapping that line erases her bio, greys her avatar, removes Message/Call, and turns the counts to "—";
+    - then "This account has been deleted. Removed Sep 22" appears, with "quiet" now among her posts, and a low sound plays.
+    - In the cached state, Message opens her chat and Call says "Call Failed".
+  - **Sounds**, synthesised in the browser (no files):
+    - notification, Juno's own low tone, message, send;
+    - evidence snap and a soft miss;
+    - deleted and undelivered;
+    - vibration on Android.
+  - **Lock screen:** a dim, slowly moving wallpaper and a red 8% battery. If I wait 20s, Juno sends "still there?".
+  - **Desktop:** the phone sits in a dark room (warm lamp, screen glow, a desk edge) instead of on grey.
+- **Placeholder:** colours, sounds and images are Claude Code's placeholders. Orbit's deep blue-violet follows the critique.
+- **Batch 2 (not built):**
+  - Orbit's ring creeping into Notes, Rachel's messages and the home screen;
+  - physical evidence placement;
+  - a timeline Tonight;
+  - long-press metadata on Juno's messages (a story reveal, my call);
+  - real photos (mine).
+- **Testing (Chromium at 1440 and 390 wide):** screenshots of the lock screen, Juno, Rachel, the cached / erasing / deleted profile and Notes were checked. All flow tests were rerun.
+- **Files / features affected:** `css/app.css`, `js/app.js`, `js/sound.js` (new), `index.html`, `js/data/onboarding.js`, `js/data/app-data.js`, `CLAUDE.md`
+- **My decision:** I approved batch 1. **[to fill in]**: the colours and sounds.

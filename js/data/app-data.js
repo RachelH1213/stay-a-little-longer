@@ -49,6 +49,7 @@ const EVIDENCE = {
   "post-bench": {
     title: "Her last post",
     kind: "post",
+    art: "bench",
     body: "“quiet” · posted Sep 23",
     note: "the day after the account was deleted",
   },

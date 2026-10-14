@@ -68,7 +68,7 @@ const WRONG_SHOT = {
 // `goal` marks the finding that ticks that goal.
 const FINDINGS = [
   { when: "flag:sawRachelReply", text: "Rachel replied at 23:34: “sorry, been busy. doing okay now”" },
-  { when: "flag:deletedFound",   text: "Her account was removed Monday at 00:40. The reply came a day later." },
+  { when: "flag:deletedFound",   text: "Her account was removed Monday at 00:40. The reply came a day later. Orbit erases it for good at 00:40 tonight: screenshot what I need before then." },
   { when: "deduction:loads",     text: "Juno said her profile loads fine. It doesn't." },
   { when: "flag:purged",         text: "At 00:40 Orbit erased her account for good. Only my screenshots are left." },
   { when: "flag:sawPostAfter",   text: "Her account posted “quiet” this morning, after it was deleted." },

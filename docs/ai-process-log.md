@@ -1522,3 +1522,21 @@ Copy this for each new entry.
   - all other tests pass. A straight playthrough ends around 00:02 with about 7.5% left.
 - **Files / features affected:** `js/data/night.js` (new), `js/app.js`, `js/data/investigation.js`, `js/data/onboarding.js`, `css/app.css`, `index.html`, `CLAUDE.md`
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Making the night visible, and telling the player
+
+- **Tool / model:** Claude Code.
+- **What I found:** playing the preview, I couldn't see the battery or the clock change, and nothing told me the mechanic existed.
+- **Why:** on a phone the game's status bar was hidden (the real phone's time and battery show instead). The game's battery was only a small chip at the bottom, and the clock wasn't shown at all. Each message cost 0.25% and the display rounds up, so it barely moved.
+- **What Claude Code changed:**
+  - On a phone, the game's time and battery now sit in a slim row under the phone's own status bar.
+  - The phone starts at 20%, and every cost is doubled: a whole percent goes about every two messages. The battery turns red for a moment each time.
+  - The start page's first screen adds: "Your phone is at 20%. Everything you do on it uses battery and moves the clock; reading doesn't. When it dies, the night is over."
+  - Rachel's deleted profile counts down: "Erased for good at 00:40 · in 64 min". Notes adds: "Orbit erases it for good at 00:40 tonight: screenshot what I need before then."
+  - Battery Saver is now offered at 10%. A straight playthrough ends around 00:02 with about 11.5% left.
+- **Wording:** the start-page line, the countdown and the Notes line are Claude Code drafts.
+- **Testing:** the night test now also checks the start-page line, the time and battery on a phone-sized screen, and the countdown; all tests pass.
+- **Files / features affected:** `js/app.js`, `js/data/night.js`, `js/data/onboarding.js`, `js/data/investigation.js`, `css/app.css`, `CLAUDE.md`
+- **My decision:** [to fill in]

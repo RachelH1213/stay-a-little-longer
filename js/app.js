@@ -39,15 +39,20 @@
 
   // The status bar drawn inside the desktop phone frame. On a real phone the phone's own shows instead (CSS hides this).
   function statusbar() {
+    const pct = Math.ceil(State.battery);
+    // A whole percent gone: the battery turns red for a moment (every render rebuilds it, so keep a time).
+    if (statusbar.last != null && pct < statusbar.last) statusbar.dropAt = Date.now();
+    statusbar.last = pct;
+    const drop = Date.now() - (statusbar.dropAt || 0) < 1400;
     const dark = ["lock", "home"].indexOf(State.view) !== -1;
     return `
       <div class="statusbar${dark ? " light" : ""}" aria-hidden="true">
         <span class="sb-time">${State.view === "lock" ? "" : esc(State.clock)}</span>
         <span class="island"></span>
-        <span class="sb-icons"><span class="sb-pct${State.battery <= 20 ? " low" : ""}">${Math.ceil(State.battery)}%</span>
+        <span class="sb-icons"><span class="sb-net">
           <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
-          <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .7 10.2 10.2 0 0 0 .9 3.5L2 4.7a8.6 8.6 0 0 1 6-2.4zm0 3.3c1.4 0 2.6.5 3.6 1.4l1.1-1.2A6.8 6.8 0 0 0 8 4a6.8 6.8 0 0 0-4.7 1.8L4.4 7c1-.9 2.2-1.4 3.6-1.4zm0 3.3c-.6 0-1.2.2-1.6.6L8 11.3l1.6-1.8c-.4-.4-1-.6-1.6-.6z"/></svg>
-          <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="${Math.max(1, (20 * State.battery) / 100).toFixed(1)}" height="9" rx="1.2" fill="${State.battery <= 20 ? "#ff453a" : "currentColor"}"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"/></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .7 10.2 10.2 0 0 0 .9 3.5L2 4.7a8.6 8.6 0 0 1 6-2.4zm0 3.3c1.4 0 2.6.5 3.6 1.4l1.1-1.2A6.8 6.8 0 0 0 8 4a6.8 6.8 0 0 0-4.7 1.8L4.4 7c1-.9 2.2-1.4 3.6-1.4zm0 3.3c-.6 0-1.2.2-1.6.6L8 11.3l1.6-1.8c-.4-.4-1-.6-1.6-.6z"/></svg></span>
+          <span class="sb-batt${drop ? " drop" : ""}"><span class="sb-pct${State.battery <= 20 ? " low" : ""}">${pct}%</span><svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="${Math.max(1, (20 * State.battery) / 100).toFixed(1)}" height="9" rx="1.2" fill="${State.battery <= 20 ? "#ff453a" : "currentColor"}"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"/></svg></span>
         </span>
       </div>`;
   }
@@ -865,6 +870,7 @@
         <h1>${esc(I.title)}</h1>
         <div class="intro-premise">${I.premise.map((l) => `<p>${esc(l)}</p>`).join("")}</div>
         <p class="intro-how">${esc(I.howTo)}</p>
+        <p class="intro-night">${esc(I.night.replace("{battery}", Math.ceil(State.battery)))}</p>
         <button class="pill primary" data-act="intro-next">${esc(I.next)}</button>
       </div>`;
     }
@@ -1189,6 +1195,12 @@
       </div>`;
   }
 
+  // "Erased for good at 00:40 · in 38 min", by the story's clock.
+  function eraseIn() {
+    const left = toMin(NIGHT.eraseAt) - toMin(State.clock);
+    return NIGHT.eraseIn.replace("{at}", NIGHT.eraseAt).replace("{min}", Math.max(0, left));
+  }
+
   // Pull to refresh Rachel's profile: her details are erased one by one, then the account is gone.
   function refreshProfile() {
     if (State.flags.profileTried || State.profileErase || State.flags.purged) return;
@@ -1301,7 +1313,7 @@
     } else {
       content = `
         <div class="deleted${guiding() && !hasShot("profile-deleted") ? " guide-target" : ""}"${shotAttr("profile-deleted", { text: "This account has been deleted.\n" + NIGHT.removedOn })}>
-          <span>This account has been deleted.<small>${esc(NIGHT.removedOn)}</small></span>
+          <span>This account has been deleted.<small>${esc(NIGHT.removedOn)}</small><em class="erase-in">${esc(eraseIn())}</em></span>
         </div>
         ${grid}
         <div class="listnote">${esc(NIGHT.erased.note)}</div>`;
@@ -1748,7 +1760,6 @@
     }
     app.innerHTML =
       statusbar() +
-      `<div class="batt-chip${State.battery <= 20 ? " low" : ""}" aria-hidden="true">${Math.ceil(State.battery)}%</div>` +
       (views[State.view] || viewChats)() +
       homebar() +
       shotButton() +

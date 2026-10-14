@@ -408,12 +408,15 @@ body{background:#d9d6d1;overscroll-behavior:none;min-height:100dvh}
   box-shadow:0 8px 30px rgba(0,0,0,.16);padding:12px 12px 12px 14px}
 .banner-x{display:flex;align-items:center}
 
-/* Phone-sized screens: full bleed; the phone's own status bar replaces the drawn one. Kept last so it wins. */
+/* Phone-sized screens: full bleed. The phone's own status bar shows the real time, so the game's
+   time and battery get a slim row of their own just under it (the night, js/data/night.js). Kept last so it wins. */
 @media (max-width:480px){
-  :root{--sb:env(safe-area-inset-top,0px)}
+  :root{--sb:calc(env(safe-area-inset-top,0px) + 24px)}
   .device{width:100%;height:100dvh;border:0;border-radius:0;box-shadow:none;zoom:1}
   .app{border-radius:0}
-  .statusbar{display:none}
+  .statusbar{top:env(safe-area-inset-top,0px);height:24px;padding:0 16px}
+  .statusbar .island,.statusbar .sb-net{display:none}
+  .sb-time{font-size:14px;width:auto;padding-top:0}
   .lock{padding-top:calc(var(--sb) + 40px)}
 }
 .inputrow input:focus{outline:none;border-color:var(--hairline)}
@@ -787,12 +790,12 @@ body{
 .sb-pct{font-size:12px;font-weight:600;margin-right:1px}
 .sb-pct.low{color:#ff453a}
 /* On a real phone the drawn status bar is hidden, so the game's battery shows as a small chip. */
-.batt-chip{display:none}
-@media (max-width:480px){
-  .batt-chip{display:block;position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);left:14px;z-index:46;font-size:11px;font-weight:600;
-    padding:2px 7px;border-radius:99px;background:rgba(40,40,48,.85);color:#fff;pointer-events:none}
-  .batt-chip.low{color:#ff6b5e}
-}
+/* A whole percent gone: the battery flashes, so the player sees what an action cost. */
+.sb-batt{display:flex;gap:4px;align-items:center}
+.sb-batt.drop{color:#ff453a}
+.sb-batt.drop .sb-pct{font-weight:800}
+.intro .intro-night{font-size:13px;margin-top:6px;color:#ff9f8a}
+.deleted .erase-in{display:block;margin-top:6px;font-size:12px;font-weight:600}
 .app[data-view="dead"]{background:#000}
 .dead{position:absolute;inset:0;width:100%;height:100%;background:#000;border:0;display:grid;place-items:center;cursor:pointer;animation:fadein 1.2s ease-out}
 .dead svg{opacity:.85;animation:breathe 2.4s ease-in-out infinite}

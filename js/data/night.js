@@ -15,24 +15,26 @@ const NIGHT = {
   start: "23:31",
   eraseAt: "00:40",      // 48 hours after "Removed Mon 00:40"
   warnAt: "00:30",       // Orbit's notice that her account is about to be erased
-  battery: 12,           // percent at the start (red). A straight playthrough uses ~4.5% and ends ~00:02
-  low: 4,                // Orbit's Battery Saver offer
+  battery: 20,           // percent at the start. A straight playthrough uses ~9% and ends ~00:02
+  low: 10,               // Orbit's Battery Saver offer
   saverFactor: 0.5,      // with Battery Saver on, talking to Juno costs half
   maxModelCalls: 60,     // after this many model calls in one night, Juno only uses written lines (cost cap)
 
   // Minutes and battery (percent) per action.
   costs: {
-    message:    { min: 2, battery: 0.25 }, // anything said to Juno (tapped or typed)
-    showJuno:   { min: 1, battery: 0.15 }, // sending Juno a screenshot
-    dani:       { min: 2, battery: 0.2 },
-    refresh:    { min: 1, battery: 0.3 },  // refreshing Rachel's profile
-    search:     { min: 1, battery: 0.2 },
-    screenshot: { min: 0, battery: 0.1 },
-    photo:      { min: 0, battery: 0.05 }, // opening a photo
-    open:       { min: 0, battery: 0.03 }, // moving between screens and apps
+    // (doubled 2026-10-14 so the drop is visible: a whole percent every two messages)
+    message:    { min: 2, battery: 0.5 },  // anything said to Juno (tapped or typed)
+    showJuno:   { min: 1, battery: 0.3 },  // sending Juno a screenshot
+    dani:       { min: 2, battery: 0.4 },
+    refresh:    { min: 1, battery: 0.6 },  // refreshing Rachel's profile
+    search:     { min: 1, battery: 0.4 },
+    screenshot: { min: 0, battery: 0.2 },
+    photo:      { min: 0, battery: 0.1 },  // opening a photo
+    open:       { min: 0, battery: 0.05 }, // moving between screens and apps
   },
 
-  removedOn: "Removed Mon 00:40 · Erased permanently 48 hours after removal",
+  removedOn: "Removed Mon 00:40",
+  eraseIn: "Erased for good at {at} · in {min} min", // under her deleted profile, by the story's clock
   erased: {
     profile: "This account doesn't exist.",
     thread: "This conversation is no longer available.",

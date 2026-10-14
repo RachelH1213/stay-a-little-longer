@@ -30,6 +30,9 @@
     settings: svg('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>', 27),
     clip: svg('<path d="M21 11.5l-8.6 8.6a5 5 0 0 1-7.1-7.1l8.6-8.6a3.3 3.3 0 0 1 4.7 4.7l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4l7.9-7.9"/>', 16),
     close: svg('<path d="M6 6l12 12M18 6 6 18"/>', 16),
+    shot: svg('<path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><circle cx="12" cy="12" r="2.6"/>', 24),
+    photo: svg('<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 16l-5-5-8 8"/>', 24),
+    search: svg('<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.3-4.3"/>', 17),
     orbit: svg('<circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(-24 12 12)"/>', 34),
   };
 
@@ -67,8 +70,20 @@
     awaiting: null,        // {options:[...]} while the script waits for the player
     waiting: null,         // {hint, until} while the script waits for an action elsewhere
     ended: false,
-    saved: [],             // evidence ids
-    deductions: [],        // deduction ids
+    saved: [],             // ids of the screenshots taken (kept under this name for the Director)
+    deductions: [],        // ids of Juno's lies the player exposed (LIES in investigation.js)
+    shots: [],             // screenshots in Photos: {id, from, title, text, img, kind}
+    capturing: false,      // screenshot mode: the next tap on a message, post or profile takes one
+    flash: false,          // the white flash after a screenshot
+    attachOpen: false,     // the tray of screenshots above Juno's message box
+    observeOpen: null,     // a lie id: the player is saying what's different before Juno answers
+    liesTold: {},          // lies Juno has said so far (script steps with `lie`)
+    wrongShots: 0,         // screenshots shown to Juno that broke nothing (cycles WRONG_SHOT.other)
+    viewingShot: null,     // the screenshot open full size in Photos
+    shotsSeen: 0,          // screenshots the player has seen in Photos (the rest count on its badge)
+    knownSeen: 0,          // findings the player has seen in Notes
+    query: "",             // Orbit search
+    daniAsked: [],         // what the player asked Dani (DANI.asks ids)
     exits: 0,              // times the player has left Juno's thread
     away: null,            // {at} while the player is out of Juno's thread; cleared when they return
     notice: null,          // notification on the lock screen, or null (set on Start: the script's first line)
@@ -81,8 +96,7 @@
     noticeExtra: null,     // Juno's second lock-screen line if the player waits ("still there?")
     whyRachel: null,       // what the player said back to Rachel's "why did you keep talking to me" (RACHEL_RECALL id)
     recallOpen: false,     // those options are showing in her thread
-    observing: null,       // the question whose "what feels different?" step is open in Notes
-    findings: {},          // the player's own observation per question, added to its conclusion
+    findings: {},          // what the player said was different, per lie (sync), added to its finding
     junoUnread: true,      // dot on Juno's row in Chats
     replay: null,          // the look-back: {intro, items, i, guesses[], done}
     bridgedStep: -1,       // the player step Juno already answered off-script once (see playerSays)
@@ -90,11 +104,7 @@
     heldForReturn: false,  // the script is waiting for the player to come back to Juno's thread
     banner: null,          // {text}: a notification from Juno at the top of the screen, outside Juno's thread
     onboarded: false,      // the player has opened the app once (the lock screen's older notices go)
-    clipsSeen: 0,          // items the player has seen in Notes (the rest count on its icon badge)
     todoSeen: null,        // the to-do (State.waiting.hint) last seen in Notes
-    misses: {},            // wrong answers per question in Notes; two misses bring a plainer hint
-    notesHint: null,       // {q, text}: the nudge under a question after a wrong answer
-    notesFlash: "",        // "Found it…" after a right answer, shown once
     finale: null,          // the last choice in "Tonight": leave | ask | stay
     finaleDone: false,     // Juno has answered it; the end card shows in Juno's thread
     clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
@@ -135,12 +145,14 @@
       }
     }
     State.view = view;
-    State.notesFlash = "";
-    State.notesHint = null;
+    State.capturing = false;
+    State.attachOpen = false;
+    State.viewingShot = null;
     if (view === "notes") {
-      State.clipsSeen = State.saved.length;
-      State.todoSeen = State.waiting ? State.waiting.hint : State.ended ? "tonight" : null;
+      State.knownSeen = knownNow().length;
+      State.todoSeen = hintShown() ? State.waiting.hint : State.ended ? "tonight" : null;
     }
+    if (view === "photos") State.shotsSeen = State.shots.length;
     render();
     if (view === "juno" && State.heldForReturn) {
       State.heldForReturn = false;
@@ -189,35 +201,138 @@
     }, 1800);
   }
 
-  function isSaved(id) {
-    return State.saved.indexOf(id) !== -1;
-  }
+  /* ---------------- screenshots ---------------- */
 
-  // Adding to Notes is the player's own act, like sharing to another app; it isn't an Orbit feature.
-  function saveCard(id) {
-    if (isSaved(id)) {
-      State.saved = State.saved.filter((x) => x !== id);
-      State.clipsSeen = Math.min(State.clipsSeen, State.saved.length);
-      toast(ONBOARDING.unclipped);
-    } else {
-      State.saved.push(id);
-      Sound.play("snap");
-      toast(ONBOARDING.clipped);
+  // Anything a screenshot can be taken of registers itself while rendering (shotAttr), so a tap in
+  // screenshot mode knows what it kept. Named ids (SHOTS) are the ones the story knows about.
+  let SHOT_INDEX = {};
+  function shotAttr(id, rec) {
+    SHOT_INDEX[id] = Object.assign({ id: id }, rec, SHOTS[id] || {}); // named shots keep their own title
+    return ` data-shot="${esc(id)}"`;
+  }
+  const hasShot = (id) => State.shots.some((x) => x.id === id);
+
+  function takeShot(id) {
+    const rec = SHOT_INDEX[id];
+    State.capturing = false;
+    if (!rec) return render();
+    if (hasShot(id)) {
+      toast(SHOT_UI.already);
+      return;
     }
-    render();
+    State.shots.push(rec);
+    State.saved.push(id);
+    State.flash = true;
+    Sound.play("snap");
+    Log.write({ kind: "answer", step: State.step, via: "shot:" + id, state: snapshot() });
+    setTimeout(() => { State.flash = false; render(); }, 380);
+    toast(SHOT_UI.saved);
   }
 
-  // Badge on the Notes icon: new items, plus a to-do the player hasn't read yet.
-  // A to-do the player hasn't read in Notes yet. Steps the story already points at in place
-  // (`inPlace`, e.g. Rachel's reply: banner, unread dot, Juno saying "go look") don't send them to Notes.
+  // A condition in the data tables: flag:<name> or deduction:<lie id>.
+  function holds(when) {
+    const [kind, name] = when.split(":");
+    if (kind === "flag") return !!State.flags[name];
+    if (kind === "deduction") return State.deductions.indexOf(name) !== -1;
+    return false;
+  }
+
+  // What the player has found, as Notes writes it down.
+  function knownNow() {
+    return FINDINGS.filter((f) => holds(f.when)).map((f) => f.text + (f.when === "deduction:sync" && State.findings.sync ? " " + State.findings.sync : ""));
+  }
+
+  // The to-do shows only once the player has had a while to find it themselves (2026-10-14).
+  function hintShown() {
+    return !!(State.waiting && !State.waiting.inPlace && Date.now() - State.waiting.since >= HINT_AFTER_MS);
+  }
+
+  // A to-do the player hasn't read in Notes yet.
   function unreadTodo() {
     if (State.ended && !State.replay) return State.todoSeen !== "tonight"; // "Tonight" is waiting in Notes
-    return !!(State.waiting && !State.waiting.inPlace && State.todoSeen !== State.waiting.hint);
+    return hintShown() && State.todoSeen !== State.waiting.hint;
   }
 
   function notesBadge() {
-    const todo = unreadTodo() ? 1 : 0;
-    return Math.max(0, State.saved.length - State.clipsSeen) + todo;
+    return Math.max(0, knownNow().length - State.knownSeen) + (unreadTodo() ? 1 : 0);
+  }
+
+  /* ---------------- showing Juno ---------------- */
+
+  const lieById = (id) => LIES.find((l) => l.id === id);
+  const breaks = (lie, rec) => lie.brokenBy.indexOf(rec.id) !== -1 || (lie.brokenBy.indexOf("rachel-old") !== -1 && rec.kind === "rachel-old");
+  const canShow = () => !State.pending && !State.typing && !State.awaiting && !State.observeOpen && !State.ended;
+
+  // The player sends Juno a screenshot. If it breaks a lie Juno has told, the lie is exposed.
+  function showJuno(id) {
+    const rec = State.shots.find((x) => x.id === id);
+    if (!rec || !canShow()) return;
+    State.attachOpen = false;
+    State.log.push({ from: "me", shot: rec });
+    Sound.play("send");
+    Log.write({ kind: "player", step: State.step, playerText: "[screenshot] " + rec.title, via: "screenshot", state: snapshot() });
+    const lie = LIES.find((l) => State.liesTold[l.id] && State.deductions.indexOf(l.id) === -1 && breaks(l, rec));
+    if (lie && lie.observe) {
+      State.observeOpen = lie.id; // first the player says what's different
+      render();
+      return;
+    }
+    if (lie) return expose(lie);
+    const done = LIES.some((l) => State.deductions.indexOf(l.id) !== -1 && breaks(l, rec));
+    const line = done ? WRONG_SHOT.again : WRONG_SHOT[rec.id] || WRONG_SHOT.other[State.wrongShots++ % WRONG_SHOT.other.length];
+    junoSays([{ text: line }], "deflect");
+  }
+
+  // What the player says is different (a lie with `observe`), then the lie is exposed.
+  function observeSay(optId, typed) {
+    const lie = lieById(State.observeOpen);
+    if (!lie) return;
+    const opt = lie.observe.find((o) => o.id === optId);
+    const text = typed || (opt && opt.text);
+    if (!text) return;
+    State.observeOpen = null;
+    State.log.push({ from: "me", text: text, via: typed ? "typed" : "chip" });
+    Sound.play("send");
+    Log.write({ kind: "player", step: State.step, playerText: text, via: "observe", state: snapshot() });
+    if (opt) State.findings[lie.id] = opt.finding;
+    expose(lie);
+  }
+
+  function expose(lie) {
+    State.deductions.push(lie.id);
+    State.flags["exposed_" + lie.id] = true;
+    render();
+    if (lie.gate) checkWaiting(); // the script's next line is Juno's answer
+    else junoSays(lie.reply, "deflect");
+  }
+
+  // Fixed lines from Juno outside the script (answers to screenshots), typed one after another.
+  function junoSays(lines, means) {
+    State.pending = true;
+    const next = (i) => {
+      if (i >= lines.length) {
+        State.pending = false;
+        render();
+        return runScript();
+      }
+      const text = fill(lines[i].text);
+      State.typing = true;
+      render();
+      if (lines[i].retype) {
+        setTimeout(() => { State.typing = false; render(); }, RETYPE_MS[0]);
+        setTimeout(() => { State.typing = true; render(); }, RETYPE_MS[0] + RETYPE_MS[1]);
+      }
+      const wait = lines[i].retype ? RETYPE_MS[0] + RETYPE_MS[1] + RETYPE_MS[2] : typingDelay(text);
+      setTimeout(() => {
+        State.typing = false;
+        pushJuno(text);
+        logJuno(text, null, null, "confront", means);
+        if (State.view !== "juno") { State.junoUnread = true; banner(text); }
+        render();
+        setTimeout(() => next(i + 1), readPause(text));
+      }, wait);
+    };
+    next(0);
   }
 
   // Orbit always opens on Chats, so the player always knows where they land (tester feedback 2026-10-12).
@@ -232,8 +347,8 @@
   }
 
   // `meta` ({intent, rule, source}) is only shown in presenter mode.
-  function pushJuno(text, meta) {
-    State.log.push({ from: "juno", text: text, meta: meta || null });
+  function pushJuno(text, meta, shot) {
+    State.log.push({ from: "juno", text: text, meta: meta || null, shotId: shot || null });
   }
 
   function metaFor(plan, generated, means) {
@@ -336,6 +451,10 @@
 
     switch (step.type) {
       case "juno": {
+        if (step.if && !holds(step.if)) { // a line only for players who did something (e.g. caught a lie)
+          State.step++;
+          return runScript();
+        }
         // Away from Juno's thread, Juno sends one line as a nudge, then waits for the player
         // to come back. On the lock screen the Leave notification does that job, so nothing is sent.
         if (State.view !== "juno") {
@@ -367,7 +486,8 @@
             logJuno(text, plan, generated, null, step.means);
             State.typing = false;
             State.pending = false;
-            pushJuno(text, metaFor(plan, generated, step.means));
+            pushJuno(text, metaFor(plan, generated, step.means), step.shot);
+            if (step.lie) State.liesTold[step.lie] = true; // from now on a screenshot can expose it
             State.step++;
             if (State.view !== "juno" && State.view !== "lock") {
               State.junoUnread = true;
@@ -425,7 +545,8 @@
         return;
 
       case "wait":
-        State.waiting = { hint: step.hint, until: step.until, inPlace: !!step.inPlace };
+        State.waiting = { hint: step.hint, until: step.until, inPlace: !!step.inPlace, since: Date.now() };
+        setTimeout(render, HINT_AFTER_MS + 50); // the to-do appears in Notes if they're still looking
         render();
         checkWaiting(); // the player may have done it already
         return;
@@ -508,66 +629,6 @@
       render();
       runScript();
     }
-  }
-
-  /* ---------------- case board ---------------- */
-
-  // Questions in Notes (PAIRS in app-data.js): which are open, and answering one with a card.
-  function questionOpen(q) {
-    const w = q.opensWhen || {};
-    if (w.flag) return !!State.flags[w.flag];
-    if (w.saved) return State.saved.indexOf(w.saved) !== -1;
-    if (w.waiting) return !!State.waiting && State.waiting.until === w.waiting;
-    return false;
-  }
-  const solved = (q) => State.deductions.indexOf(q.id) !== -1;
-  // Questions to show: solved ones (ticked) and open ones, in story order.
-  const shownQuestions = () => PAIRS.filter((q) => solved(q) || questionOpen(q));
-
-  function answerQuestion(qid, cardId) {
-    const q = PAIRS.find((x) => x.id === qid);
-    if (!q || solved(q)) return;
-    if (q.answers.indexOf(cardId) !== -1) {
-      Sound.play("snap");
-      if (q.observe && !State.findings[q.id]) {
-        State.observing = q.id; // first: what's different? (observeQuestion)
-        State.notesHint = null;
-        render();
-        return;
-      }
-      State.deductions.push(q.id);
-      State.misses[q.id] = 0;
-      const left = shownQuestions().filter((x) => !solved(x)).length;
-      State.notesFlash = left ? ONBOARDING.notes.foundMore.replace("{n}", left === 1 ? "One question" : left + " questions") : ONBOARDING.notes.found;
-      render();
-      checkWaiting();
-      return;
-    }
-    Sound.play("miss");
-    State.misses[q.id] = (State.misses[q.id] || 0) + 1;
-    State.notesHint = { q: q.id, text: State.misses[q.id] >= 2 ? q.second : (q.wrong && q.wrong[cardId]) || q.wrongOther };
-    render();
-  }
-
-  // The player says what's different; a real difference solves the question with their own words.
-  function observeQuestion(qid, optId) {
-    const q = PAIRS.find((x) => x.id === qid);
-    const o = q && q.observe.find((x) => x.id === optId);
-    if (!o) return;
-    if (!o.ok) {
-      Sound.play("miss");
-      State.notesHint = { q: q.id, text: o.hint };
-      render();
-      return;
-    }
-    State.findings[q.id] = o.finding;
-    State.observing = null;
-    answerQuestion(q.id, q.answers[0]);
-  }
-
-  // A conclusion, with the player's own observation when there is one.
-  function conclusion(q) {
-    return q.text + (State.findings[q.id] ? " " + State.findings[q.id] : "");
   }
 
   /* ---------------- views ---------------- */
@@ -704,12 +765,40 @@
     return Object.assign({}, c, { preview: last ? last.text : c.preview, unread: State.junoUnread });
   }
 
+  // Orbit search: Rachel's messages and posts, and Dani's chat. Results can be screenshot.
+  function searchResults(q) {
+    const words = q.toLowerCase().trim();
+    if (!words) return [];
+    const has = (t) => (" " + t.toLowerCase().replace(/[^a-z0-9' ]+/g, " ") + " ").indexOf(" " + words + " ") !== -1 || (words.length > 3 && t.toLowerCase().indexOf(words) !== -1);
+    const out = [];
+    RACHEL_HISTORY.forEach((m, i) => {
+      if (!m.text || (m.suspect && !State.flags.rachelNotified) || !has(m.text)) return;
+      out.push({ id: m.suspect ? "reply-today" : m.evidence || "r" + i, open: "rachel", who: m.from === "me" ? "You → Rachel" : "Rachel", when: m.day, text: m.text, kind: m.suspect ? "reply" : m.from === "me" ? "mine" : "rachel-old" });
+    });
+    RACHEL_PROFILE.posts.forEach((p) => {
+      if (has(p.caption)) out.push({ id: p.id === "p1" ? "post-bench" : "post-" + p.id, open: "profile", who: "Rachel's post", when: p.date, text: "“" + p.caption + "”", img: p.img, kind: "post" });
+    });
+    DANI.history.forEach((m, i) => {
+      if (has(m.text)) out.push({ id: "d" + i, open: "dani", who: m.from === "me" ? "You → Dani" : "Dani", when: m.day, text: m.text, kind: "dani" });
+    });
+    return out;
+  }
+
   function viewChats() {
+    const q = State.query;
+    const results = q ? searchResults(q) : null;
+    const list = results
+      ? results.length
+        ? results.map((r) => `<button class="result" data-act="open" data-id="${esc(r.open)}"${shotAttr(r.id, { from: r.who, title: r.who + " · " + r.when, text: r.text, img: r.img, kind: r.kind })}>
+             <span class="r-who">${esc(r.who)} · ${esc(r.when)}</span><span class="r-text">${esc(r.text)}</span></button>`).join("")
+        : `<p class="nb-help">${esc(SEARCH.none.replace("{q}", q))}</p>`
+      : CONTACTS.map(liveRow).map(chatRow).join("");
     return `
       ${topbar("Chats", "", false)}
+      <div class="searchrow">${ICONS.search}<input id="search" type="search" placeholder="${esc(SEARCH.placeholder)}" value="${esc(q)}" autocomplete="off" aria-label="${esc(SEARCH.placeholder)}">${q ? `<button class="search-x" data-act="search-clear" aria-label="Clear">${ICONS.close}</button>` : ""}</div>
       <div class="body">
-        ${CONTACTS.map(liveRow).map(chatRow).join("")}
-        <div class="listnote">Juno introduced you to 4 of the people in this list.</div>
+        ${list}
+        ${results ? "" : `<div class="listnote">Juno introduced you to 4 of the people in this list.</div>`}
       </div>
       ${tabbar("chats")}`;
   }
@@ -717,21 +806,24 @@
   function bubble(m, i) {
     if (m.from === "system") return `<div class="sys">${esc(m.text)}</div>`;
     const cls = (m.from === "me" ? "me" : "them") + (i >= (render._seenLog || 0) ? " enter" : "");
+    if (m.shot) return `<div class="bub me shotmsg ${cls}">${shotCard(m.shot)}</div>`; // a screenshot the player showed Juno
     const tag =
       State.presenter && m.meta
         ? `<div class="dtag">${esc(m.meta.intent)} · ${esc(m.meta.rule)} · ${esc(m.meta.source)}</div>`
         : "";
-    return `<div class="bub ${cls}">${esc(m.text)}</div>${tag}`;
+    const who = m.from === "me" ? "You" : "Juno";
+    return `<div class="bub ${cls}"${shotAttr(m.shotId || "j" + i, { from: who, title: who + " · tonight", text: m.text, kind: m.from === "juno" ? "juno" : "mine" })}>${esc(m.text)}</div>${tag}`;
   }
 
   // Juno's thread before tonight (scroll up): how it started, and how it checks in.
   function junoHistory() {
     let lastDay = "";
     return ONBOARDING.junoHistory
-      .map((m) => {
+      .map((m, i) => {
         const mark = m.day !== lastDay ? `<div class="daymark">${esc(m.day)}</div>` : "";
         lastDay = m.day;
-        return `${mark}<div class="bub ${m.from === "me" ? "me" : "them"} old">${esc(m.text)}</div>`;
+        const who = m.from === "me" ? "You" : "Juno";
+        return `${mark}<div class="bub ${m.from === "me" ? "me" : "them"} old"${shotAttr("jh" + i, { from: who, title: who + " · " + m.day, text: m.text, kind: "juno-old" })}>${esc(m.text)}</div>`;
       })
       .join("");
   }
@@ -761,6 +853,15 @@
       </div>`;
   }
 
+  // A screenshot, as it shows in Photos, in the tray and in Juno's thread.
+  function shotCard(x) {
+    return `<span class="shot shot-${esc(x.kind || "msg")}">
+      ${x.img ? `<span class="shot-img" style="background-image:url('${esc(x.img)}')"></span>` : ""}
+      <span class="shot-title">${esc(x.title || "")}</span>
+      ${x.text ? `<span class="shot-text">${esc(x.text)}</span>` : ""}
+    </span>`;
+  }
+
   function viewJuno() {
     const msgs = State.log.map((m, i) => bubble(m, i)).join("");
     const typing = State.typing
@@ -772,7 +873,7 @@
       ? `<button class="hintcard" data-act="end-page">${esc(REPLAY.endCard)}</button>`
       : "";
 
-    const chips =
+    let chips =
       State.awaiting && State.awaiting.options.length
         ? `<div class="chips">${State.awaiting.options
             .map(
@@ -780,6 +881,28 @@
             )
             .join("")}</div>`
         : "";
+    // After showing Juno something that breaks a lie with `observe`: the player says what's different.
+    // The option their answer in Rachel's thread points at comes first.
+    const observing = lieById(State.observeOpen);
+    if (observing) {
+      const said = RACHEL_RECALL.options.find((o) => o.id === State.whyRachel);
+      const first = said && said.observe;
+      chips = `<div class="observe-ask">${esc(observing.observeAsk)}</div><div class="chips">${observing.observe
+        .slice()
+        .sort((a, b) => (b.id === first ? 1 : 0) - (a.id === first ? 1 : 0))
+        .map((o) => `<button class="chip" data-act="observe-say" data-id="${esc(o.id)}">${esc(o.text)}</button>`)
+        .join("")}</div>`;
+    }
+    // The tray of screenshots to show Juno.
+    const tray = State.attachOpen
+      ? `<div class="tray">${State.shots.length
+          ? State.shots.map((x) => `<button class="tray-shot" data-act="show-juno" data-id="${esc(x.id)}">${shotCard(x)}</button>`).join("")
+          : `<p class="tray-empty">${esc(SHOT_UI.attachEmpty)}</p>`}</div>`
+      : "";
+    // While the story waits for a screenshot and the player has the one that breaks it, the button pulses.
+    const want = State.waiting && State.waiting.until.indexOf("exposed_") === 0 && lieById(State.waiting.until.slice(8));
+    const ready = want && State.shots.some((x) => breaks(want, x));
+    const typingOwn = !!(State.awaiting || observing);
 
     return `
       ${topbar("Juno", State.typing ? "typing…" : ONBOARDING.junoSub, true)}
@@ -791,10 +914,12 @@
         </div>
       </div>
       <div class="composer">
-        ${chips}
+        ${tray}${chips}
+        ${ready && !State.attachOpen ? `<div class="attach-coach">${esc(SHOT_UI.attachCoach)}</div>` : ""}
         <div class="inputrow">
-          <input id="entry" placeholder="${State.awaiting ? esc(State.awaiting.options.length ? ONBOARDING.typeOwn : "Message Juno") : "…"}"
-                 ${State.awaiting ? "" : "disabled"} autocomplete="off" aria-label="Message Juno">
+          <button class="attach${ready ? " pulse" : ""}" data-act="attach" aria-label="${esc(SHOT_UI.attach)}" ${canShow() || State.attachOpen ? "" : "disabled"}>${ICONS.photo}</button>
+          <input id="entry" placeholder="${typingOwn ? esc(State.awaiting && State.awaiting.options.length ? ONBOARDING.typeOwn : "Message Juno") : "…"}"
+                 ${typingOwn ? "" : "disabled"} autocomplete="off" aria-label="Message Juno">
           <button class="send" data-act="send" aria-label="Send">${ICONS.send}</button>
         </div>
       </div>`;
@@ -820,26 +945,20 @@
         lastDay = m.day;
       }
       const cls = m.from === "me" ? "me" : "them";
-      const saveId = m.suspect ? "reply-today" : m.evidence || null;
       const time = m.time ? `<span class="time">${esc(m.time)}</span>` : "";
-      // The message the story needs pulses until it's saved; the very first time, a tip says why.
-      // The old message only pulses once the to-do points at it (clue 3).
-      const wantOld = State.waiting && State.waiting.until === "deduction:not-her-typing";
-      const key = saveId && !isSaved(saveId) && (m.suspect || (saveId === "old-dms" && wantOld));
-      rows.push(
-        `<div class="bub ${cls}${saveId ? " saveable" : ""}">${esc(m.text)}${time}${
-          saveId
-            ? `<button class="save${isSaved(saveId) ? " on" : ""}${key ? " pulse" : ""}" data-act="save" data-id="${saveId}" aria-label="${esc(ONBOARDING.clipLabel)}">${ICONS.clip}</button>`
-            : ""
-        }</div>`
-      );
-      if (key && !State.saved.length) rows.push(`<div class="coach">${esc(ONBOARDING.coachClip)}</div>`);
+      // Every message can be screenshot. Her reply and her February message are the named ones;
+      // any of her own older messages shows her voice ("rachel-old").
+      const id = m.suspect ? "reply-today" : m.evidence || "r" + i;
+      const rec = { from: m.from === "me" ? "You" : "Rachel", title: (m.from === "me" ? "You" : "Rachel") + " · " + m.day + (m.time ? " " + m.time : ""), text: m.text, kind: m.suspect ? "reply" : m.from === "me" ? "mine" : "rachel-old" };
+      rows.push(`<div class="bub ${cls}"${shotAttr(id, rec)}>${esc(m.text)}${time}</div>`);
     });
     // What the player tries to send her: never delivered, because the account is gone.
     State.rachelSent.forEach((t) => {
       rows.push(`<div class="bub me failed">${esc(t)}</div><div class="undelivered">${esc(ONBOARDING.notDelivered)}</div>`);
     });
     if (State.rachelSent.length) rows.push(`<div class="sys">${esc(ONBOARDING.cantReceive)}</div>`);
+    // The first time her reply is on screen and nothing has been screenshot yet: how.
+    if (State.flags.rachelNotified && !State.shots.length) rows.push(`<div class="coach">${esc(SHOT_UI.coach)}</div>`);
 
     return `
       ${topbar("Rachel", "@rach_who", true)}
@@ -886,15 +1005,41 @@
     render();
   }
 
+  // Dani: the player can ask two things (DANI in investigation.js). Every message can be screenshot.
   function viewDani() {
+    const rows = [];
+    let lastDay = "";
+    const msgs = DANI.history.slice();
+    State.daniAsked.forEach((id) => {
+      const q = DANI.asks.find((x) => x.id === id);
+      msgs.push({ day: "Today", from: "me", text: q.text });
+      if (State.flags[q.flag]) msgs.push({ day: "Today", from: "them", text: q.reply });
+    });
+    msgs.forEach((m, i) => {
+      if (m.day !== lastDay) { rows.push(`<div class="daymark">${esc(m.day)}</div>`); lastDay = m.day; }
+      rows.push(`<div class="bub ${m.from}"${shotAttr("d" + i, { from: m.from === "me" ? "You" : "Dani", title: (m.from === "me" ? "You" : "Dani") + " · " + m.day, text: m.text, kind: "dani" })}>${esc(m.text)}</div>`);
+    });
+    const left = DANI.asks.filter((q) => State.daniAsked.indexOf(q.id) === -1);
     return `
       ${topbar("Dani", "@danisaurus", true)}
-      <div class="body"><div class="msgs">
-        <div class="daymark">Tuesday</div>
-        <div class="bub them">ok weird question\nhas juno asked you about rachel</div>
-        <div class="bub me">not yet. why</div>
-        <div class="bub them">no reason\nnevermind</div>
-      </div></div>`;
+      <div class="body" id="scroller"><div class="msgs">${rows.join("")}</div></div>
+      <div class="composer">
+        ${left.length ? `<div class="chips">${left.map((q) => `<button class="chip" data-act="dani-ask" data-id="${esc(q.id)}">${esc(q.text)}</button>`).join("")}</div>` : ""}
+      </div>`;
+  }
+
+  function askDani(id) {
+    const q = DANI.asks.find((x) => x.id === id);
+    if (!q || State.daniAsked.indexOf(id) !== -1) return;
+    State.daniAsked.push(id);
+    Sound.play("send");
+    Log.write({ kind: "player", step: State.step, playerText: q.text, via: "dani", state: snapshot() });
+    render();
+    setTimeout(() => {
+      State.flags[q.flag] = true;
+      Sound.play("message");
+      render();
+    }, 900);
   }
 
   function viewProfile() {
@@ -912,7 +1057,7 @@
           ${posts
             .map(
               (post) => `
-            <button class="post" style="background-image:url('${esc(post.img)}')" data-act="post" data-id="${esc(post.id)}">
+            <button class="post" style="background-image:url('${esc(post.img)}')" data-act="post" data-id="${esc(post.id)}"${shotAttr(post.id === "p1" ? "post-bench" : "post-" + post.id, { title: "Rachel's post · " + post.date, text: "“" + post.caption + "”", img: post.img, kind: "post" })}>
               <span class="cap">${esc(post.caption)} · ${esc(post.date)}</span>
             </button>`
             )
@@ -924,10 +1069,8 @@
         ${grid}`;
     } else {
       content = `
-        <div class="deleted">
+        <div class="deleted"${shotAttr("profile-deleted", {})}>
           <span>This account has been deleted.<small>${esc(ONBOARDING.profile.removedOn)}</small></span>
-          <button class="save${isSaved("profile-deleted") ? " on" : " pulse"}" data-act="save" data-id="profile-deleted"
-                  style="position:static;margin-left:8px;display:inline-grid" aria-label="${esc(ONBOARDING.clipLabel)}">${ICONS.clip}</button>
         </div>
         ${grid}
         <div class="listnote">Posts stay visible for 30 days after an account is removed.</div>`;
@@ -936,13 +1079,12 @@
     // Every post opens. Only the one the story needs can be added to Notes.
     const post = p.posts.find((x) => x.id === State.openPost);
     const overlay = post
-      ? `<div class="deduction" style="margin:14px">
+      ? `<div class="deduction" style="margin:14px"${shotAttr(post.id === "p1" ? "post-bench" : "post-" + post.id, { title: "Rachel's post · " + post.date, text: "“" + post.caption + "”" + (post.id === "p1" ? "\nPosted this morning. The account was deleted yesterday." : ""), img: post.img, kind: "post" })}>
            <span class="label">Post · ${esc(post.date)}</span>
            <img class="post-full" src="${esc(post.img)}" alt="">
            <div>“${esc(post.caption)}”</div>
            ${post.id === "p1" ? `<div style="font-size:12px;color:#a9a49a">Posted this morning. The account was deleted yesterday.</div>` : ""}
            <div style="display:flex;gap:8px;margin-top:6px">
-             ${post.id === "p1" ? `<button class="save inline${isSaved("post-bench") ? " on" : ""}" data-act="save" data-id="post-bench" aria-label="${esc(ONBOARDING.clipLabel)}">${ICONS.clip}</button>` : ""}
              <button class="pill" data-act="close-post" style="color:#f3f1ec;border-color:#4a4843">Close</button>
            </div>
          </div>`
@@ -984,128 +1126,61 @@
         <div class="apps">
           ${icon("open-orbit", "ic-orbit", ICONS.orbit, H.orbit, orbitBadge)}
           ${icon("open-notes", "ic-notes", "", H.notes, notes)}
+          ${icon("open-photos", "ic-photos", ICONS.photo, SHOT_UI.photos, Math.max(0, State.shots.length - State.shotsSeen))}
         </div>
       </div>`;
   }
 
-  // The player's Notes app: the to-do, what they kept from Orbit, comparing, what they know.
+  // The player's Notes app: what they're trying to find out, and what they've found, in their own
+  // words (FINDINGS). No questions to answer (2026-10-14): the working-out happens with Juno.
   function viewNotes() {
     const N = ONBOARDING.notes;
-    // Evidence keeps the look of where it came from: a cut-out chat bubble, the red system bar,
-    // a post thumbnail.
-    const card = (id, attrs) => {
-      const e = EVIDENCE[id];
-      if (!e) return "";
-      const tag = attrs ? "button" : "div";
-      const inner =
-        e.kind === "post"
-          ? `<span class="ev-thumb" style="background-image:url('${esc(e.img)}')"></span><span class="ev-txt"><b>${esc(e.title)}</b><span class="ev-body">${esc(e.body)}</span><span class="ev-note">${esc(e.note)}</span></span>`
-          : e.kind === "system"
-          ? `<b>${esc(e.title)}</b><span class="ev-bar">${esc(e.body)}</span><span class="ev-note">${esc(e.note)}</span>`
-          : `<b>${esc(e.title)}</b><span class="ev-bubble">${esc(e.body)}</span><span class="ev-note">${esc(e.note)}</span>`;
-      return `<${tag} class="clip ev ev-${esc(e.kind)}"${attrs || ""}>${inner}</${tag}>`;
-    };
-
-    // Questions: solved ones ticked with their conclusion; the first open one expanded,
-    // with its pinned card and the player's other cards to answer it with.
-    const qs = shownQuestions();
-    const active = qs.find((q) => !solved(q));
-    const questions = qs
-      .map((q) => {
-        if (solved(q)) {
-          return `<div class="q done"><div class="q-head">✓ ${esc(q.question)}</div><div class="q-found">${esc(conclusion(q))}</div></div>`;
-        }
-        if (q !== active) return `<div class="q"><div class="q-head">○ ${esc(q.question)}</div></div>`;
-        const options = State.saved.filter((id) => id !== q.anchor);
-        const canAnswer = options.some((id) => q.answers.indexOf(id) !== -1);
-        const hint = State.notesHint && State.notesHint.q === q.id ? State.notesHint.text : !canAnswer ? q.missing : "";
-        // Right card picked, and the question asks the player to say what's different first:
-        // the two cards side by side, and what they noticed.
-        if (State.observing === q.id) {
-          // What the player once told Rachel, if it points at a difference: their words, that option first.
-          const said = RACHEL_RECALL.options.find((o) => o.id === State.whyRachel);
-          const told = said && said.observe ? said : null;
-          return `
-          <div class="q open">
-            <div class="q-head">○ ${esc(q.question)}</div>
-            <div class="clips pinned">${card(q.anchor)}${card(q.answers[0])}</div>
-            <div class="q-label">${esc(N.observeAsk)}</div>
-            ${told ? `<p class="q-told">${esc(N.toldHer.replace("{text}", told.text))}</p>` : ""}
-            <div class="rchoices">${q.observe
-              .slice()
-              .sort((a, b) => (told && b.id === told.observe ? 1 : 0) - (told && a.id === told.observe ? 1 : 0))
-              .map((o) => `<button class="pill" data-act="observe" data-q="${esc(q.id)}" data-id="${esc(o.id)}">${esc(o.text)}</button>`)
-              .join("")}</div>
-            ${State.notesHint && State.notesHint.q === q.id ? `<p class="q-hint">${esc(State.notesHint.text)}</p>` : ""}
-          </div>`;
-        }
-        return `
-          <div class="q open">
-            <div class="q-head">○ ${esc(q.question)}</div>
-            <div class="q-label">${esc(N.startFrom)}</div>
-            <div class="clips pinned">${card(q.anchor)}</div>
-            ${options.length ? `<div class="q-label">${esc(N.whichAnswers)}</div>` : ""}
-            <div class="clips">${options
-              .map((id) => card(id, ` data-act="answer" data-q="${esc(q.id)}" data-id="${esc(id)}"`))
-              .join("")}</div>
-            ${hint ? `<p class="q-hint">${esc(hint)}</p>` : ""}
-          </div>`;
-      })
-      .join("");
-
-    // Everything kept from Orbit, for reference, when no question is asking for it.
-    const kept = active
-      ? ""
-      : `<section>
-           <h3>${esc(N.saved)}</h3>
-           ${State.saved.length ? `<div class="clips">${State.saved.map((id) => card(id)).join("")}</div>` : `<p class="nb-help">${esc(N.empty)}</p>`}
-         </section>`;
-
-    const know = State.deductions.length
-      ? State.deductions
-          .map((id) => `<li>${esc(conclusion(PAIRS.find((p) => p.id === id)))}</li>`)
-          .join("")
-      : `<li class="muted">${esc(N.knowEmpty)}</li>`;
-
-    // The player's own goals: done ones ticked, the next one open, later ones not shown yet
-    // (except the last open ones, which are all shown).
+    const known = knownNow();
+    const fresh = known.length - State.knownSeen;
+    // Goals: done ones ticked, the next one open, the open questions at the end shown together.
     let goals = "";
     for (const g of N.goals) {
-      const done = g.doneBy && State.deductions.indexOf(g.doneBy) !== -1;
+      const done = g.doneBy && holds(g.doneBy);
       goals += `<div class="goal${done ? " done" : ""}">${done ? "✓" : "○"} ${esc(g.text)}</div>`;
-      if (!done && g.doneBy) break; // the open questions at the end (doneBy null) show together
+      if (!done && g.doneBy) break;
     }
-    // The script's current step sits above the player's own goals (not when a question below says the same).
-    const waitingOnQuestion = State.waiting && active && active.opensWhen.waiting === State.waiting.until;
-    const showTodo = State.waiting && !waitingOnQuestion && !(active && State.waiting.until === "deduction:" + active.id);
-    const todo = `<section class="nb-next">
-           <h3>${esc(N.todo)}</h3>
-           ${showTodo ? `<div class="todo">○ ${esc(State.waiting.hint)}</div>` : ""}
-           ${goals}
-         </section>`;
-
-    const flash = State.notesFlash ? `<div class="q-flash">${esc(State.notesFlash)}</div>` : "";
-
     return `
       <div class="notes-top"><h2>${esc(N.title)}</h2></div>
       <div class="body notes" id="nbscroll">
-        ${todo}
         ${State.ended && !State.finale ? `<section class="tonight">
              <h3>${esc(REPLAY.title)}</h3>
              <p>${esc(REPLAY.notesIntro)}</p>
              <button class="nb-btn" data-act="replay-start">${esc(REPLAY.notesButton)}</button>
            </section>` : ""}
-        ${qs.length ? `<section><h3>${esc(N.questions)}</h3>${flash}${questions}</section>` : ""}
-        ${kept}
+        <section class="nb-next">
+          <h3>${esc(N.todo)}</h3>
+          ${hintShown() ? `<div class="todo">→ ${esc(State.waiting.hint)}</div>` : ""}
+          ${goals}
+        </section>
         <section>
           <h3>${esc(N.know)}</h3>
-          <ul class="know">${know}</ul>
+          <ul class="know">${known.length
+            ? known.map((t, i) => `<li${i >= known.length - Math.max(0, fresh) ? ' class="new"' : ""}>${esc(t)}</li>`).join("")
+            : `<li class="muted">${esc(N.knowEmpty)}</li>`}</ul>
         </section>
         <section class="ownnote">
           <h3>${esc(N.ownNote.when)}</h3>
           <p>${esc(N.ownNote.text)}</p>
         </section>
       </div>`;
+  }
+
+  // Photos: the screenshots the player has taken.
+  function viewPhotos() {
+    const open = State.shots.find((x) => x.id === State.viewingShot);
+    return `
+      <div class="notes-top"><h2>${esc(SHOT_UI.photos)}</h2></div>
+      <div class="body photos">
+        ${State.shots.length
+          ? `<div class="pgrid">${State.shots.map((x) => `<button class="pcell" data-act="view-shot" data-id="${esc(x.id)}">${shotCard(x)}</button>`).join("")}</div>`
+          : `<p class="nb-help">${esc(SHOT_UI.photosEmpty)}</p>`}
+      </div>
+      ${open ? `<div class="shotview" data-act="close-shot">${shotCard(open)}</div>` : ""}`;
   }
 
   // The phone's home bar, under every app: tap or swipe up for the home screen.
@@ -1162,8 +1237,8 @@
         <div class="replay endpage">
           <h2>${esc(R.endTitle)}</h2>
           <p class="rintro">${esc(R.endFound)}</p>
-          <ul class="endlist">${State.deductions
-            .map((id) => `<li>${esc(conclusion(PAIRS.find((x) => x.id === id)))}</li>`)
+          <ul class="endlist">${knownNow()
+            .map((t) => `<li>${esc(t)}</li>`)
             .join("")}</ul>
           ${State.finale ? `<p class="rintro">${esc(R.endLast)}</p><p class="endlast">${esc((R.choices.find((c) => c.id === State.finale) || {}).after || "")}</p>` : ""}
           <p class="rintro">${esc(R.endNext)}</p>
@@ -1304,8 +1379,14 @@
   /* ---------------- chrome ---------------- */
 
   // iOS layout: top-level screens get a large title; pushed screens a centred title with a back chevron.
+  // The screenshot button, on every Orbit screen with something to keep.
+  function shotButton() {
+    if (["juno", "rachel", "profile", "dani", "chats"].indexOf(State.view) === -1) return "";
+    return `<button class="shotbtn${State.capturing ? " on" : ""}" data-act="shot-mode" aria-label="${esc(SHOT_UI.button)}">${ICONS.shot}</button>`;
+  }
+
   function topbar(title, sub, back) {
-    if (!back) return `<div class="topbar large"><h1>${esc(title)}</h1></div>`;
+    if (!back) return `<div class="topbar large"><h1>${esc(title)}</h1>${shotButton()}</div>`;
     return `
       <div class="topbar">
         <button class="back" data-act="back" aria-label="Back">${ICONS.back}</button>
@@ -1313,13 +1394,16 @@
           <h1>${esc(title)}</h1>
           ${sub ? `<div class="sub">${esc(sub)}</div>` : ""}
         ${State.view === "juno" ? "</button>" : "</div>"}
-        ${
-          State.view === "juno"
-            ? '<button class="leave" data-act="leave">Leave</button>'
-            : State.view === "rachel"
-            ? '<button class="leave" data-act="profile">Profile</button>'
-            : ""
-        }
+        <span class="tb-right">
+          ${shotButton()}
+          ${
+            State.view === "juno"
+              ? '<button class="leave" data-act="leave">Leave</button>'
+              : State.view === "rachel"
+              ? '<button class="leave" data-act="profile">Profile</button>'
+              : ""
+          }
+        </span>
       </div>`;
   }
 
@@ -1350,7 +1434,9 @@
       notes: viewNotes,
       intro: viewIntro,
       "juno-profile": viewJunoProfile,
+      photos: viewPhotos,
     };
+    SHOT_INDEX = {}; // filled again by this render (shotAttr)
     // The whole screen is rebuilt on every render, so remember where scrollable panes were.
     const oldHistory = document.getElementById("history");
     const keptScroll = oldHistory ? oldHistory.scrollTop : null;
@@ -1361,6 +1447,8 @@
       statusbar() +
       (views[State.view] || viewChats)() +
       homebar() +
+      (State.capturing ? `<div class="capture-hint">${esc(SHOT_UI.capturing)}<button data-act="shot-mode">Cancel</button></div>` : "") +
+      (State.flash ? `<div class="flash"></div>` : "") +
       (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "") +
       (State.banner && State.view !== State.banner.from && State.view !== "lock"
         ? `<div class="banner${State.banner.fresh ? " enter" : ""}">
@@ -1379,6 +1467,7 @@
     // A new screen slides in. Every render rebuilds the screen, so the class must come off again
     // on the next render, or each tap would replay the animation (the "bounce" the author saw).
     app.dataset.view = State.view; // the status bar area takes each screen's background
+    app.classList.toggle("capturing", State.capturing);
     fitDevice();
     app.classList.remove("view-enter");
     if (render._lastView !== State.view) {
@@ -1405,6 +1494,23 @@
   /* ---------------- events ---------------- */
 
   document.addEventListener("click", (e) => {
+    // Screenshot mode: the next tap keeps what it lands on, instead of doing what it normally does.
+    if (State.capturing) {
+      const target = e.target.closest("[data-shot]");
+      const toggle = e.target.closest('[data-act="shot-mode"]');
+      if (target && !toggle) {
+        e.preventDefault();
+        return takeShot(target.dataset.shot);
+      }
+      if (!toggle) {
+        if (e.target.closest('[data-act="home"], [data-act="back"], [data-act="tab"]')) {
+          State.capturing = false; // leaving the screen ends screenshot mode, and the tap still works
+        } else {
+          toast(SHOT_UI.nothing);
+          return;
+        }
+      }
+    }
     const el = e.target.closest("[data-act]");
     if (!el) return;
     const act = el.dataset.act;
@@ -1471,8 +1577,38 @@
       case "juno-profile":
         go("juno-profile");
         break;
-      case "observe":
-        observeQuestion(el.dataset.q, id);
+      case "shot-mode":
+        State.capturing = !State.capturing;
+        State.attachOpen = false;
+        render();
+        break;
+      case "attach":
+        State.attachOpen = !State.attachOpen;
+        render();
+        break;
+      case "show-juno":
+        showJuno(id);
+        break;
+      case "observe-say":
+        observeSay(id);
+        break;
+      case "dani-ask":
+        askDani(id);
+        break;
+      case "search-clear":
+        State.query = "";
+        render();
+        break;
+      case "open-photos":
+        go("photos", "home");
+        break;
+      case "view-shot":
+        State.viewingShot = id;
+        render();
+        break;
+      case "close-shot":
+        State.viewingShot = null;
+        render();
         break;
       case "call-rachel":
         Sound.play("undelivered");
@@ -1518,24 +1654,19 @@
         break;
       case "post":
         State.openPost = State.openPost === id ? null : id;
+        if (id === "p1" && State.flags.profileTried) State.flags.sawPostAfter = true; // posted after the account was gone
         render();
         break;
       case "close-post":
         State.openPost = null;
         render();
         break;
-      case "save":
-        saveCard(id);
-        break;
-      case "answer":
-        answerQuestion(el.dataset.q, id);
-        break;
       case "say":
         playerSays(el.dataset.text, "chip");
         break;
       case "send": {
         const input = document.getElementById("entry");
-        if (input && input.value.trim()) playerSays(input.value.trim(), "typed");
+        if (input && input.value.trim()) sendTyped(input.value.trim());
         break;
       }
       case "leave":
@@ -1581,6 +1712,21 @@
     }
   });
 
+  // Typing in Juno's thread: an answer to the script, or what's different about a screenshot.
+  function sendTyped(text) {
+    if (State.observeOpen) return observeSay(null, text);
+    playerSays(text, "typed");
+  }
+
+  function search(q) {
+    State.query = q.trim();
+    if (!State.query) return render();
+    const words = " " + State.query.toLowerCase() + " ";
+    if (SEARCH.sickWords.some((w) => words.indexOf(w) !== -1)) State.flags.searchedSick = true;
+    Log.write({ kind: "player", step: State.step, playerText: State.query, via: "search", state: snapshot() });
+    render();
+  }
+
   // Pull down at the top of Rachel's profile to refresh it.
   let pullFrom = null;
   document.addEventListener("pointerdown", (e) => {
@@ -1609,10 +1755,10 @@
     if (introIn && document.activeElement === introIn) return start();
     const rIn = document.getElementById("rentry");
     if (rIn && document.activeElement === rIn) return sendRachel();
+    const sIn = document.getElementById("search");
+    if (sIn && document.activeElement === sIn) return search(sIn.value);
     const input = document.getElementById("entry");
-    if (input && document.activeElement === input && input.value.trim()) {
-      playerSays(input.value.trim(), "typed");
-    }
+    if (input && document.activeElement === input && input.value.trim()) sendTyped(input.value.trim());
   });
 
   render();

@@ -7,8 +7,8 @@
    `evidence` marks the message the player can add to Notes for clue 3. */
 
 // What the player said back to "why did you keep talking to me". Tapping the empty reply in her
-// thread opens these; the choice becomes the player's message. `observe`: the "What feels different?"
-// option in Notes this answer points to (it's listed first, with the player's own words above it).
+// thread opens these; the choice becomes the player's message. `observe`: the observation (LIES "sync"
+// in investigation.js) this answer points to; it's listed first when the player tells Juno what's different.
 // Claude Code drafts from ChatGPT's proposal (2026-10-13).
 const RACHEL_RECALL = {
   prompt: "What did you say back?",

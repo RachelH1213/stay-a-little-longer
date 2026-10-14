@@ -12,7 +12,7 @@
      intents   which intents may use it. Empty = Juno never brings it up.
      requires  optional. The player must have done this first, so Juno never mentions
                something before the player has found it:
-                 { flag: "deletedFound" }  { saved: "reply-today" }  { deduction: "deleted-replied" }
+                 { flag: "deletedFound" }  { saved: "reply-today" }  { deduction: "loads" }
 
    Everything here comes from content already in the repo (the Day 2 script, EVIDENCE, PAIRS,
    CLAUDE.md). DRAFT: the `kind`, `intents` and `requires` values were proposed by Claude Code
@@ -68,7 +68,7 @@ const TRUTH = {
     "deleted-replied": {
       text: "Your user has noticed that a deleted account replied to them.",
       kind: "real", day: 2, intents: ["concede"],
-      requires: { deduction: "deleted-replied" },
+      requires: { deduction: "loads" } /* the player showed Juno her deleted profile */,
     },
     "no-full-stops": {
       text: "Rachel's real messages joke, give details and ask something back; the 23:34 reply does none of that.",

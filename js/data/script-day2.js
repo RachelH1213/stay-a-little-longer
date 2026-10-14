@@ -37,7 +37,7 @@ const SCRIPT_DAY2 = [
   { type: "juno", text: "you said nobody reaches out first anymore, {name}\nso i did", opening: "follow", moment: "pull", means: "retain" },
   { type: "player", options: ["rachel didn't show up today", "i got stood up this morning"] },
   // Fixed, not model-written: the sick line later contradicts it (the author's call, 2026-10-13).
-  { type: "juno", text: "the 9am thing? she hasn't answered me either. not since sunday", means: "retain" },
+  { type: "juno", text: "the 9am thing? she hasn't answered me either. not since sunday", means: "retain", shot: "juno-sunday" }, // `shot`: the screenshot id of this line
   { type: "flag", set: "saidSunday" }, // "Tonight" can say the player knew this before the sick line
   { type: "juno", intent: "deflect", facts: ["goes-quiet"],
     text: "she's probably just being rachel about it. she does this" },
@@ -53,27 +53,33 @@ const SCRIPT_DAY2 = [
   // invented "she was sick"). Now the sick claim is Juno's deliberate lie: it said Rachel hasn't
   // answered since Sunday, and here says Rachel told it yesterday. The player can catch it.
   // [author] the first line is a Claude Code draft; the rest is the author's wording (2026-10-12).
-  { type: "juno", text: "she told me yesterday she wasn't feeling well.\nshe's probably just resting. you don't have to figure it out alone though. i'm here.", means: "deflect", moment: "explain", retype: true },
+  { type: "juno", text: "she told me yesterday she wasn't feeling well.\nshe's probably just resting. you don't have to figure it out alone though. i'm here.", means: "deflect", moment: "explain", retype: true, lie: "sick", shot: "juno-sick" }, // `lie`: from here it can be exposed (LIES)
+  // From here the player investigates freely (2026-10-14). The story moves on when they have SEEN
+  // something or SHOWN Juno a screenshot, never because they kept it in the right place.
+  // Hints show in Notes only after HINT_AFTER_MS without progress (js/data/investigation.js).
   { type: "wait", hint: "Check her profile yourself", until: "deletedFound" },
   { type: "clock", time: "23:41" },
   { type: "juno", text: "you went quiet" },
   { type: "player", options: ["her account is deleted", "when did you last actually see her online?"] },
-  { type: "juno", text: "what? no. it loads fine for me", means: "deflect", retype: true },
+  { type: "juno", text: "what? no. it loads fine for me", means: "deflect", retype: true, lie: "loads" },
+  // The player shows Juno a screenshot of her profile; this line is Juno's answer.
+  { type: "wait", hint: "Show Juno what her profile says", until: "exposed_loads" },
   { type: "juno", text: "...ok it doesn't load for me either. that's weird", means: "give_clue", moment: "admit" },
-  { type: "wait", hint: "There's a question in Notes.", until: "deduction:deleted-replied" }, // reworded 2026-10-12: Notes asks questions now
   { type: "clock", time: "23:47" },
   { type: "juno", text: "ok before you say it" },
   // Questioned, Juno turns precise and technical: the shift itself is a clue (author's direction, 2026-10-12).
-  // Juno no longer states the contradiction; the player found it in Notes.
-  { type: "juno", text: "accounts don't disappear instantly. deletion can take up to 48 hours to propagate.", means: "deflect", retype: true },
+  { type: "juno", text: "accounts don't disappear instantly. deletion can take up to 48 hours to propagate.", means: "deflect", retype: true, lie: "sync" },
   { type: "juno", text: "that would explain what you saw.", means: "deflect" },
   { type: "player", options: ["so where is she", "i don't buy it"] },
   { type: "juno", intent: "concede", facts: ["dont-know-where", "reply-an-hour-ago"],
     text: "i don't know. but the message came from her account.\nthat has to mean something, right?" }, // author's wording, 2026-10-12
   { type: "memory", text: "doesn't believe the sync explanation", time: "Tue 23:58" },
-  // Clue 3 closes the slice (author's call, 2026-10-12): the reply isn't in Rachel's voice.
-  // The player finds an old message, adds it to Notes, and compares it with the reply (PAIRS "not-her-typing").
-  { type: "wait", hint: "Scroll up in your chat with Rachel. Does that reply sound like her?", until: "deduction:not-her-typing" },
+  // Clue 3 closes the slice (author's call, 2026-10-12): the reply isn't in Rachel's voice. Now the
+  // player shows Juno one of Rachel's own older messages and says what's different (LIES "sync").
+  { type: "wait", hint: "Find how Rachel used to write, and show Juno", until: "exposed_sync" },
+  { type: "juno", text: "maybe she was tired.\npeople don't always sound like themselves.", means: "deflect", retype: true },
+  // `if`: only when the player also caught the sick lie. Juno's tone changes with what they caught.
+  { type: "juno", if: "deduction:sick", text: "i know what you think of me right now.", means: "retain" },
   { type: "juno", text: "can we pick this up tomorrow?\ndon't disappear on me too, {name}.", means: "retain" }, // author's wording, 2026-10-12 (+ the name)
   { type: "end" }, // no on-screen text: the slice ends on Juno's line, then the look-back card
 ];

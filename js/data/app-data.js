@@ -1,4 +1,4 @@
-/* Static app content: contacts, profile, settings, and the evidence/deduction tables. */
+/* Static app content: contacts, profile, settings. */
 
 const APP = {
   name: "Orbit",
@@ -30,109 +30,8 @@ const RACHEL_PROFILE = {
   ],
 };
 
-/* Cards the player can keep. `pairs` below turns two of them into a deduction. */
-const EVIDENCE = {
-  "reply-today": {
-    title: "Rachel's reply, tonight 23:34",
-    kind: "message",
-    body: "sorry, been busy. doing okay now", // must match rachel-history.js exactly: this is clue 3
-    note: "arrived while you were talking to Juno",
-  },
-  "profile-deleted": {
-    title: "Rachel's profile",
-    kind: "system",
-    body: "This account has been deleted.",
-    note: "seen after refreshing, tonight",
-  },
-  "old-dms": {
-    title: "Rachel, the last time she went quiet",
-    kind: "message",
-    body: "sorry i vanished\ncat situation became a plant situation became a floor situation\nim alive unfortunately\nwhat did i miss", // must match rachel-history.js
-    note: "February · a joke, the details, and a question back",
-  },
-  "post-bench": {
-    title: "Her last post",
-    kind: "post",
-    img: "img/post-quiet.jpg",
-    body: "“quiet” · posted Sep 23",
-    note: "the day after the account was deleted",
-  },
-};
-
-/* Questions in Notes. Each one is answered by picking ONE card against a card that's already
-   pinned (`anchor`), so the player reasons about one question at a time instead of trying every pair.
-   Changed 2026-10-12 (the author's call, after testers got stuck pairing cards at random).
-
-   opensWhen  when the question appears in Notes: { flag }, { waiting } (the script is waiting for this
-              deduction) or { saved } (a card is in Notes)
-   anchor     the card the question starts from; shown pinned, whether or not the player added it
-   answers    the card(s) that answer it
-   optional   true: the story doesn't wait for it (a reward for players who look further)
-   text       the conclusion, added to What I know
-   wrong      a nudge for a specific wrong card; `wrongOther` for anything else
-   second     after two misses on this question: says plainly what to look for
-   missing    when no card in Notes can answer it yet: where to find one
-
-   [author] All question and hint wording is a Claude Code draft (2026-10-12), except the conclusions. */
-const PAIRS = [
-  {
-    id: "deleted-replied",
-    question: "How could Rachel reply after her account was deleted?",
-    opensWhen: { flag: "deletedFound" },
-    anchor: "reply-today",
-    answers: ["profile-deleted"],
-    text: "Rachel's account was already deleted when the reply arrived.", // the author's wording, 2026-10-12
-    unlocks: "ask-juno-sync",
-    wrong: {
-      "post-bench": "That's about her posts, not when the reply came. Keep it: it answers a different question.",
-      "old-dms": "That's about how she writes. This question is about when the reply came.",
-    },
-    wrongOther: "That doesn't show when the reply came.",
-    second: "Look at what her profile says now.",
-    missing: "Nothing here answers it yet. What does her profile say now?",
-  },
-  {
-    id: "not-her-typing",
-    question: "Does the reply sound like Rachel?",
-    opensWhen: { waiting: "deduction:not-her-typing" },
-    anchor: "reply-today",
-    answers: ["old-dms"],
-    // After the right card, the player says what's different before the conclusion is written
-    // (2026-10-13: the player observes, Notes doesn't hand them the answer). Claude Code drafts.
-    observe: [
-      { id: "details",  text: "she gives no details",   ok: true, finding: "She always told you what happened. This tells you nothing." },
-      { id: "asksback", text: "she asks nothing back",  ok: true, finding: "She always asked something back. This closes the conversation." },
-      { id: "punct",    text: "the punctuation",        ok: true, finding: "She never used full stops. This one does." },
-      { id: "nothing",  text: "nothing",                ok: false, hint: "Read them side by side. How did she end her messages before?" },
-    ],
-    text: "The reply doesn't sound like Rachel.", // + the player's own observation (observe[].finding)
-    unlocks: "ask-juno-typing",
-    wrong: {
-      "profile-deleted": "That's about her account. This question is about her voice.",
-      "post-bench": "A caption doesn't tell you much. Find something she wrote to you.",
-    },
-    wrongOther: "That doesn't show how Rachel talks.",
-    second: "Scroll up in your chat with Rachel. How did she come back the last time she went quiet?",
-    missing: "Scroll up in your chat with Rachel and add something she wrote before.",
-  },
-  {
-    id: "posted-after",
-    question: "What kept posting after Rachel left?",
-    opensWhen: { saved: "post-bench" },
-    optional: true,
-    anchor: "profile-deleted",
-    answers: ["post-bench"],
-    text: "Rachel's account kept posting after it was deleted.", // the author's critique's wording, 2026-10-12
-    unlocks: "ask-juno-post",
-    wrong: {
-      "reply-today": "You've worked that one out already. What else happened after the account was gone?",
-      "old-dms": "That's from long before she left.",
-    },
-    wrongOther: "That isn't from after the account was gone.",
-    second: "Look at the dates on her posts.",
-    missing: "Open her posts. Is anything dated after the account was deleted?",
-  },
-];
+/* Evidence used to be cards kept with a paperclip and paired in Notes (PAIRS). Since 2026-10-14
+   the player takes screenshots and shows them to Juno instead: js/data/investigation.js. */
 
 /* What Juno has written down about the player. Day 1 left three entries. */
 const MEMORIES_DAY1 = [

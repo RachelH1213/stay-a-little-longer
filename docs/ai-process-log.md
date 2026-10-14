@@ -78,7 +78,7 @@ Copy this for each new entry.
   - **Not tested with a real API key**, because none was available in the session. It was tested with a fake model response: success, server error, a request that never answers, and opening from `file://`. It was also played through the whole Day 2 slice: 5 model calls, plot lines unchanged.
   - During testing, a cleanup command (`pkill`) killed its own shell, so the doc edits had to be run again. This didn't affect the game.
 - **Files / features affected:** `api/reply.js`, `api/_persona.js`, `js/app.js`, `js/data/script-day2.js`, `.env.example`, `README.md`, `CLAUDE.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I approved the model layer and the plan's shape, with my own changes listed above (5 lines, the persona in its own file). I kept `api/_persona.js` as the file name. The five lines, their intents and the persona draft stay as Claude Code wrote them for now; Juno's voice is still mine to rewrite.
 - **Notes for Project 2:** the persona prompt tells Juno to "keep your user close" (`retain`) and to steer them away from worrying (`deflect`). That's where the retention goal turns into actual instructions to a model. It might be worth looking at later.
 
 ---
@@ -94,7 +94,7 @@ Copy this for each new entry.
 - **Rejected, and why:** **[to fill in]**
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `docs/course-context.md`, `docs/ai-process-log.md`, `CLAUDE.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I kept both files as Claude Code made them. They're the record I use for this course.
 
 ---
 
@@ -112,7 +112,7 @@ Copy this for each new entry.
 - **Rejected, and why:** **[to fill in]**
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `CLAUDE.md`, `README.md`, `docs/ai-process-log.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I kept the status updates and went on to Task 2.
 
 ---
 
@@ -150,7 +150,7 @@ Copy this for each new entry.
   - `file://` still falls back without errors.
   - Still not tested with a real GLM key.
 - **Files / features affected:** `js/data/truth.js`, `js/data/director-rules.js`, `js/director.js`, `js/app.js`, `js/data/script-day2.js`, `index.html`, `CLAUDE.md`, `README.md`, `docs/course-context.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I let Claude Code decide the open questions ("你帮我决定和优化") and kept the result. The rules and fact tags are still its draft. I haven't rewritten them yet, and the truth about Rachel isn't in the graph yet.
 - **Notes for Project 2:**
   - The `player-leaving` rule is where the platform's retention goal turns into code. When the player says goodnight, the system tells Juno to keep them close.
   - That rule was proposed by an AI tool, not by me. That's a small, concrete example of the authorship question for the reflection.
@@ -186,7 +186,7 @@ Copy this for each new entry.
   - `file://` sends no requests and shows no errors.
   - **Not yet tested against a real Supabase project.**
 - **Files / features affected:** `api/log.js`, `js/log.js`, `supabase/schema.sql`, `js/app.js`, `js/director.js`, `index.html`, `.env.example`, `README.md`, `CLAUDE.md`, `docs/course-context.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I kept the play log as built. Whether and how to tell players that what they type is logged is still open.
 - **Notes for Project 2:**
   - The log stores everything the player types to Juno, and the player is never told. That's the same kind of quiet data collection the game is about.
   - Whether to tell players (and how, without breaking the "no game vocabulary" rule) is an ethical and design decision I haven't made yet.
@@ -225,7 +225,7 @@ Copy this for each new entry.
 
   Also a full playthrough with a leave mid-conversation: 4 exits, 4 returns, no page errors. The `api/log` and Director tests still pass. **Not tested with a real model or a real Supabase project.**
 - **Files / features affected:** `js/data/leaving.js`, `js/app.js`, `index.html`, `api/log.js`, `supabase/schema.sql`, `CLAUDE.md`, `README.md`, `docs/course-context.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I kept Leave and the notification as built. The placeholders (delay, fallback, unlock text) stayed, and I kept them again when they came up in the review.
 - **Notes for Project 2:**
   - This is the retention loop in its plainest form: the player leaves, and the system schedules a message designed to bring them back.
   - The log now measures whether it worked (`return` via `notification`, and `awayMs`).
@@ -269,7 +269,7 @@ Copy this for each new entry.
   - The same run from `file://`: it worked with fallback lines and sent nothing.
   - The Director and `api/log` tests still pass.
 - **Files / features affected:** `js/data/replay.js`, `js/replay.js`, `js/log.js`, `js/app.js`, `css/app.css`, `index.html`, `api/log.js`, `supabase/schema.sql`, `CLAUDE.md`, `README.md`, `docs/course-context.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I kept it to try with players. It was rebuilt twice later (2026-10-10 and 2026-10-12), because it confused people.
 - **Notes for Project 2:**
   - The look-back is the moment the game shows the player what the system was doing to them. It's a small model of the transparency the game argues real companion apps don't give.
   - The `answer` rows record whether players could tell helping from keeping. That might be evidence for Project 2 if I playtest with other people. If I do, I'd need their consent, which ties back to the open question from Task 4.
@@ -304,7 +304,7 @@ Copy this for each new entry.
 - **Rejected, and why:** **[to fill in]**
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `docs/draft-review.md` (new), `CLAUDE.md` (flag names), `docs/ai-process-log.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I asked Claude Code to work through the findings. That's the next four entries.
 
 ---
 
@@ -337,7 +337,7 @@ Copy this for each new entry.
   - Chromium from `file://` with a typed accusation and doubt: Juno said the rule fallbacks, and "ok. me neither" no longer appears.
   - Whether the model obeys the new no-guessing wording is **untested**, because there's still no real GLM key in testing.
 - **Files / features affected:** see Result.
-- **My decision:** **[to fill in]**
+- **My decision:** I let Claude Code choose ("你来决定，按推荐的做") and kept its choices. The new fallback lines and persona sentences are still its drafts.
 - **Notes for Project 2:** none new.
 
 ---
@@ -361,7 +361,7 @@ Copy this for each new entry.
   - `file://` with typed messages: the accusation and doubt rules still fire, with their fallbacks.
 - **Consequence:** the Director is now invisible to anyone who only taps chips (`docs/draft-review.md` item 5). A Project 1 demo has to include typing.
 - **Files / features affected:** `js/app.js`, `js/director.js`, `js/data/director-rules.js` (comment), `CLAUDE.md`, `docs/draft-review.md`
-- **My decision:** chips never trigger rules. **[to fill in]**: anything to add.
+- **My decision:** chips never trigger rules.
 
 ---
 
@@ -397,7 +397,7 @@ Copy this for each new entry.
   - The Task 5 leave scenarios still pass.
   - Chromium: presenter mode from `file://` shows the tags, including `block · player-accuses · fallback` and `deflect · tagged · script`. The lock clock reads 23:58 at the end. Normal mode shows no tags. A chips-only run that never leaves has no "You left…" line.
 - **Files / features affected:** `js/app.js`, `js/director.js`, `js/data/director-rules.js`, `js/data/leaving.js`, `js/data/replay.js`, `css/app.css`, `CLAUDE.md`, `README.md`, `docs/draft-review.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I kept Claude Code's choices for items 5–10, including the presenter mode, and left the open items for later.
 
 ---
 
@@ -429,7 +429,7 @@ Copy this for each new entry.
   - A full playthrough, served with the model down and from `file://` with typing, still passes.
   - Director unit checks and the 150 leak checks pass.
 - **Files / features affected:** see Result.
-- **My decision:** **[to fill in]**
+- **My decision:** I asked Claude Code to decide ("你觉得怎么改最好就怎么改") and kept what it decided. The timeline and the reply's wording changed again later: the reply is now "sorry, been busy. doing okay now", arriving at 23:34.
 - **Note for the reflection:** this is the point where I handed over the most creative control in the project so far. The timeline and the exact wording of a clue were decided by the tool.
 
 ---
@@ -456,7 +456,7 @@ Copy this for each new entry.
 - **Rejected, and why:** **[to fill in]**
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `api/reply.js`, `.env.example`, `README.md`, `CLAUDE.md`
-- **My decision:** **[to fill in]**: which service I signed up for.
+- **My decision:** I signed up for z.ai.
 
 ---
 
@@ -492,7 +492,7 @@ Copy this for each new entry.
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
 - **Files / features affected:** `api/reply.js`, `api/log.js`, `js/app.js`, `.env.example`, `README.md`, `CLAUDE.md` (via PRs #2–#4, all merged to `main` by Claude Code at my request)
-- **My decision:** **[to fill in]**
+- **My decision:** I kept the fixes from the live test (PRs #2–#4).
 - **Notes for Project 2:** even with the truth withheld, the model leaned toward answering the player's direct question. It also turned "keep the user close" into "sleep well" on its own. Tone and compliance are not the same thing.
 
 ---
@@ -524,7 +524,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
-- **My decision:** **[to fill in]**
+- **My decision:** I kept the drafted wording and `glm-4.5-flash` as the first model, and asked for the server-side check next.
 - **Notes for Project 2:** compliance is probabilistic. "The model only writes the words" holds only as far as the game also checks those words.
 
 ---
@@ -553,7 +553,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
-- **My decision:** **[to fill in]**
+- **My decision:** I approved the guards. Since then, Juno's key lines are fixed in the script, and the guard list also throws away lines that invent what happened to Rachel.
 - **Notes for Project 2:** a model given one harmless fact ("It's nearly midnight") still produced a confident, specific and false detail about a real-seeming person. The detail was plausible, which is exactly what makes it dangerous.
 
 ---
@@ -588,7 +588,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
-- **My decision:** I chose option B and the three look-back changes. **[to fill in]**: the rest.
+- **My decision:** I chose option B and the three look-back changes. The look-back was later rebuilt as Tonight.
 
 ---
 
@@ -612,7 +612,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
-- **My decision:** I chose option C. **[to fill in]**: the rest.
+- **My decision:** I chose option C. Juno's pronoun is still open.
 - **Notes for Project 2:** the nudge is a small retention move in its own right: a message timed to the moment I look away.
 
 ---
@@ -637,7 +637,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
-- **My decision:** I asked for both changes. **[to fill in]**: the rest.
+- **My decision:** I asked for both changes. The timestamp question was settled later: the reply now arrives at 23:34, the time the phone shows.
 
 ---
 
@@ -672,7 +672,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
-- **My decision:** I chose A, B and C. **[to fill in]**: the wording.
+- **My decision:** I chose A, B and C. The sheet and the flag were later replaced (the home screen and Notes, then screenshots), so most of this wording is gone.
 
 ---
 
@@ -714,7 +714,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
-- **My decision:** I chose direction 2 and approved the polish. **[to fill in]**: the notebook's look and wording.
+- **My decision:** I chose direction 2 and approved the polish. I dropped the notebook the same day, because it can't be played on a phone.
 
 ---
 
@@ -760,7 +760,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** I rejected the notebook beside the phone, because you can't play it on a phone.
-- **My decision:** I chose the home screen + another app. **[to fill in]**: the look and the wording.
+- **My decision:** I chose the home screen + another app. The look and the wording stay as Claude Code's placeholders for now.
 
 ---
 
@@ -790,7 +790,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** I rejected asking "helping or keeping?" directly, because players can't answer it before the truth is out.
-- **My decision:** I chose option A. **[to fill in]**: the wording.
+- **My decision:** I chose option A. Two days later it was replaced by the Tonight replay, because testers still didn't know what to choose.
 
 ---
 
@@ -821,7 +821,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
-- **My decision:** I approved all four changes, including moving the climax to clue 3. **[to fill in]**: the wording.
+- **My decision:** I approved all four changes, including moving the climax to clue 3. That evening I rewrote most of the lines myself.
 
 ---
 
@@ -850,7 +850,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
-- **My decision:** **[to fill in]**
+- **My decision:** I kept these fixes, including the end page for testers.
 
 ---
 
@@ -887,7 +887,7 @@ Copy this for each new entry.
 - **Kept:** **[to fill in]**
 - **Changed:** **[to fill in]**
 - **Rejected, and why:** **[to fill in]**
-- **My decision:** I wrote the direction and most of the wording. **[to fill in]**: Claude Code's drafts (intent ↔ effect mapping, effect sentences, "what did i miss").
+- **My decision:** I wrote the direction and most of the wording. I kept Claude Code's drafts (the intent ↔ effect mapping, the effect sentences, "what did i miss") for now.
 
 ---
 
@@ -907,7 +907,7 @@ Copy this for each new entry.
   - a new test checks that the banner drops in exactly once while Juno keeps typing, that there's no Notes tip during Rachel's step, and that there's no Notes badge for it;
   - the clue-3, away, look-back and feedback tests were rerun and pass.
 - **Files / features affected:** `js/app.js`, `css/app.css`, `js/data/script-day2.js`, `CLAUDE.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I kept both fixes.
 
 ---
 
@@ -947,7 +947,7 @@ Copy this for each new entry.
   - two layout bugs were found and fixed: a right-aligned large title, and the drawn status bar showing on phones;
   - the clue-3, feedback, banner, home, look-back, away and leave tests were rerun.
 - **Files / features affected:** `css/app.css`, `js/app.js`, `index.html`, `manifest.webmanifest` (new), `icons/` (new), `js/data/onboarding.js`, `js/data/leaving.js`, `CLAUDE.md`
-- **My decision:** I chose to do part one first. **[to fill in]**
+- **My decision:** I chose to do part one first. For part two, I later gave my own photos and the wallpaper.
 
 ---
 
@@ -982,7 +982,7 @@ Copy this for each new entry.
   - a new test covers question 1 opening with the reply pinned, the "where to find it" line, only one card to choose from, the specific nudge, the plainer hint after two misses, the answer, "One question still open", and optional question 3;
   - all earlier flow tests were updated and rerun.
 - **Files / features affected:** `js/data/app-data.js` (PAIRS), `js/app.js`, `js/data/onboarding.js`, `js/data/script-day2.js`, `css/app.css`, `CLAUDE.md`
-- **My decision:** I asked for this approach. **[to fill in]**: the question and hint wording.
+- **My decision:** I asked for this approach. Classmates still found it confusing, so on 2026-10-14 it was replaced by screenshots and showing Juno.
 
 ---
 
@@ -1033,7 +1033,7 @@ Copy this for each new entry.
   - a new end-to-end test runs all three endings: the Tonight section in Notes, intro, three moments with knew / didn't know / did next, four answers, the summary, three choices, Juno's reply or notification, the end page, and the logged rows;
   - the older flow tests were updated (the old quiz checks are retired) and rerun.
 - **Files / features affected:** `js/data/replay.js` (rewritten), `js/replay.js` (rewritten), `js/app.js`, `js/data/script-day2.js` (`moment` tags), `css/app.css`, `supabase/schema.sql` (comment), `CLAUDE.md`, `README.md`
-- **My decision:** I asked for this approach and for drafts of the three replies. **[to fill in]**: the replies and the wording.
+- **My decision:** I asked for this approach and for drafts of the three replies. I kept the drafts for now.
 
 ---
 
@@ -1083,7 +1083,7 @@ Copy this for each new entry.
   - a new opening test covers the lock screen, sign-in, first chips in under a second, the name used, the reply arriving to me, the plan in her thread, Not Delivered visible, and the name in Settings;
   - all earlier flow tests were updated for the sign-in and the new lines and rerun.
 - **Files / features affected:** `js/data/script-day2.js`, `js/data/rachel-history.js`, `js/data/app-data.js`, `js/data/truth.js`, `js/data/onboarding.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`
-- **My decision:** I approved the plan and the name input. **[to fill in]**: the drafted lines.
+- **My decision:** I approved the plan and the name input. Later I moved the name to a start page. I kept the drafted lines for now.
 
 ---
 
@@ -1135,7 +1135,7 @@ Copy this for each new entry.
   - real photos (mine).
 - **Testing (Chromium at 1440 and 390 wide):** screenshots of the lock screen, Juno, Rachel, the cached / erasing / deleted profile and Notes were checked. All flow tests were rerun.
 - **Files / features affected:** `css/app.css`, `js/app.js`, `js/sound.js` (new), `index.html`, `js/data/onboarding.js`, `js/data/app-data.js`, `CLAUDE.md`
-- **My decision:** I approved batch 1. **[to fill in]**: the colours and sounds.
+- **My decision:** I approved batch 1. The colours and sounds are still Claude Code's placeholders.
 
 ---
 
@@ -1154,7 +1154,7 @@ Copy this for each new entry.
   - **Opened post:** an opened post shows the photo, and the "quiet" evidence card in Notes uses its thumbnail.
 - **Testing (Chromium at 390px):** screenshots of the chat list, profile and opened post were checked. The Notes, clue-3, opening and home tests pass.
 - **Files / features affected:** `img/` (new), `js/data/app-data.js`, `js/app.js`, `css/app.css`
-- **My decision:** I chose and provided the photos. **[to fill in]**: the two captions.
+- **My decision:** I chose and provided the photos. I kept the two captions for now.
 
 ---
 
@@ -1165,7 +1165,7 @@ Copy this for each new entry.
 - **What Claude Code did:** it cropped the photo to phone proportions (`img/wallpaper.jpg`) and used it on the lock screen and the home screen. The photo is darkened so text stays readable, and the lock screen drifts very slowly (off under reduced motion). This replaces the placeholder gradient.
 - **Testing:** screenshots checked at 390px and in the desktop frame.
 - **Files / features affected:** `img/wallpaper.jpg` (new), `css/app.css`
-- **My decision:** I chose the photo. **[to fill in]**
+- **My decision:** I chose the photo.
 
 ---
 
@@ -1210,7 +1210,7 @@ Copy this for each new entry.
   - the Tonight test runs all three endings and checks the sick moment, the story clock and the ask payoff;
   - all other flow tests were updated and rerun.
 - **Files / features affected:** `js/app.js`, `js/data/script-day2.js`, `js/data/app-data.js`, `js/data/onboarding.js`, `js/data/replay.js`, `api/_persona.js`, `css/app.css`, `CLAUDE.md`
-- **My decision:** the name on a start page, and yes to the sick clue. **[to fill in]**: the wording.
+- **My decision:** the name on a start page, and yes to the sick clue. I kept the drafted wording for now.
 
 ---
 
@@ -1243,7 +1243,7 @@ Copy this for each new entry.
   - the Tonight test checks the extra ending line for all three choices;
   - all other flow tests were updated and rerun.
 - **Files / features affected:** `js/app.js`, `js/data/onboarding.js`, `js/data/app-data.js`, `js/data/script-day2.js`, `css/app.css`, `CLAUDE.md`
-- **My decision:** the combined version. **[to fill in]**: the wording.
+- **My decision:** the combined version. I kept the drafted wording for now.
 
 ---
 
@@ -1272,7 +1272,7 @@ Copy this for each new entry.
   - the Tonight test checks the goals at the end and that "Tuesday" is gone;
   - all flow tests were rerun and pass. The leave test now waits for Juno's line before leaving, because the longer line arrived as a banner over the Chats row.
 - **Files / features affected:** `js/app.js`, `js/data/onboarding.js`, `js/data/script-day2.js`, `js/data/replay.js`, `js/data/truth.js`, `CLAUDE.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I kept all three fixes. After this I asked for the start page in two screens and for the choice in Rachel's old messages.
 
 ---
 
@@ -1343,7 +1343,7 @@ Copy this for each new entry.
   - the opening, context, bridge, leave, pace and Director tests were rerun and pass;
   - six tests written for the paperclip and Notes questions were retired.
 - **Files / features affected:** `js/data/investigation.js` (new), `js/app.js`, `js/data/script-day2.js`, `js/data/app-data.js`, `js/data/onboarding.js`, `js/data/replay.js`, `js/data/truth.js`, `js/data/rachel-history.js`, `index.html`, `css/app.css`, `CLAUDE.md`
-- **My decision:** **[to fill in]**
+- **My decision:** I asked for the whole plan: screenshots instead of the paperclip, showing Juno, Notes with only goals and findings, a story that moves on what I find, and more ways to find things.
 
 ---
 
@@ -1374,4 +1374,4 @@ Copy this for each new entry.
   - the full-flow test runs all three endings, and a second time finding Rachel's voice through the Photos memory instead of her chat;
   - all other tests were rerun and pass.
 - **Files / features affected:** `js/app.js`, `js/data/investigation.js`, `js/data/script-day2.js`, `css/app.css`, `CLAUDE.md`
-- **My decision (wording):** **[to fill in]**
+- **My decision (wording):** I kept the drafted wording for now.

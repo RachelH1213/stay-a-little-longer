@@ -112,7 +112,10 @@
       const r = await fetch("api/reply", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       const j = await r.json().catch(() => ({}));
       const secs = ((performance.now() - t0) / 1000).toFixed(1);
-      if (!r.ok) return { err: `${j.error || r.status}${j.detail ? ": " + j.detail : ""}`, secs };
+      if (!r.ok) {
+        const how = j.error === "no key" ? " (add this provider's key in Vercel → Settings → Environment Variables, with Preview checked, then redeploy)" : "";
+        return { err: `${j.error || r.status}${j.detail ? ": " + j.detail : ""}${how}`, secs };
+      }
       return { text: j.text, model: j.model, secs, attempts: j.attempts };
     } catch (e) {
       return { err: String(e), secs: ((performance.now() - t0) / 1000).toFixed(1) };

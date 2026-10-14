@@ -1424,3 +1424,34 @@ Copy this for each new entry.
 - **What Claude Code changed:** the default provider is now Claude with `claude-haiku-5-5`, so no extra setting is needed in Vercel. Zhipu and OpenAI can still be chosen with `JUNO_PROVIDER`. The guards and the scripted fallback lines are unchanged.
 - **Testing:** the provider unit tests pass with the new default.
 - **Files / features affected:** `api/_providers.js`, `.env.example`, `CLAUDE.md`
+
+---
+
+### 2026-10-14 — Juno answers what the player actually types
+
+- **Tool / model:** Claude Code. In the game: Claude Haiku 5.5.
+- **What I found:** most of Juno's lines were fixed. When I typed something the script didn't expect, Juno answered beside the point and carried on with the story.
+- **My decision:** start with this part, the technical one, before making the story state-driven with several endings, which first needs my truth document and endings.
+- **What Claude Code built:**
+  - **When the player can type:** whenever Juno isn't typing, including while the story waits for them to find something.
+  - **Sorting the message:** the model first sorts each message: does it answer Juno's question (and which suggestion it's closest to), or is it about Rachel, a doubt, an accusation, leaving, feelings, or something else. Offline or on failure, the suggestions and keywords decide.
+  - **What happens next:**
+    - an answer moves the story on, like tapping a suggestion;
+    - anything else gets a reply and the story waits, with the same suggestions still there;
+    - the game picks what Juno wants to do with each kind (`js/data/conversation.js`), and the Director's rules can still change it;
+    - the model writes the line, knowing Juno's open question so it can steer back.
+  - **Unchanged:** the model still never gets the truth, and the guards still check every line.
+  - **Replaced:** the old "one short reply, then the story moves on anyway" behaviour.
+  - **Typing:** what's being typed no longer disappears when the screen updates.
+- **Wording:** the intent for each kind and the fallback lines in `js/data/conversation.js`, and the new `chat` intent in `api/_persona.js`, are Claude Code drafts.
+- **Testing (Chromium at 390px):**
+  - a new test with fake model responses covers:
+    - off-topic typing gets a reply and the suggestions stay;
+    - a typed answer moves the story on;
+    - chatting during a wait;
+    - "goodnight" through the leaving rule;
+    - the classifier down (keywords decide);
+    - typed text surviving a re-render.
+  - All other tests pass.
+  - **Not yet tested with the real Claude model.**
+- **Files / features affected:** `js/app.js`, `js/data/conversation.js` (new), `js/director.js`, `js/replay.js`, `api/reply.js`, `api/_persona.js`, `index.html`, `CLAUDE.md`

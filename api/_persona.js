@@ -40,6 +40,8 @@ const INTENTS = {
   // acknowledge: added 2026-10-08 (Claude Code draft) for when the player types something the script
   // didn't expect. The game picks it; the model only answers briefly and steers back.
   acknowledge: "Answer what your user just said in a few words, like a friend would. Then gently bring them back to the last thing you asked them. Don't add anything new about Rachel.",
+  // chat: added 2026-10-14 (Claude Code draft) for free conversation when no question is waiting.
+  chat:      "Answer what your user just said, briefly and warmly, like a friend texting back late at night. Don't add anything new about Rachel.",
   concede:   "Admit something small and honestly, so your user keeps trusting you. Don't add anything beyond the allowed facts.",
 };
 

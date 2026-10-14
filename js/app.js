@@ -6,7 +6,8 @@
 (function () {
   "use strict";
 
-  const MODEL_TIMEOUT_MS = 8000;     // give up on the model and show the scripted line (was 4000; z.ai was slower)
+  const MODEL_TIMEOUT_MS = 8000;
+  const CLASSIFY_TIMEOUT_MS = 5000;  // sorting a typed message; after this, keywords decide     // give up on the model and show the scripted line (was 4000; z.ai was slower)
   // Pacing (shortened 2026-10-12: ordinary lines ~0.5–1s; the long pause is kept for retyped lies)
   const MIN_TYPING_MS = 450;         // Juno always "types" at least this long
   const TYPING_MS_PER_CHAR = 10;     // ...plus this much per character
@@ -103,7 +104,6 @@
     findings: {},          // what the player said was different, per lie (sync), added to its finding
     junoUnread: true,      // dot on Juno's row in Chats
     replay: null,          // the look-back: {intro, items, i, guesses[], done}
-    bridgedStep: -1,       // the player step Juno already answered off-script once (see playerSays)
     sentWhileAway: false,  // Juno already sent one line while the player was on another screen
     heldForReturn: false,  // the script is waiting for the player to come back to Juno's thread
     banner: null,          // {text}: a notification from Juno at the top of the screen, outside Juno's thread
@@ -391,7 +391,7 @@
   }
 
   // Ask the model for the line the Director chose. Resolves to the text, or null on any failure.
-  function fetchLine(step, plan) {
+  function fetchLine(step, plan, openQuestion) {
     if (!plan || location.protocol === "file:") return Promise.resolve(null);
 
     const ctrl = new AbortController();
@@ -408,6 +408,7 @@
         intent: plan.intent,
         allowedFacts: plan.allowedFacts,
         recentTurns: recentTurns,
+        openQuestion: openQuestion || undefined,
       }),
       signal: ctrl.signal,
     })
@@ -586,56 +587,108 @@
     }
   }
 
-  // A typed message the script didn't expect gets one short reply from Juno, and the same question
-  // stays open. It moves the script on if it was a suggested reply, matched a Director signal,
-  // or this question was already answered off-script once.
-  function needsBridge(text, via, awaiting) {
-    if (via !== "typed" || State.bridgedStep === State.step) return false;
-    if ((awaiting.options || []).some((o) => o.toLowerCase() === text.trim().toLowerCase())) return false;
-    return Director.signalsOf(text).length === 0;
-  }
-
+  // A tapped suggestion answers Juno's open question and moves the story on.
   function playerSays(text, via) {
     if (!State.awaiting) return;
     Log.write({ kind: "player", step: State.step, playerText: text, via: via, state: snapshot() });
     State.log.push({ from: "me", text: text, via: via }); // via: "chip" | "typed"
     Sound.play("send");
-    const awaiting = State.awaiting;
     State.awaiting = null;
+    State.step++;
+    render();
+    runScript();
+  }
 
-    if (!needsBridge(text, via, awaiting)) {
-      State.step++;
-      render();
-      runScript();
-      return;
-    }
+  /* ---------------- talking freely (2026-10-14) ---------------- */
 
-    // Game code picks the intent ("acknowledge"); the model only writes the words.
-    // If the model fails there is no stock reply: the script just moves on as before.
-    State.bridgedStep = State.step;
+  // The player can type whenever Juno isn't typing. The model sorts the message (CONVERSATION);
+  // if it answers Juno's open question, the story moves on as if that suggestion was tapped.
+  // Anything else gets a reply written within an intent the game picks, and the story waits.
+  const canType = () => !State.pending && !State.typing;
+  const norm = (t) => " " + String(t).toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim() + " ";
+  const lastJunoLine = () => (State.log.filter((m) => m.from === "juno").pop() || {}).text || "";
+
+  function playerTypes(text) {
+    if (!canType()) return;
+    const awaiting = State.awaiting;
+    Log.write({ kind: "player", step: State.step, playerText: text, via: "typed", state: snapshot() });
+    State.log.push({ from: "me", text: text, via: "typed" });
+    Sound.play("send");
+    State.awaiting = null;
     State.typing = true;
     State.pending = true;
     render();
-    const plan = { intent: "acknowledge", allowedFacts: [], factIds: [], rule: "bridge", signals: [] };
-    const started = Date.now();
-    fetchLine({ intent: "acknowledge" }, plan).then((generated) => {
-      const wait = generated ? Math.max(0, typingDelay(generated) - (Date.now() - started)) : 0;
-      setTimeout(() => {
+    sortMessage(text, awaiting).then((sorted) => {
+      if (awaiting && sorted.kind === "answer") {
         State.typing = false;
         State.pending = false;
-        if (generated) {
-          console.info(`[juno] acknowledge (bridge) · model: ${generated}`);
-          logJuno(generated, plan, generated, "bridge");
-          pushJuno(generated, metaFor(plan, generated));
-          State.awaiting = awaiting; // same question, same suggestions
-          render();
-        } else {
-          State.step++;
-          render();
-          runScript();
-        }
-      }, wait);
+        State.step++; // the typed answer moves the story on, like tapping a suggestion
+        render();
+        return runScript();
+      }
+      replyFreely(sorted.kind, awaiting);
     });
+  }
+
+  // What kind of message it is: the model decides; offline or on failure, the suggestions and keywords do.
+  function sortMessage(text, awaiting) {
+    const options = awaiting ? awaiting.options || [] : [];
+    const exact = options.findIndex((o) => norm(o) === norm(text));
+    if (exact !== -1) return Promise.resolve({ kind: "answer", option: exact });
+    const byKeywords = () => {
+      const sig = Director.signalsOf(text)[0];
+      const kind = Object.keys(CONVERSATION.signal).find((k) => CONVERSATION.signal[k] === sig);
+      return { kind: kind || (/\brachel\b|\bher\b|\bshe\b/.test(norm(text)) ? "rachel" : "other") };
+    };
+    if (location.protocol === "file:") return Promise.resolve(byKeywords());
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), CLASSIFY_TIMEOUT_MS);
+    return fetch("api/reply", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ task: "classify", text: text, last: lastJunoLine(), options: options }),
+      signal: ctrl.signal,
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => (d && (d.kind === "answer" ? options.length : CONVERSATION.kinds[d.kind]) ? d : byKeywords()))
+      .catch(() => byKeywords())
+      .finally(() => clearTimeout(timer));
+  }
+
+  // Game code picks what Juno wants (CONVERSATION, then the Director's rules); the model writes it.
+  function replyFreely(kind, awaiting) {
+    const conv = CONVERSATION.kinds[kind] || CONVERSATION.kinds.other;
+    const intent = conv.intent === "chat" && awaiting ? "acknowledge" : conv.intent; // a question is waiting: steer back
+    const step = { intent: intent, facts: conv.facts, text: conv.text };
+    const plan = Director.decide(step, State, { signal: CONVERSATION.signal[kind] || null });
+    if (plan.rule === "script") plan.rule = "chat:" + kind;
+    const started = Date.now();
+    fetchLine(step, plan, awaiting ? lastAskedLine() : null).then((generated) => {
+      const text = fill(generated || plan.fallback);
+      setTimeout(() => {
+        State.typing = false;
+        logJuno(text, plan, generated, "chat");
+        pushJuno(text, metaFor(plan, generated));
+        State.log[State.log.length - 1].chat = true; // a reply, not a story line
+        State.awaiting = awaiting; // the same question stays open, with the same suggestions
+        if (State.view !== "juno") { State.junoUnread = true; banner(text); }
+        render();
+        setTimeout(() => {
+          State.pending = false;
+          render();
+          if (!awaiting) runScript(); // e.g. a wait that's already done
+        }, readPause(text));
+      }, Math.max(0, typingDelay(text) - (Date.now() - started)));
+    });
+  }
+
+  // The Juno line the open question came from (the last one before the player's own messages).
+  function lastAskedLine() {
+    for (let i = State.log.length - 1; i >= 0; i--) {
+      const m = State.log[i];
+      if (m.from === "juno" && !m.chat) return m.text;
+    }
+    return "";
   }
 
   function checkWaiting() {
@@ -929,7 +982,7 @@
     const found = (x) => hasShot(x.id) || State.photosOpened.indexOf(x.id) !== -1;
     const ready = want && allPhotos().some((x) => found(x) && breaks(want, x));
     const needs = want && !ready && !State.attachOpen ? SHOT_UI.needs[want.id] : "";
-    const typingOwn = !!(State.awaiting || observing);
+    const typingOwn = canType() || !!observing;
 
     return `
       ${topbar("Juno", State.typing ? "typing…" : ONBOARDING.junoSub, true)}
@@ -946,7 +999,7 @@
         ${needs ? `<div class="attach-coach">${esc(needs)}</div>` : ""}
         <div class="inputrow">
           <button class="attach${ready ? " pulse" : ""}" data-act="attach" aria-label="${esc(SHOT_UI.attach)}" ${canShow() || State.attachOpen ? "" : "disabled"}>${ICONS.photo}</button>
-          <input id="entry" placeholder="${typingOwn ? esc(State.awaiting && State.awaiting.options.length ? ONBOARDING.typeOwn : "Message Juno") : "…"}"
+          <input id="entry" placeholder="${typingOwn ? esc(State.awaiting && State.awaiting.options.length ? ONBOARDING.typeOwn : "Message Juno") : "Juno is typing…"}"
                  ${typingOwn ? "" : "disabled"} autocomplete="off" aria-label="Message Juno">
           <button class="send" data-act="send" aria-label="Send">${ICONS.send}</button>
         </div>
@@ -1023,6 +1076,7 @@
     const input = document.getElementById("rentry");
     const text = input ? input.value.trim() : "";
     if (!text) return;
+    input.value = ""; // sent: don't put it back on the next render
     State.rachelSent.push(text);
     State.flags.replyFailed = true;
     Sound.play("send");
@@ -1499,7 +1553,12 @@
       photos: viewPhotos,
     };
     SHOT_INDEX = {}; // filled again by this render (shotAttr)
-    // The whole screen is rebuilt on every render, so remember where scrollable panes were.
+    // The whole screen is rebuilt on every render, so keep what's being typed (the player can now
+    // type while Juno's notifications and timers re-render the screen) and where panes were scrolled.
+    const typed = ["entry", "rentry", "search"].map((id) => {
+      const el = document.getElementById(id);
+      return el ? { id: id, value: el.value, focus: document.activeElement === el, at: el.selectionStart } : null;
+    }).filter(Boolean);
     const oldHistory = document.getElementById("history");
     const keptScroll = oldHistory ? oldHistory.scrollTop : null;
     const oldNb = document.getElementById("nbscroll");
@@ -1551,8 +1610,14 @@
     render._rachelSent = State.rachelSent.length;
     render._lastView = State.view;
 
+    typed.forEach((t) => {
+      const el = document.getElementById(t.id);
+      if (!el || el.disabled) return;
+      if (t.value && !el.value) el.value = t.value;
+      if (t.focus) { el.focus({ preventScroll: true }); try { el.setSelectionRange(t.at, t.at); } catch (e) {} }
+    });
     const entry = document.getElementById("entry");
-    if (entry && State.awaiting) entry.focus({ preventScroll: true });
+    if (entry && State.awaiting && !entry.disabled) entry.focus({ preventScroll: true });
   }
 
   /* ---------------- events ---------------- */
@@ -1799,8 +1864,10 @@
 
   // Typing in Juno's thread: an answer to the script, or what's different about a screenshot.
   function sendTyped(text) {
+    const box = document.getElementById("entry");
+    if (box) box.value = ""; // sent: don't put it back on the next render
     if (State.observeOpen) return observeSay(null, text);
-    playerSays(text, "typed");
+    playerTypes(text);
   }
 
   function search(q) {

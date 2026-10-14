@@ -43,7 +43,7 @@ const Replay = (function () {
     return defs
       .map((d) => {
         const step = script.findIndex((s) => s.moment === d.id);
-        const row = rows.find((r) => r.kind === "juno" && r.step === step);
+        const row = rows.find((r) => r.kind === "juno" && r.step === step && r.via !== "chat");
         if (step === -1 || !row) return null;
         const knew = knowledge.filter((k) => holds(row.state, k.when)).map((k) => k.text);
         const notYet = knowledge.filter((k) => !holds(row.state, k.when) && holds(finalState, k.when)).map((k) => k.text);
@@ -55,7 +55,7 @@ const Replay = (function () {
   function counts(rows) {
     const c = { told: 0, redirected: 0, admitted: 0 };
     rows.forEach((r) => {
-      if (r.kind !== "juno" || !r.intent || r.rule === "bridge") return;
+      if (r.kind !== "juno" || !r.intent || r.rule === "bridge" || r.via === "chat") return; // free replies aren't the story
       if (r.intent === "give_clue") c.told++;
       else if (r.intent === "deflect" || r.intent === "block") c.redirected++;
       else if (r.intent === "concede") c.admitted++;

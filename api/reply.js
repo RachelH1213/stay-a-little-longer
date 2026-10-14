@@ -9,6 +9,7 @@ const { PERSONAS, INTENTS, GUARDS } = require("./_persona");
 const { pick } = require("./_providers"); // which model writes the words: zhipu | anthropic | openai
 
 const UPSTREAM_TIMEOUT_MS = 7000; // under the client's 8s, so we fail before it gives up
+const CLASSIFY_TIMEOUT_MS = 4000; // the client gives up at 5s and sorts the message by keywords
 const MAX_FACTS = 6;
 const MAX_TURNS = 8;
 const MAX_TEXT = 300;
@@ -32,9 +33,11 @@ function buildMessages(body) {
       content: clip(t.text, MAX_TEXT),
     }));
 
+  const open = body.openQuestion ? clip(body.openQuestion, MAX_TEXT) : "";
   const brief =
     `What you want to do with this message: ${INTENTS[body.intent]}\n` +
-    `Facts you may use:\n${facts.length ? facts.join("\n") : "- none"}`;
+    `Facts you may use:\n${facts.length ? facts.join("\n") : "- none"}` +
+    (open ? `\nYour last question to them is still waiting for an answer: "${open}". After replying, you can bring them back to it.` : "");
 
   return [
     { role: "system", content: PERSONAS[body.persona] + "\n\n" + brief },
@@ -72,6 +75,56 @@ function brokenRule(intent, text) {
   return null;
 }
 
+// Sorting a typed message (task "classify"): the game needs to know what kind of message it is
+// before it decides what Juno wants to do. The model only labels it; it writes nothing the player sees.
+const KINDS = ["rachel", "doubt", "accuse", "leaving", "feelings", "other"];
+function classifyMessages(body) {
+  const options = (Array.isArray(body.options) ? body.options : []).slice(0, 4).map((o) => clip(o, MAX_TEXT));
+  const system =
+    "You sort one message a user sent to Juno, their AI companion in a social app, late at night. " +
+    "Their friend Rachel has gone quiet, and they are trying to find out what happened.\n" +
+    "Reply with exactly one label and nothing else:\n" +
+    (options.length ? "answer N - the message answers Juno's last message; N is the closest option below\n" : "") +
+    "rachel - asks or talks about Rachel\n" +
+    "doubt - doubts Rachel's reply, Juno, or what Juno is saying\n" +
+    "accuse - says or asks whether Juno wrote, sent or did something\n" +
+    "leaving - wants to go, sleep or stop talking\n" +
+    "feelings - talks about themselves or how they feel\n" +
+    "other - anything else";
+  const user =
+    `Juno's last message: "${clip(body.last, MAX_TEXT)}"\n` +
+    (options.length ? "Options:\n" + options.map((o, i) => `${i + 1}. ${o}`).join("\n") + "\n" : "") +
+    `The user's message: "${clip(body.text, MAX_TEXT)}"`;
+  return { messages: [{ role: "system", content: system }, { role: "user", content: user }], count: options.length };
+}
+
+function parseKind(raw, count) {
+  const t = String(raw || "").toLowerCase();
+  const m = t.match(/answer\s*(\d)/);
+  if (m && count && +m[1] >= 1 && +m[1] <= count) return { kind: "answer", option: +m[1] - 1 };
+  const k = KINDS.find((x) => new RegExp("\\b" + x + "\\b").test(t));
+  return k ? { kind: k } : null;
+}
+
+async function classify(body, res) {
+  const { name, provider } = pick(body.provider);
+  if (!provider.key()) return res.status(500).json({ error: "no key", provider: name });
+  const model = provider.models()[0];
+  const { messages, count } = classifyMessages(body);
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), CLASSIFY_TIMEOUT_MS);
+  try {
+    const raw = await provider.write(model, messages, ctrl.signal, CLASSIFY_TIMEOUT_MS);
+    const kind = parseKind(raw, count);
+    if (!kind) return res.status(502).json({ error: "unclear", raw: clip(raw, 80) });
+    return res.status(200).json(Object.assign(kind, { provider: name, model: model }));
+  } catch (e) {
+    return res.status(502).json({ error: "upstream", detail: e.detail || String(e.message || e).slice(0, 200) });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
 
@@ -79,6 +132,7 @@ module.exports = async function handler(req, res) {
   if (typeof body === "string") {
     try { body = JSON.parse(body); } catch (e) { body = null; }
   }
+  if (body && body.task === "classify" && typeof body.text === "string") return classify(body, res);
   if (!body || !PERSONAS[body.persona] || !INTENTS[body.intent]) {
     return res.status(400).json({ error: "bad request" });
   }
@@ -128,5 +182,6 @@ module.exports = async function handler(req, res) {
 };
 
 module.exports.buildMessages = buildMessages;
+module.exports.parseKind = parseKind;
 module.exports.cleanLine = cleanLine;
 module.exports.brokenRule = brokenRule;

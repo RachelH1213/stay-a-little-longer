@@ -86,6 +86,7 @@ Plain `<script>` tags and globals on purpose, so the file opens from disk withou
 - **Time is the story's time.** The status bar clock moves with the script (`clock` steps, the notification's own time); "Tonight" reports the story's clock (23:31 to 23:58), never real playing time.
 - **Let the player find it.** No character states a contradiction the player is meant to work out, and the game doesn't announce motives: Juno's manipulation shows in how it talks (warm and needy at first, precise and technical when questioned, intimate again at the end), and the look-back describes what each message *did*, not what Juno "really" meant. (The author's direction, 2026-10-12.)
 - Times in the fiction are fixed strings, not `new Date()`, so screenshots stay reproducible.
+- **Going online:** changes collect on the working branch. Open one PR to `main` (which Vercel deploys) only when the author wants to test or show the game, not after every change. Commit messages and PR descriptions are one or two plain sentences about what changed.
 
 ## State
 

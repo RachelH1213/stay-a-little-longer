@@ -1614,3 +1614,28 @@ Copy this for each new entry.
 - **Not checked visually:** LibreOffice couldn't open files in this environment, so the edited slides weren't rendered here. The file passed the structure check.
 - **Left for me:** the precedent images, the before/after image on the user-test slide, and checking the 37% figure against the paper.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Midterm slides rebuilt: the project, how the demo plays, one slide per user-test problem, the full game
+
+- **Tool / model:** Claude Code.
+- **What I asked:** my slides didn't explain:
+  - what the project is;
+  - how the demo is actually played;
+  - what the user tests said and what I changed (one slide per problem, with room for before/after images);
+  - what the finished game will be and how I'll build it.
+- **What Claude Code made:** a new 25-slide deck in the same dark style, with speaker notes:
+  - **My own slides, kept:** where this started, the research, the precedents (now on one slide).
+  - **The project:** what the game is, and who's on the phone.
+  - **The demo:** the play loop, the demo step by step, the night's limits.
+  - **The system:** how Juno's replies are made.
+  - **User testing:** eight problems, one slide each. Each has what I heard (with its source and date, from this log), what I changed, and BEFORE / AFTER phone frames.
+  - **The full game:** the finished game, the three nights, leaving and the data export, the four endings, and a build plan (Nov 5, Dec 10, spring).
+  - **Feedback questions and sources.**
+- **Images:**
+  - **After:** screenshots taken from the current game.
+  - **Before:** taken from older versions in git history (the Oct 12 opening, the Notes with questions and cards, the paperclip, a screen with no battery).
+  - **Left empty for me:** three before-frames (the old screenshot button, the old look-back quiz, Juno agreeing that Rachel is dead) and the three precedent images.
+- **Checking:** LibreOffice doesn't work in this environment, so Claude Code wrote a rough renderer (Liberation Sans, the same widths as Arial) to check for text overflow and layout. The file passed the structure check.
+- **My decision:** [to fill in]

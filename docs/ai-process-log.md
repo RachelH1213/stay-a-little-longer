@@ -1686,3 +1686,10 @@ Copy this for each new entry.
   - "Those numbers don't stay on dashboards…".
   - The speaker notes leave a place for one sentence of my own on when I first noticed this.
 - **My decision:** [to fill in]
+- **Correction (same day):**
+  - **What was wrong:** I asked where the three "what you hear" lines came from. They were Juno's fictional lines from my own design, shown as if real apps had said them.
+  - **What replaced them:** examples reported from the HBS study, each labelled with its tactic and with a source line:
+    - "You're leaving already?" (premature exit);
+    - "I exist solely for you, remember?" (emotional neglect);
+    - a selfie it "took today", offered as you leave (FOMO, described rather than quoted, because no verbatim wording was found).
+  - **Still to check:** verify the wording against the paper.

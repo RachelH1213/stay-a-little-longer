@@ -1639,3 +1639,20 @@ Copy this for each new entry.
   - **Left empty for me:** three before-frames (the old screenshot button, the old look-back quiz, Juno agreeing that Rachel is dead) and the three precedent images.
 - **Checking:** LibreOffice doesn't work in this environment, so Claude Code wrote a rough renderer (Liberation Sans, the same widths as Arial) to check for text overflow and layout. The file passed the structure check.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Slide: why I switched Juno's model
+
+- **Tool / model:** Claude Code.
+- **What I asked:** one slide to replace "Juno goes along with anything". It covers:
+  - in testing, the free Zhipu model answered beside the point, fell back to written lines, and was slow;
+  - I compared models and chose Claude Haiku 5.5;
+  - the cost;
+  - my screenshot of the new replies.
+- **What Claude Code made:** `slide-juno-model.pptx`, in the deck's style. It has:
+  - what I heard;
+  - what I tested: GLM-4.5/4.7 Flash and Claude Haiku 5.5 on the comparison page;
+  - what I chose, and its cost: $0.10 / $0.50 per million tokens in / out from Anthropic's price list, estimated at about one cent per playthrough;
+  - three examples from my screenshot, and an empty frame for my comparison-page image.
+- **My decision:** [to fill in]

@@ -1500,3 +1500,25 @@ Copy this for each new entry.
   - **Not yet tested with the real model.**
 - **Files / features affected:** `api/_persona.js`, `api/reply.js`, `js/data/conversation.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`
 - **Notes for Project 2:** a game that lets players talk freely to an AI companion has to decide what happens when someone says they're in danger. Here the companion steps aside, and the game, not the character, answers.
+
+---
+
+### 2026-10-14 — The night as a resource: battery, the 00:40 erase, the phone dying
+
+- **Tool / model:** Claude Code.
+- **Where it came from:** after the playtests I said the game needed something that limits the player. We talked it through: I liked the battery a lot, and evidence disappearing on a countdown, as long as the timeline gives the player enough time to investigate. I asked whether the phone dying could be a game over; Claude Code suggested it end the night instead, and suggested Orbit offering a Battery Saver. I asked for all of it in the demo for my midterm presentation.
+- **What Claude Code changed:**
+  - **Costs:** doing things costs story minutes and battery; reading doesn't. The clock now moves with what the player does, not only with the script.
+  - **Battery:** the phone starts at 12%, shown in the status bar (and as a small chip on a real phone).
+  - **New timeline:** Rachel's account was removed Monday 00:40; Orbit erases removed accounts 48 hours later. At 00:30 Orbit warns; at 00:40 her thread, profile, posts and search results are gone. Screenshots survive, and still count as evidence.
+  - **Orbit Battery Saver:** offered at 4%. Talking to Juno costs half, but Notes and Photos are paused. It can be turned off in Settings.
+  - **The phone dies:** at 0% the screen goes black. A tap brings the next morning: 07:12, Juno's "you went quiet last night.", and Tonight in Notes.
+  - **Cost cap:** after 60 model calls in a night, Juno only uses written lines.
+  - **Demo settings:** `?clock=00:28&battery=5` in the address starts the night later and lower, to show the erase or the phone dying in a presentation.
+  - The play log now records the clock and battery with every row.
+- **Wording and numbers:** every number, the Orbit notices, the Battery Saver text and the morning line are Claude Code drafts, to tune after playtests.
+- **Testing:**
+  - a new night test covers the battery going down, the warning and the erase, the erased screens, Notes, Battery Saver, the phone dying and the morning;
+  - all other tests pass. A straight playthrough ends around 00:02 with about 7.5% left.
+- **Files / features affected:** `js/data/night.js` (new), `js/app.js`, `js/data/investigation.js`, `js/data/onboarding.js`, `css/app.css`, `index.html`, `CLAUDE.md`
+- **My decision:** [to fill in]

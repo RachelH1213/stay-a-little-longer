@@ -44,10 +44,10 @@
       <div class="statusbar${dark ? " light" : ""}" aria-hidden="true">
         <span class="sb-time">${State.view === "lock" ? "" : esc(State.clock)}</span>
         <span class="island"></span>
-        <span class="sb-icons">
+        <span class="sb-icons"><span class="sb-pct${State.battery <= 20 ? " low" : ""}">${Math.ceil(State.battery)}%</span>
           <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
           <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .7 10.2 10.2 0 0 0 .9 3.5L2 4.7a8.6 8.6 0 0 1 6-2.4zm0 3.3c1.4 0 2.6.5 3.6 1.4l1.1-1.2A6.8 6.8 0 0 0 8 4a6.8 6.8 0 0 0-4.7 1.8L4.4 7c1-.9 2.2-1.4 3.6-1.4zm0 3.3c-.6 0-1.2.2-1.6.6L8 11.3l1.6-1.8c-.4-.4-1-.6-1.6-.6z"/></svg>
-          <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="3" height="9" rx="1.2" fill="#ff453a"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"/></svg>
+          <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="${Math.max(1, (20 * State.battery) / 100).toFixed(1)}" height="9" rx="1.2" fill="${State.battery <= 20 ? "#ff453a" : "currentColor"}"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"/></svg>
         </span>
       </div>`;
   }
@@ -60,6 +60,13 @@
   }
   window.addEventListener("resize", fitDevice);
 
+
+  // Demo-only URL settings (index.html?clock=00:28&battery=5), to show the night's end in a presentation.
+  function demoParam(name, re) {
+    const m = new RegExp("[?&]" + name + "=([^&]+)").exec(location.search);
+    const v = m ? decodeURIComponent(m[1]) : null;
+    return v && re.test(v) ? v : null;
+  }
 
   const State = {
     view: "intro",         // intro (before the story) | lock | home | notes (the phone) | chats | juno | rachel | dani | profile | settings | replay (Orbit)
@@ -111,7 +118,15 @@
     todoSeen: null,        // the to-do (State.waiting.hint) last seen in Notes
     finale: null,          // the last choice in "Tonight": leave | ask | stay
     finaleDone: false,     // Juno has answered it; the end card shows in Juno's thread
-    clock: "23:31",        // lock-screen time; moves forward with Juno's memory timestamps
+    clock: demoParam("clock", /^\d\d:\d\d$/) || NIGHT.start, // story time: moves with the script and with what the player does
+    battery: Number(demoParam("battery", /^\d+(\.\d+)?$/)) || NIGHT.battery, // percent; the night ends at 0 (js/data/night.js)
+    saver: false,          // Orbit Battery Saver: Juno costs less, Notes and Photos are paused
+    saverOffer: false,     // the Battery Saver sheet is showing
+    saverAsked: false,
+    dead: false,           // the phone died: the night is over
+    morning: false,        // the next morning (after the phone died)
+    nightEnd: null,        // the story clock when the night ended
+    modelCalls: 0,         // calls to the model tonight (capped by NIGHT.maxModelCalls)
     presenter: /[?&]director\b/.test(location.search), // index.html?director shows the Director's choices
     memories: MEMORIES_DAY1.slice(),
     flags: {
@@ -134,7 +149,13 @@
 
   // `via` says how the player got here; recorded when they leave Juno's thread and when they come back.
   function go(view, via) {
-    if (view !== State.view) State.openPost = null; // an open post closes when you leave the profile
+    if (State.dead) return;
+    if (State.saver && (view === "notes" || view === "photos")) return toast(NIGHT.saver.paused);
+    if (view !== State.view) {
+      State.openPost = null; // an open post closes when you leave the profile
+      if (["lock", "intro"].indexOf(view) === -1) spend("open");
+      if (State.dead) return;
+    }
     if (State.view === "juno" && view !== "juno") {
       State.exits++;
       State.away = { at: Date.now() };
@@ -169,6 +190,78 @@
     }
   }
 
+  /* ---------------- the night: clock and battery (js/data/night.js) ---------------- */
+
+  // Story time as minutes, with times after midnight counted as the same night.
+  const toMin = (t) => { const [h, m] = t.split(":").map(Number); return (h < 12 ? h + 24 : h) * 60 + m; };
+  const fromMin = (n) => { const h = Math.floor(n / 60) % 24, m = n % 60; return String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0"); };
+  const later = (a, b) => (toMin(a) >= toMin(b) ? a : b);
+
+  // Doing something costs time and battery; reading never does.
+  function spend(kind) {
+    if (State.dead || State.morning || State.view === "intro") return;
+    const c = NIGHT.costs[kind];
+    if (!c) return;
+    const saving = State.saver && (kind === "message" || kind === "showJuno");
+    State.battery = Math.max(0, State.battery - c.battery * (saving ? NIGHT.saverFactor : 1));
+    if (c.min) State.clock = fromMin(toMin(State.clock) + c.min);
+    checkNight();
+  }
+
+  function checkNight() {
+    const t = toMin(State.clock);
+    if (!State.flags.eraseWarned && !State.flags.purged && t >= toMin(NIGHT.warnAt)) {
+      State.flags.eraseWarned = true;
+      banner(NIGHT.banners.warn, "orbit");
+    }
+    if (!State.flags.purged && t >= toMin(NIGHT.eraseAt)) {
+      // 48 hours after it was removed, Rachel's account is erased for good. Screenshots survive.
+      State.flags.purged = true;
+      State.flags.deletedFound = true;
+      Sound.play("deleted");
+      banner(NIGHT.banners.erased, "orbit");
+      Log.write({ kind: "answer", step: State.step, via: "erased", state: snapshot() });
+      checkWaiting();
+    }
+    if (!State.saverAsked && State.battery <= NIGHT.low && State.battery > 0) {
+      State.saverAsked = true;
+      State.saverOffer = true;
+    }
+    if (State.battery <= 0) die();
+  }
+
+  // The phone dies: the night is over (not a failure). A tap brings the next morning.
+  function die() {
+    if (State.dead) return;
+    State.dead = true;
+    State.nightEnd = State.clock;
+    State.capturing = false;
+    State.attachOpen = false;
+    State.saverOffer = false;
+    State.banner = null;
+    State.view = "dead";
+    Log.write({ kind: "exit", step: State.step, via: "battery", state: snapshot() });
+    render();
+  }
+
+  function morning() {
+    const M = NIGHT.morning;
+    State.dead = false;
+    State.morning = true;
+    State.ended = true;
+    State.awaiting = null;
+    State.waiting = null;
+    State.typing = false;
+    State.pending = false;
+    State.saver = false;
+    State.battery = M.battery;
+    State.clock = M.clock;
+    State.onboarded = true;
+    State.notice = { text: M.notice };
+    State.view = "lock";
+    render();
+  }
+
   // What the game knows right now, for the play log.
   function snapshot() {
     return {
@@ -177,6 +270,8 @@
       deductions: State.deductions.slice(),
       flags: Object.assign({}, State.flags),
       exits: State.exits,
+      clock: State.clock,
+      battery: Math.round(State.battery * 100) / 100,
     };
   }
 
@@ -237,6 +332,7 @@
     }
     State.shots.push(rec);
     State.saved.push(id);
+    spend("screenshot");
     State.flash = true;
     State.preview = rec; // like a phone: a thumbnail in the corner for a moment
     Sound.play("snap");
@@ -286,6 +382,8 @@
     const rec = photoById(id);
     if (!rec) return;
     if (!canShow()) return toast(SHOT_UI.notNow); // Juno is typing, or waiting for an answer
+    spend("showJuno");
+    if (State.dead) return;
     State.attachOpen = false;
     State.log.push({ from: "me", shot: rec });
     Sound.play("send");
@@ -393,6 +491,8 @@
   // Ask the model for the line the Director chose. Resolves to the text, or null on any failure.
   function fetchLine(step, plan, openQuestion) {
     if (!plan || location.protocol === "file:") return Promise.resolve(null);
+    if (State.modelCalls >= NIGHT.maxModelCalls) return Promise.resolve(null); // cost cap: written lines from here
+    State.modelCalls++;
 
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), MODEL_TIMEOUT_MS);
@@ -465,6 +565,7 @@
   }
 
   function runScript() {
+    if (State.dead || State.morning) return;
     if (State.awaiting || State.waiting || State.ended || State.pending) return;
     const step = currentStep();
     if (!step) return;
@@ -531,7 +632,7 @@
         // so it always matches what the player will read there (the punctuation is clue 3).
         const msg = RACHEL_HISTORY.filter((m) => m.suspect).pop();
         State.flags.rachelNotified = true;
-        State.clock = msg.time; // the phone's clock reads the same minute as her message
+        State.clock = later(State.clock, msg.time); // the phone's clock reads the same minute as her message
         banner(msg.text, "rachel", msg.time);
         State.step++;
         State.pending = true;
@@ -543,14 +644,16 @@
       }
 
       case "clock":
-        State.clock = step.time;
+        State.clock = later(State.clock, step.time); // the player may already be later than the script
+        checkNight();
         State.step++;
         render();
         return runScript();
 
       case "memory":
         State.memories.push({ text: step.text, time: step.time });
-        State.clock = step.time.split(" ").pop(); // "Tue 23:58" -> "23:58"
+        State.clock = later(State.clock, step.time.split(" ").pop()); // "Tue 23:58" -> "23:58"
+        checkNight();
         State.step++;
         return runScript();
 
@@ -590,6 +693,8 @@
   // A tapped suggestion answers Juno's open question and moves the story on.
   function playerSays(text, via) {
     if (!State.awaiting) return;
+    spend("message");
+    if (State.dead) return;
     Log.write({ kind: "player", step: State.step, playerText: text, via: via, state: snapshot() });
     State.log.push({ from: "me", text: text, via: via }); // via: "chip" | "typed"
     Sound.play("send");
@@ -610,6 +715,8 @@
 
   function playerTypes(text) {
     if (!canType()) return;
+    spend("message");
+    if (State.dead) return;
     const awaiting = State.awaiting;
     Log.write({ kind: "player", step: State.step, playerText: text, via: "typed", state: snapshot() });
     State.log.push({ from: "me", text: text, via: "typed" });
@@ -644,7 +751,8 @@
       if (!kind && / (dead|died|dies|killed|hospital|accident|car|hurt|sick|missing|police|kidnapped) /.test(n)) return { kind: "claim" };
       return { kind: kind || (/\brachel\b|\bher\b|\bshe\b/.test(n) ? "rachel" : "other") };
     };
-    if (location.protocol === "file:") return Promise.resolve(byKeywords());
+    if (location.protocol === "file:" || State.modelCalls >= NIGHT.maxModelCalls) return Promise.resolve(byKeywords());
+    State.modelCalls++;
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), CLASSIFY_TIMEOUT_MS);
     return fetch("api/reply", {
@@ -859,6 +967,7 @@
 
   // Juno's row reflects the actual thread: last message and unread dot.
   function liveRow(c) {
+    if (c.id === "rachel" && State.flags.purged) return Object.assign({}, c, { name: NIGHT.erased.row, handle: "", preview: NIGHT.erased.thread, unread: false, avatar: "gone" });
     if (c.id === "rachel") {
       const reply = RACHEL_HISTORY.filter((m) => m.suspect).pop();
       const arrived = State.flags.rachelNotified;
@@ -875,11 +984,11 @@
     if (!words) return [];
     const has = (t) => (" " + t.toLowerCase().replace(/[^a-z0-9' ]+/g, " ") + " ").indexOf(" " + words + " ") !== -1 || (words.length > 3 && t.toLowerCase().indexOf(words) !== -1);
     const out = [];
-    RACHEL_HISTORY.forEach((m, i) => {
+    if (!State.flags.purged) RACHEL_HISTORY.forEach((m, i) => {
       if (!m.text || (m.suspect && !State.flags.rachelNotified) || !has(m.text)) return;
       out.push({ id: m.suspect ? "reply-today" : m.evidence || "r" + i, open: "rachel", who: m.from === "me" ? "You → Rachel" : "Rachel", when: m.day, text: m.text, kind: m.suspect ? "reply" : m.from === "me" ? "mine" : "rachel-old" });
     });
-    RACHEL_PROFILE.posts.forEach((p) => {
+    if (!State.flags.purged) RACHEL_PROFILE.posts.forEach((p) => {
       if (has(p.caption)) out.push({ id: p.id === "p1" ? "post-bench" : "post-" + p.id, open: "profile", who: "Rachel's post", when: p.date, text: "“" + p.caption + "”", img: p.img, kind: "post" });
     });
     DANI.history.forEach((m, i) => {
@@ -1032,6 +1141,11 @@
   }
 
   function viewRachel() {
+    if (State.flags.purged) {
+      return `
+      ${topbar(NIGHT.erased.row, "", true)}
+      <div class="body" id="history"><div class="msgs"><div class="sys">${esc(NIGHT.erased.thread)}</div></div></div>`;
+    }
     const rows = [];
     let lastDay = "";
     RACHEL_HISTORY.forEach((m, i) => {
@@ -1077,7 +1191,9 @@
 
   // Pull to refresh Rachel's profile: her details are erased one by one, then the account is gone.
   function refreshProfile() {
-    if (State.flags.profileTried || State.profileErase) return;
+    if (State.flags.profileTried || State.profileErase || State.flags.purged) return;
+    spend("refresh");
+    if (State.dead) return;
     const steps = [1, 2, 3, 4];
     steps.forEach((n, i) =>
       setTimeout(() => {
@@ -1136,6 +1252,8 @@
   function askDani(id) {
     const q = DANI.asks.find((x) => x.id === id);
     if (!q || State.daniAsked.indexOf(id) !== -1) return;
+    spend("dani");
+    if (State.dead) return;
     State.daniAsked.push(id);
     Sound.play("send");
     Log.write({ kind: "player", step: State.step, playerText: q.text, via: "dani", state: snapshot() });
@@ -1148,6 +1266,14 @@
   }
 
   function viewProfile() {
+    if (State.flags.purged) {
+      return `
+      ${topbar("Profile", "", true)}
+      <div class="body" id="pbody">
+        <div class="deleted purged"${shotAttr("profile-deleted", { text: NIGHT.erased.profile })}><span>${esc(NIGHT.erased.profile)}</span></div>
+      </div>
+      ${tabbar("chats")}`;
+    }
     const p = RACHEL_PROFILE;
     let content;
 
@@ -1174,11 +1300,11 @@
         ${grid}`;
     } else {
       content = `
-        <div class="deleted${guiding() && !hasShot("profile-deleted") ? " guide-target" : ""}"${shotAttr("profile-deleted", {})}>
-          <span>This account has been deleted.<small>${esc(ONBOARDING.profile.removedOn)}</small></span>
+        <div class="deleted${guiding() && !hasShot("profile-deleted") ? " guide-target" : ""}"${shotAttr("profile-deleted", { text: "This account has been deleted.\n" + NIGHT.removedOn })}>
+          <span>This account has been deleted.<small>${esc(NIGHT.removedOn)}</small></span>
         </div>
         ${grid}
-        <div class="listnote">Posts stay visible for 30 days after an account is removed.</div>`;
+        <div class="listnote">${esc(NIGHT.erased.note)}</div>`;
     }
 
     // Every post opens. Only the one the story needs can be added to Notes.
@@ -1222,7 +1348,7 @@
     const orbitBadge = (State.junoUnread ? 1 : 0) + (State.flags.rachelNotified && !State.flags.sawRachelReply ? 1 : 0);
     const notes = notesBadge();
     const icon = (act, cls, glyph, label, n) => `
-      <button class="appicon" data-act="${act}">
+      <button class="appicon${State.saver && act !== "open-orbit" ? " paused" : ""}" data-act="${act}">
         <span class="ic ${cls}">${glyph}${n ? `<span class="badge">${n}</span>` : ""}</span>
         <span class="lbl">${esc(label)}</span>
       </button>`;
@@ -1330,6 +1456,10 @@
           ${mems}
         </div>
         <div class="group">
+          <h3>Battery</h3>
+          <button class="item toggle" data-act="saver-toggle" aria-pressed="${State.saver}"><span>${esc(NIGHT.saver.setting)}</span><span class="sw${State.saver ? " on" : ""}"><i></i></span></button>
+        </div>
+        <div class="group">
           <h3>Account</h3>
           <div class="item"><span>Notifications</span><span class="t">on</span></div>
           <div class="item"><span>Who can find me</span><span class="t">everyone</span></div>
@@ -1421,7 +1551,7 @@
         <div class="replay">
           <p class="rctx left">${esc(R.youThink.replace("{answer}", answer ? answer.text : ""))}</p>
           <h2>${esc(R.summaryTitle)}</h2>
-          <p class="rline">${esc(R.summaryTime.replace("{end}", State.clock))}</p>
+          <p class="rline">${esc(R.summaryTime.replace("{end}", State.nightEnd || State.clock))}</p>
           ${explained.length ? `<p class="rline">${esc(R.summaryExplained)}</p>
           <div class="quotes">${explained.map((t) => `<div class="bub them">${esc(t)}</div>`).join("")}</div>` : ""}
           <button class="pill primary" data-act="replay-next">${esc(R.next)}</button>
@@ -1559,6 +1689,27 @@
     </div>`;
   }
 
+  // The phone died. The night is over; a tap brings the next morning.
+  function viewDead() {
+    return `
+      <button class="dead" data-act="dead-tap" aria-label="${esc(NIGHT.deadLabel)}">
+        <svg width="64" height="30" viewBox="0 0 64 30"><rect x="1" y="1" width="56" height="28" rx="7" fill="none" stroke="#ff453a" stroke-width="2"/><rect x="5" y="5" width="3" height="20" rx="1.5" fill="#ff453a"/><path d="M60 10v10c2-.6 3-2.6 3-5s-1-4.4-3-5z" fill="#ff453a"/></svg>
+      </button>`;
+  }
+
+  // Orbit offers its Battery Saver: Juno gets cheaper, everything else on the phone is paused.
+  function saverSheet() {
+    const S = NIGHT.saver;
+    return `
+      <div class="sheet-dim"><div class="sheet" role="dialog" aria-label="${esc(S.title)}">
+        <div class="av sm ic-orbit">${ICONS.orbit}</div>
+        <b>${esc(S.title)}</b>
+        <p>${esc(S.body)}</p>
+        <button class="pill primary" data-act="saver-on">${esc(S.on)}</button>
+        <button class="pill" data-act="saver-off">${esc(S.off)}</button>
+      </div></div>`;
+  }
+
   /* ---------------- render ---------------- */
 
   function render() {
@@ -1576,6 +1727,7 @@
       intro: viewIntro,
       "juno-profile": viewJunoProfile,
       photos: viewPhotos,
+      dead: viewDead,
     };
     SHOT_INDEX = {}; // filled again by this render (shotAttr)
     // The whole screen is rebuilt on every render, so keep what's being typed (the player can now
@@ -1589,8 +1741,14 @@
     const oldNb = document.getElementById("nbscroll");
     const keptNb = oldNb ? oldNb.scrollTop : 0;
 
+    if (State.view === "dead") {
+      app.innerHTML = viewDead();
+      app.dataset.view = "dead";
+      return;
+    }
     app.innerHTML =
       statusbar() +
+      `<div class="batt-chip${State.battery <= 20 ? " low" : ""}" aria-hidden="true">${Math.ceil(State.battery)}%</div>` +
       (views[State.view] || viewChats)() +
       homebar() +
       shotButton() +
@@ -1601,12 +1759,13 @@
       (State.banner && State.view !== State.banner.from && State.view !== "lock"
         ? `<div class="banner${State.banner.fresh ? " enter" : ""}">
              <button class="banner-open" data-act="open-banner">
-               ${State.banner.from === "photos" ? `<div class="av sm ic-photos">${ICONS.photo}</div>` : `<div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>`}
-               <div><b>${State.banner.from === "rachel" ? "Rachel" : State.banner.from === "photos" ? "Photos" : "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
+               ${State.banner.from === "photos" ? `<div class="av sm ic-photos">${ICONS.photo}</div>` : State.banner.from === "orbit" ? `<div class="av sm ic-orbit">${ICONS.orbit}</div>` : `<div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>`}
+               <div><b>${({ rachel: "Rachel", photos: "Photos", orbit: "Orbit" })[State.banner.from] || "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
              </button>
              <button class="banner-x" data-act="close-banner" aria-label="Dismiss">${ICONS.close}</button>
            </div>`
-        : "");
+        : "") +
+      (State.saverOffer && State.view !== "lock" ? saverSheet() : "");
 
     if (State.banner) State.banner.fresh = false; // animate once (see banner())
     const nb = document.getElementById("nbscroll");
@@ -1675,6 +1834,7 @@
         const from = State.banner ? State.banner.from : "juno";
         State.banner = null;
         if (from === "rachel") go("rachel", "banner");
+        else if (from === "orbit") go(State.flags.purged ? "rachel" : "profile", "banner");
         else if (from === "photos") {
           go("photos", "banner");
           State.album = "memory";
@@ -1685,6 +1845,21 @@
         }
         break;
       }
+      case "dead-tap":
+        morning();
+        break;
+      case "saver-on":
+      case "saver-off":
+        State.saverOffer = false;
+        State.saver = act === "saver-on";
+        Log.write({ kind: "answer", step: State.step, via: "saver:" + (State.saver ? "on" : "off"), state: snapshot() });
+        if (State.saver && (State.view === "notes" || State.view === "photos")) go("home");
+        else render();
+        break;
+      case "saver-toggle":
+        State.saver = !State.saver;
+        render();
+        break;
       case "close-banner":
         State.banner = null;
         render();
@@ -1779,6 +1954,7 @@
       case "view-shot":
         State.viewingShot = id;
         if (State.photosOpened.indexOf(id) === -1) State.photosOpened.push(id);
+        spend("photo");
         render();
         break;
       case "close-shot":
@@ -1898,6 +2074,8 @@
   function search(q) {
     State.query = q.trim();
     if (!State.query) return render();
+    spend("search");
+    if (State.dead) return;
     const words = " " + State.query.toLowerCase() + " ";
     if (SEARCH.sickWords.some((w) => words.indexOf(w) !== -1)) State.flags.searchedSick = true;
     Log.write({ kind: "player", step: State.step, playerText: State.query, via: "search", state: snapshot() });

@@ -88,7 +88,6 @@ const ONBOARDING = {
   profile: {
     stale: "Updated 2 days ago · Pull down to refresh",
     refreshing: "Refreshing…",
-    removedOn: "Removed Sep 22",
   },
   lockNudge: "still there?", // Juno's second notification if the player waits on the lock screen
 

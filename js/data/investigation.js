@@ -21,7 +21,7 @@ const HINT_AFTER_MS = 35000; // the to-do shows in Notes only after this long wi
 const SHOTS = {
   "reply-today":     { from: "Rachel", title: "Rachel · tonight 23:34" },
   "old-dms":         { from: "Rachel", title: "Rachel · February" },
-  "profile-deleted": { from: "Orbit",  title: "Rachel's profile · tonight", text: "This account has been deleted.\nRemoved Sep 22" },
+  "profile-deleted": { from: "Orbit",  title: "Rachel's profile · tonight" },
   "post-bench":      { from: "Orbit",  title: "Rachel's post · Sep 23" },
   "juno-sunday":     { from: "Juno",   title: "Juno · tonight 23:33" },
   "juno-sick":       { from: "Juno",   title: "Juno · tonight 23:36" },
@@ -68,8 +68,9 @@ const WRONG_SHOT = {
 // `goal` marks the finding that ticks that goal.
 const FINDINGS = [
   { when: "flag:sawRachelReply", text: "Rachel replied at 23:34: “sorry, been busy. doing okay now”" },
-  { when: "flag:deletedFound",   text: "Her account was deleted on Sep 22. The reply came after that." },
+  { when: "flag:deletedFound",   text: "Her account was removed Monday at 00:40. The reply came a day later." },
   { when: "deduction:loads",     text: "Juno said her profile loads fine. It doesn't." },
+  { when: "flag:purged",         text: "At 00:40 Orbit erased her account for good. Only my screenshots are left." },
   { when: "flag:sawPostAfter",   text: "Her account posted “quiet” this morning, after it was deleted." },
   { when: "flag:searchedSick",   text: "Rachel never wrote anything about being sick." },
   { when: "flag:daniAsked",      text: "Dani hasn't heard from her since Sunday either." },

@@ -134,6 +134,7 @@
 
   // `via` says how the player got here; recorded when they leave Juno's thread and when they come back.
   function go(view, via) {
+    if (view !== State.view) State.openPost = null; // an open post closes when you leave the profile
     if (State.view === "juno" && view !== "juno") {
       State.exits++;
       State.away = { at: Date.now() };
@@ -570,6 +571,7 @@
 
       case "wait":
         State.waiting = { hint: step.hint, until: step.until, inPlace: !!step.inPlace, since: Date.now() };
+        if (step.until.indexOf("exposed_") === 0) State.flags.shotsUnlocked = true; // the screenshot button appears
         setTimeout(render, HINT_AFTER_MS + 50); // the to-do appears in Notes if they're still looking
         render();
         checkWaiting(); // the player may have done it already
@@ -983,8 +985,6 @@
       rows.push(`<div class="bub me failed">${esc(t)}</div><div class="undelivered">${esc(ONBOARDING.notDelivered)}</div>`);
     });
     if (State.rachelSent.length) rows.push(`<div class="sys">${esc(ONBOARDING.cantReceive)}</div>`);
-    // The first time her reply is on screen and nothing has been screenshot yet: how.
-    if (State.flags.rachelNotified && !State.shots.length) rows.push(`<div class="coach">${esc(SHOT_UI.coach)}</div>`);
 
     return `
       ${topbar("Rachel", "@rach_who", true)}
@@ -1095,7 +1095,7 @@
         ${grid}`;
     } else {
       content = `
-        <div class="deleted"${shotAttr("profile-deleted", {})}>
+        <div class="deleted${guiding() && !hasShot("profile-deleted") ? " guide-target" : ""}"${shotAttr("profile-deleted", {})}>
           <span>This account has been deleted.<small>${esc(ONBOARDING.profile.removedOn)}</small></span>
         </div>
         ${grid}
@@ -1229,10 +1229,10 @@
   // The first time there's something in Notes the player hasn't seen, a tip sits above it.
   function homebar() {
     if (State.view === "lock" || State.view === "home") return "";
-    const coach =
-      State.view !== "notes" && unreadTodo()
+    const coach = guideTip() ||
+      (State.view !== "notes" && unreadTodo()
         ? `<div class="homecoach">${esc(ONBOARDING.coachHome)}</div>`
-        : "";
+        : "");
     return `${coach}<button class="homebar" data-act="home" aria-label="Home"><i></i></button>`;
   }
 
@@ -1424,10 +1424,28 @@
   // The screenshot button, on every Orbit screen with something to keep.
   // Floating, like a phone's on-screen shortcut, on every Orbit screen with something to keep (2026-10-14:
   // the icon in the top bar was too easy to miss). Labelled until the first screenshot.
+  // It only appears once the story first needs a screenshot (Juno: "then show me."), 2026-10-14.
   function shotButton() {
-    if (["juno", "rachel", "profile", "dani", "chats"].indexOf(State.view) === -1) return "";
-    const label = !State.shots.length && !State.capturing ? `<span class="fab-label">${esc(SHOT_UI.firstLabel)}</span>` : "";
-    return `<button class="shotfab${State.capturing ? " on" : ""}${!State.shots.length ? " first" : ""}" data-act="shot-mode" aria-label="${esc(SHOT_UI.button)}">${label}${State.capturing ? ICONS.close : ICONS.shot}</button>`;
+    if (!State.flags.shotsUnlocked || ["juno", "rachel", "profile", "dani", "chats"].indexOf(State.view) === -1) return "";
+    const point = guiding() && !hasShot("profile-deleted") && State.view === "profile" && !State.capturing;
+    const label = point ? `<span class="fab-label">${esc(SHOT_UI.firstLabel)}</span>` : "";
+    return `<button class="shotfab${State.capturing ? " on" : ""}${point ? " first" : ""}" data-act="shot-mode" aria-label="${esc(SHOT_UI.button)}">${label}${State.capturing ? ICONS.close : ICONS.shot}</button>`;
+  }
+
+  // The first screenshot, step by step: Juno has asked to see her profile and the player hasn't shown it yet.
+  function guiding() {
+    return !!(State.waiting && State.waiting.until === "exposed_loads");
+  }
+
+  // Where to go next, above the home bar, while guiding (GUIDE in investigation.js).
+  function guideTip() {
+    if (!guiding() || State.view === "juno" || State.view === "lock") return "";
+    const G = SHOT_UI.guide;
+    const t = hasShot("profile-deleted")
+      ? G.back
+      : State.view === "profile" ? (State.capturing ? G.capture : State.flags.profileTried ? G.shoot : G.refresh)
+      : G[State.view] || G.elsewhere;
+    return t ? `<div class="homecoach guide">${esc(t)}</div>` : "";
   }
 
   function topbar(title, sub, back) {

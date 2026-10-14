@@ -132,8 +132,19 @@ const SHOT_UI = {
   nothing: "Tap a message, a post or her profile",
   saved: "Saved to Photos",
   already: "Already in Photos",
-  coach: "Tap the screenshot button, then tap what you want to keep",
-  firstLabel: "Screenshot",           // next to the floating button until the first screenshot
+  firstLabel: "Tap to screenshot",    // next to the floating button on her profile, the first time
+  // The first screenshot, step by step (Juno: "then show me."). Shown above the home bar.
+  guide: {
+    home: "Open Orbit, then Rachel's profile",
+    chats: "Open Rachel's chat, then Profile",
+    rachel: "Tap Profile at the top right",
+    dani: "Go back, then open Rachel's profile",
+    refresh: "Pull down to refresh her profile",
+    shoot: "",                          // the button itself says "Tap to screenshot"
+    capture: "",                        // the bar at the top says what to tap
+    elsewhere: "Go to Rachel's profile in Orbit",
+    back: "Now go back to Juno and show it",
+  },
   photos: "Photos",
   recents: "Recents",
   memories: "Memories",
@@ -143,7 +154,7 @@ const SHOT_UI = {
   notNow: "Answer Juno first",
   // When Juno has asked to see something and the player doesn't have it yet.
   needs: {
-    loads: "Screenshot her profile first, then send it here",
+    loads: "Go to Rachel's profile and take a screenshot",
     sync: "Find something Rachel wrote before: her chat, or your Photos",
   },
 };

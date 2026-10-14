@@ -774,3 +774,9 @@ body{
 .shotview-info b{display:block;color:#fff;font-size:15px}
 .ic-photos.av{display:grid;place-items:center}
 .ic-photos.av svg{width:18px;height:18px}
+/* The first screenshot, guided (2026-10-14) */
+.homecoach.guide{background:#fff;color:#111;font-weight:600}
+.homecoach.guide::after{border-top-color:#fff}
+.app:not(.capturing) .guide-target{animation:pulse 1.6s ease-in-out infinite;border-radius:10px}
+.homecoach{pointer-events:none}
+.grid{grid-template-columns:repeat(3,minmax(0,1fr))}

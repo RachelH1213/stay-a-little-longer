@@ -1375,3 +1375,23 @@ Copy this for each new entry.
   - all other tests were rerun and pass.
 - **Files / features affected:** `js/app.js`, `js/data/investigation.js`, `js/data/script-day2.js`, `css/app.css`, `CLAUDE.md`
 - **My decision (wording):** I kept the drafted wording for now.
+
+---
+
+### 2026-10-14 — The first screenshot, taught when the story needs it
+
+- **Tool / model:** Claude Code.
+- **What I found:** the screenshot tip popped up as soon as I opened Juno's thread, before anything needed a screenshot, so it meant nothing. A classmate also suggested a landing.
+- **Options:** teach it in the story at the first moment it's needed, add a landing before the story, or both.
+- **My decision:** teach it in the story.
+- **What Claude Code changed:**
+  - **The screenshot button:** it only appears when Juno says "then show me.".
+  - **The guided first screenshot:** a tip above the home bar says where to go next (Chats → Rachel → Profile). Her deleted profile pulses, the button says "Tap to screenshot", and after the screenshot the tip says "Now go back to Juno and show it".
+  - **Removed:** the early tip in Rachel's chat.
+  - **Bugs fixed along the way:**
+    - the tip could block taps on the tab bar;
+    - an open post stayed open after leaving her profile;
+    - her post grid ran off the screen.
+- **Wording:** the tips are Claude Code drafts.
+- **Testing:** the full-flow test now follows the guided path, and all tests pass.
+- **Files / features affected:** `js/app.js`, `js/data/investigation.js`, `css/app.css`, `CLAUDE.md`

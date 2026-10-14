@@ -99,17 +99,51 @@ const DANI = {
   ],
 };
 
+// The player's own camera roll (2026-10-14, the author's call: Photos is a real photo library, not
+// just a place for screenshots). Photos from the last year, each with a date and where it was taken.
+// `shot` items are screenshots the player took back then; they can be shown to Juno like any other
+// (the February one is her voice: a second way to the sync lie). Images are the author's photos.
+// [author] Every date, place and caption is a Claude Code draft.
+const PHOTOS = [
+  { id: "ph-gamenight", img: "img/post-gamenight.jpg", date: "Jul 26, 2026", info: "Rachel's place · game night" },
+  { id: "ph-view",      img: "img/post-view.jpg",      date: "Aug 18, 2026", info: "Sent by Rachel: “golden hour, nobody else up here”" },
+  { id: "ph-cat",       img: "img/post-cat.jpg",       date: "Sep 4, 2026",  info: "Rachel's place · “he ate my homework”" },
+  { id: "ph-feb", date: "Feb 11, 2026", info: "Screenshot · you sent it to Dani: “she's alive”",
+    shot: { from: "Rachel", title: "Rachel · February", kind: "rachel-old",
+            text: "sorry i vanished\ncat situation became a plant situation became a floor situation\nim alive unfortunately\nwhat did i miss" } }, // must match rachel-history.js
+  { id: "ph-juno-aug", date: "Aug 9, 2025", info: "Screenshot · you sent it to Rachel: “my app is worried about me lol”",
+    shot: { from: "Juno", title: "Juno · August 2025", kind: "juno-old", text: "you went quiet for four days\njust checking" } },
+];
+
+// A "memory" Photos puts together, like a phone does. It arrives as a notification when Juno asks how
+// the player would know what Rachel sounds like (script step `memory-banner`).
+const PHOTO_MEMORY = {
+  banner: "New memory: You and Rachel",
+  title: "You and Rachel",
+  sub: "A year of photos",
+  items: ["ph-gamenight", "ph-view", "ph-cat", "ph-feb"],
+};
+
 // Wording around screenshots, Photos and showing Juno.
 const SHOT_UI = {
   button: "Screenshot",
-  capturing: "Tap what you want to keep",
+  capturing: "Screenshot: tap what you want to keep",
+  cancel: "Cancel",
   nothing: "Tap a message, a post or her profile",
-  saved: "Screenshot saved to Photos",
+  saved: "Saved to Photos",
   already: "Already in Photos",
-  coach: "Screenshot it: tap the viewfinder, then tap what you want to keep",
+  coach: "Tap the screenshot button, then tap what you want to keep",
+  firstLabel: "Screenshot",           // next to the floating button until the first screenshot
   photos: "Photos",
-  photosEmpty: "No screenshots yet.\nIn Orbit, tap the viewfinder at the top, then tap what you want to keep.",
-  attach: "Show Juno a screenshot",
-  attachEmpty: "No screenshots yet",
+  recents: "Recents",
+  memories: "Memories",
+  showJuno: "Show Juno",
+  attach: "Show Juno a photo",
   attachCoach: "Show Juno what you found",
+  notNow: "Answer Juno first",
+  // When Juno has asked to see something and the player doesn't have it yet.
+  needs: {
+    loads: "Screenshot her profile first, then send it here",
+    sync: "Find something Rachel wrote before: her chat, or your Photos",
+  },
 };

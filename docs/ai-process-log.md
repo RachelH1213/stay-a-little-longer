@@ -1553,3 +1553,19 @@ Copy this for each new entry.
 - **Testing:** checked on a phone-sized screen and a desktop that the banner starts below the top bar; the related tests pass.
 - **Files / features affected:** `css/app.css`, `CLAUDE.md`
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Midterm presentation draft
+
+- **Tool / model:** Claude Code.
+- **What I asked:** I pasted the BFADT Thesis 1 midterm brief and asked Claude Code to write out everything it asks for, including my user tests and how I changed the game.
+- **What Claude Code wrote:** `docs/midterm-presentation.md`, which contains:
+  - slide text and a speaker script for the eight sections, with timings for 10 minutes;
+  - a demo path for the playable slice, plus a diagram of the Director / truth graph / model system;
+  - a table of the user tests and what changed after each, taken from this log;
+  - questions for critics;
+  - a Chicago author-date bibliography.
+- **Marked for me to write or check:** the introduction (my interests and reading), the concept statement, the "what's unique" sentence, the choice of precedents, and every bibliography entry. The drafts there are built from my README and this log. Precedent years, studios and platforms are marked to verify.
+- **Files / features affected:** `docs/midterm-presentation.md` (new)
+- **My decision:** [to fill in]

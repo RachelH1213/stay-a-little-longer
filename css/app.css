@@ -680,17 +680,30 @@ body{
 /* ---------------- Investigating (2026-10-14): screenshots, Photos, showing Juno, search ---------------- */
 .topbar:not(.large){grid-template-columns:minmax(72px,1fr) auto minmax(72px,1fr)}
 .tb-right{justify-self:end;display:flex;align-items:center;gap:6px}
-.topbar.large{display:flex;align-items:flex-end;justify-content:space-between}
-.shotbtn{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;color:var(--orbit)}
-.shotbtn.on{background:var(--orbit-2);color:#fff}
-.topbar.large .shotbtn{margin-bottom:6px}
 
 /* Screenshot mode: what can be kept gets corner marks; everything else is dimmed a little. */
-.app.capturing [data-shot]{outline:2px dashed rgba(143,130,255,.85);outline-offset:3px;cursor:crosshair}
-.app.capturing .body{background-color:rgba(143,130,255,.04)}
-.capture-hint{position:absolute;left:12px;right:12px;top:calc(var(--sb,0px) + 52px);z-index:40;display:flex;align-items:center;justify-content:space-between;gap:10px;
-  background:rgba(30,26,72,.96);color:#fff;font-size:13.5px;padding:9px 12px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
-.capture-hint button{color:#c9c2ff;font-size:13px}
+/* The floating screenshot button (phone layer: glassy grey, not Orbit's colour). */
+.shotfab{position:absolute;right:14px;bottom:150px;z-index:35;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(60,60,68,.82);backdrop-filter:blur(14px);color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.shotfab svg{width:26px;height:26px}
+.shotfab.first{animation:fabpulse 2s ease-in-out infinite}
+.shotfab.on{background:#fff;color:#111}
+@keyframes fabpulse{0%,100%{box-shadow:0 8px 22px rgba(0,0,0,.45),0 0 0 0 rgba(255,255,255,.5)}50%{box-shadow:0 8px 22px rgba(0,0,0,.45),0 0 0 10px rgba(255,255,255,0)}}
+.fab-label{position:absolute;right:62px;white-space:nowrap;background:#fff;color:#111;font-size:13px;font-weight:600;padding:6px 10px;border-radius:10px}
+/* Screenshot mode: the screen dims, what can be kept lights up with a moving outline. */
+.app.capturing .body{box-shadow:inset 0 0 0 3000px rgba(0,0,0,.38)}
+.app.capturing [data-shot]{outline:2.5px dashed #fff;outline-offset:3px;cursor:crosshair;animation:shotblink 1.1s ease-in-out infinite}
+@keyframes shotblink{50%{outline-color:rgba(255,255,255,.35)}}
+.capture-hint{position:absolute;left:10px;right:10px;top:calc(var(--sb,0px) + 6px);z-index:40;display:flex;align-items:center;gap:10px;
+  background:#fff;color:#111;font-size:14.5px;font-weight:600;padding:11px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.capture-hint span{flex:1}
+.capture-hint button{color:#5a4ad8;font-size:14px;font-weight:600}
+/* After a screenshot: a thumbnail in the corner, like a phone. Tap it to open Photos. */
+.shot-preview{position:absolute;left:14px;bottom:150px;z-index:45;width:118px;display:flex;flex-direction:column;gap:4px;align-items:stretch;
+  animation:previewin .3s ease-out;color:#fff;font-size:11.5px;text-align:center}
+.shot-preview .shot{transform:rotate(-2deg);border:3px solid #fff}
+.shot-preview .shot-text{-webkit-line-clamp:3;font-size:11px}
+@keyframes previewin{from{transform:scale(1.4) translate(30px,-60px);opacity:0}to{transform:none;opacity:1}}
 .flash{position:absolute;inset:0;background:#fff;z-index:60;pointer-events:none;animation:flash .38s ease-out forwards}
 @keyframes flash{from{opacity:.9}to{opacity:0}}
 
@@ -743,3 +756,21 @@ body{
 .know{font-size:17px;gap:12px;line-height:1.45}
 .know li.new{background:rgba(242,201,76,.28);border-radius:4px}
 .todo{font-size:16px}
+
+/* Photos as a real camera roll (2026-10-14) */
+.psec{margin:14px 2px 8px;font-size:20px;font-weight:700;color:#f4f4f6;letter-spacing:-.01em}
+.pthumb{display:block;width:100%;aspect-ratio:1;border-radius:6px;background:center/cover #333}
+.memcard{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;width:100%;aspect-ratio:1.6;border-radius:14px;
+  background-size:cover;background-position:center;padding:14px;color:#fff;text-align:left;box-shadow:inset 0 -80px 60px -20px rgba(0,0,0,.7)}
+.memcard b{font-size:22px}
+.memcard span{font-size:13px;opacity:.85}
+.album-back{color:#8f82ff;font-size:16px;margin:4px 0}
+.album-title{margin:6px 2px 0;font-size:26px;color:#f4f4f6}
+.album-sub{margin:2px 2px 12px;color:var(--label-2);font-size:13px}
+.shotview{flex-direction:column;gap:14px;display:flex;align-items:center;justify-content:center}
+.shotview-x{position:absolute;top:calc(var(--sb,0px) + 10px);right:14px;color:#fff;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.12)}
+.shotview-img{width:100%;max-width:340px;border-radius:10px}
+.shotview-info{margin:0;text-align:center;color:#d8d8de;font-size:14px;line-height:1.4}
+.shotview-info b{display:block;color:#fff;font-size:15px}
+.ic-photos.av{display:grid;place-items:center}
+.ic-photos.av svg{width:18px;height:18px}

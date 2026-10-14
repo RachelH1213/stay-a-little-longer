@@ -1344,3 +1344,34 @@ Copy this for each new entry.
   - six tests written for the paperclip and Notes questions were retired.
 - **Files / features affected:** `js/data/investigation.js` (new), `js/app.js`, `js/data/script-day2.js`, `js/data/app-data.js`, `js/data/onboarding.js`, `js/data/replay.js`, `js/data/truth.js`, `js/data/rachel-history.js`, `index.html`, `css/app.css`, `CLAUDE.md`
 - **My decision:** **[to fill in]**
+
+---
+
+### 2026-10-14 — Screenshots easier to see, the story teaches them, Photos as a real camera roll
+
+- **Tool / model:** Claude Code.
+- **What I found:**
+  - screenshot mode wasn't obvious;
+  - nothing told the player which thing to screenshot, or that screenshotting and showing Juno is how the story moves;
+  - Photos only stored screenshots, so there was no reason to open it.
+- **My decision:** Photos becomes a real camera roll.
+- **What Claude Code changed:**
+  - **The screenshot button:**
+    - it now floats at the bottom right of every Orbit screen, labelled "Screenshot" and pulsing until the first screenshot;
+    - in screenshot mode a white bar says what to do, the screen dims, and what can be kept blinks with a dashed outline;
+    - after a screenshot, a thumbnail sits in the corner, like a phone, and tapping it opens Photos.
+  - **The story teaches the loop:**
+    - after "it loads fine for me", the player can say "i'll screenshot it for you" and Juno answers "then show me.";
+    - later the player says the reply doesn't sound like her, and Juno asks "how would you even know that?";
+    - while Juno waits, its thread says where to find the proof ("Screenshot her profile first…", "Find something Rachel wrote before: her chat, or your Photos"), and the photo button pulses once the player has it.
+  - **Photos:**
+    - a year of the player's own photos: game night, the view Rachel sent, her cat, and two old screenshots (Rachel's February "sorry i vanished", a Juno check-in from August 2025), each with a date and where it's from;
+    - opening one shows its info and a "Show Juno" button;
+    - at the sync step, Photos sends a notification ("New memory: You and Rachel") that leads to an album with her February message, a second way to catch the sync lie;
+    - Juno's photo tray shows the whole library.
+- **Wording:** every date, place, caption and new Juno line is a Claude Code draft ("then show me.", "how would you even know that?", the two new player replies, the Photos captions).
+- **Testing (Chromium at 390px):**
+  - the full-flow test runs all three endings, and a second time finding Rachel's voice through the Photos memory instead of her chat;
+  - all other tests were rerun and pass.
+- **Files / features affected:** `js/app.js`, `js/data/investigation.js`, `js/data/script-day2.js`, `css/app.css`, `CLAUDE.md`
+- **My decision (wording):** **[to fill in]**

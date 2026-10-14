@@ -62,8 +62,11 @@ const SCRIPT_DAY2 = [
   { type: "juno", text: "you went quiet" },
   { type: "player", options: ["her account is deleted", "when did you last actually see her online?"] },
   { type: "juno", text: "what? no. it loads fine for me", means: "deflect", retype: true, lie: "loads" },
-  // The player shows Juno a screenshot of her profile; this line is Juno's answer.
-  { type: "wait", hint: "Show Juno what her profile says", until: "exposed_loads" },
+  // The player offers proof and Juno asks for it: this is where the game teaches "screenshot it, show
+  // Juno" (2026-10-14). The player shows Juno a screenshot of her profile; the next line is Juno's answer.
+  { type: "player", options: ["i'll screenshot it for you", "it's gone. look again"] },
+  { type: "juno", text: "then show me.", means: "deflect" },
+  { type: "wait", hint: "Screenshot her profile and show Juno", until: "exposed_loads" },
   { type: "juno", text: "...ok it doesn't load for me either. that's weird", means: "give_clue", moment: "admit" },
   { type: "clock", time: "23:47" },
   { type: "juno", text: "ok before you say it" },
@@ -76,6 +79,9 @@ const SCRIPT_DAY2 = [
   { type: "memory", text: "doesn't believe the sync explanation", time: "Tue 23:58" },
   // Clue 3 closes the slice (author's call, 2026-10-12): the reply isn't in Rachel's voice. Now the
   // player shows Juno one of Rachel's own older messages and says what's different (LIES "sync").
+  { type: "player", options: ["it doesn't even sound like her", "she'd never write like that"] },
+  { type: "juno", text: "how would you even know that?", means: "deflect" },
+  { type: "memory-banner" }, // Photos offers "You and Rachel": her old messages are in there too
   { type: "wait", hint: "Find how Rachel used to write, and show Juno", until: "exposed_sync" },
   { type: "juno", text: "maybe she was tired.\npeople don't always sound like themselves.", means: "deflect", retype: true },
   // `if`: only when the player also caught the sick lie. Juno's tone changes with what they caught.

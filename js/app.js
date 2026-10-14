@@ -79,7 +79,11 @@
     observeOpen: null,     // a lie id: the player is saying what's different before Juno answers
     liesTold: {},          // lies Juno has said so far (script steps with `lie`)
     wrongShots: 0,         // screenshots shown to Juno that broke nothing (cycles WRONG_SHOT.other)
-    viewingShot: null,     // the screenshot open full size in Photos
+    viewingShot: null,     // the photo open full size in Photos
+    album: null,           // "memory" while the Photos memory is open
+    memoryShown: false,    // Photos has offered the "You and Rachel" memory
+    photosOpened: [],      // camera-roll photos the player has opened (only these count as "found")
+    preview: null,         // the thumbnail in the corner after a screenshot
     shotsSeen: 0,          // screenshots the player has seen in Photos (the rest count on its badge)
     knownSeen: 0,          // findings the player has seen in Notes
     query: "",             // Orbit search
@@ -152,7 +156,7 @@
       State.knownSeen = knownNow().length;
       State.todoSeen = hintShown() ? State.waiting.hint : State.ended ? "tonight" : null;
     }
-    if (view === "photos") State.shotsSeen = State.shots.length;
+    if (view === "photos") { State.shotsSeen = State.shots.length; State.album = null; }
     render();
     if (view === "juno" && State.heldForReturn) {
       State.heldForReturn = false;
@@ -182,7 +186,7 @@
     // `fresh`: slide in on the first render only. Every render rebuilds the screen, so without it
     // the banner replayed its drop-in each time Juno typed (the "shaking" the author saw, 2026-10-12).
     State.banner = { text: text, from: from || "juno", time: time || "now", fresh: true };
-    Sound.play(State.banner.from === "juno" ? "juno" : "notify");
+    Sound.play(State.banner.from === "juno" ? "juno" : "notify"); // Photos sounds like any app
     render();
     clearTimeout(banner._t);
     banner._t = setTimeout(() => {
@@ -212,6 +216,16 @@
   }
   const hasShot = (id) => State.shots.some((x) => x.id === id);
 
+  // Everything in Photos: screenshots taken tonight (newest first), then the camera roll (PHOTOS).
+  function allPhotos() {
+    const roll = PHOTOS.slice().reverse().map((p) =>
+      Object.assign({ id: p.id, date: p.date, info: p.info }, p.shot ? p.shot : { img: p.img, kind: "photo", title: p.date })
+    );
+    const tonight = State.shots.slice().reverse().map((x) => Object.assign({ date: "Today", info: "Screenshot" }, x));
+    return tonight.concat(roll);
+  }
+  const photoById = (id) => allPhotos().find((x) => x.id === id);
+
   function takeShot(id) {
     const rec = SHOT_INDEX[id];
     State.capturing = false;
@@ -223,10 +237,13 @@
     State.shots.push(rec);
     State.saved.push(id);
     State.flash = true;
+    State.preview = rec; // like a phone: a thumbnail in the corner for a moment
     Sound.play("snap");
     Log.write({ kind: "answer", step: State.step, via: "shot:" + id, state: snapshot() });
     setTimeout(() => { State.flash = false; render(); }, 380);
-    toast(SHOT_UI.saved);
+    clearTimeout(takeShot._t);
+    takeShot._t = setTimeout(() => { State.preview = null; render(); }, 2600);
+    render();
   }
 
   // A condition in the data tables: flag:<name> or deduction:<lie id>.
@@ -265,8 +282,9 @@
 
   // The player sends Juno a screenshot. If it breaks a lie Juno has told, the lie is exposed.
   function showJuno(id) {
-    const rec = State.shots.find((x) => x.id === id);
-    if (!rec || !canShow()) return;
+    const rec = photoById(id);
+    if (!rec) return;
+    if (!canShow()) return toast(SHOT_UI.notNow); // Juno is typing, or waiting for an answer
     State.attachOpen = false;
     State.log.push({ from: "me", shot: rec });
     Sound.play("send");
@@ -531,6 +549,12 @@
       case "memory":
         State.memories.push({ text: step.text, time: step.time });
         State.clock = step.time.split(" ").pop(); // "Tue 23:58" -> "23:58"
+        State.step++;
+        return runScript();
+
+      case "memory-banner":
+        State.memoryShown = true;
+        banner(PHOTO_MEMORY.banner, "photos");
         State.step++;
         return runScript();
 
@@ -894,14 +918,15 @@
         .join("")}</div>`;
     }
     // The tray of screenshots to show Juno.
+    // The tray: like attaching a photo on a phone, the whole library, newest first.
     const tray = State.attachOpen
-      ? `<div class="tray">${State.shots.length
-          ? State.shots.map((x) => `<button class="tray-shot" data-act="show-juno" data-id="${esc(x.id)}">${shotCard(x)}</button>`).join("")
-          : `<p class="tray-empty">${esc(SHOT_UI.attachEmpty)}</p>`}</div>`
+      ? `<div class="tray">${allPhotos().map((x) => `<button class="tray-shot" data-act="show-juno" data-id="${esc(x.id)}">${shotCard(x)}</button>`).join("")}</div>`
       : "";
-    // While the story waits for a screenshot and the player has the one that breaks it, the button pulses.
+    // Juno has asked to see something: the button pulses once the player has it; until then a line says where to get it.
     const want = State.waiting && State.waiting.until.indexOf("exposed_") === 0 && lieById(State.waiting.until.slice(8));
-    const ready = want && State.shots.some((x) => breaks(want, x));
+    const found = (x) => hasShot(x.id) || State.photosOpened.indexOf(x.id) !== -1;
+    const ready = want && allPhotos().some((x) => found(x) && breaks(want, x));
+    const needs = want && !ready && !State.attachOpen ? SHOT_UI.needs[want.id] : "";
     const typingOwn = !!(State.awaiting || observing);
 
     return `
@@ -916,6 +941,7 @@
       <div class="composer">
         ${tray}${chips}
         ${ready && !State.attachOpen ? `<div class="attach-coach">${esc(SHOT_UI.attachCoach)}</div>` : ""}
+        ${needs ? `<div class="attach-coach">${esc(needs)}</div>` : ""}
         <div class="inputrow">
           <button class="attach${ready ? " pulse" : ""}" data-act="attach" aria-label="${esc(SHOT_UI.attach)}" ${canShow() || State.attachOpen ? "" : "disabled"}>${ICONS.photo}</button>
           <input id="entry" placeholder="${typingOwn ? esc(State.awaiting && State.awaiting.options.length ? ONBOARDING.typeOwn : "Message Juno") : "…"}"
@@ -1170,17 +1196,33 @@
       </div>`;
   }
 
-  // Photos: the screenshots the player has taken.
+  // Photos: the player's camera roll (PHOTOS), tonight's screenshots, and a memory Photos put together.
   function viewPhotos() {
-    const open = State.shots.find((x) => x.id === State.viewingShot);
+    const open = photoById(State.viewingShot);
+    const cell = (x) => `<button class="pcell" data-act="view-shot" data-id="${esc(x.id)}">${x.img ? `<span class="pthumb" style="background-image:url('${esc(x.img)}')"></span>` : shotCard(x)}</button>`;
+    let content;
+    if (State.album === "memory") {
+      content = `
+        <button class="album-back" data-act="album-close">‹ ${esc(SHOT_UI.photos)}</button>
+        <h3 class="album-title">${esc(PHOTO_MEMORY.title)}</h3>
+        <p class="album-sub">${esc(PHOTO_MEMORY.sub)}</p>
+        <div class="pgrid">${PHOTO_MEMORY.items.map((id) => cell(photoById(id))).join("")}</div>`;
+    } else {
+      const mem = State.memoryShown
+        ? `<h3 class="psec">${esc(SHOT_UI.memories)}</h3>
+           <button class="memcard" data-act="album-open" style="background-image:url('${esc(PHOTOS[0].img)}')"><b>${esc(PHOTO_MEMORY.title)}</b><span>${esc(PHOTO_MEMORY.sub)}</span></button>`
+        : "";
+      content = `${mem}<h3 class="psec">${esc(SHOT_UI.recents)}</h3><div class="pgrid">${allPhotos().map(cell).join("")}</div>`;
+    }
     return `
       <div class="notes-top"><h2>${esc(SHOT_UI.photos)}</h2></div>
-      <div class="body photos">
-        ${State.shots.length
-          ? `<div class="pgrid">${State.shots.map((x) => `<button class="pcell" data-act="view-shot" data-id="${esc(x.id)}">${shotCard(x)}</button>`).join("")}</div>`
-          : `<p class="nb-help">${esc(SHOT_UI.photosEmpty)}</p>`}
-      </div>
-      ${open ? `<div class="shotview" data-act="close-shot">${shotCard(open)}</div>` : ""}`;
+      <div class="body photos">${content}</div>
+      ${open ? `<div class="shotview">
+          <button class="shotview-x" data-act="close-shot" aria-label="Close">${ICONS.close}</button>
+          ${open.img ? `<img class="shotview-img" src="${esc(open.img)}" alt="">` : shotCard(open)}
+          <p class="shotview-info"><b>${esc(open.date || "")}</b>${esc(open.info || "")}</p>
+          <button class="pill primary" data-act="photo-to-juno" data-id="${esc(open.id)}">${esc(SHOT_UI.showJuno)}</button>
+        </div>` : ""}`;
   }
 
   // The phone's home bar, under every app: tap or swipe up for the home screen.
@@ -1380,13 +1422,16 @@
 
   // iOS layout: top-level screens get a large title; pushed screens a centred title with a back chevron.
   // The screenshot button, on every Orbit screen with something to keep.
+  // Floating, like a phone's on-screen shortcut, on every Orbit screen with something to keep (2026-10-14:
+  // the icon in the top bar was too easy to miss). Labelled until the first screenshot.
   function shotButton() {
     if (["juno", "rachel", "profile", "dani", "chats"].indexOf(State.view) === -1) return "";
-    return `<button class="shotbtn${State.capturing ? " on" : ""}" data-act="shot-mode" aria-label="${esc(SHOT_UI.button)}">${ICONS.shot}</button>`;
+    const label = !State.shots.length && !State.capturing ? `<span class="fab-label">${esc(SHOT_UI.firstLabel)}</span>` : "";
+    return `<button class="shotfab${State.capturing ? " on" : ""}${!State.shots.length ? " first" : ""}" data-act="shot-mode" aria-label="${esc(SHOT_UI.button)}">${label}${State.capturing ? ICONS.close : ICONS.shot}</button>`;
   }
 
   function topbar(title, sub, back) {
-    if (!back) return `<div class="topbar large"><h1>${esc(title)}</h1>${shotButton()}</div>`;
+    if (!back) return `<div class="topbar large"><h1>${esc(title)}</h1></div>`;
     return `
       <div class="topbar">
         <button class="back" data-act="back" aria-label="Back">${ICONS.back}</button>
@@ -1395,7 +1440,6 @@
           ${sub ? `<div class="sub">${esc(sub)}</div>` : ""}
         ${State.view === "juno" ? "</button>" : "</div>"}
         <span class="tb-right">
-          ${shotButton()}
           ${
             State.view === "juno"
               ? '<button class="leave" data-act="leave">Leave</button>'
@@ -1447,14 +1491,16 @@
       statusbar() +
       (views[State.view] || viewChats)() +
       homebar() +
-      (State.capturing ? `<div class="capture-hint">${esc(SHOT_UI.capturing)}<button data-act="shot-mode">Cancel</button></div>` : "") +
+      shotButton() +
+      (State.capturing ? `<div class="capture-hint">${ICONS.shot}<span>${esc(SHOT_UI.capturing)}</span><button data-act="shot-mode">${esc(SHOT_UI.cancel)}</button></div>` : "") +
+      (State.preview ? `<button class="shot-preview" data-act="open-photos">${shotCard(State.preview)}<span>${esc(SHOT_UI.saved)}</span></button>` : "") +
       (State.flash ? `<div class="flash"></div>` : "") +
       (State.toast ? `<div class="toast on">${esc(State.toast)}</div>` : "") +
       (State.banner && State.view !== State.banner.from && State.view !== "lock"
         ? `<div class="banner${State.banner.fresh ? " enter" : ""}">
              <button class="banner-open" data-act="open-banner">
-               <div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>
-               <div><b>${State.banner.from === "rachel" ? "Rachel" : "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
+               ${State.banner.from === "photos" ? `<div class="av sm ic-photos">${ICONS.photo}</div>` : `<div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>`}
+               <div><b>${State.banner.from === "rachel" ? "Rachel" : State.banner.from === "photos" ? "Photos" : "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
              </button>
              <button class="banner-x" data-act="close-banner" aria-label="Dismiss">${ICONS.close}</button>
            </div>`
@@ -1521,7 +1567,11 @@
         const from = State.banner ? State.banner.from : "juno";
         State.banner = null;
         if (from === "rachel") go("rachel", "banner");
-        else {
+        else if (from === "photos") {
+          go("photos", "banner");
+          State.album = "memory";
+          render();
+        } else {
           go("juno", "banner");
           runScript();
         }
@@ -1602,8 +1652,25 @@
       case "open-photos":
         go("photos", "home");
         break;
+      case "album-open":
+        State.album = "memory";
+        render();
+        break;
+      case "album-close":
+        State.album = null;
+        render();
+        break;
+      case "photo-to-juno":
+        // From Photos: open Juno's thread with the photo tray open.
+        State.viewingShot = null;
+        go("juno", "photos");
+        State.attachOpen = true;
+        render();
+        runScript();
+        break;
       case "view-shot":
         State.viewingShot = id;
+        if (State.photosOpened.indexOf(id) === -1) State.photosOpened.push(id);
         render();
         break;
       case "close-shot":

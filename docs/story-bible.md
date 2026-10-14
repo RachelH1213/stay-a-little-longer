@@ -75,7 +75,7 @@ CONTINUITY ELIGIBLE: TRUE
 这比"Rachel 碰巧拿到内部公司文件"更可信，也更贴合数据权利和平台透明度。
 
 **Already in the game:**
-- Rachel's account was deleted (profile: "Removed Sep 22"); a post "quiet" appeared the morning after.
+- Rachel's account was removed Monday 00:40 (profile: "Removed Mon 00:40"); a post "quiet" appeared after that. Orbit erases removed accounts for good 48 hours later: 00:40 tonight.
 - The reply doesn't sound like her: no full stops, no details, no question back.
 - Juno said she hadn't answered it "since sunday", then that she told it "yesterday" she wasn't feeling well.
 - Juno's excuse: "deletion can take up to 48 hours to propagate."
@@ -144,7 +144,7 @@ Juno 则说：
 | Sunday | "tues 9am / bring the blue charger" | |
 | … | | |
 
-**Already in the game:** March 2025 first messages; June / August 2025 chats; February 2026 she vanished and came back ("sorry i vanished… what did i miss"); September 2026 "i might go quiet for a bit"; Sunday the plan and the blue charger; Tuesday morning she didn't show, the player texted "you still coming?" (9:14) and "rachel?" (11:40). A new timeline was proposed but isn't built yet (account removed Mon 00:40, erased for good 48 hours later, about 70 minutes into the first night) — confirm or change it here.
+**Already in the game:** March 2025 first messages; June / August 2025 chats; February 2026 she vanished and came back ("sorry i vanished… what did i miss"); September 2026 "i might go quiet for a bit"; Sunday the plan and the blue charger; Tuesday morning she didn't show, the player texted "you still coming?" (9:14) and "rachel?" (11:40). The night's timeline is built (2026-10-14): the account was removed Mon 00:40 and is erased for good 48 hours later, at 00:40 tonight, about 70 minutes into the first night. Confirm or change it here.
 
 ---
 

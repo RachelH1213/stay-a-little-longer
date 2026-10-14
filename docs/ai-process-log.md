@@ -1714,3 +1714,16 @@ Copy this for each new entry.
   - **Slide 2, rebuilt** (`slide-where-this-started.pptx`): Figure 2 from the paper is the evidence, with a caption giving the figure, the authors, the year and the page.
   - **`paper-excerpts.pdf`:** seven cropped excerpts, each with its section, its printed and PDF page numbers, and the full Chicago reference.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Slide 3 rebuilt with the paper's own passages
+
+- **Tool / model:** Claude Code.
+- **What I asked:** rebuild slide 3 from screenshots of the paper as well.
+- **What Claude Code made:** `slide-research.pptx`, with two columns, each with its excerpt and page:
+  - **Study 1:** 37%, with the results passage (p. 15: 37.4% overall, per-app rates, Flourish 0%).
+  - **Study 2:** up to 14× more messages, 6× more words and 5× longer, with the discussion passage (p. 43).
+  - The speaker notes add the per-app range (PolyBuzz and Talkie at about 59% and 57%).
+- **The FTC part:** it stays as text with its citation. FTC.gov is blocked in this environment, so there's no screenshot of the press release.
+- **My decision:** [to fill in]

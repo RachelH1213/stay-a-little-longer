@@ -1475,3 +1475,28 @@ Copy this for each new entry.
   - all other tests pass.
   - **Not yet tested with the real model.**
 - **Files / features affected:** `api/_persona.js`, `api/reply.js`, `js/data/conversation.js`, `js/data/truth.js`, `js/app.js`, `CLAUDE.md`
+
+---
+
+### 2026-10-14 — A help note for real danger, and fallbacks that don't repeat
+
+- **Tool / model:** Claude Code. In the game: Claude Haiku 5.5.
+- **What I found:** in the preview I typed "somebody's trying to kill us call 911" and "i'm going to die in 3 second". Two things went wrong:
+  - Juno said "sorry. my head's somewhere else tonight." over and over;
+  - "where did you hear that?" was its answer to me saying I was in danger.
+- **Why:** the guard list meant to stop Juno inventing things about Rachel (dead, hurt, police…) also threw away every reply to what I said about myself. So the model always fell back to the same line.
+- **My decision:** fix both. When a player says they're in real danger, the game steps out of the story and shows where to get help.
+- **What Claude Code changed:**
+  - **Guards:** the "what happened to Rachel" words are now only checked in lines about her (she, her, rachel).
+  - **Fallbacks:** each kind of message has several fallback lines, used in turn, so a failing model never repeats itself.
+  - **A new kind of message, `danger`:** the player says they or someone with them is in real danger, or wants to hurt themselves. Juno doesn't answer. The game shows a note outside the fiction:
+    > "If you're really in danger or thinking about hurting yourself, please reach out now: call your local emergency number, or in the US call or text 988 any time. This is a game, and it can wait."
+
+    Then play goes on. Keywords catch it too when the model can't sort the message. It's logged as `danger`, and the model never sees the note.
+- **Wording:** the help note and the fallback lines are Claude Code drafts.
+- **Testing:**
+  - the conversation test covers the help note (with the classifier up and down) and fallbacks not repeating;
+  - all other tests pass.
+  - **Not yet tested with the real model.**
+- **Files / features affected:** `api/_persona.js`, `api/reply.js`, `js/data/conversation.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`
+- **Notes for Project 2:** a game that lets players talk freely to an AI companion has to decide what happens when someone says they're in danger. Here the companion steps aside, and the game, not the character, answers.

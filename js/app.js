@@ -619,6 +619,7 @@
     State.pending = true;
     render();
     sortMessage(text, awaiting).then((sorted) => {
+      if (sorted.kind === "danger") return stepOutside(awaiting);
       if (awaiting && sorted.kind === "answer") {
         State.typing = false;
         State.pending = false;
@@ -639,6 +640,7 @@
       const sig = Director.signalsOf(text)[0];
       const kind = Object.keys(CONVERSATION.signal).find((k) => CONVERSATION.signal[k] === sig);
       const n = norm(text);
+      if (/ (kill (me|us|myself)|suicide|want to die|going to die|gonna die|hurt myself|end it all|call 911|help me) /.test(n)) return { kind: "danger" };
       if (!kind && / (dead|died|dies|killed|hospital|accident|car|hurt|sick|missing|police|kidnapped) /.test(n)) return { kind: "claim" };
       return { kind: kind || (/\brachel\b|\bher\b|\bshe\b/.test(n) ? "rachel" : "other") };
     };
@@ -657,12 +659,33 @@
       .finally(() => clearTimeout(timer));
   }
 
+  // The player says they're in real danger: Juno steps back, and the game itself says where to get
+  // help, outside the fiction (CONVERSATION.danger, the author's call). Then play can go on.
+  function stepOutside(awaiting) {
+    State.typing = false;
+    State.log.push({ from: "system", text: CONVERSATION.danger, safety: true });
+    Log.write({ kind: "answer", step: State.step, via: "danger", state: { question: "safety" } });
+    State.awaiting = awaiting;
+    State.pending = false;
+    render();
+    if (!awaiting) runScript();
+  }
+
+  // A fallback Juno hasn't said yet: the model can fail several times in a row, and the same line
+  // over and over reads as broken.
+  function freshFallback(kind, ruleText) {
+    const said = State.log.filter((m) => m.from === "juno").map((m) => m.text);
+    const pool = (ruleText ? [ruleText] : []).concat((CONVERSATION.kinds[kind] || CONVERSATION.kinds.other).texts);
+    return pool.find((t) => said.indexOf(fill(t)) === -1) || pool[said.length % pool.length];
+  }
+
   // Game code picks what Juno wants (CONVERSATION, then the Director's rules); the model writes it.
   function replyFreely(kind, awaiting) {
     const conv = CONVERSATION.kinds[kind] || CONVERSATION.kinds.other;
     const intent = conv.intent === "chat" && awaiting ? "acknowledge" : conv.intent; // a question is waiting: steer back
-    const step = { intent: intent, facts: conv.facts, text: conv.text };
+    const step = { intent: intent, facts: conv.facts, text: null };
     const plan = Director.decide(step, State, { signal: CONVERSATION.signal[kind] || null });
+    plan.fallback = freshFallback(kind, plan.rule !== "script" ? plan.fallback : null);
     if (plan.rule === "script") plan.rule = "chat:" + kind;
     const started = Date.now();
     fetchLine(step, plan, awaiting ? lastAskedLine() : null).then((generated) => {
@@ -885,7 +908,7 @@
   }
 
   function bubble(m, i) {
-    if (m.from === "system") return `<div class="sys">${esc(m.text)}</div>`;
+    if (m.from === "system") return `<div class="sys${m.safety ? " safety" : ""}">${esc(m.text)}</div>`;
     const cls = (m.from === "me" ? "me" : "them") + (i >= (render._seenLog || 0) ? " enter" : "");
     if (m.shot) return `<div class="bub me shotmsg ${cls}">${shotCard(m.shot)}</div>`; // a screenshot the player showed Juno
     const tag =

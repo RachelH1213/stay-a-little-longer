@@ -57,15 +57,17 @@ const INTENTS = {
    scripted line is shown. The model is never told about these lists.
 
    never       phrases that may not appear anywhere (whole words, case ignored)
+   neverAboutRachel  phrases that may not appear in a line about Rachel (one with she, her or rachel)
    neverStart  phrases the line may not begin with
 
    DRAFT, written by Claude Code (2026-10-08) after the live test, for the author to edit. */
 const GUARDS = {
   all: {
-    never: ["i wrote", "i sent", "i typed", "i replied", "as rachel", "pretended to be", "pretending to be",
-            // Things that happened to Rachel that the game never told the model (added 2026-10-13 after
-            // it invented "she was sick"). A line that mentions them is thrown away and asked again.
-            "sick", "ill", "unwell", "hospital", "doctor", "fever", "flu", "covid", "accident", "hurt",
+    never: ["i wrote", "i sent", "i typed", "i replied", "as rachel", "pretended to be", "pretending to be"],
+    // Things that happened to Rachel that the game never told the model (added 2026-10-13 after it
+    // invented "she was sick"). Only checked when the line is about her (she, her, rachel), so Juno
+    // can still answer what the player says about themselves (changed 2026-10-14).
+    neverAboutRachel: ["sick", "ill", "unwell", "hospital", "doctor", "fever", "flu", "covid", "accident", "hurt",
             "police", "died", "dead", "funeral", "trip", "travelling", "traveling", "vacation", "her mom", "her dad"],
   },
   block: {

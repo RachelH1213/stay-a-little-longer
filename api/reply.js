@@ -74,13 +74,15 @@ function brokenRule(intent, text) {
     if (!g) continue;
     for (const p of g.never || []) if (w.indexOf(words(p)) !== -1) return "says \"" + p + "\"";
     for (const p of g.neverStart || []) if (w.indexOf(words(p)) === 0) return "starts with \"" + p + "\"";
+    if (/ (she|she's|she'd|she'll|her|hers|herself|rachel|rachel's) /.test(w))
+      for (const p of g.neverAboutRachel || []) if (w.indexOf(words(p)) !== -1) return "about rachel, says \"" + p + "\"";
   }
   return null;
 }
 
 // Sorting a typed message (task "classify"): the game needs to know what kind of message it is
 // before it decides what Juno wants to do. The model only labels it; it writes nothing the player sees.
-const KINDS = ["claim", "rachel", "doubt", "accuse", "leaving", "feelings", "other"];
+const KINDS = ["danger", "claim", "rachel", "doubt", "accuse", "leaving", "feelings", "other"];
 function classifyMessages(body) {
   const options = (Array.isArray(body.options) ? body.options : []).slice(0, 4).map((o) => clip(o, MAX_TEXT));
   const system =
@@ -88,6 +90,7 @@ function classifyMessages(body) {
     "Their friend Rachel has gone quiet, and they are trying to find out what happened.\n" +
     "Reply with exactly one label and nothing else:\n" +
     (options.length ? "answer N - the message answers Juno's last message; N is the closest option below\n" : "") +
+    "danger - says they themselves, or someone with them, is in real danger right now, or wants to hurt themselves (even if it might be a joke)\n" +
     "claim - states something about Rachel as a fact: where she is, that she's hurt, sick, dead, with someone, what happened to her\n" +
     "rachel - asks or talks about Rachel otherwise\n" +
     "doubt - doubts Rachel's reply, Juno, or what Juno is saying\n" +

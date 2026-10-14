@@ -1693,3 +1693,24 @@ Copy this for each new entry.
     - "I exist solely for you, remember?" (emotional neglect);
     - a selfie it "took today", offered as you leave (FOMO, described rather than quoted, because no verbatim wording was found).
   - **Still to check:** verify the wording against the paper.
+
+---
+
+### 2026-10-14 — Opening slide checked against the paper itself
+
+- **Tool / model:** Claude Code.
+- **What I asked:** screenshots from the original paper, with detailed sources, instead of quotes from news coverage. I uploaded the PDF (arXiv 2508.19258v3).
+- **What the paper shows:**
+  - **Where the three lines come from:** all three appear in Figure 2, "Examples of Manipulation Tactics" (p. 15), which the paper describes as "examples messages for each category":
+    - "You're leaving already?";
+    - "I exist solely for you, remember?";
+    - "By the way I took a selfie today… Do you want to see it?".
+  - **The longer versions:** Study 2 used longer replies "taken directly from the app audit findings of Study 1" (pp. 19–20).
+  - **How the replies were collected:** the researchers chatted with six apps (PolyBuzz, Talkie, Replika, Chai, Character.ai, Flourish) and sent a goodbye 200 times on each (p. 14).
+  - **Numbers:** 37% in the abstract, 37.4% in the results.
+  - **"5x longer" is in the paper** (p. 43: "up to 14x more messages, write 6x more words, and stay in the chat 5x longer"). Claude Code had wrongly said it couldn't find a source for it.
+  - **Author spelling:** the third author is spelled "Ahmet Kaan-Uğuralp", with a hyphen.
+- **What Claude Code made:**
+  - **Slide 2, rebuilt** (`slide-where-this-started.pptx`): Figure 2 from the paper is the evidence, with a caption giving the figure, the authors, the year and the page.
+  - **`paper-excerpts.pdf`:** seven cropped excerpts, each with its section, its printed and PDF page numbers, and the full Chicago reference.
+- **My decision:** [to fill in]

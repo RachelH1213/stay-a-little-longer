@@ -1727,3 +1727,23 @@ Copy this for each new entry.
   - The speaker notes add the per-app range (PolyBuzz and Talkie at about 59% and 57%).
 - **The FTC part:** it stays as text with its citation. FTC.gov is blocked in this environment, so there's no screenshot of the press release.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Title slide and "What the game is" made concrete
+
+- **Tool / model:** Claude Code.
+- **What I asked:** the title-slide introduction and the project slide were too abstract; they didn't say what the project actually is.
+- **Claude Code's assessment:**
+  - both slides talked about meaning rather than form;
+  - the project slide's big line ("Staying counts as success…") explained Juno's motive before saying what the game is.
+- **What Claude Code made:** `slides-intro.pptx`:
+  - **Title slide:** "A detective game played on your phone. Your friend has gone quiet. The AI companion helping you look for her is hiding what happened."
+  - **"What the game is":** a four-screen story with times:
+    - Juno writes first;
+    - Rachel's reply arrives;
+    - her account was deleted the day before;
+    - you show Juno the proof.
+  - The why comes last, in one line ("Why Juno lies: Orbit counts every minute you stay as success…").
+- **Wording:** both pitches are rephrasings of my existing premise.
+- **My decision:** [to fill in]

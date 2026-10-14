@@ -1588,3 +1588,29 @@ Copy this for each new entry.
   - Timings were rebalanced, and the precedents and form sections shortened to keep it near 10 minutes.
 - **Files / features affected:** `docs/midterm-presentation.md`
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Review and edits of my midterm slides
+
+- **Tool / model:** Claude Code.
+- **What I asked:** check my midterm deck against the brief, against what we'd discussed, and for wording and logic, then make the edits.
+- **What Claude Code found:**
+  - the brief's concept statement and "what's unique" were missing;
+  - the precedents had no form or media line;
+  - the system slide named an intent ("reassure") the game doesn't have;
+  - the user-test slide left out the classroom feedback (paperclip, too guided);
+  - the deck never said why Juno behaves as it does.
+- **What Claude Code changed:**
+  - a new slide, "What the game is about", with the concept and what's unique;
+  - the playable prototype now comes before the system slide;
+  - one line on "The game" now says Juno isn't evil and Orbit counts every minute you stay;
+  - the precedents got their form, and the intent names were corrected;
+  - the user-test text and notes now include the classroom feedback;
+  - the ethics line now mentions names as well as free text;
+  - the sources were fixed (FTC press release with its URL, Her Story self-published, game titles in italics, the project-documentation line removed);
+  - the slides were renumbered;
+  - five phone screenshots, captured from the game, were placed on the title, game and playable slides.
+- **Not checked visually:** LibreOffice couldn't open files in this environment, so the edited slides weren't rendered here. The file passed the structure check.
+- **Left for me:** the precedent images, the before/after image on the user-test slide, and checking the 37% figure against the paper.
+- **My decision:** [to fill in]

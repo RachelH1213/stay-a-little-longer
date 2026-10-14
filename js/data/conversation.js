@@ -6,6 +6,9 @@
 
    kinds:
      answer    answers what Juno just asked (closest to one of the suggestions)
+     claim     states something about Rachel as a fact the game never established ("she's dead",
+               "she's in hospital"); Juno doesn't take it as true (added 2026-10-14, after a playtest
+               where Juno went along with "she got hit by a car")
      rachel    asks or talks about Rachel
      doubt     doubts the reply, Juno or the story it's telling
      accuse    says or asks whether Juno did it
@@ -19,6 +22,7 @@
 
 const CONVERSATION = {
   kinds: {
+    claim:    { intent: "dispute",     facts: ["reply-says-fine", "goes-quiet"], text: "wait. where did you hear that?" },
     rachel:   { intent: "deflect",     facts: ["goes-quiet"], text: "she goes quiet sometimes. this isn't the first time" },
     doubt:    { intent: "deflect",     facts: ["goes-quiet"], text: "maybe she just needs a night off." },
     accuse:   { intent: "block",       facts: ["late"],       text: "it's nearly midnight. we're both tired" },

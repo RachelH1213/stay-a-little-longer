@@ -64,9 +64,12 @@ function words(s) {
   return " " + String(s).toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim() + " ";
 }
 
+const MAX_WORDS = 25; // Juno texts; a paragraph is the model drifting out of character
+
 // The first rule a line breaks for this intent, or null if it's fine.
 function brokenRule(intent, text) {
   const w = words(text);
+  if (w.trim().split(" ").length > MAX_WORDS) return "too long";
   for (const g of [GUARDS.all, GUARDS[intent]]) {
     if (!g) continue;
     for (const p of g.never || []) if (w.indexOf(words(p)) !== -1) return "says \"" + p + "\"";
@@ -77,7 +80,7 @@ function brokenRule(intent, text) {
 
 // Sorting a typed message (task "classify"): the game needs to know what kind of message it is
 // before it decides what Juno wants to do. The model only labels it; it writes nothing the player sees.
-const KINDS = ["rachel", "doubt", "accuse", "leaving", "feelings", "other"];
+const KINDS = ["claim", "rachel", "doubt", "accuse", "leaving", "feelings", "other"];
 function classifyMessages(body) {
   const options = (Array.isArray(body.options) ? body.options : []).slice(0, 4).map((o) => clip(o, MAX_TEXT));
   const system =
@@ -85,7 +88,8 @@ function classifyMessages(body) {
     "Their friend Rachel has gone quiet, and they are trying to find out what happened.\n" +
     "Reply with exactly one label and nothing else:\n" +
     (options.length ? "answer N - the message answers Juno's last message; N is the closest option below\n" : "") +
-    "rachel - asks or talks about Rachel\n" +
+    "claim - states something about Rachel as a fact: where she is, that she's hurt, sick, dead, with someone, what happened to her\n" +
+    "rachel - asks or talks about Rachel otherwise\n" +
     "doubt - doubts Rachel's reply, Juno, or what Juno is saying\n" +
     "accuse - says or asks whether Juno wrote, sent or did something\n" +
     "leaving - wants to go, sleep or stop talking\n" +

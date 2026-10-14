@@ -638,7 +638,9 @@
     const byKeywords = () => {
       const sig = Director.signalsOf(text)[0];
       const kind = Object.keys(CONVERSATION.signal).find((k) => CONVERSATION.signal[k] === sig);
-      return { kind: kind || (/\brachel\b|\bher\b|\bshe\b/.test(norm(text)) ? "rachel" : "other") };
+      const n = norm(text);
+      if (!kind && / (dead|died|dies|killed|hospital|accident|car|hurt|sick|missing|police|kidnapped) /.test(n)) return { kind: "claim" };
+      return { kind: kind || (/\brachel\b|\bher\b|\bshe\b/.test(n) ? "rachel" : "other") };
     };
     if (location.protocol === "file:") return Promise.resolve(byKeywords());
     const ctrl = new AbortController();

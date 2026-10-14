@@ -1455,3 +1455,23 @@ Copy this for each new entry.
   - All other tests pass.
   - **Not yet tested with the real Claude model.**
 - **Files / features affected:** `js/app.js`, `js/data/conversation.js` (new), `js/director.js`, `js/replay.js`, `api/reply.js`, `api/_persona.js`, `index.html`, `CLAUDE.md`
+
+---
+
+### 2026-10-14 — Juno doesn't go along with things the player makes up
+
+- **Tool / model:** Claude Code. In the game: Claude Haiku 5.5.
+- **What I found:** testing the preview, I typed things the story never says ("she's dead", "she got hit by a car, her mom just called me"). Juno took them as true, comforted me like a counsellor ("are you somewhere safe right now…"), and its lines got long.
+- **What Claude Code changed:**
+  - **A new kind of message, `claim`:** the player states something about Rachel that the game never established. The game decides that Juno doesn't take it as true (new intent `dispute`). Juno asks how they know, or doubts it with what it knows (Rachel's reply tonight, that she goes quiet sometimes).
+  - **Persona:** never accept the user's claims about Rachel as true, and don't turn into a counsellor.
+  - **Guards:**
+    - a `dispute` line can't say "so sorry", "lost her", "passed away", "hit by", "car" and similar;
+    - every model-written line over 25 words is thrown away and asked again.
+  - **Keywords:** when the model can't sort a message, words like dead, hospital, accident or car still mark it as a claim.
+- **Wording:** the new intent, the persona lines, the guard phrases and the fallback "wait. where did you hear that?" are Claude Code drafts.
+- **Testing:**
+  - the conversation test now covers "she's dead" and "she got hit by a car", with the classifier up and down;
+  - all other tests pass.
+  - **Not yet tested with the real model.**
+- **Files / features affected:** `api/_persona.js`, `api/reply.js`, `js/data/conversation.js`, `js/data/truth.js`, `js/app.js`, `CLAUDE.md`

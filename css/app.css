@@ -407,6 +407,9 @@ body{background:#d9d6d1;overscroll-behavior:none;min-height:100dvh}
 .banner{top:calc(var(--sb) + 2px);border-radius:22px;border:0;background:rgba(250,250,252,.96);backdrop-filter:blur(20px);
   box-shadow:0 8px 30px rgba(0,0,0,.16);padding:12px 12px 12px 14px}
 .banner-x{display:flex;align-items:center}
+/* Below the screen's top bar, so it never hides Back or Leave; at the very top where there's no top bar. */
+.app:has(.topbar) .banner{top:calc(var(--sb) + 50px)}
+.app:has(.topbar.large) .banner{top:calc(var(--sb) + 60px)}
 
 /* Phone-sized screens: full bleed. The phone's own status bar shows the real time, so the game's
    time and battery get a slim row of their own just under it (the night, js/data/night.js). Kept last so it wins. */
@@ -815,3 +818,4 @@ body{
 .av-gone{background:#3a3a40;color:#8e8e96}
 .banner .ic-orbit{display:grid;place-items:center}
 .banner .ic-orbit svg,.sheet .ic-orbit svg{width:24px;height:24px}
+.sb-net svg:first-child{display:none} /* room for the battery percent beside the Dynamic Island */

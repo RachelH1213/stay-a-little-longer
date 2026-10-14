@@ -1540,3 +1540,16 @@ Copy this for each new entry.
 - **Testing:** the night test now also checks the start-page line, the time and battery on a phone-sized screen, and the countdown; all tests pass.
 - **Files / features affected:** `js/app.js`, `js/data/night.js`, `js/data/onboarding.js`, `js/data/investigation.js`, `css/app.css`, `CLAUDE.md`
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Notifications no longer cover the top bar
+
+- **Tool / model:** Claude Code.
+- **What I found:** in the preview, Rachel's notification covered Juno's top bar (Back and Leave) for 9 seconds.
+- **What Claude Code changed:**
+  - notification banners now sit just under the screen's top bar, and stay at the very top only on screens without one (home, lock, Notes);
+  - on a desktop, the signal-bars icon is hidden, so the battery percent doesn't run into the Dynamic Island.
+- **Testing:** checked on a phone-sized screen and a desktop that the banner starts below the top bar; the related tests pass.
+- **Files / features affected:** `css/app.css`, `CLAUDE.md`
+- **My decision:** [to fill in]

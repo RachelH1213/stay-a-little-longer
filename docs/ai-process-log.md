@@ -1306,3 +1306,41 @@ Copy this for each new entry.
   - a new test opens the choice, picks an answer, checks it becomes a message, and checks that Notes quotes it and orders the options;
   - all flow tests were rerun and pass.
 - **Files / features affected:** `js/data/rachel-history.js`, `js/data/onboarding.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`
+
+---
+
+### 2026-10-14 — Investigating rebuilt: screenshots, showing Juno, freer play
+
+- **Tool / model:** Claude Code.
+- **Feedback from the user test:**
+  - classmates found Notes confusing: too much text, small type, ambiguous questions, cards that didn't really answer them;
+  - the teacher found the paperclip awkward and not visible enough;
+  - the game was too guided, but also easy to get stuck in (the story wouldn't move unless everything was saved);
+  - there was too much reading and too little interaction;
+  - a classmate recommended *Uncover the Smoking Gun*.
+- **What Claude Code built:**
+  - **Screenshots instead of the paperclip:**
+    - a viewfinder button at the top of every Orbit screen turns on screenshot mode;
+    - anything that can be kept gets a dashed outline, and tapping it takes a screenshot (flash, shutter sound) that goes to a new **Photos** app;
+    - every message, post and her deleted profile can be screenshot.
+  - **Showing Juno:** a photo button in Juno's thread sends a screenshot. Juno has three lies, and each one can be broken by a screenshot:
+    - "it loads fine for me" → her deleted profile;
+    - the 48-hour sync excuse → any of Rachel's own older messages; the player first says what's different, and what they told Rachel in her thread puts that observation first;
+    - optional: "she told me yesterday she wasn't feeling well" → Juno's own "not since sunday".
+
+    Anything else gets a short deflection. Catching the optional lie adds one line near the end ("i know what you think of me right now.").
+  - **The story moves on when you see or show something, never when you save it.** The to-do only appears in Notes after 35 seconds without progress.
+  - **Notes:** no questions or cards. It holds Tonight, the to-do (late), the goals, and "What I know", written down as you find things, with new ones highlighted. The type is bigger.
+  - **More ways to find things:**
+    - Orbit search in Chats: "sick" finds nothing from Rachel;
+    - Dani's thread has two questions to ask;
+    - her "quiet" post is dated after the deletion.
+  - The paperclip, the Notes questions (`PAIRS`) and the evidence cards were removed.
+- **Wording:** every Juno, Dani and Notes line in `js/data/investigation.js` and the new script lines are Claude Code drafts.
+- **Testing (Chromium at 390px):**
+  - a new full-flow test runs all three endings: screenshots, the three lies, search, Dani, Notes, Photos, Tonight and the end page;
+  - a new test covers the delayed to-do and Juno's banner while away;
+  - the opening, context, bridge, leave, pace and Director tests were rerun and pass;
+  - six tests written for the paperclip and Notes questions were retired.
+- **Files / features affected:** `js/data/investigation.js` (new), `js/app.js`, `js/data/script-day2.js`, `js/data/app-data.js`, `js/data/onboarding.js`, `js/data/replay.js`, `js/data/truth.js`, `js/data/rachel-history.js`, `index.html`, `css/app.css`, `CLAUDE.md`
+- **My decision:** **[to fill in]**

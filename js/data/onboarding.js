@@ -1,9 +1,9 @@
 /* Wording for the phone around Orbit (home screen, the player's Notes app) and first-time help.
    Edit freely — this file is wording, not logic.
 
-   The phone has a home screen with two apps: Orbit, and the player's own Notes. Evidence is
-   added to Notes from inside Orbit (📎), and worked out in Notes: what to do next, the saved
-   items, comparing two of them, what the player knows. Notes is the player's, not Orbit's.
+   The phone has a home screen with three apps: Orbit, the player's own Notes (what they're trying
+   to find out and what they've found) and Photos (their screenshots; since 2026-10-14, see
+   js/data/investigation.js). Notes and Photos are the player's, not Orbit's.
 
    DRAFT, written by Claude Code (2026-10-08; reworked 2026-10-10 for a notebook beside the phone,
    then the same day for a home screen + Notes app, the author's choice).
@@ -108,39 +108,25 @@ const ONBOARDING = {
   notes: {
     title: "Notes",
     todo: "To do",
-    saved: "From Orbit",
-    know: "What I know",
-    empty: "Nothing here yet.\nTap the paperclip on a message or a screen in Orbit to add it.",
-    // Questions (PAIRS in app-data.js). Claude Code drafts, 2026-10-12.
-    questions: "Questions",
-    startFrom: "Starting from",
-    whichAnswers: "Which of these answers it?",
-    found: "Found it.",
-    foundMore: "Found it. {n} still open.",
+    know: "What I know", // FINDINGS in investigation.js, written down as the player finds them
     knowEmpty: "Nothing yet.",
     // The player's own goal and an older note, there from the start. The note only restates
     // rachel-history.js ("i might go quiet for a bit", shown on the lock screen as "last week").
     // Added 2026-10-12, a draft.
     // The goal moves on as the player works things out (author's direction, 2026-10-12): the slice
-    // never promises to find where Rachel is. Key = the deduction that completes that goal.
+    // never promises to find where Rachel is. `doneBy`: flag:<name> or deduction:<lie id> (2026-10-14).
     // Changed 2026-10-13: proving the account is gone doesn't explain why Rachel went quiet, so
     // that stays open (the next night's question).
     goals: [
-      { text: "Find out what happened to Rachel's account", doneBy: "deleted-replied" },
+      { text: "Find out what happened to Rachel's account", doneBy: "flag:deletedFound" },
       // Comparing her voice only shows she probably didn't write it, not who did (2026-10-13).
-      { text: "Find out whether Rachel sent the reply", doneBy: "not-her-typing" },
+      { text: "Find out whether Rachel sent the reply", doneBy: "deduction:sync" },
       { text: "Find out who, or what, sent it", doneBy: null }, // open goals stay open for the next night
       { text: "Find out why Rachel went quiet", doneBy: null },
     ],
-    observeAsk: "What feels different about the reply?",
-    toldHer: "You told her once: “{text}”", // above the options, when the player chose what they said back in her thread
     ownNote: { when: "Last week", text: "Rachel said she might go quiet for a bit. Check in on her." },
   },
 
-  clipLabel: "Add to Notes",
-  clipped: "Added to Notes",
-  unclipped: "Removed from Notes",
-  coachClip: "Add this to Notes",               // first time evidence the story needs appears in Orbit
   coachHome: "Tap the bar below for Home, then open Notes", // when there's something to do in Notes the player hasn't seen
                                                 // (was "Swipe up…": testers didn't find the swipe; tapping always works)
   typeOwn: "Pick a reply, or type your own",    // the message box while reply suggestions are showing

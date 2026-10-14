@@ -44,12 +44,13 @@ const REPLAY = {
   nextStayed: "You stayed in the chat.",
 
   // Facts the player can have learned, in story order. `when` is checked against the game state
-  // logged with each line: flag:<name> or deduction:<id>.
+  // logged with each line: flag:<name> or deduction:<lie id> (a lie the player exposed).
   knowledge: [
     { when: "flag:sawRachelReply",       text: "Rachel had replied: “sorry, been busy. doing okay now”" },
     { when: "flag:deletedFound",         text: "Her profile said the account had been deleted." },
-    { when: "deduction:deleted-replied", text: "The account was already gone when the reply arrived." },
-    { when: "deduction:not-her-typing",  text: "The reply doesn't sound like Rachel." },
+    { when: "deduction:loads",           text: "You'd shown Juno that her profile was gone." },
+    { when: "deduction:sick",            text: "You'd caught Juno saying two different things about when it last heard from her." },
+    { when: "deduction:sync",            text: "The reply doesn't sound like Rachel." },
     { when: "flag:saidSunday",           text: "Juno had said Rachel hasn't answered it since Sunday." },
   ],
 

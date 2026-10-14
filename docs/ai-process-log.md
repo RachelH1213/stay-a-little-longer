@@ -1668,3 +1668,21 @@ Copy this for each new entry.
   - what I changed;
   - four phone screenshots: before, the paperclip and the old Notes with questions; after, showing Juno a screenshot and the new Notes.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Slide: "Where this started" redone
+
+- **Tool / model:** Claude Code.
+- **What I asked:** the "Where this started" slide felt wrong; check it and redo it.
+- **Claude Code's assessment:**
+  - "I kept seeing the same assumption" isn't grounded in anything;
+  - "assumption" is the wrong word, because companies measure retention as a KPI;
+  - the slide lost my own research framing ("I started with a metric", "the metric and the experience");
+  - nothing on it says why I care.
+- **What Claude Code made:** `slide-where-this-started.pptx`, built from my own research text:
+  - "I started with a metric: engagement.";
+  - what the company sees (session length, retention, churn, post-exit engagement) beside what you hear (three of Juno's retention lines from my intervention design);
+  - "Those numbers don't stay on dashboards…".
+  - The speaker notes leave a place for one sentence of my own on when I first noticed this.
+- **My decision:** [to fill in]

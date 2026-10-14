@@ -1762,3 +1762,21 @@ Copy this for each new entry.
   - **What the game is:** setup / twist / why Juno does it, with the research question at the bottom and Rachel's reply as the image.
   - **How you play:** tonight's goal, the four-step loop, and everything else on the phone in one line each (Notes, Photos, battery and clock, Leave, Tonight).
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Concept statement slide from my own statement
+
+- **Tool / model:** Claude Code.
+- **What I asked:** make the project slide read like my own earlier concept statement, but shorter.
+- **What Claude Code made:** `slide-concept.pptx`. It keeps my first-person framing ("I want players to be taken care of by an AI companion, and then see the log of what it was actually doing") and my essay-vs-game line. The rest is shortened and updated to the current game:
+  - "a year ago" → "a year and a half";
+  - "three in-game days" → "three nights";
+  - the voice-note clue, which isn't built, was dropped;
+  - one clause was added on Orbit counting every minute you stay.
+- **Checked against the paper:**
+  - "kept people talking up to five times longer" is supported (p. 43, "stay in the chat 5x longer");
+  - "the tactic that worked best was also the one people noticed least" is closer to the paper as "the one people saw as least risky" (p. 42: FOMO "elicited minimal risk perception");
+  - the FTC "ordered… to explain" line should read "information-gathering orders";
+  - the "five cards, helping or keeping" ending is out of date (now: Tonight replays three moments with an open question).
+- **My decision:** [to fill in]

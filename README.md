@@ -86,7 +86,8 @@ js/data/replay.js           "Tonight": wording, the three moments, the last choi
 js/replay.js                builds "Tonight" from this playthrough's log
 js/director.js              picks Juno's intent and allowed facts each turn
 api/reply.js                serverless function: one line of Juno from {intent, allowedFacts}; api/_providers.js picks the model
-compare.html                compare models side by side (open /compare.html on the deployed site)
+compare.html                compare models side by side (open /compare.html on the deployed site; on a preview, the keys
+                            need "Preview" checked in Vercel's Environment Variables, including ZHIPU_API_URL for a z.ai key)
 api/_persona.js             Juno's voice and what each intent means — tune this freely
 api/log.js                  serverless function: writes one play-log row to Supabase
 js/log.js                   sends play-log rows; never blocks or breaks play

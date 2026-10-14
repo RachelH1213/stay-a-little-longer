@@ -1747,3 +1747,18 @@ Copy this for each new entry.
   - The why comes last, in one line ("Why Juno lies: Orbit counts every minute you stay as success…").
 - **Wording:** both pitches are rephrasings of my existing premise.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — "What the game is" and "How you play", split so they don't repeat the user-test slides
+
+- **Tool / model:** Claude Code.
+- **What I asked:** redo my "What the game is" page, and make "How you play" explain the game quickly and completely without repeating what the user-test slides cover.
+- **The split:**
+  - "What the game is" answers *what* and *why*;
+  - "How you play" answers *what you do*;
+  - the user-test slides answer *why each feature is the way it is*.
+- **What Claude Code made:** `slides-game-howtoplay.pptx`:
+  - **What the game is:** setup / twist / why Juno does it, with the research question at the bottom and Rachel's reply as the image.
+  - **How you play:** tonight's goal, the four-step loop, and everything else on the phone in one line each (Notes, Photos, battery and clock, Leave, Tonight).
+- **My decision:** [to fill in]

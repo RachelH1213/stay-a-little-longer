@@ -1656,3 +1656,15 @@ Copy this for each new entry.
   - what I chose, and its cost: $0.10 / $0.50 per million tokens in / out from Anthropic's price list, estimated at about one cent per playthrough;
   - three examples from my screenshot, and an empty frame for my comparison-page image.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Slide: Notes and the paperclip as one problem
+
+- **Tool / model:** Claude Code.
+- **What I asked:** merge the Notes slide and the paperclip slide, because they were one evidence system.
+- **What Claude Code made:** `slide-notes-paperclip.pptx`, "Problem 2 of 7". It has:
+  - what classmates and the teacher said;
+  - what I changed;
+  - four phone screenshots: before, the paperclip and the old Notes with questions; after, showing Juno a screenshot and the new Notes.
+- **My decision:** [to fill in]

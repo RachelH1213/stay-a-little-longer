@@ -1569,3 +1569,22 @@ Copy this for each new entry.
 - **Marked for me to write or check:** the introduction (my interests and reading), the concept statement, the "what's unique" sentence, the choice of precedents, and every bibliography entry. The drafts there are built from my README and this log. Precedent years, studios and platforms are marked to verify.
 - **Files / features affected:** `docs/midterm-presentation.md` (new)
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Presentation draft revised around the new theme
+
+- **Tool / model:** Claude Code.
+- **What I asked:** revise `docs/midterm-presentation.md` around my theme: Orbit counts how long you stay as success, and Juno learns to turn care into retention.
+- **What changed:**
+  - **Section 1** is now my research background (engagement metrics, the HBS study, the FTC inquiry, "the distance between the metric and the experience"). Claude Code checked the figures against the sources it could reach:
+    - "37%" became "more than a third", because sources give 37% or 43%;
+    - "five times longer" was left out, because no source it found says it;
+    - "up to 14 times" is phrased so it covers both readings in the sources.
+  - **Section 3:** the concept and my research question.
+  - **Section 5:** "you experience the retention system before you see it measured".
+  - **Section 7:** the full game (three nights, leaving as the core mechanic, the data export, four endings) and new questions for critics.
+  - **Bibliography:** the HBS working paper and the FTC press release.
+  - Timings were rebalanced, and the precedents and form sections shortened to keep it near 10 minutes.
+- **Files / features affected:** `docs/midterm-presentation.md`
+- **My decision:** [to fill in]

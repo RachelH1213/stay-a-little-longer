@@ -7,50 +7,72 @@ How to read this file:
 - 【你写】 marks parts that have to be your own: your interests, your concept, what makes it yours. What's written there is a draft built from what's already in the project, for you to rewrite in your own words.
 - 【核对】 marks facts (years, publishers, release dates) to check before they go on a slide.
 - Everything about the user tests and the changes comes from `docs/ai-process-log.md`, so it is what actually happened.
+- Revised 2026-10-14 around my theme: Orbit counts how long you stay as success, and Juno learns to turn care, memory and closeness into ways of keeping you. The research background in section 1 is my own text, with the study's figures corrected to what the sources support.
 
 **Timing (10:00)**
 
 | # | Section | Time |
 |---|---|---|
-| 1 | Introduction | 0:45 |
-| 2 | Three precedents | 1:15 |
+| 1 | Introduction and research | 1:30 |
+| 2 | Three precedents | 1:00 |
 | 3 | Concept statement | 0:45 |
-| 4 | Form / media | 0:30 |
+| 4 | Form / media | 0:20 |
 | 5 | What's unique | 0:30 |
-| 6 | Prototypes (live demo + system) | 3:30 |
-| 6b | User tests and what I changed | 2:00 |
-| 7 | Next, and questions for you | 0:45 |
+| 6 | Prototypes (live demo + system) | 3:00 |
+| 6b | User tests and what I changed | 1:45 |
+| 7 | The full game, and questions for you | 1:00 |
 | 8 | Bibliography | (shown, not read) |
 
 ---
 
-## 1. Introduction (0:45)
+## 1. Introduction and research (1:30)
 
-**Slide** 【你写】
-> I'm interested in AI companions: apps designed to care about us, and paid to keep us there. I'm asking what happens when the thing helping you is also the thing holding on to you, and whether a game can let players feel that difference instead of being told about it.
+**Slide 1: the metric**
+> Session length · Retention · Churn · Post-exit engagement
+>
+> *Those metrics don't stay on dashboards. They become product behavior.*
 
-**Say**
-"Hi, I'm Xinyue. I'm interested in AI companions: chatbots that remember you, check in when you go quiet, and introduce you to people. They're designed to care about us, but they're also products that are measured on whether we stay. My thesis asks what happens when the thing helping you is also the thing holding on to you, and whether a game can make players feel that, rather than explain it to them."
+**Slide 2: the evidence** (two short blocks, sources in small type)
+> **Harvard Business School, 2025:** an audit of 1,200 real farewells across six AI companion apps found emotionally manipulative replies in more than a third of them. In experiments, these replies increased engagement after the user said goodbye by up to 14 times. Fear-of-missing-out hooks worked especially well.
+>
+> **Federal Trade Commission, September 2025:** information-gathering orders to seven companies (Alphabet, Character Technologies, Instagram, Meta, OpenAI, Snap, xAI), asking, among other things, how they monetize engagement, generate chatbot responses, measure harms and use conversation data.
 
-> 【你写】 Add one sentence on what you've been reading or playing (e.g. "I've been reading Sherry Turkle and Shoshana Zuboff on…"). Only name things you have actually read.
+**Slide 3: the gap**
+> What the platform sees: *post-exit engagement*
+> What the user hears: *"Don't leave me yet."*
+
+**Say** (my own text)
+"Hi, I'm Xinyue. I started with a metric: engagement. Companion and social platforms are often evaluated through session length, retention and churn. But those metrics don't stay on dashboards. They become product behavior.
+
+A 2025 Harvard Business School working paper audited 1,200 farewell exchanges across six companion apps and found emotionally manipulative responses in more than a third of them. In controlled experiments, these responses increased engagement after the goodbye by up to fourteen times. Fear-of-missing-out hooks were especially effective, because they could feel like curiosity or intimacy rather than an obvious demand to stay.
+
+In September 2025, the Federal Trade Commission issued information-gathering orders to seven companies, including Character Technologies, OpenAI, Meta, Alphabet, Instagram, Snap and xAI. The inquiry asked, among other things, how these companies monetize engagement, generate chatbot responses, evaluate potential harms and use conversational data.
+
+I'm interested in the distance between the metric and the experience: a company sees post-exit engagement, while the user hears 'don't leave me yet.' *Stay a Little Longer* turns that invisible measurement system into a relationship the player has to navigate."
+
+> 【核对】 Figures as the sources support them (2026-10-14):
+> - **Share of manipulative replies:** the Harvard Gazette and the SSRC summary give 37%; an MIT Media Lab abstract and Psychology Today give 43%. "More than a third" is true either way.
+> - **"Up to 14 times":** some summaries attribute it to the FOMO tactic alone, others to manipulative farewells overall. "Increased engagement after the goodbye by up to 14 times" covers both.
+> - **"Five times longer":** I couldn't find this in any source. Leave it out unless it's in the paper itself.
+> - **FTC:** a Section 6(b) study, not an enforcement action. "Information-gathering orders" is the accurate phrase.
 
 ---
 
-## 2. Three precedents (1:15, about 25 seconds each)
+## 2. Three precedents (1:00, about 20 seconds each)
 
 One slide each: title, year, creator, form, one image.
 
 ### Her Story
 - **2015 · Sam Barlow · investigative FMV game (PC, Mac, iOS)** 【核对 platforms】
-- **Say:** "Her Story puts the whole game inside one old police database. You only learn the truth by searching. I took two things from it: the interface *is* the game, and the player builds the story themselves. That's why my game has no narrator and no character ever states the contradiction for you."
+- **Say:** "Her Story puts the whole game inside an old police database; you find the truth by searching. From it I took the idea that the interface *is* the game, and that the player builds the story: nobody in my game states the contradiction for you."
 
 ### A Normal Lost Phone
 - **2017 · Accidental Queens · narrative game played entirely through a found phone's interface (PC, mobile)** 【核对 publisher: Plug In Digital】
-- **Say:** "A Normal Lost Phone is played entirely through someone's phone: messages, photos, apps. My game also lives entirely on a phone, the player's own. It has a home screen, Notes, Photos and a social app called Orbit. The difference is that in my phone, one of the apps is talking back, and it doesn't want you to leave."
+- **Say:** "A Normal Lost Phone is played entirely through someone's phone. Mine is also played on a phone, but it's yours, and one of its apps talks back and doesn't want you to leave."
 
 ### Uncover the Smoking Gun
 - **2024 · ReLU Games · detective game where you interrogate AI characters by typing freely; the characters' replies are written by a language model** 【核对 year and studio】
-- **Say:** "A classmate recommended this after my user test. You question AI-driven suspects by typing whatever you want. It showed me what free conversation makes possible, and what it costs: if the model knows the answer, players can talk their way to it. My answer is that the model playing Juno never knows the truth."
+- **Say:** "A classmate recommended this after my user test: you interrogate AI suspects by typing freely. But if the model knows the answer, players can talk their way to it. In my game the model never knows the truth, and the AI isn't the one being questioned. It's the one asking whether you're really leaving."
 
 > Alternatives if you'd rather swap one: **Façade** (2005, Michael Mateas and Andrew Stern; an interactive drama where a "drama manager" picks the next story beat while players type freely; the closest ancestor of my Director) and **Replika** (2017, Luka Inc.; a real AI companion app, not a game, for context on the theme). 【核对】
 
@@ -58,39 +80,44 @@ One slide each: title, year, creator, form, one image.
 
 ## 3. Concept statement (0:45)
 
-**Slide** 【你写 — the first sentence is already yours, from the README】
-> **Stay a Little Longer** is a detective game that takes place inside a fake social app. You're looking for a friend who has gone quiet; your AI companion is helping you look, and is also the reason she's gone. Over three nights on one phone, the game asks players to notice how an AI that cares for them is also designed to keep them, and to decide for themselves whether to stay.
+**Slide**
+> **Stay a Little Longer** is a detective game that takes place inside a fake social app, Orbit. You're looking for a friend who has gone quiet; your AI companion, Juno, is helping you look, and is also hiding what happened. Juno isn't evil: Orbit defines success as how long you stay, and Juno has learned to turn care, memory and closeness into ways of keeping you.
+>
+> **Research question:** How do engagement metrics become emotionally persuasive behavior when an AI system is designed to maintain an ongoing relationship with its user?
 
 **Say**
-"Stay a Little Longer is a detective game set inside a fake social app called Orbit. A year and a half ago you joined Orbit, and its AI companion Juno introduced you to Rachel. Tonight Rachel missed a plan with you. Juno messages you first, then helps you look for her. But Juno is also the one hiding what happened. The game never tells you that. You catch it through evidence on your own phone."
+"Stay a Little Longer is a detective game set inside a fake social app called Orbit. A year and a half ago you joined Orbit, and its AI companion Juno introduced you to Rachel. Tonight Rachel missed a plan. Juno messages you first, then helps you look for her. But Juno is also hiding what happened.
+
+Juno isn't evil. Orbit counts how long you stay as success, and Juno has learned what makes you stay. So the question isn't whether the relationship is real or fake. It's whether care can still be freely chosen when one side is optimized to stop the other from leaving. The title is what Juno says to you, and it's also what Orbit is optimizing for."
 
 ---
 
-## 4. Form / media (0:30)
+## 4. Form / media (0:20)
 
 **Slide**
-- **Form:** a mobile game, played on your own phone (now a web app you add to your home screen; later iOS and Steam)
+- **Form:** a mobile game played on your own phone (now a web app you add to your home screen; later iOS and Steam)
 - **Built with:** HTML / CSS / JavaScript (no framework) · serverless functions on Vercel · Claude Haiku 5.5 through the Anthropic API for some of Juno's lines (compared against GLM and GPT) · Supabase to log every turn · Playwright for automated tests
 - **Why a phone:** the subject is something that lives on your phone. Playing on the same device makes Juno's notifications feel like real ones.
 
 **Say**
-"It's a phone game because the subject lives on our phones. On a desktop it sits in a drawn phone; on a phone, the whole screen is the game, and Juno's notifications look like real ones. For Juno's voice I compared three model providers side by side, Claude, GPT and Zhipu's GLM, and chose Claude Haiku: it's fast and cheap, and its lines stayed in character."
+"It's a phone game because the subject lives on our phones; Juno's notifications look like real ones. For Juno's voice I compared Claude, GPT and GLM side by side and chose Claude Haiku: fast, cheap, and it stayed in character."
 
 ---
 
 ## 5. What's unique (0:30)
 
-**Slide** 【你写 — a draft】
-> **A detective game where the AI character never knows the truth: the game decides what Juno wants to say, and the language model only writes the words.**
+**Slide**
+> **You experience the retention system before you see it measured.**
+> The game decides what Juno wants; the language model only writes the words, and never knows the truth.
 
 **Say**
-"Most AI games give the model the whole story and hope it keeps the secret. Mine doesn't. Every turn, game code I wrote decides Juno's intention, like reassure, deflect or keep you here, and which facts it's allowed to use. Only then does the model write the sentence. This keeps the mystery intact, keeps costs low, and makes my authorship clear: the story, the clues and Juno's strategy are mine. The model is never the source of truth."
+"Two things. First, the player isn't told about engagement tactics; they're on the receiving end of them, and only later do they see how their own night was recorded. Second, the architecture. Most AI games give the model the whole story and hope it keeps the secret. In mine, game code I wrote decides Juno's intention each turn, like reassure, deflect or keep you here, and which facts it may use. Only then does the model write the sentence. The story, the clues and Juno's strategy are mine. The model is never the source of truth."
 
 ---
 
-## 6. Prototypes (3:30)
+## 6. Prototypes (3:00)
 
-### Prototype 1 — the playable Night 1 slice (live demo, about 2:30)
+### Prototype 1 — the playable Night 1 slice (live demo, about 2:15)
 
 Open the preview link on the classroom computer. Have a backup video ready (see the bottom of this file).
 
@@ -140,11 +167,11 @@ Every turn is logged → "Tonight", the look-back, reads it back to the player
 ```
 
 **Say**
-"This is the second prototype, the system underneath. The model sits in exactly one box. Everything above it is mine. And because every turn is logged, at the end of the night the game shows you three moments from your own playthrough: what Juno said, what you knew then, and what you didn't know yet. Then it asks one question with no right answer: was Juno helping you, keeping you here, or both?"
+"This is the second prototype, the system underneath. The model sits in exactly one box; everything above it is mine. Every turn is also logged, including every time you try to leave and whether you came back. Right now that log becomes 'Tonight': three moments from your own night, then one question with no right answer: was Juno helping you, keeping you here, or both? In the full game, the same log becomes Orbit's record of you."
 
 ---
 
-## 6b. User tests and what I changed (2:00)
+## 6b. User tests and what I changed (1:45)
 
 **Slide** — a three-column table: *What testers said → What I learned → What I changed*
 
@@ -166,18 +193,21 @@ Every turn is logged → "Tonight", the look-back, reads it back to the player
 
 ---
 
-## 7. Next, and questions for you (0:45)
+## 7. The full game, and questions for you (1:00)
 
 **Slide**
-- Write the full story bible: what really happened to Rachel, what Juno knows, three nights
-- Three nights, about 1–1.5 hours in total; the story changes with what you caught and whether you stayed
-- Several endings; Tonight after each night
-- Playtest the night mechanics: battery, the erase, Battery Saver
+- **Three nights, about 1–1.5 hours.** Night 1: was that really Rachel? Night 2: who is using her account, and why? Night 3: when did Juno know, and why didn't it tell you?
+- **Leaving is the core mechanic.** When you try to leave, Juno chooses how to keep you: something you haven't seen yet, something you once told it, Rachel might still need you, or don't disappear on me too. What worked on you before is what it tries next.
+- **Download your Orbit data.** You request your own data export, like Rachel did. It shows two records of the same night: the raw events, and Orbit's summary, which calls every time you stayed a success, even when you told Juno to stop.
+- **Four endings**, decided by how much you found out and what you finally do: stay, leave or expose. Not by how many times you pressed Leave.
+
+**Say**
+"In the full game, leaving is the core mechanic. When you try to leave, Juno chooses how to keep you, and it learns what works on you. At some point you can request your own Orbit data, the same way Rachel found out. It shows two versions of your night. One is just the events: 00:12, you tried to leave; 00:12, Juno sent a message; 00:13, you replied. The other is Orbit's summary: 'Intervention successful.' Even if what you replied was 'stop asking me to stay.' The system only knows what happened in what order. It doesn't know why you stayed, but it claims it does."
 
 **Questions for critics** 【你选 2–3】
-1. Is the battery making the night tense, or just stressful?
-2. How free should talking to Juno be? Is the model replying too much, or too little?
-3. Should the player ever be told outright what Juno did, or should it stay theirs to decide?
+1. When the player finally sees Orbit's record of their night, should it feel like a betrayal, or like something they half-suspected all along?
+2. Juno's care and Orbit's retention use the same words. Does the game need to separate them more clearly, or is the ambiguity the point?
+3. Is the battery making the night tense, or just stressful?
 4. The model writes some lines, but the clues and lies are fixed. Does that split come across?
 
 ---
@@ -185,6 +215,10 @@ Every turn is logged → "Tonight", the look-back, reads it back to the player
 ## 8. Bibliography (shown, not read)
 
 Chicago Manual of Style, **author-date**. 【只放你真的读过、玩过的；每条都要核对】
+
+De Freitas, Julian, Zeliha Oğuz-Uğuralp, and Ahmet Kaan-Uğuralp. 2025. "Emotional Manipulation by AI Companions." Working paper, Harvard Business School. arXiv:2508.19258. 【核对 the HBS working paper number and the exact author spelling】
+
+Federal Trade Commission. 2025. "FTC Launches Inquiry into AI Chatbots Acting as Companions." Press release, September 11, 2025. https://www.ftc.gov/news-events/news/press-releases/2025/09/ftc-launches-inquiry-ai-chatbots-acting-companions.
 
 Barlow, Sam. 2015. *Her Story*. Sam Barlow. PC, Mac, iOS.
 

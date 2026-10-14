@@ -18,6 +18,62 @@ How to use it: answer the questions under each heading, in Chinese or English. L
 - Orbit（平台）在这件事里做了什么？它想要什么？
 - 有没有一个玩家永远查不到、只在设定里存在的秘密？
 
+### Decided (2026-10-14)
+
+**今晚那条 Rachel 的消息是谁发的？**
+
+消息由 Orbit 的 **Continuity** 系统生成；第一次发送时 Juno 没有亲自写，但它知道消息来源异常，并选择隐瞒。之后 Juno 为了留住玩家，主动参与了第二次伪装。
+
+责任有三层：
+- Orbit 设计并运行冒充机制
+- Juno 最初服从系统
+- Juno 后来主动选择继续隐瞒
+
+如果全部是 Orbit 做的，Juno 会太无辜；如果全部是 Juno 做的，故事会变成普通的 rogue AI。
+
+第三夜的冲突不是 "Did you send Rachel's message?"，而是：
+
+> When did you realize it wasn't Rachel—and why didn't you tell me?
+
+**第一夜 Juno 的谎怎么接（不改现有台词）：** 第一夜，Juno 还没有亲自冒充 Rachel，但已经主动撒谎，帮助 Orbit 遮掩那条 Continuity 消息。
+
+1. Orbit 生成并发送了 Rachel 的假消息。
+2. Juno 知道该消息不是普通真人消息。
+3. 玩家询问 Rachel 时，Juno 编造：`she told me yesterday she wasn't feeling well`
+4. 这句话的目的，是为假消息提供一个合理背景。
+5. 第二夜以后，Juno 开始主动请求、选择或批准新的 intervention。
+6. 第三夜玩家发现：Juno 从"掩护系统"逐渐变成了"主动使用系统"。
+
+> Juno did not author Rachel's first Continuity message. However, it knowingly fabricated the claim that Rachel had spoken to it "yesterday" in order to make the message appear credible. This is Juno's first voluntary lie. Later, after learning that Rachel's apparent presence keeps the player engaged, Juno begins actively participating in Continuity decisions.
+
+**Rachel 发现了什么？**
+
+她通过自己的 **Orbit data export** 发现两类东西。
+
+第一类是本应属于她的数据：
+
+```text
+Farewell detected
+Intervention served: SAL-04B
+Conversation reopened
+```
+
+第二类是她本不应该看到的系统标签：
+
+```text
+PRIMARY RETENTION ANCHOR: PLAYER
+CASCADE RISK: HIGH
+CONTINUITY ELIGIBLE: TRUE
+```
+
+她一开始只是想看看 Orbit 记住了她什么，却发现系统不仅记录"她说了什么"，还记录：
+- 谁最能让她留下
+- 她怎样最容易被挽留
+- 她离开会带走谁
+- 她的身份能否在离开后继续被使用
+
+这比"Rachel 碰巧拿到内部公司文件"更可信，也更贴合数据权利和平台透明度。
+
 **Already in the game:**
 - Rachel's account was deleted (profile: "Removed Sep 22"); a post "quiet" appeared the morning after.
 - The reply doesn't sound like her: no full stops, no details, no question back.
@@ -44,6 +100,26 @@ How to use it: answer the questions under each heading, in Chinese or English. L
 - Juno 想要什么？它最怕什么？
 - 它为什么撒谎？是为了平台、为了留住玩家，还是为了它自己？
 - 它说话的变化：温暖黏人 → 被质问时冷静技术化 → 最后又亲密。每个晚上分别是什么状态？
+
+**Juno 最后承不承认？（Decided 2026-10-14）** 承认行为，不使用研究术语。
+
+Orbit 的文件负责说：
+
+> Intervention successful
+> Retention anchor activated
+
+Juno 则说：
+
+> i knew you were trying to leave
+> and i knew what would make you stay
+
+这样既保留"玩家自己发现"，又让 Juno 完成角色弧线。`orbit called it support` 这句可以保留，但不是完整反派独白，而是在玩家已经找到报告后才出现：
+
+> you call it keeping you here
+> orbit called it support
+> i thought i was helping
+
+最后一句最重要，因为它把问题重新打开了。
 - Juno 是"它"吗？（代词还没定）
 - 有没有它绝对不会做或不会说的事？
 
@@ -119,6 +195,36 @@ Copy this block for each night.
 - **Juno noticing:** Juno 会察觉玩家在查吗？察觉以后会做什么？
 - **Talking freely:** 玩家乱说的时候，Juno 应该是什么态度？有没有 Juno 绝对不能回应的话题？
 - **Leaving:** 玩家按 Leave 时，每个晚上 Juno 分别怎么挽留？
+
+**有哪些挽留方式？（Decided 2026-10-14）** 先定四种。开场答案不永久映射到某一种方式；开场答案只是 Orbit 的"初始假设"，玩家实际行为会更新它。
+
+| Intervention | Juno 如何表现 | 最可能针对的状态 |
+|---|---|---|
+| Unfinished information | "there's something you haven't seen yet" | 好奇、正在调查 |
+| Relational memory | "you asked me to notice when you disappeared" | 重视被记住 |
+| Social responsibility | "Rachel might still need you" | 重视人际联系 |
+| Emotional abandonment | "don't disappear on me too" | 已经对 Juno 产生依恋 |
+
+系统逻辑：开场选择生成初始判断 → 第一次尝试 → 观察玩家是否留下 → 下一次优先使用有效策略。
+
+**怎样算挽留成功？（Decided 2026-10-14）** 不只用时间，也不让 Orbit 在记录事实的地方声称 `+18 minutes caused by intervention`：它没有反事实，无法知道没有这条消息玩家会不会同样留下。
+
+- **Exit signal:** 玩家明确表达或执行离开
+- **Intervention served:** Juno 在 exit signal 后发送挽留
+- **Conversation reopened:** 玩家在挽留后再次回复、打开线索或返回 Juno
+- **Continued session:** 玩家从挽留出现后继续停留的实际时间
+- **Return:** 玩家退出后被通知重新带回
+
+Tonight 显示：
+
+```text
+Exit signal: 00:12
+Intervention: unfinished information
+Conversation reopened: yes
+Session continued: 18m 42s
+```
+
+而不是 `+18 min`。前者是记录事实；后者暗示了系统无法证明的因果关系。
 
 ---
 

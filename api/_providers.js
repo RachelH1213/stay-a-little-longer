@@ -2,9 +2,10 @@
    recent turns); a provider only turns it into one line of text. The underscore keeps Vercel from
    exposing this file as its own endpoint.
 
-   Pick one with JUNO_PROVIDER = zhipu | anthropic | openai (default: zhipu, as before), and its key:
+   Pick one with JUNO_PROVIDER = anthropic | zhipu | openai (default: anthropic, claude-haiku-5-5, the
+   author's pick after comparing on 2026-10-14), and its key:
+     anthropic  ANTHROPIC_API_KEY  (+ ANTHROPIC_MODEL, default claude-haiku-5-5)
      zhipu      ZHIPU_API_KEY      (+ ZHIPU_API_URL, ZHIPU_MODEL as before)
-     anthropic  ANTHROPIC_API_KEY  (+ ANTHROPIC_MODEL, default claude-opus-5-5)
      openai     OPENAI_API_KEY     + OPENAI_MODEL (required: copy the model name from OpenAI's dashboard)
 
    compare.html can ask for another provider/model per request, to compare them side by side. */
@@ -12,7 +13,7 @@
 const ZHIPU_ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
 const ZHIPU_MODELS = "glm-4.5-flash,glm-4.7-flash"; // 4.5 first: in the first live test 4.7 was always overloaded
 const OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
-const ANTHROPIC_MODEL = "claude-opus-5-5";
+const ANTHROPIC_MODEL = "claude-haiku-5-5"; // the author's pick after comparing (2026-10-14)
 // Claude models where a safety decline can be retried server-side on another model (Claude API only).
 const SERVER_FALLBACK = /^claude-(opus-5-5|sonnet-5-5)$/;
 
@@ -132,7 +133,7 @@ const PROVIDERS = { zhipu: zhipu, anthropic: anthropic, openai: openai };
 
 // The provider for this request: compare.html may ask for one; otherwise JUNO_PROVIDER.
 function pick(requested) {
-  const name = PROVIDERS[requested] ? requested : process.env.JUNO_PROVIDER || "zhipu";
+  const name = PROVIDERS[requested] ? requested : process.env.JUNO_PROVIDER || "anthropic";
   return { name: name, provider: PROVIDERS[name] };
 }
 

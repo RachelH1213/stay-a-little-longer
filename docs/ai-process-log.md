@@ -1413,3 +1413,14 @@ Copy this for each new entry.
   - the comparison page was checked in Chromium.
   - **Not tested with real Claude or OpenAI keys yet.**
 - **Files / features affected:** `api/_providers.js` (new), `api/reply.js`, `compare.html` (new), `package.json` (new), `.env.example`, `CLAUDE.md`, `README.md`
+
+---
+
+### 2026-10-14 — Juno's lines now come from Claude Haiku 5.5
+
+- **Tool / model:** Claude Code. Juno's lines: Claude Haiku 5.5 (`claude-haiku-5-5`).
+- **What I did:** I set up a Claude API key and compared the models on `compare.html`.
+- **My decision:** use `claude-haiku-5-5` for Juno.
+- **What Claude Code changed:** the default provider is now Claude with `claude-haiku-5-5`, so no extra setting is needed in Vercel. Zhipu and OpenAI can still be chosen with `JUNO_PROVIDER`. The guards and the scripted fallback lines are unchanged.
+- **Testing:** the provider unit tests pass with the new default.
+- **Files / features affected:** `api/_providers.js`, `.env.example`, `CLAUDE.md`

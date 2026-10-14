@@ -1,18 +1,14 @@
 /* POST /api/reply — turns {persona, intent, allowedFacts, recentTurns} into one line of text.
+   Which model writes it is set in api/_providers.js (JUNO_PROVIDER).
 
    The game decides what Juno wants to say. This only writes the words.
    Any failure returns an error status; the client then shows the hardcoded line. */
 
 const { PERSONAS, INTENTS, GUARDS } = require("./_persona");
 
-// Mainland China (open.bigmodel.cn) by default. For an international z.ai key, set
-// ZHIPU_API_URL=https://api.z.ai/api/paas/v4/chat/completions — same request format and model.
-const DEFAULT_ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
-// Tried in order: if one is overloaded (429) or errors (5xx), the next gets the remaining time.
-// Both defaults are free on z.ai / bigmodel.cn. Override with ZHIPU_MODEL="model-a,model-b".
-const DEFAULT_MODELS = "glm-4.5-flash,glm-4.7-flash"; // 4.5 first: in the first live test 4.7 was always overloaded
-const UPSTREAM_TIMEOUT_MS = 7000; // under the client's 8s, so we fail before it gives up. Was 3.5s;
-                                  // z.ai's free glm-4.7-flash took longer than that from Vercel (2026-10-08)
+const { pick } = require("./_providers"); // which model writes the words: zhipu | anthropic | openai
+
+const UPSTREAM_TIMEOUT_MS = 7000; // under the client's 8s, so we fail before it gives up
 const MAX_FACTS = 6;
 const MAX_TURNS = 8;
 const MAX_TEXT = 300;
@@ -60,16 +56,6 @@ function cleanLine(raw) {
     .slice(0, MAX_REPLY);
 }
 
-// The upstream service's own error text, trimmed. Never contains our key; helps tell
-// "rate limited" from "no balance" from "table not found" without guessing.
-async function upstreamDetail(r) {
-  try {
-    return (await r.text()).replace(/\s+/g, " ").slice(0, 300);
-  } catch (e) {
-    return "";
-  }
-}
-
 // Lowercase, plain apostrophes, punctuation to spaces, padded so phrases match whole words.
 function words(s) {
   return " " + String(s).toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim() + " ";
@@ -89,9 +75,6 @@ function brokenRule(intent, text) {
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
 
-  const key = process.env.ZHIPU_API_KEY;
-  if (!key) return res.status(500).json({ error: "no key" });
-
   let body = req.body;
   if (typeof body === "string") {
     try { body = JSON.parse(body); } catch (e) { body = null; }
@@ -100,49 +83,45 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: "bad request" });
   }
 
-  const models = (process.env.ZHIPU_MODEL || DEFAULT_MODELS).split(",").map((m) => m.trim()).filter(Boolean);
+  // compare.html may ask for a provider and model; the game never does (JUNO_PROVIDER decides).
+  const { name, provider } = pick(body.provider);
+  if (!provider.key()) return res.status(500).json({ error: "no key", provider: name });
+  const asked = typeof body.model === "string" && /^[a-z0-9][a-z0-9.,:_-]{1,60}$/i.test(body.model) ? body.model : null;
+  const models = provider.models(asked);
+  if (!models.length) return res.status(500).json({ error: "no model", provider: name });
+
   const messages = buildMessages(body);
   const ctrl = new AbortController();
+  const started = Date.now();
   const timer = setTimeout(() => ctrl.abort(), UPSTREAM_TIMEOUT_MS);
   const failures = [];
 
   try {
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
       const model = models[i % models.length];
-      const r = await fetch(process.env.ZHIPU_API_URL || DEFAULT_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
-        body: JSON.stringify({
-          model: model,
-          messages: messages,
-          thinking: { type: "disabled" }, // reasoning mode is too slow for a chat beat
-          temperature: 0.8,
-          max_tokens: 80,
-        }),
-        signal: ctrl.signal,
-      });
-
-      if (!r.ok) {
-        failures.push({ model: model, status: r.status, detail: await upstreamDetail(r) });
-        if (r.status === 429 || r.status >= 500) continue; // busy or broken: try the next model
-        break; // a bad key or bad request won't get better with another model
+      let raw;
+      try {
+        raw = await provider.write(model, messages, ctrl.signal, Math.max(500, UPSTREAM_TIMEOUT_MS - (Date.now() - started)));
+      } catch (e) {
+        if (ctrl.signal.aborted) throw e;
+        failures.push({ model: model, status: e.status || 502, detail: e.detail || String(e.message || e).slice(0, 300) });
+        if (e.retry) continue; // busy or broken: try again / the next model
+        break; // a bad key or bad request won't get better
       }
-
-      const data = await r.json();
-      const text = cleanLine(data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content);
+      const text = cleanLine(raw);
       if (!text) {
         failures.push({ model: model, status: 200, detail: "empty" });
         continue;
       }
       const broken = brokenRule(body.intent, text);
-      if (!broken) return res.status(200).json({ text: text, model: model, attempts: i + 1 });
+      if (!broken) return res.status(200).json({ text: text, provider: name, model: model, attempts: i + 1, ms: Date.now() - started });
       failures.push({ model: model, status: 200, detail: "rejected, " + broken + ": " + text });
     }
     const last = failures[failures.length - 1] || {};
     const error = last.status === 200 ? "rejected" : "upstream " + last.status; // 200 = the model answered, but badly
-    return res.status(502).json({ error: error, detail: last.detail, tried: failures });
+    return res.status(502).json({ error: error, provider: name, detail: last.detail, tried: failures });
   } catch (e) {
-    return res.status(504).json({ error: "timeout or network", tried: failures });
+    return res.status(504).json({ error: "timeout or network", provider: name, tried: failures });
   } finally {
     clearTimeout(timer);
   }

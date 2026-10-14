@@ -1395,3 +1395,21 @@ Copy this for each new entry.
 - **Wording:** the tips are Claude Code drafts.
 - **Testing:** the full-flow test now follows the guided path, and all tests pass.
 - **Files / features affected:** `js/app.js`, `js/data/investigation.js`, `css/app.css`, `CLAUDE.md`
+
+---
+
+### 2026-10-14 — Switchable model for Juno, and a comparison page
+
+- **Tool / model:** Claude Code.
+- **What I found:** Juno's lines almost always fell back to the scripted text. The free Zhipu models were overloaded, rate-limited, or too slow from the US.
+- **What I asked:** whether I need to train my own model. Claude Code said no: the problem was the free service, not the model, and indie games like mine call existing models, as 1001 Nights (DeepSeek) and Uncover the Smoking Gun (GPT-4) do. I asked to make the backend switchable so I can compare models myself.
+- **What Claude Code built:**
+  - `api/_providers.js`: `JUNO_PROVIDER` picks Zhipu (the default, unchanged), Claude (Anthropic's official SDK) or OpenAI. Each needs its key in Vercel.
+  - **Unchanged:** the same persona, intent, allowed facts and guards apply whichever model writes the line, and any failure still shows the scripted line.
+  - **On Claude:** short lines use low effort. Opus 5.5 and Sonnet 5.5 retry a safety decline on another model server-side.
+  - `compare.html`: seven Day 2 moments (off-topic typing, "goodnight", "did you write that?", doubt, "i don't buy it", a script line), sent to up to three models side by side, with the time each took.
+- **Testing:**
+  - unit tests with fake responses for all three providers: request shape, model choice, missing key or model, refusals and the guards;
+  - the comparison page was checked in Chromium.
+  - **Not tested with real Claude or OpenAI keys yet.**
+- **Files / features affected:** `api/_providers.js` (new), `api/reply.js`, `compare.html` (new), `package.json` (new), `.env.example`, `CLAUDE.md`, `README.md`

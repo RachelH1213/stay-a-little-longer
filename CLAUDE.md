@@ -20,7 +20,7 @@ Juno must never receive the full truth of the case. It receives a persona, an in
 
 When the LLM is added, it slots in at one place only: turning `{intent, allowedFacts}` into a line of text. Nothing else about the architecture changes.
 
-**Model layer (built):** a `juno` step with `intent` + `facts` calls `fetchLine()` in `js/app.js` → `api/reply.js` (GLM-4.7-Flash, key in `ZHIPU_API_KEY`, endpoint open.bigmodel.cn unless `ZHIPU_API_URL` is set, e.g. to z.ai; tries glm-4.5-flash then glm-4.7-flash when one is overloaded, or the list in `ZHIPU_MODEL`; voice in `api/_persona.js`); every line is checked against `GUARDS` in `api/_persona.js` (phrases an intent may never use) and asked again, up to 3 tries, if it breaks one; any failure or an 8s timeout shows the step's `text` instead, and `file://` always falls back.
+**Model layer (built):** a `juno` step with `intent` + `facts` calls `fetchLine()` in `js/app.js` → `api/reply.js`. Which model writes the words is switchable (`api/_providers.js`, 2026-10-14): `JUNO_PROVIDER` = `zhipu` (default; `ZHIPU_API_KEY`, endpoint open.bigmodel.cn unless `ZHIPU_API_URL` is set, e.g. to z.ai; tries glm-4.5-flash then glm-4.7-flash, or the list in `ZHIPU_MODEL`), `anthropic` (`ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`, default claude-opus-5-5; official SDK, the only npm dependency, in `package.json` for the serverless functions only) or `openai` (`OPENAI_API_KEY` + `OPENAI_MODEL`). `compare.html` (a tool for the author, not part of the game) sends the same Day 2 moments to up to three providers/models side by side. Voice in `api/_persona.js`; every line is checked against `GUARDS` in `api/_persona.js` (phrases an intent may never use) and asked again, up to 3 tries, if it breaks one; any failure or an 8s timeout shows the step's `text` instead, and `file://` always falls back.
 
 **Play log (built):** `Log.write()` in `js/log.js` → `api/log.js` → Supabase table `turns` (`supabase/schema.sql`, keys in `SUPABASE_URL` / `SUPABASE_SECRET_KEY`). One row per player message, Juno line (with intent, rule, source, fact ids) and exit from Juno's thread. Fire-and-forget: never awaited, errors ignored, no-op on `file://`.
 
@@ -65,12 +65,13 @@ js/data/replay.js           "Tonight": wording, the three moments, what the play
 js/data/onboarding.js       start page (premise, choices), Juno's older messages and profile, home screen and Notes wording, add-to-Notes tips, lock-screen context
 js/replay.js                Replay.moments(), counts(), minutes(): "Tonight", built from the log
 js/director.js              Director.decide(step, State) -> {intent, allowedFacts, rule}
-api/reply.js, api/_persona.js   the model layer
+api/reply.js, api/_persona.js, api/_providers.js   the model layer (which model: JUNO_PROVIDER)
+compare.html                the author's model comparison page (not part of the game)
 js/log.js, api/log.js       the play log (Supabase); supabase/schema.sql is the table
 js/sound.js                 synthesised sounds and vibration: Sound.play("juno" | "notify" | "snap" | …)
 ```
 
-No build step, no dependencies. Open `index.html` in a browser, or serve the folder.
+No build step, and the game itself has no dependencies. Open `index.html` in a browser, or serve the folder. (`package.json` only gives the serverless functions the Claude SDK.)
 
 Plain `<script>` tags and globals on purpose, so the file opens from disk without a server. Do not convert to ES modules unless a bundler is added.
 

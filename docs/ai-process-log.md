@@ -1809,3 +1809,22 @@ Copy this for each new entry.
 - Under the stages, one line on what holds all night (battery and time, the 00:40 erase, Notes, Leave).
 - It still leaves the reasons behind each feature to the user-test slides.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — Presentation flow, and "How you play" as a screenshot map
+
+- **Tool / model:** Claude Code.
+- **What I asked:**
+  - **The flow:** the introduction, the demo and the user tests seemed to repeat each other; how should the presentation flow?
+  - **The slide:** then, redo "How you play" in my screenshot style.
+- **Claude Code's suggestion for the flow:**
+  - each part answers one question: the intro says *what and why*, the demo says *how you play*, the user tests say *why it changed*;
+  - the demo comes before the user tests, so those slides can point back to what was just seen;
+  - this suggested cutting "The demo, step by step", "Who's on the phone" and "The night has limits".
+- **What Claude Code made:** `slide-how-you-play.pptx`, the night as five screenshots in three phases:
+  - **Start:** the start page.
+  - **Investigate:** talk to Juno; look and screenshot; show Juno.
+  - **End:** Tonight.
+  - Each screenshot has one line on what it is, and the speaker notes end with "Let me show you."
+- **My decision:** [to fill in]

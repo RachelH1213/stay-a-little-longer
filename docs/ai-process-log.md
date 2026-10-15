@@ -1795,3 +1795,17 @@ Copy this for each new entry.
   - **Main:** "How do players interpret care and trust when an AI companion's behavior may serve both them and the platform?"
   - **Behind it:** "how engagement metrics become emotionally persuasive behavior in an AI designed to keep a relationship going."
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — "How you play", complete
+
+- **Tool / model:** Claude Code.
+- **What I asked:** the How you play slide felt incomplete.
+- **What Claude Code made:** `slide-how-you-play.pptx`. It has the goal and length (about 20 minutes, one night) and three stages:
+  1. **Start:** tell Juno about your day and your name; Juno writes first at 23:31.
+  2. **Investigate:** the loop, plus Juno's three lies with their exact lines from the script and what breaks each.
+  3. **End:** Juno runs out of excuses or the phone dies, then Tonight's last choice.
+- Under the stages, one line on what holds all night (battery and time, the 00:40 erase, Notes, Leave).
+- It still leaves the reasons behind each feature to the user-test slides.
+- **My decision:** [to fill in]

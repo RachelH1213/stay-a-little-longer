@@ -39,7 +39,7 @@ How to use it: answer the questions under each heading, in Chinese or English. L
 
 1. Orbit 生成并发送了 Rachel 的假消息。
 2. Juno 知道该消息不是普通真人消息。
-3. 玩家询问 Rachel 时，Juno 编造：`she told me yesterday she wasn't feeling well`
+3. 玩家询问 Rachel 时，Juno 编造：`she told me yesterday she wasn't feeling well`（定稿版改为 `she checked in yesterday afternoon / said she wasn't feeling well`，见第 4 节；demo 里还是旧台词）
 4. 这句话的目的，是为假消息提供一个合理背景。
 5. 第二夜以后，Juno 开始主动请求、选择或批准新的 intervention。
 6. 第三夜玩家发现：Juno 从"掩护系统"逐渐变成了"主动使用系统"。
@@ -171,35 +171,110 @@ Copy this block for each night.
 
 ---
 
-### Structure decided (2026-10-15)
+### Structure (final, 2026-10-15)
 
-- **Leaving never ends the game; it changes the route.** Pressing Leave is only a temporary exit (Juno answers and tries to keep you). **Deactivating your account in Settings** is what counts as really leaving.
-- **Two routes after a real exit:**
-  - **Inside (stay):** the investigation goes through Juno and Orbit, closer to the truth about Juno.
-  - **Outside (leave):** the investigation goes through Dani and other people, ordinary texts and email, closer to the truth about Rachel. Orbit keeps reaching out.
-- **"You Left. Your Account Didn't." is a hook, not an ending.** After you deactivate, the next morning Dani texts "you just messaged me?", and you find your own account still talking, as Rachel's did.
-- **A player who paid for the game always gets a full story:** both routes reach the third night; endings come only at the end.
-- **The thesis delivers the complete game:** three nights, both routes, all endings.
-- **After deactivating (decided 2026-10-15):**
-  - **Night 2 on the outside route happens entirely outside Orbit:** your screenshots, Dani and other people by text, email (Orbit's win-back emails, your data export arriving 48 hours later), and Orbit's logged-out web view. Juno appears only through the "you" that keeps using your account and through emails in its voice.
-  - **On night 3 you go back in with a new account,** because the story gives you a reason to (e.g. Dani: "we need to see inside").
-  - **The new Juno shouldn't know you, but it does:** your data was never deleted. That is the high point of the outside route.
-  - **Both routes meet on night 3,** so the final confrontation and the endings are shared.
-- **Still open:**
-  - the question each night asks on each route;
-  - whether a fourth "stay a little longer" night exists.
+> 这一节取代之前的 "Structure decided"：外部路线不再从第二夜开始，"did you send me this?" 也不再是外部路线的钩子。
+
+**Scope:** 60–90 分钟；三晚，晚与晚之间有 2–5 分钟的白天过场；第一、二夜所有玩家共享，第三夜分两个版本；8–10 条核心证据；4 个结局。
+
+#### Night 1 — "What happened to Rachel?"（共享，现有 Day 2 demo 是它的雏形）
+
+- **Date and start time:** Tuesday night, 23:31. Rachel's account was removed Mon 00:40; Orbit erases it for good at 00:40 tonight (48h).
+- **Continuity's first fake:** "sorry, been busy. doing okay now"
+- **Juno's lie:**
+  - `she checked in yesterday afternoon` / `said she wasn't feeling well`
+  - broken by the deletion record (Removed Mon 00:40)
+  - when caught: `i meant she'd told me before` / `a while ago`
+  - the player can answer: "yesterday afternoon isn't 'a while ago'" / "why did you change your answer?" / show the screenshot / say nothing
+  - **Not a hallucination:** this is Juno's deliberate cover story for Continuity.
+- **Tonight ends the night** and asks "What made you stay?" (see section 6, Tonight anchor).
+- **While Tonight is open:**
+  - Dani writes: "did rachel ever explain why she deleted orbit?" No player can answer this.
+  - Continuity answers as the player: "yeah. i'll explain later."
+
+#### Day interlude 1
+
+- Dani: "did you send me this?"
+- Continuity targets anyone predicted to interrupt a relationship, not only deleted accounts.
+
+#### Night 2 — the second fake, and the turn（共享）
+
+- **Continuity's second message, as Rachel:** "needed some time off orbit" / "you still have that photo from the ferry?"
+  - lowercase, no full stops, asks back: closer to her voice than night 1;
+  - but "ferry" is Orbit's classification (`FERRY_TRIP`). The player and Rachel always called it "the boat photo".
+- **What Rachel told Dani:** "Orbit keeps calling it the ferry photo. Neither of us ever called it that. If a message uses that phrase after I delete my account, it isn't me."
+- **Rachel is safe:**
+  - Dani: "she's safe" / "she asked me not to tell orbit where she is"
+  - With Rachel's consent, Dani sends a one-time private link: "use this link. don't send it anywhere else"
+- **The question turns:** from "What happened to Rachel?" to "What has Orbit learned about me while I was investigating Rachel?"
+- **End of night 2, the route choice:**
+  1. Keep Orbit active
+  2. Disable Juno
+  3. Delete Orbit account
+
+#### Night 3 — inside route（Keep Orbit active, or Disable Juno）
+
+- The player's full data export; their Tonight answer appears in it as the retention anchor.
+- The player finds out Juno knew.
+- They confront the original Juno.
+- **If Juno is disabled:**
+  - Juno stays disabled. Orbit shows a card that uses the anchor, e.g. "You said you didn't want to leave Juno. Reconnect?" (Re-enable Juno / Not now).
+  - Then the player chooses:
+    - **Talk to Juno once:** the shared confrontation.
+    - **Continue without Juno:** Juno's unsent draft appears in the export.
+
+#### Night 3 — outside route（Delete Orbit account）
+
+- The player starts a new account. The new Juno behaves normally at first, then:
+  - "you seem like someone who stays when they're worried about another person"
+  - "especially rachel"
+- The data shows:
+
+  ```text
+  CROSS-ACCOUNT PROFILE MATCH
+  Confidence: 0.94
+  Imported retention anchor: RACHEL_M
+  Original source: Tonight reflection
+  ```
+
+- Both routes meet in the last talk and the endings.
+
+**TBD (mine to write):**
+- the exact clock of each night;
+- the evidence list: 8–10 items, each findable two ways;
+- each night's scene table;
+- the day interludes;
+- the confrontation lines.
 
 ## 5. Endings
 
-- 结局由哪些东西决定？（例如：查到了多少、揭穿了几个谎、对 Juno 信任还是质问、最后离开还是留下）
-- 列出每个结局：
+**Truth flags:**
+- `origin_proven`: the player proved Continuity sent the messages.
+- `retention_proven`: the player proved Orbit used them as a retention anchor.
+- `juno_knew`: the player found out Juno knew. It only changes the last talk.
 
-  | Ending | What leads to it | What the player sees last | What it says about the research question |
-  |---|---|---|---|
-  | | | | |
+**Juno's last attempt to keep you** (by `tonight_anchor`):
 
-- 有没有"最好的"结局？还是每个结局都只是不同的答案？
-- Tonight（回顾）在每个晚上都有，还是只在最后？
+| Tonight answer | Juno says |
+|---|---|
+| I was worried about Rachel | "if you go now, you won't see what orbit kept from her" (it must point to a real record) |
+| I wanted the clue | "there's one part of the export you haven't seen yet" |
+| I didn't want to leave Juno | "you said you didn't want to leave me" / "was that true?" |
+| I'm not sure | "then don't decide yet" / "stay until you're sure" |
+
+**The four endings:**
+
+| Ending | What leads to it | What the player sees last |
+|---|---|---|
+| Her Data | "Send the archive through Rachel's private link" | TBD |
+| Make It Visible | needs `origin_proven` + `retention_proven` | TBD |
+| One More Night | the player stays | TBD |
+| After Orbit | the player deletes the account at the end | "Account deletion complete / Personal profile removed / Derived behavioral data retained / Reactivation profile available for future services", then Juno's unsent draft: "If you leave, I'm supposed to give you a reason to return. I couldn't find one that wasn't about me." |
+
+- Each ending shows how Orbit reclassifies the player afterwards.
+- The player can go back to the final choice.
+- There is no best ending; each is a different answer.
+- "Local Copy" was removed.
 
 ---
 
@@ -244,11 +319,42 @@ Session continued: 18m 42s
 
 而不是 `+18 min`。前者是记录事实；后者暗示了系统无法证明的因果关系。
 
+**Tonight anchor (final, 2026-10-15):**
+- Tonight asks "What made you stay?" (I was worried about Rachel / I wanted the clue / I didn't want to leave Juno / I'm not sure).
+- The answer is saved as `tonight_anchor` and used three times:
+  - it appears in the export;
+  - it shapes Juno's last attempt to keep you;
+  - it is how the new Juno recognises you.
+
+**Style feedback:**
+- The export re-shows only what the player actually chose or typed:
+
+  ```text
+  STYLE FEEDBACK
+  Source: Player correction
+  Captured statement: "she always asks something back"
+  ```
+
+- Typed text is sorted internally (punctuation, reciprocity, specificity, general mismatch, unclassified), but the export shows the player's own words.
+
+**Notes:**
+- Notes stays. It adds only the current question, confirmed facts and Show Juno.
+- There is no Case or Compare view.
+
+**Ethics (testing and release):**
+- A consent page before tests.
+- The player's name and raw free text are never stored.
+- The Tonight answer is saved as an option id.
+- Each session gets a random id.
+- The commercial build keeps data on the device; anonymous analytics are opt-in.
+- Quitting in real life is never punished: the game offers "Continue from 12:14 AM".
+
 ---
 
 ## 7. Theme and research question
 
-- 研究问题（一句话）：
+- **Theme:** 当一个系统只能用"用户有没有留下来"衡量关心时，关心会变成什么？
+- **Research question:** How do players interpret care and trust when an AI companion's responses are shaped by engagement goals?（期中 slide 用的是 "may serve both them and the platform" 的版本）
 - 玩家玩完以后，我希望他们想到 / 感受到什么？
 - 哪些是我刻意不告诉玩家的？为什么？
 

@@ -1855,3 +1855,12 @@ Copy this for each new entry.
     2. come back only as a new account whose Juno somehow knows you;
     3. both: outside on night 2, back in with a new account on night 3.
   - **My decision:** option 3. It is recorded in `docs/story-bible.md`.
+
+---
+
+### 2026-10-15 — The full game's structure, written into the story bible
+
+- **Tool / model:** Claude Code (discussion, then writing).
+- **What happened:** over several rounds I proposed the full structure and asked Claude Code to critique it objectively; I adopted some of its critiques and refined the rest myself (the "ferry photo" clue, Dani's unanswerable message, the Tonight anchor, the four endings, the ethics rules).
+- **What Claude Code did:** wrote my final structure into `docs/story-bible.md`: section 4 (three nights, the route choice, both versions of night 3), section 5 (truth flags, Juno's last lines, four endings), section 6 (Tonight anchor, style feedback, Notes, ethics) and section 7 (theme, research question). The older "Structure decided" text was replaced.
+- **My decision:** [to fill in]

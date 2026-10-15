@@ -1864,3 +1864,12 @@ Copy this for each new entry.
 - **What happened:** over several rounds I proposed the full structure and asked Claude Code to critique it objectively; I adopted some of its critiques and refined the rest myself (the "ferry photo" clue, Dani's unanswerable message, the Tonight anchor, the four endings, the ethics rules).
 - **What Claude Code did:** wrote my final structure into `docs/story-bible.md`: section 4 (three nights, the route choice, both versions of night 3), section 5 (truth flags, Juno's last lines, four endings), section 6 (Tonight anchor, style feedback, Notes, ethics) and section 7 (theme, research question). The older "Structure decided" text was replaced.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — Presentation: "Where this is going" slides rebuilt from the final structure
+
+- **Tool / model:** Claude Code.
+- **What I asked:** update the slides about the finished game to match the structure we just decided.
+- **What Claude Code made:** `slides-where-this-is-going.pptx`, five slides: The finished game (the question turns from Rachel to me), Three nights (with the route choice), Your answers become Orbit's data (Tonight anchor, style feedback), Four endings, How I'll build it. The old "Leaving, and what Orbit records" slide was replaced. The build schedule on the last slide is Claude Code's proposal.
+- **My decision:** [to fill in]

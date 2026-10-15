@@ -1,8 +1,14 @@
 # Stay a Little Longer
 
-A detective game that takes place inside a fake social app. Senior thesis, Parsons BFA Design and Technology, 2026–27.
+*Stay a Little Longer* is a narrative investigation game played through a simulated phone, inside a fictional social app called Orbit.
 
-You are looking for a friend who has gone quiet. Your AI companion is helping you look, and is also the reason she is gone.
+Every Orbit user has an AI companion. Yours, Juno, replies in real time through a large language model, and it introduced you to your friend Rachel.
+
+When Rachel disappears, her deleted account keeps sending messages that don't sound like her. Juno helps you look, but it redirects, lies, and gives you reasons to stay.
+
+Orbit measures success by how long you stay. Juno is built to keep you there.
+
+Senior thesis, Parsons BFA Design and Technology, 2026–27.
 
 This repo is the **Day 2 shell**: real screens and a hardcoded script. Five of Juno's lines can be written by a model when the app runs through `vercel dev`; everything else is fixed.
 

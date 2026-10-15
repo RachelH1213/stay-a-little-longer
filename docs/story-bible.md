@@ -353,6 +353,16 @@ Session continued: 18m 42s
 
 ## 7. Theme and research question
 
+**Project description (decided 2026-10-15):**
+
+> *Stay a Little Longer* is a narrative investigation game played through a simulated phone, inside a fictional social app called Orbit.
+>
+> Every Orbit user has an AI companion. Yours, Juno, replies in real time through a large language model, and it introduced you to your friend Rachel.
+>
+> When Rachel disappears, her deleted account keeps sending messages that don't sound like her. Juno helps you look, but it redirects, lies, and gives you reasons to stay.
+>
+> Orbit measures success by how long you stay. Juno is built to keep you there.
+
 - **Theme (for the work: pre, project description, store page):** What happens to care when staying becomes the measure of success?（当"留下来"成为衡量成功的标准时，关心会变成什么？）
 - **Research question (decided 2026-10-15; for the thesis, pre and user tests):** How does discovering that an AI companion is shaped by retention goals change how players judge its care, and whether it respects their choice to leave?（当玩家发现 AI 陪伴者被留存目标塑造时，他们会如何重新判断它的关心，以及它是否尊重自己离开的选择？）
 - **Sub-questions (for the thesis):**

@@ -1873,3 +1873,12 @@ Copy this for each new entry.
 - **What I asked:** update the slides about the finished game to match the structure we just decided.
 - **What Claude Code made:** `slides-where-this-is-going.pptx`, five slides: The finished game (the question turns from Rachel to me), Three nights (with the route choice), Your answers become Orbit's data (Tonight anchor, style feedback), Four endings, How I'll build it. The old "Leaving, and what Orbit records" slide was replaced. The build schedule on the last slide is Claude Code's proposal.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — Midterm speaking script
+
+- **Tool / model:** Claude Code.
+- **What I asked:** a full, plain spoken script for my final deck, including what to say during the live demo.
+- **What Claude Code made:** `docs/midterm-script.md`, slide by slide plus a demo walkthrough with stage directions.
+- **My decision:** [to fill in]

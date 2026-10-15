@@ -1,20 +1,32 @@
 # Midterm script — *Stay a Little Longer* (10-minute version)
 
-About 8 minutes spoken, leaving time for slips. 【】 are stage directions, not spoken.
+About 8¼ minutes spoken, leaving time for slips. 【】 are stage directions, not spoken.
 Rough clock: start "How you play" by 2:20, finish the demo by 4:40, start "The finished game" by 6:30.
 
 ---
 
-## 1. Title + 2. What the game is (45s)
+## 1. Title + 2. What the game is (60s)
 
 【Slide 1, then move to slide 2 right away.】
 Hi, I'm Rachel. My project is *Stay a Little Longer*, a detective game you play on your phone.
 
-It happens inside a fake social app called Orbit. Your AI companion there, Juno, introduced you to your friend Rachel.
-One night Rachel goes quiet, and Juno helps you look for her. But her account was deleted, and it's still sending messages that don't sound like her.
+【Slide 2.】
+The game takes place inside a fake social app called Orbit.
+On Orbit, everyone has their own AI companion. Yours is called Juno.
+Juno is the one who introduced you to your friend Rachel.
 
-I want players to first feel that Juno really cares, and then realize it was also trying to keep them there.
-My question is: how do people understand care and trust when an AI might be working for them and for the platform at the same time?
+One night, Rachel disappears. Her account is deleted, but messages keep coming from it, and they don't sound like her.
+So you and Juno start looking for her together.
+
+But the more you look, the more you notice Juno isn't always helping.
+Sometimes it changes the subject. Sometimes it tells you something that isn't true. Sometimes it just asks you to stay a little longer.
+
+That's because of how Orbit works. Orbit measures success by one thing: how long you stay.
+And Juno is built to keep that number up.
+
+So halfway through, the case changes. You're not only looking for Rachel anymore. You're looking into Juno, and into what Orbit has been doing to both of you.
+
+My research question is: how do people understand care and trust when an AI might be working for them and for the platform at the same time?
 
 ## 3. Where this started + 4. Research (50s)
 

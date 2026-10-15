@@ -1780,3 +1780,18 @@ Copy this for each new entry.
   - the FTC "ordered… to explain" line should read "information-gathering orders";
   - the "five cards, helping or keeping" ending is out of date (now: Tonight replays three moments with an open question).
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — Research question on "What the game is"
+
+- **Tool / model:** Claude Code.
+- **What I asked:**
+  - **My question:** I proposed the research question "How do people interpret care and trust when an AI companion's behavior may serve both the user and the platform?" and asked for an objective view.
+  - **Claude Code's suggestions:** use "players" instead of "people", and consider naming engagement goals.
+  - **The version I chose:** a main question plus my earlier question underneath as background.
+  - **The slide edit:** I asked Claude Code to put it on "What the game is".
+- **The slide (`slide-what-the-game-is.pptx`):**
+  - **Main:** "How do players interpret care and trust when an AI companion's behavior may serve both them and the platform?"
+  - **Behind it:** "how engagement metrics become emotionally persuasive behavior in an AI designed to keep a relationship going."
+- **My decision:** [to fill in]

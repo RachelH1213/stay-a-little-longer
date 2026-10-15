@@ -1848,3 +1848,10 @@ Copy this for each new entry.
   - deactivating the account (not pressing Leave) is what counts as really leaving;
   - the thesis delivers the complete game.
 - **What was recorded:** Claude Code wrote both decisions, and the questions still open, into `docs/story-bible.md` (section 4, "Structure decided").
+- **Follow-up:**
+  - **The question:** what if you can't go back after deactivating?
+  - **The options Claude Code offered:**
+    1. leave for good and investigate from outside;
+    2. come back only as a new account whose Juno somehow knows you;
+    3. both: outside on night 2, back in with a new account on night 3.
+  - **My decision:** option 3. It is recorded in `docs/story-bible.md`.

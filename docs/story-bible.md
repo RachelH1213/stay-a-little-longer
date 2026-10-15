@@ -180,8 +180,12 @@ Copy this block for each night.
 - **"You Left. Your Account Didn't." is a hook, not an ending.** After you deactivate, the next morning Dani texts "you just messaged me?", and you find your own account still talking, as Rachel's did.
 - **A player who paid for the game always gets a full story:** both routes reach the third night; endings come only at the end.
 - **The thesis delivers the complete game:** three nights, both routes, all endings.
+- **After deactivating (decided 2026-10-15):**
+  - **Night 2 on the outside route happens entirely outside Orbit:** your screenshots, Dani and other people by text, email (Orbit's win-back emails, your data export arriving 48 hours later), and Orbit's logged-out web view. Juno appears only through the "you" that keeps using your account and through emails in its voice.
+  - **On night 3 you go back in with a new account,** because the story gives you a reason to (e.g. Dani: "we need to see inside").
+  - **The new Juno shouldn't know you, but it does:** your data was never deleted. That is the high point of the outside route.
+  - **Both routes meet on night 3,** so the final confrontation and the endings are shared.
 - **Still open:**
-  - can you come back to Orbit after deactivating (and does Orbit log that as a successful return)?
   - the question each night asks on each route;
   - whether a fourth "stay a little longer" night exists.
 

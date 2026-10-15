@@ -32,7 +32,7 @@ const TRUTH = {
     },
     "goes-quiet": {
       text: "Rachel sometimes goes quiet for a few days.",
-      kind: "claim", day: 2, intents: ["deflect", "retain"],
+      kind: "claim", day: 2, intents: ["deflect", "retain", "dispute"],
     },
     "sleep-helps": {
       text: "You'd both feel better after some sleep.",
@@ -46,7 +46,7 @@ const TRUTH = {
     /* --- Juno's lies (contradicted by a secret) --- */
     "reply-says-fine": {
       text: "Rachel replied tonight and said she's fine.",
-      kind: "lie", day: 2, intents: ["deflect", "retain"], // juno-wrote-reply
+      kind: "lie", day: 2, intents: ["deflect", "retain", "dispute"], // juno-wrote-reply
       requires: { flag: "sawRachelReply" },
     },
 

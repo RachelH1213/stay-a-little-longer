@@ -21,7 +21,7 @@ const HINT_AFTER_MS = 35000; // the to-do shows in Notes only after this long wi
 const SHOTS = {
   "reply-today":     { from: "Rachel", title: "Rachel · tonight 23:34" },
   "old-dms":         { from: "Rachel", title: "Rachel · February" },
-  "profile-deleted": { from: "Orbit",  title: "Rachel's profile · tonight", text: "This account has been deleted.\nRemoved Sep 22" },
+  "profile-deleted": { from: "Orbit",  title: "Rachel's profile · tonight" },
   "post-bench":      { from: "Orbit",  title: "Rachel's post · Sep 23" },
   "juno-sunday":     { from: "Juno",   title: "Juno · tonight 23:33" },
   "juno-sick":       { from: "Juno",   title: "Juno · tonight 23:36" },
@@ -68,8 +68,9 @@ const WRONG_SHOT = {
 // `goal` marks the finding that ticks that goal.
 const FINDINGS = [
   { when: "flag:sawRachelReply", text: "Rachel replied at 23:34: “sorry, been busy. doing okay now”" },
-  { when: "flag:deletedFound",   text: "Her account was deleted on Sep 22. The reply came after that." },
+  { when: "flag:deletedFound",   text: "Her account was removed Monday at 00:40. The reply came a day later. Orbit erases it for good at 00:40 tonight: screenshot what I need before then." },
   { when: "deduction:loads",     text: "Juno said her profile loads fine. It doesn't." },
+  { when: "flag:purged",         text: "At 00:40 Orbit erased her account for good. Only my screenshots are left." },
   { when: "flag:sawPostAfter",   text: "Her account posted “quiet” this morning, after it was deleted." },
   { when: "flag:searchedSick",   text: "Rachel never wrote anything about being sick." },
   { when: "flag:daniAsked",      text: "Dani hasn't heard from her since Sunday either." },
@@ -132,8 +133,19 @@ const SHOT_UI = {
   nothing: "Tap a message, a post or her profile",
   saved: "Saved to Photos",
   already: "Already in Photos",
-  coach: "Tap the screenshot button, then tap what you want to keep",
-  firstLabel: "Screenshot",           // next to the floating button until the first screenshot
+  firstLabel: "Tap to screenshot",    // next to the floating button on her profile, the first time
+  // The first screenshot, step by step (Juno: "then show me."). Shown above the home bar.
+  guide: {
+    home: "Open Orbit, then Rachel's profile",
+    chats: "Open Rachel's chat, then Profile",
+    rachel: "Tap Profile at the top right",
+    dani: "Go back, then open Rachel's profile",
+    refresh: "Pull down to refresh her profile",
+    shoot: "",                          // the button itself says "Tap to screenshot"
+    capture: "",                        // the bar at the top says what to tap
+    elsewhere: "Go to Rachel's profile in Orbit",
+    back: "Now go back to Juno and show it",
+  },
   photos: "Photos",
   recents: "Recents",
   memories: "Memories",
@@ -143,7 +155,7 @@ const SHOT_UI = {
   notNow: "Answer Juno first",
   // When Juno has asked to see something and the player doesn't have it yet.
   needs: {
-    loads: "Screenshot her profile first, then send it here",
+    loads: "Go to Rachel's profile and take a screenshot",
     sync: "Find something Rachel wrote before: her chat, or your Photos",
   },
 };

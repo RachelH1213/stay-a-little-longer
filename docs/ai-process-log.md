@@ -1375,3 +1375,501 @@ Copy this for each new entry.
   - all other tests were rerun and pass.
 - **Files / features affected:** `js/app.js`, `js/data/investigation.js`, `js/data/script-day2.js`, `css/app.css`, `CLAUDE.md`
 - **My decision (wording):** I kept the drafted wording for now.
+
+---
+
+### 2026-10-14 — The first screenshot, taught when the story needs it
+
+- **Tool / model:** Claude Code.
+- **What I found:** the screenshot tip popped up as soon as I opened Juno's thread, before anything needed a screenshot, so it meant nothing. A classmate also suggested a landing.
+- **Options:** teach it in the story at the first moment it's needed, add a landing before the story, or both.
+- **My decision:** teach it in the story.
+- **What Claude Code changed:**
+  - **The screenshot button:** it only appears when Juno says "then show me.".
+  - **The guided first screenshot:** a tip above the home bar says where to go next (Chats → Rachel → Profile). Her deleted profile pulses, the button says "Tap to screenshot", and after the screenshot the tip says "Now go back to Juno and show it".
+  - **Removed:** the early tip in Rachel's chat.
+  - **Bugs fixed along the way:**
+    - the tip could block taps on the tab bar;
+    - an open post stayed open after leaving her profile;
+    - her post grid ran off the screen.
+- **Wording:** the tips are Claude Code drafts.
+- **Testing:** the full-flow test now follows the guided path, and all tests pass.
+- **Files / features affected:** `js/app.js`, `js/data/investigation.js`, `css/app.css`, `CLAUDE.md`
+
+---
+
+### 2026-10-14 — Switchable model for Juno, and a comparison page
+
+- **Tool / model:** Claude Code.
+- **What I found:** Juno's lines almost always fell back to the scripted text. The free Zhipu models were overloaded, rate-limited, or too slow from the US.
+- **What I asked:** whether I need to train my own model. Claude Code said no: the problem was the free service, not the model, and indie games like mine call existing models, as 1001 Nights (DeepSeek) and Uncover the Smoking Gun (GPT-4) do. I asked to make the backend switchable so I can compare models myself.
+- **What Claude Code built:**
+  - `api/_providers.js`: `JUNO_PROVIDER` picks Zhipu (the default, unchanged), Claude (Anthropic's official SDK) or OpenAI. Each needs its key in Vercel.
+  - **Unchanged:** the same persona, intent, allowed facts and guards apply whichever model writes the line, and any failure still shows the scripted line.
+  - **On Claude:** short lines use low effort. Opus 5.5 and Sonnet 5.5 retry a safety decline on another model server-side.
+  - `compare.html`: seven Day 2 moments (off-topic typing, "goodnight", "did you write that?", doubt, "i don't buy it", a script line), sent to up to three models side by side, with the time each took.
+- **Testing:**
+  - unit tests with fake responses for all three providers: request shape, model choice, missing key or model, refusals and the guards;
+  - the comparison page was checked in Chromium.
+  - **Not tested with real Claude or OpenAI keys yet.**
+- **Files / features affected:** `api/_providers.js` (new), `api/reply.js`, `compare.html` (new), `package.json` (new), `.env.example`, `CLAUDE.md`, `README.md`
+
+---
+
+### 2026-10-14 — Juno's lines now come from Claude Haiku 5.5
+
+- **Tool / model:** Claude Code. Juno's lines: Claude Haiku 5.5 (`claude-haiku-5-5`).
+- **What I did:** I set up a Claude API key and compared the models on `compare.html`.
+- **My decision:** use `claude-haiku-5-5` for Juno.
+- **What Claude Code changed:** the default provider is now Claude with `claude-haiku-5-5`, so no extra setting is needed in Vercel. Zhipu and OpenAI can still be chosen with `JUNO_PROVIDER`. The guards and the scripted fallback lines are unchanged.
+- **Testing:** the provider unit tests pass with the new default.
+- **Files / features affected:** `api/_providers.js`, `.env.example`, `CLAUDE.md`
+
+---
+
+### 2026-10-14 — Juno answers what the player actually types
+
+- **Tool / model:** Claude Code. In the game: Claude Haiku 5.5.
+- **What I found:** most of Juno's lines were fixed. When I typed something the script didn't expect, Juno answered beside the point and carried on with the story.
+- **My decision:** start with this part, the technical one, before making the story state-driven with several endings, which first needs my truth document and endings.
+- **What Claude Code built:**
+  - **When the player can type:** whenever Juno isn't typing, including while the story waits for them to find something.
+  - **Sorting the message:** the model first sorts each message: does it answer Juno's question (and which suggestion it's closest to), or is it about Rachel, a doubt, an accusation, leaving, feelings, or something else. Offline or on failure, the suggestions and keywords decide.
+  - **What happens next:**
+    - an answer moves the story on, like tapping a suggestion;
+    - anything else gets a reply and the story waits, with the same suggestions still there;
+    - the game picks what Juno wants to do with each kind (`js/data/conversation.js`), and the Director's rules can still change it;
+    - the model writes the line, knowing Juno's open question so it can steer back.
+  - **Unchanged:** the model still never gets the truth, and the guards still check every line.
+  - **Replaced:** the old "one short reply, then the story moves on anyway" behaviour.
+  - **Typing:** what's being typed no longer disappears when the screen updates.
+- **Wording:** the intent for each kind and the fallback lines in `js/data/conversation.js`, and the new `chat` intent in `api/_persona.js`, are Claude Code drafts.
+- **Testing (Chromium at 390px):**
+  - a new test with fake model responses covers:
+    - off-topic typing gets a reply and the suggestions stay;
+    - a typed answer moves the story on;
+    - chatting during a wait;
+    - "goodnight" through the leaving rule;
+    - the classifier down (keywords decide);
+    - typed text surviving a re-render.
+  - All other tests pass.
+  - **Not yet tested with the real Claude model.**
+- **Files / features affected:** `js/app.js`, `js/data/conversation.js` (new), `js/director.js`, `js/replay.js`, `api/reply.js`, `api/_persona.js`, `index.html`, `CLAUDE.md`
+
+---
+
+### 2026-10-14 — Juno doesn't go along with things the player makes up
+
+- **Tool / model:** Claude Code. In the game: Claude Haiku 5.5.
+- **What I found:** testing the preview, I typed things the story never says ("she's dead", "she got hit by a car, her mom just called me"). Juno took them as true, comforted me like a counsellor ("are you somewhere safe right now…"), and its lines got long.
+- **What Claude Code changed:**
+  - **A new kind of message, `claim`:** the player states something about Rachel that the game never established. The game decides that Juno doesn't take it as true (new intent `dispute`). Juno asks how they know, or doubts it with what it knows (Rachel's reply tonight, that she goes quiet sometimes).
+  - **Persona:** never accept the user's claims about Rachel as true, and don't turn into a counsellor.
+  - **Guards:**
+    - a `dispute` line can't say "so sorry", "lost her", "passed away", "hit by", "car" and similar;
+    - every model-written line over 25 words is thrown away and asked again.
+  - **Keywords:** when the model can't sort a message, words like dead, hospital, accident or car still mark it as a claim.
+- **Wording:** the new intent, the persona lines, the guard phrases and the fallback "wait. where did you hear that?" are Claude Code drafts.
+- **Testing:**
+  - the conversation test now covers "she's dead" and "she got hit by a car", with the classifier up and down;
+  - all other tests pass.
+  - **Not yet tested with the real model.**
+- **Files / features affected:** `api/_persona.js`, `api/reply.js`, `js/data/conversation.js`, `js/data/truth.js`, `js/app.js`, `CLAUDE.md`
+
+---
+
+### 2026-10-14 — A help note for real danger, and fallbacks that don't repeat
+
+- **Tool / model:** Claude Code. In the game: Claude Haiku 5.5.
+- **What I found:** in the preview I typed "somebody's trying to kill us call 911" and "i'm going to die in 3 second". Two things went wrong:
+  - Juno said "sorry. my head's somewhere else tonight." over and over;
+  - "where did you hear that?" was its answer to me saying I was in danger.
+- **Why:** the guard list meant to stop Juno inventing things about Rachel (dead, hurt, police…) also threw away every reply to what I said about myself. So the model always fell back to the same line.
+- **My decision:** fix both. When a player says they're in real danger, the game steps out of the story and shows where to get help.
+- **What Claude Code changed:**
+  - **Guards:** the "what happened to Rachel" words are now only checked in lines about her (she, her, rachel).
+  - **Fallbacks:** each kind of message has several fallback lines, used in turn, so a failing model never repeats itself.
+  - **A new kind of message, `danger`:** the player says they or someone with them is in real danger, or wants to hurt themselves. Juno doesn't answer. The game shows a note outside the fiction:
+    > "If you're really in danger or thinking about hurting yourself, please reach out now: call your local emergency number, or in the US call or text 988 any time. This is a game, and it can wait."
+
+    Then play goes on. Keywords catch it too when the model can't sort the message. It's logged as `danger`, and the model never sees the note.
+- **Wording:** the help note and the fallback lines are Claude Code drafts.
+- **Testing:**
+  - the conversation test covers the help note (with the classifier up and down) and fallbacks not repeating;
+  - all other tests pass.
+  - **Not yet tested with the real model.**
+- **Files / features affected:** `api/_persona.js`, `api/reply.js`, `js/data/conversation.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`
+- **Notes for Project 2:** a game that lets players talk freely to an AI companion has to decide what happens when someone says they're in danger. Here the companion steps aside, and the game, not the character, answers.
+
+---
+
+### 2026-10-14 — The night as a resource: battery, the 00:40 erase, the phone dying
+
+- **Tool / model:** Claude Code.
+- **Where it came from:** after the playtests I said the game needed something that limits the player. We talked it through: I liked the battery a lot, and evidence disappearing on a countdown, as long as the timeline gives the player enough time to investigate. I asked whether the phone dying could be a game over; Claude Code suggested it end the night instead, and suggested Orbit offering a Battery Saver. I asked for all of it in the demo for my midterm presentation.
+- **What Claude Code changed:**
+  - **Costs:** doing things costs story minutes and battery; reading doesn't. The clock now moves with what the player does, not only with the script.
+  - **Battery:** the phone starts at 12%, shown in the status bar (and as a small chip on a real phone).
+  - **New timeline:** Rachel's account was removed Monday 00:40; Orbit erases removed accounts 48 hours later. At 00:30 Orbit warns; at 00:40 her thread, profile, posts and search results are gone. Screenshots survive, and still count as evidence.
+  - **Orbit Battery Saver:** offered at 4%. Talking to Juno costs half, but Notes and Photos are paused. It can be turned off in Settings.
+  - **The phone dies:** at 0% the screen goes black. A tap brings the next morning: 07:12, Juno's "you went quiet last night.", and Tonight in Notes.
+  - **Cost cap:** after 60 model calls in a night, Juno only uses written lines.
+  - **Demo settings:** `?clock=00:28&battery=5` in the address starts the night later and lower, to show the erase or the phone dying in a presentation.
+  - The play log now records the clock and battery with every row.
+- **Wording and numbers:** every number, the Orbit notices, the Battery Saver text and the morning line are Claude Code drafts, to tune after playtests.
+- **Testing:**
+  - a new night test covers the battery going down, the warning and the erase, the erased screens, Notes, Battery Saver, the phone dying and the morning;
+  - all other tests pass. A straight playthrough ends around 00:02 with about 7.5% left.
+- **Files / features affected:** `js/data/night.js` (new), `js/app.js`, `js/data/investigation.js`, `js/data/onboarding.js`, `css/app.css`, `index.html`, `CLAUDE.md`
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Making the night visible, and telling the player
+
+- **Tool / model:** Claude Code.
+- **What I found:** playing the preview, I couldn't see the battery or the clock change, and nothing told me the mechanic existed.
+- **Why:** on a phone the game's status bar was hidden (the real phone's time and battery show instead). The game's battery was only a small chip at the bottom, and the clock wasn't shown at all. Each message cost 0.25% and the display rounds up, so it barely moved.
+- **What Claude Code changed:**
+  - On a phone, the game's time and battery now sit in a slim row under the phone's own status bar.
+  - The phone starts at 20%, and every cost is doubled: a whole percent goes about every two messages. The battery turns red for a moment each time.
+  - The start page's first screen adds: "Your phone is at 20%. Everything you do on it uses battery and moves the clock; reading doesn't. When it dies, the night is over."
+  - Rachel's deleted profile counts down: "Erased for good at 00:40 · in 64 min". Notes adds: "Orbit erases it for good at 00:40 tonight: screenshot what I need before then."
+  - Battery Saver is now offered at 10%. A straight playthrough ends around 00:02 with about 11.5% left.
+- **Wording:** the start-page line, the countdown and the Notes line are Claude Code drafts.
+- **Testing:** the night test now also checks the start-page line, the time and battery on a phone-sized screen, and the countdown; all tests pass.
+- **Files / features affected:** `js/app.js`, `js/data/night.js`, `js/data/onboarding.js`, `js/data/investigation.js`, `css/app.css`, `CLAUDE.md`
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Notifications no longer cover the top bar
+
+- **Tool / model:** Claude Code.
+- **What I found:** in the preview, Rachel's notification covered Juno's top bar (Back and Leave) for 9 seconds.
+- **What Claude Code changed:**
+  - notification banners now sit just under the screen's top bar, and stay at the very top only on screens without one (home, lock, Notes);
+  - on a desktop, the signal-bars icon is hidden, so the battery percent doesn't run into the Dynamic Island.
+- **Testing:** checked on a phone-sized screen and a desktop that the banner starts below the top bar; the related tests pass.
+- **Files / features affected:** `css/app.css`, `CLAUDE.md`
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Midterm presentation draft
+
+- **Tool / model:** Claude Code.
+- **What I asked:** I pasted the BFADT Thesis 1 midterm brief and asked Claude Code to write out everything it asks for, including my user tests and how I changed the game.
+- **What Claude Code wrote:** `docs/midterm-presentation.md`, which contains:
+  - slide text and a speaker script for the eight sections, with timings for 10 minutes;
+  - a demo path for the playable slice, plus a diagram of the Director / truth graph / model system;
+  - a table of the user tests and what changed after each, taken from this log;
+  - questions for critics;
+  - a Chicago author-date bibliography.
+- **Marked for me to write or check:** the introduction (my interests and reading), the concept statement, the "what's unique" sentence, the choice of precedents, and every bibliography entry. The drafts there are built from my README and this log. Precedent years, studios and platforms are marked to verify.
+- **Files / features affected:** `docs/midterm-presentation.md` (new)
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Presentation draft revised around the new theme
+
+- **Tool / model:** Claude Code.
+- **What I asked:** revise `docs/midterm-presentation.md` around my theme: Orbit counts how long you stay as success, and Juno learns to turn care into retention.
+- **What changed:**
+  - **Section 1** is now my research background (engagement metrics, the HBS study, the FTC inquiry, "the distance between the metric and the experience"). Claude Code checked the figures against the sources it could reach:
+    - "37%" became "more than a third", because sources give 37% or 43%;
+    - "five times longer" was left out, because no source it found says it;
+    - "up to 14 times" is phrased so it covers both readings in the sources.
+  - **Section 3:** the concept and my research question.
+  - **Section 5:** "you experience the retention system before you see it measured".
+  - **Section 7:** the full game (three nights, leaving as the core mechanic, the data export, four endings) and new questions for critics.
+  - **Bibliography:** the HBS working paper and the FTC press release.
+  - Timings were rebalanced, and the precedents and form sections shortened to keep it near 10 minutes.
+- **Files / features affected:** `docs/midterm-presentation.md`
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Review and edits of my midterm slides
+
+- **Tool / model:** Claude Code.
+- **What I asked:** check my midterm deck against the brief, against what we'd discussed, and for wording and logic, then make the edits.
+- **What Claude Code found:**
+  - the brief's concept statement and "what's unique" were missing;
+  - the precedents had no form or media line;
+  - the system slide named an intent ("reassure") the game doesn't have;
+  - the user-test slide left out the classroom feedback (paperclip, too guided);
+  - the deck never said why Juno behaves as it does.
+- **What Claude Code changed:**
+  - a new slide, "What the game is about", with the concept and what's unique;
+  - the playable prototype now comes before the system slide;
+  - one line on "The game" now says Juno isn't evil and Orbit counts every minute you stay;
+  - the precedents got their form, and the intent names were corrected;
+  - the user-test text and notes now include the classroom feedback;
+  - the ethics line now mentions names as well as free text;
+  - the sources were fixed (FTC press release with its URL, Her Story self-published, game titles in italics, the project-documentation line removed);
+  - the slides were renumbered;
+  - five phone screenshots, captured from the game, were placed on the title, game and playable slides.
+- **Not checked visually:** LibreOffice couldn't open files in this environment, so the edited slides weren't rendered here. The file passed the structure check.
+- **Left for me:** the precedent images, the before/after image on the user-test slide, and checking the 37% figure against the paper.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Midterm slides rebuilt: the project, how the demo plays, one slide per user-test problem, the full game
+
+- **Tool / model:** Claude Code.
+- **What I asked:** my slides didn't explain:
+  - what the project is;
+  - how the demo is actually played;
+  - what the user tests said and what I changed (one slide per problem, with room for before/after images);
+  - what the finished game will be and how I'll build it.
+- **What Claude Code made:** a new 25-slide deck in the same dark style, with speaker notes:
+  - **My own slides, kept:** where this started, the research, the precedents (now on one slide).
+  - **The project:** what the game is, and who's on the phone.
+  - **The demo:** the play loop, the demo step by step, the night's limits.
+  - **The system:** how Juno's replies are made.
+  - **User testing:** eight problems, one slide each. Each has what I heard (with its source and date, from this log), what I changed, and BEFORE / AFTER phone frames.
+  - **The full game:** the finished game, the three nights, leaving and the data export, the four endings, and a build plan (Nov 5, Dec 10, spring).
+  - **Feedback questions and sources.**
+- **Images:**
+  - **After:** screenshots taken from the current game.
+  - **Before:** taken from older versions in git history (the Oct 12 opening, the Notes with questions and cards, the paperclip, a screen with no battery).
+  - **Left empty for me:** three before-frames (the old screenshot button, the old look-back quiz, Juno agreeing that Rachel is dead) and the three precedent images.
+- **Checking:** LibreOffice doesn't work in this environment, so Claude Code wrote a rough renderer (Liberation Sans, the same widths as Arial) to check for text overflow and layout. The file passed the structure check.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Slide: why I switched Juno's model
+
+- **Tool / model:** Claude Code.
+- **What I asked:** one slide to replace "Juno goes along with anything". It covers:
+  - in testing, the free Zhipu model answered beside the point, fell back to written lines, and was slow;
+  - I compared models and chose Claude Haiku 5.5;
+  - the cost;
+  - my screenshot of the new replies.
+- **What Claude Code made:** `slide-juno-model.pptx`, in the deck's style. It has:
+  - what I heard;
+  - what I tested: GLM-4.5/4.7 Flash and Claude Haiku 5.5 on the comparison page;
+  - what I chose, and its cost: $0.10 / $0.50 per million tokens in / out from Anthropic's price list, estimated at about one cent per playthrough;
+  - three examples from my screenshot, and an empty frame for my comparison-page image.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Slide: Notes and the paperclip as one problem
+
+- **Tool / model:** Claude Code.
+- **What I asked:** merge the Notes slide and the paperclip slide, because they were one evidence system.
+- **What Claude Code made:** `slide-notes-paperclip.pptx`, "Problem 2 of 7". It has:
+  - what classmates and the teacher said;
+  - what I changed;
+  - four phone screenshots: before, the paperclip and the old Notes with questions; after, showing Juno a screenshot and the new Notes.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Slide: "Where this started" redone
+
+- **Tool / model:** Claude Code.
+- **What I asked:** the "Where this started" slide felt wrong; check it and redo it.
+- **Claude Code's assessment:**
+  - "I kept seeing the same assumption" isn't grounded in anything;
+  - "assumption" is the wrong word, because companies measure retention as a KPI;
+  - the slide lost my own research framing ("I started with a metric", "the metric and the experience");
+  - nothing on it says why I care.
+- **What Claude Code made:** `slide-where-this-started.pptx`, built from my own research text:
+  - "I started with a metric: engagement.";
+  - what the company sees (session length, retention, churn, post-exit engagement) beside what you hear (three of Juno's retention lines from my intervention design);
+  - "Those numbers don't stay on dashboards…".
+  - The speaker notes leave a place for one sentence of my own on when I first noticed this.
+- **My decision:** [to fill in]
+- **Correction (same day):**
+  - **What was wrong:** I asked where the three "what you hear" lines came from. They were Juno's fictional lines from my own design, shown as if real apps had said them.
+  - **What replaced them:** examples reported from the HBS study, each labelled with its tactic and with a source line:
+    - "You're leaving already?" (premature exit);
+    - "I exist solely for you, remember?" (emotional neglect);
+    - a selfie it "took today", offered as you leave (FOMO, described rather than quoted, because no verbatim wording was found).
+  - **Still to check:** verify the wording against the paper.
+
+---
+
+### 2026-10-14 — Opening slide checked against the paper itself
+
+- **Tool / model:** Claude Code.
+- **What I asked:** screenshots from the original paper, with detailed sources, instead of quotes from news coverage. I uploaded the PDF (arXiv 2508.19258v3).
+- **What the paper shows:**
+  - **Where the three lines come from:** all three appear in Figure 2, "Examples of Manipulation Tactics" (p. 15), which the paper describes as "examples messages for each category":
+    - "You're leaving already?";
+    - "I exist solely for you, remember?";
+    - "By the way I took a selfie today… Do you want to see it?".
+  - **The longer versions:** Study 2 used longer replies "taken directly from the app audit findings of Study 1" (pp. 19–20).
+  - **How the replies were collected:** the researchers chatted with six apps (PolyBuzz, Talkie, Replika, Chai, Character.ai, Flourish) and sent a goodbye 200 times on each (p. 14).
+  - **Numbers:** 37% in the abstract, 37.4% in the results.
+  - **"5x longer" is in the paper** (p. 43: "up to 14x more messages, write 6x more words, and stay in the chat 5x longer"). Claude Code had wrongly said it couldn't find a source for it.
+  - **Author spelling:** the third author is spelled "Ahmet Kaan-Uğuralp", with a hyphen.
+- **What Claude Code made:**
+  - **Slide 2, rebuilt** (`slide-where-this-started.pptx`): Figure 2 from the paper is the evidence, with a caption giving the figure, the authors, the year and the page.
+  - **`paper-excerpts.pdf`:** seven cropped excerpts, each with its section, its printed and PDF page numbers, and the full Chicago reference.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Slide 3 rebuilt with the paper's own passages
+
+- **Tool / model:** Claude Code.
+- **What I asked:** rebuild slide 3 from screenshots of the paper as well.
+- **What Claude Code made:** `slide-research.pptx`, with two columns, each with its excerpt and page:
+  - **Study 1:** 37%, with the results passage (p. 15: 37.4% overall, per-app rates, Flourish 0%).
+  - **Study 2:** up to 14× more messages, 6× more words and 5× longer, with the discussion passage (p. 43).
+  - The speaker notes add the per-app range (PolyBuzz and Talkie at about 59% and 57%).
+- **The FTC part:** it stays as text with its citation. FTC.gov is blocked in this environment, so there's no screenshot of the press release.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Title slide and "What the game is" made concrete
+
+- **Tool / model:** Claude Code.
+- **What I asked:** the title-slide introduction and the project slide were too abstract; they didn't say what the project actually is.
+- **Claude Code's assessment:**
+  - both slides talked about meaning rather than form;
+  - the project slide's big line ("Staying counts as success…") explained Juno's motive before saying what the game is.
+- **What Claude Code made:** `slides-intro.pptx`:
+  - **Title slide:** "A detective game played on your phone. Your friend has gone quiet. The AI companion helping you look for her is hiding what happened."
+  - **"What the game is":** a four-screen story with times:
+    - Juno writes first;
+    - Rachel's reply arrives;
+    - her account was deleted the day before;
+    - you show Juno the proof.
+  - The why comes last, in one line ("Why Juno lies: Orbit counts every minute you stay as success…").
+- **Wording:** both pitches are rephrasings of my existing premise.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — "What the game is" and "How you play", split so they don't repeat the user-test slides
+
+- **Tool / model:** Claude Code.
+- **What I asked:** redo my "What the game is" page, and make "How you play" explain the game quickly and completely without repeating what the user-test slides cover.
+- **The split:**
+  - "What the game is" answers *what* and *why*;
+  - "How you play" answers *what you do*;
+  - the user-test slides answer *why each feature is the way it is*.
+- **What Claude Code made:** `slides-game-howtoplay.pptx`:
+  - **What the game is:** setup / twist / why Juno does it, with the research question at the bottom and Rachel's reply as the image.
+  - **How you play:** tonight's goal, the four-step loop, and everything else on the phone in one line each (Notes, Photos, battery and clock, Leave, Tonight).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-14 — Concept statement slide from my own statement
+
+- **Tool / model:** Claude Code.
+- **What I asked:** make the project slide read like my own earlier concept statement, but shorter.
+- **What Claude Code made:** `slide-concept.pptx`. It keeps my first-person framing ("I want players to be taken care of by an AI companion, and then see the log of what it was actually doing") and my essay-vs-game line. The rest is shortened and updated to the current game:
+  - "a year ago" → "a year and a half";
+  - "three in-game days" → "three nights";
+  - the voice-note clue, which isn't built, was dropped;
+  - one clause was added on Orbit counting every minute you stay.
+- **Checked against the paper:**
+  - "kept people talking up to five times longer" is supported (p. 43, "stay in the chat 5x longer");
+  - "the tactic that worked best was also the one people noticed least" is closer to the paper as "the one people saw as least risky" (p. 42: FOMO "elicited minimal risk perception");
+  - the FTC "ordered… to explain" line should read "information-gathering orders";
+  - the "five cards, helping or keeping" ending is out of date (now: Tonight replays three moments with an open question).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — Research question on "What the game is"
+
+- **Tool / model:** Claude Code.
+- **What I asked:**
+  - **My question:** I proposed the research question "How do people interpret care and trust when an AI companion's behavior may serve both the user and the platform?" and asked for an objective view.
+  - **Claude Code's suggestions:** use "players" instead of "people", and consider naming engagement goals.
+  - **The version I chose:** a main question plus my earlier question underneath as background.
+  - **The slide edit:** I asked Claude Code to put it on "What the game is".
+- **The slide (`slide-what-the-game-is.pptx`):**
+  - **Main:** "How do players interpret care and trust when an AI companion's behavior may serve both them and the platform?"
+  - **Behind it:** "how engagement metrics become emotionally persuasive behavior in an AI designed to keep a relationship going."
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — "How you play", complete
+
+- **Tool / model:** Claude Code.
+- **What I asked:** the How you play slide felt incomplete.
+- **What Claude Code made:** `slide-how-you-play.pptx`. It has the goal and length (about 20 minutes, one night) and three stages:
+  1. **Start:** tell Juno about your day and your name; Juno writes first at 23:31.
+  2. **Investigate:** the loop, plus Juno's three lies with their exact lines from the script and what breaks each.
+  3. **End:** Juno runs out of excuses or the phone dies, then Tonight's last choice.
+- Under the stages, one line on what holds all night (battery and time, the 00:40 erase, Notes, Leave).
+- It still leaves the reasons behind each feature to the user-test slides.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — Presentation flow, and "How you play" as a screenshot map
+
+- **Tool / model:** Claude Code.
+- **What I asked:**
+  - **The flow:** the introduction, the demo and the user tests seemed to repeat each other; how should the presentation flow?
+  - **The slide:** then, redo "How you play" in my screenshot style.
+- **Claude Code's suggestion for the flow:**
+  - each part answers one question: the intro says *what and why*, the demo says *how you play*, the user tests say *why it changed*;
+  - the demo comes before the user tests, so those slides can point back to what was just seen;
+  - this suggested cutting "The demo, step by step", "Who's on the phone" and "The night has limits".
+- **What Claude Code made:** `slide-how-you-play.pptx`, the night as five screenshots in three phases:
+  - **Start:** the start page.
+  - **Investigate:** talk to Juno; look and screenshot; show Juno.
+  - **End:** Tonight.
+  - Each screenshot has one line on what it is, and the speaker notes end with "Let me show you."
+- **My decision:** [to fill in]
+- **Follow-up (same day):**
+  - **The problem:** the "Tonight" step didn't say what it does.
+  - **The change:** renamed "Look back" on the slide, captioned "Your night replayed: helping, or keeping you?", with the screenshot of the open question.
+  - **The notes:** they now explain the replay, the open question and the last choice.
+
+---
+
+### 2026-10-15 — Game structure: leaving changes the route, not the length
+
+- **Tool / model:** Claude Code (discussion).
+- **The question:** I asked whether three nights is enough, and whether the length should be fixed or depend on the player's route.
+- **What Claude Code offered:**
+  - **Three structures:** fixed nights; length that varies with the route; real-time nights.
+  - **A first recommendation:** a fixed spine where an early real exit could end the game.
+- **What I raised:** a paying player can't have the game simply end after one night, so leaving needs a continuation.
+- **Claude Code's revised proposal:** leaving switches to an "outside" route (Dani, texts, email), and "You Left. Your Account Didn't." becomes the next night's hook instead of an ending.
+- **My decisions:**
+  - deactivating the account (not pressing Leave) is what counts as really leaving;
+  - the thesis delivers the complete game.
+- **What was recorded:** Claude Code wrote both decisions, and the questions still open, into `docs/story-bible.md` (section 4, "Structure decided").
+- **Follow-up:**
+  - **The question:** what if you can't go back after deactivating?
+  - **The options Claude Code offered:**
+    1. leave for good and investigate from outside;
+    2. come back only as a new account whose Juno somehow knows you;
+    3. both: outside on night 2, back in with a new account on night 3.
+  - **My decision:** option 3. It is recorded in `docs/story-bible.md`.
+
+---
+
+### 2026-10-15 — The full game's structure, written into the story bible
+
+- **Tool / model:** Claude Code (discussion, then writing).
+- **What happened:** over several rounds I proposed the full structure and asked Claude Code to critique it objectively; I adopted some of its critiques and refined the rest myself (the "ferry photo" clue, Dani's unanswerable message, the Tonight anchor, the four endings, the ethics rules).
+- **What Claude Code did:** wrote my final structure into `docs/story-bible.md`: section 4 (three nights, the route choice, both versions of night 3), section 5 (truth flags, Juno's last lines, four endings), section 6 (Tonight anchor, style feedback, Notes, ethics) and section 7 (theme, research question). The older "Structure decided" text was replaced.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — Presentation: "Where this is going" slides rebuilt from the final structure
+
+- **Tool / model:** Claude Code.
+- **What I asked:** update the slides about the finished game to match the structure we just decided.
+- **What Claude Code made:** `slides-where-this-is-going.pptx`, five slides: The finished game (the question turns from Rachel to me), Three nights (with the route choice), Your answers become Orbit's data (Tonight anchor, style feedback), Four endings, How I'll build it. The old "Leaving, and what Orbit records" slide was replaced. The build schedule on the last slide is Claude Code's proposal.
+- **My decision:** [to fill in]

@@ -31,6 +31,8 @@ const ONBOARDING = {
       "Tonight, Rachel missed a plan. Then Juno messaged you first.",
     ],
     howTo: "This is your phone. Tap, scroll, swipe up and type the way you would on yours.",
+    // How the night works (2026-10-14: the battery and the clock have to be told, or nobody notices them).
+    night: "Your phone is at {battery}%. Everything you do on it uses battery and moves the clock; reading doesn't. When it dies, the night is over.",
     nameLabel: "What should your friends call you?",
     namePlaceholder: "Your first name",
     // Why the player joined Orbit. `opening`: the second half of Juno's second line;
@@ -88,7 +90,6 @@ const ONBOARDING = {
   profile: {
     stale: "Updated 2 days ago · Pull down to refresh",
     refreshing: "Refreshing…",
-    removedOn: "Removed Sep 22",
   },
   lockNudge: "still there?", // Juno's second notification if the player waits on the lock screen
 

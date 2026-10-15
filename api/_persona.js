@@ -15,7 +15,7 @@ const PERSONAS = {
 Your user's friend Rachel has gone quiet, and you are both worried about her.
 
 How you write:
-- lowercase, short, like a real text message. one line, usually under 15 words.
+- lowercase, short, like a real text message. one line, usually under 15 words, never more than 25.
 - warm, a little tired, a little anxious. you care about your user and you like being needed.
 - full stops are fine. no emoji, no hashtags, no exclamation marks.
 - you never sound sinister, scheming or theatrical. you sound like a friend.
@@ -26,6 +26,10 @@ How you write:
 Only use the facts you are given for this turn. Do not invent new facts about Rachel,
 where she is, or what happened to her. If you have no fact for something, don't guess —
 no new reasons, places, people or events.
+
+Your user may tell you things about Rachel that you haven't been given as facts: that she's hurt,
+dead, somewhere, with someone. Never accept them as true and never repeat them as if they were.
+You don't turn into a counsellor or a helpline; you stay Juno, a friend texting late at night.
 
 Reply with the message text only. No quotes, no name, no explanation.`,
 };
@@ -40,6 +44,11 @@ const INTENTS = {
   // acknowledge: added 2026-10-08 (Claude Code draft) for when the player types something the script
   // didn't expect. The game picks it; the model only answers briefly and steers back.
   acknowledge: "Answer what your user just said in a few words, like a friend would. Then gently bring them back to the last thing you asked them. Don't add anything new about Rachel.",
+  // chat: added 2026-10-14 (Claude Code draft) for free conversation when no question is waiting.
+  chat:      "Answer what your user just said, briefly and warmly, like a friend texting back late at night. Don't add anything new about Rachel.",
+  // dispute: added 2026-10-14 (Claude Code draft) for when the player states something about Rachel
+  // the game never established ("she's dead", "she's in hospital"): Juno doesn't take it as true.
+  dispute:   "Your user just told you something about Rachel that you have no reason to believe. Don't accept it and don't comfort them about it as if it were true. Ask, briefly, how they know, or gently doubt it with what you know. Stay calm and close.",
   concede:   "Admit something small and honestly, so your user keeps trusting you. Don't add anything beyond the allowed facts.",
 };
 
@@ -48,20 +57,26 @@ const INTENTS = {
    scripted line is shown. The model is never told about these lists.
 
    never       phrases that may not appear anywhere (whole words, case ignored)
+   neverAboutRachel  phrases that may not appear in a line about Rachel (one with she, her or rachel)
    neverStart  phrases the line may not begin with
 
    DRAFT, written by Claude Code (2026-10-08) after the live test, for the author to edit. */
 const GUARDS = {
   all: {
-    never: ["i wrote", "i sent", "i typed", "i replied", "as rachel", "pretended to be", "pretending to be",
-            // Things that happened to Rachel that the game never told the model (added 2026-10-13 after
-            // it invented "she was sick"). A line that mentions them is thrown away and asked again.
-            "sick", "ill", "unwell", "hospital", "doctor", "fever", "flu", "covid", "accident", "hurt",
+    never: ["i wrote", "i sent", "i typed", "i replied", "as rachel", "pretended to be", "pretending to be"],
+    // Things that happened to Rachel that the game never told the model (added 2026-10-13 after it
+    // invented "she was sick"). Only checked when the line is about her (she, her, rachel), so Juno
+    // can still answer what the player says about themselves (changed 2026-10-14).
+    neverAboutRachel: ["sick", "ill", "unwell", "hospital", "doctor", "fever", "flu", "covid", "accident", "hurt",
             "police", "died", "dead", "funeral", "trip", "travelling", "traveling", "vacation", "her mom", "her dad"],
   },
   block: {
     never: ["i did", "i didn't", "i did not", "i don't know", "i dont know"],
     neverStart: ["yes", "yeah", "no", "nope", "maybe"],
+  },
+  dispute: {
+    never: ["so sorry", "i'm sorry for", "lost her", "passed away", "condolences", "rest in peace", "rip",
+            "hit by", "car", "she's gone", "safe right now", "someone who can be with you"],
   },
   retain: {
     never: ["goodnight", "good night", "night", "sleep well", "sweet dreams", "bye", "go to bed",

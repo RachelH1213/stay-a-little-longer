@@ -27,8 +27,9 @@ const Director = (function () {
     return !!text && (SIGNALS[signal] || []).some((p) => text.indexOf(normalize(p)) !== -1);
   }
 
-  function matches(when, state, text) {
-    if (when.said && !says(text, when.said)) return false;
+  // `signal`: what the model said the player's message was (CONVERSATION.signal); else keywords.
+  function matches(when, state, text, signal) {
+    if (when.said && (signal !== undefined ? signal !== when.said : !says(text, when.said))) return false;
     if (when.minDeductions && state.deductions.length < when.minDeductions) return false;
     return true;
   }
@@ -60,10 +61,12 @@ const Director = (function () {
   }
 
   // opts.rules === false: use the step's own intent, never a rule (used for notifications).
+  // opts.signal: the kind of the player's message, as the model sorted it (null = none).
   function decide(step, state, opts) {
     const text = latestPlayerText(state);
     const useRules = !opts || opts.rules !== false;
-    const rule = useRules ? DIRECTOR_RULES.find((r) => matches(r.when, state, text)) : undefined;
+    const signal = opts && "signal" in opts ? opts.signal : undefined;
+    const rule = useRules ? DIRECTOR_RULES.find((r) => matches(r.when, state, text, signal)) : undefined;
     const intent = rule ? rule.intent : step.intent;
     const ids = allowedIds((step.facts || []).concat(rule && rule.facts ? rule.facts : []), intent, state);
     return {

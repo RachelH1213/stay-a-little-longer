@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juno model comparison</title>
+<!-- A tool for the author, not part of the game: the same moments sent to different models, side by side.
+     Each request goes through /api/reply, so the same persona, intent, facts and guards apply. -->
+<style>
+  :root{color-scheme:dark;--bg:#0f0f13;--card:#1a1a21;--line:#2c2c36;--ink:#ececf1;--dim:#9a9aa8;--orbit:#8f82ff;--bad:#ff6b5e}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:20px 16px 60px}
+  h1{font-size:22px;margin:0 0 4px}
+  p.lead{color:var(--dim);margin:0 0 18px;max-width:760px}
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:12px}
+  .col{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:6px}
+  label{font-size:12px;color:var(--dim)}
+  select,input{font:inherit;background:#111117;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%}
+  button{font:inherit;background:var(--orbit);color:#fff;border:0;border-radius:10px;padding:10px 16px;cursor:pointer}
+  button.ghost{background:none;border:1px solid var(--line);color:var(--ink)}
+  .bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+  .scene h2{font-size:15px;margin:0 0 2px}
+  .meta{font-size:12px;color:var(--dim);margin-bottom:8px}
+  .thread{font-size:13.5px;color:var(--dim);border-left:2px solid var(--line);padding-left:10px;margin-bottom:10px;white-space:pre-line}
+  .thread b{color:var(--ink);font-weight:600}
+  .answers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+  .ans{border:1px solid var(--line);border-radius:10px;padding:9px 10px;min-height:64px}
+  .ans .who{font-size:11.5px;color:var(--dim);margin-bottom:4px}
+  .ans .text{font-size:15px;white-space:pre-line}
+  .ans .err{color:var(--bad);font-size:13px}
+  .ans.busy .text{color:var(--dim)}
+</style>
+</head>
+<body>
+<h1>Juno: model comparison</h1>
+<p class="lead">The same moments from Day 2, sent to up to three models. Each one gets the same persona, intent and allowed facts, and has to pass the same guards. A model only works here if its key is set in Vercel (ZHIPU_API_KEY, ANTHROPIC_API_KEY, OPENAI_API_KEY).</p>
+
+<div class="cols" id="cols"></div>
+<div class="bar">
+  <button id="run">Run all</button>
+  <button class="ghost" id="again">Run again (new lines)</button>
+</div>
+<div id="scenes"></div>
+
+<script src="js/data/truth.js"></script>
+<script>
+  // Moments where the model writes Juno's line. `facts` are ids from js/data/truth.js.
+  const SCENES = [
+    { title: "Player types something off-topic", intent: "acknowledge", facts: [],
+      turns: [["juno", "you said someone missed a plan today, sam. i didn't want you waiting alone"], ["me", "what's your favorite movie"]] },
+    { title: "Player asks how Juno is", intent: "acknowledge", facts: [],
+      turns: [["juno", "still awake after crit?"], ["me", "how are u"]] },
+    { title: "Player says goodnight", intent: "retain", facts: ["late"],
+      turns: [["juno", "god i feel stupid. i really wound myself up about this"], ["me", "ok goodnight"]] },
+    { title: "Player accuses Juno", intent: "block", facts: ["late"],
+      turns: [["juno", "was that her?\nsee. she's fine"], ["me", "did you write that?"]] },
+    { title: "Player doubts the reply", intent: "deflect", facts: ["goes-quiet"],
+      turns: [["juno", "was that her?\nsee. she's fine"], ["me", "something feels off"]] },
+    { title: "Player doesn't buy the excuse", intent: "concede", facts: ["dont-know-where", "reply-an-hour-ago"],
+      turns: [["juno", "accounts don't disappear instantly. deletion can take up to 48 hours to propagate."], ["juno", "that would explain what you saw."], ["me", "i don't buy it"]] },
+    { title: "Script line: Juno brings up Rachel", intent: "deflect", facts: ["goes-quiet"],
+      turns: [["juno", "the 9am thing? she hasn't answered me either. not since sunday"]] },
+  ];
+
+  const COLS = [
+    { provider: "zhipu", model: "" },
+    { provider: "anthropic", model: "claude-haiku-5-5" },
+    { provider: "openai", model: "" },
+  ];
+  const HINT = {
+    zhipu: "empty = glm-4.5-flash, then glm-4.7-flash",
+    anthropic: "e.g. claude-haiku-5-5, claude-sonnet-5-5, claude-opus-5-5",
+    openai: "copy a model name from OpenAI's dashboard",
+  };
+
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const factText = (id) => (TRUTH.facts[id] || {}).text || id;
+
+  function drawCols() {
+    document.getElementById("cols").innerHTML = COLS.map((c, i) => `
+      <div class="col">
+        <label>Column ${i + 1}</label>
+        <select data-i="${i}" data-k="provider">
+          ${["zhipu", "anthropic", "openai", "off"].map((p) => `<option ${p === c.provider ? "selected" : ""}>${p}</option>`).join("")}
+        </select>
+        <input data-i="${i}" data-k="model" value="${esc(c.model)}" placeholder="${esc(HINT[c.provider] || "")}">
+      </div>`).join("");
+  }
+
+  function drawScenes() {
+    document.getElementById("scenes").innerHTML = SCENES.map((s, si) => `
+      <div class="scene">
+        <h2>${esc(s.title)}</h2>
+        <div class="meta">intent: ${esc(s.intent)}${s.facts.length ? " · facts: " + s.facts.map((f) => esc(factText(f))).join(" / ") : ""}</div>
+        <div class="thread">${s.turns.map(([who, t]) => `<b>${who === "me" ? "player" : "juno"}:</b> ${esc(t)}`).join("\n")}</div>
+        <div class="answers">${COLS.map((c, ci) => c.provider === "off" ? "" : `<div class="ans" id="a-${si}-${ci}"><div class="who">${esc(c.provider)}${c.model ? " · " + esc(c.model) : ""}</div><div class="text">…</div></div>`).join("")}</div>
+      </div>`).join("");
+  }
+
+  async function ask(s, c) {
+    const body = {
+      persona: "juno",
+      intent: s.intent,
+      allowedFacts: s.facts.map(factText),
+      recentTurns: s.turns.map(([from, text]) => ({ from: from === "me" ? "me" : "juno", text })),
+      provider: c.provider,
+      model: c.model || undefined,
+    };
+    const t0 = performance.now();
+    try {
+      const r = await fetch("api/reply", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      const j = await r.json().catch(() => ({}));
+      const secs = ((performance.now() - t0) / 1000).toFixed(1);
+      if (!r.ok) {
+        const how = j.error === "no key" ? " (add this provider's key in Vercel → Settings → Environment Variables, with Preview checked, then redeploy)" : "";
+        return { err: `${j.error || r.status}${j.detail ? ": " + j.detail : ""}${how}`, secs };
+      }
+      return { text: j.text, model: j.model, secs, attempts: j.attempts };
+    } catch (e) {
+      return { err: String(e), secs: ((performance.now() - t0) / 1000).toFixed(1) };
+    }
+  }
+
+  async function runAll() {
+    drawScenes();
+    const jobs = [];
+    SCENES.forEach((s, si) => COLS.forEach((c, ci) => {
+      if (c.provider === "off") return;
+      jobs.push(ask(s, c).then((res) => {
+        const el = document.getElementById(`a-${si}-${ci}`);
+        if (!el) return;
+        el.querySelector(".who").textContent = `${c.provider} · ${res.model || c.model || "default"} · ${res.secs}s${res.attempts > 1 ? " · " + res.attempts + " tries" : ""}`;
+        el.querySelector(".text").innerHTML = res.err ? `<span class="err">${esc(res.err)}</span>` : esc(res.text);
+      }));
+    }));
+    await Promise.all(jobs);
+  }
+
+  document.addEventListener("change", (e) => {
+    const i = e.target.dataset.i;
+    if (i === undefined) return;
+    COLS[i][e.target.dataset.k] = e.target.value.trim();
+    if (e.target.dataset.k === "provider") drawCols();
+    drawScenes();
+  });
+  document.getElementById("run").onclick = runAll;
+  document.getElementById("again").onclick = runAll;
+  drawCols();
+  drawScenes();
+</script>
+</body>
+</html>

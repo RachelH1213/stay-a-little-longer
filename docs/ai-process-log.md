@@ -1828,3 +1828,7 @@ Copy this for each new entry.
   - **End:** Tonight.
   - Each screenshot has one line on what it is, and the speaker notes end with "Let me show you."
 - **My decision:** [to fill in]
+- **Follow-up (same day):**
+  - **The problem:** the "Tonight" step didn't say what it does.
+  - **The change:** renamed "Look back" on the slide, captioned "Your night replayed: helping, or keeping you?", with the screenshot of the open question.
+  - **The notes:** they now explain the replay, the open question and the last choice.

@@ -1882,3 +1882,12 @@ Copy this for each new entry.
 - **What I asked:** a full, plain spoken script for my final deck, including what to say during the live demo.
 - **What Claude Code made:** `docs/midterm-script.md`, slide by slide plus a demo walkthrough with stage directions.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — Research question
+
+- **Tool / model:** Claude Code (discussion).
+- **What happened:** I proposed a research question about discovering retention goals and players' judgement of care, trust and respect for leaving, plus a theme question and two sub-questions, and asked which was better. Claude Code suggested merging care and trust and using "change how players judge" instead of "affect".
+- **What was recorded:** the shortened question, the theme and the sub-questions in `docs/story-bible.md` (section 7) and `docs/midterm-script.md`.
+- **My decision:** [to fill in]

@@ -26,10 +26,11 @@ And Juno is built to keep that number up.
 
 So halfway through, the case changes. You're not only looking for Rachel anymore. You're looking into Juno, and into what Orbit has been doing to both of you.
 
-My research question is: how do people understand care and trust when an AI might be working for them and for the platform at the same time?
+So my research question is: when you find out an AI companion is built to keep you in the app, how does that change the way you see its care? And do you still believe it respects your choice to leave?
 
 ## 3. Where this started + 4. Research (50s)
 
+The idea behind it: what happens to care when staying becomes the measure of success?
 This started with one word: engagement. Apps like this are judged by how long you stay and whether you come back.
 And that changes how the AI talks to you, especially when you say goodbye.
 【Point at the figure.】 In a 2025 Harvard study, researchers told companion apps "I'm leaving," and got answers like "You're leaving already?"

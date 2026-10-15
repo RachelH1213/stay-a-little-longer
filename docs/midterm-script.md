@@ -1,7 +1,7 @@
 # Midterm script — *Stay a Little Longer* (10-minute version)
 
-About 8½ minutes spoken, leaving a minute for slips. 【】 are stage directions, not spoken.
-Rough clock: start the demo by 2:30, end it by 5:30, start "The finished game" by 7:00.
+About 8 minutes spoken, leaving time for slips. 【】 are stage directions, not spoken.
+Rough clock: start "How you play" by 2:20, finish the demo by 4:40, start "The finished game" by 6:30.
 
 ---
 
@@ -35,46 +35,32 @@ In *Event[0]*, the ship's computer reacts to how you treat it. It made me treat 
 【Next.】
 In *Uncover the Smoking Gun*, AI suspects can make things up. So in my game, the AI never knows the truth. It only writes Juno's words.
 
-## 8. How you play (10s)
+## 8. How you play (75s)
 
-【Don't read the slide.】
-You talk to Juno, look around your phone, screenshot what doesn't add up, and show it to Juno to catch a lie. Let me show you.
+【Point at each step as you say it.】
+Here's how one night works.
 
----
+**Start.** Before the story, you tell Juno a little about yourself: why you joined Orbit, how your day was, and your name. Juno uses that later, so it feels like it knows you.
 
-## Demo (3 minutes)
+**Talk to Juno.** Juno texts you first. You can tap a reply, or type anything you want, and Juno answers in character.
 
-【Before class: open https://stay-a-little-longer-zjkv.vercel.app on your phone, mirrored, sound on. Go through the start page beforehand and stop on the lock screen, so the demo starts there.】
+**Look around.** Everything is on your phone: Rachel's chat, her profile, Orbit search, your friend Dani, your Photos. When something doesn't add up, you screenshot it.
 
-**Lock screen (20s)**
-It's 11:31 at night. Juno texted me first. Below it is Rachel's last message from Sunday: "tues 9am, bring the blue charger." She never showed up.
-【Tap Juno's notification.】
+**Show Juno.** Then you go back to Juno and show it the screenshot. If it's the right one, Juno is caught in a lie and has to explain. There are three lies to catch in this night.
 
-**Juno (40s)**
-【Tap the reply about Rachel.】
-I bring up Rachel. Juno says she hasn't answered it either, "not since sunday."
-【Rachel's message arrives.】
-Then a message from Rachel: "sorry, been busy. doing okay now." Juno sounds relieved.
-And then it says: "she told me yesterday she wasn't feeling well." A minute ago it was "not since sunday." The game doesn't point that out. You have to notice.
+**Look back.** At the end, the game replays your night: what Juno said, and what you didn't know yet. Then it asks one question with no right answer: was Juno helping you, or keeping you here?
 
-**Her profile (40s)**
-【Chats → Rachel's profile → pull down.】
-Her profile is from two days ago. When I refresh it… her account was deleted on Monday. So who just messaged me?
-And this countdown: Orbit erases her for good tonight at 12:40. After that, only my screenshots are left.
+## Demo (60s)
 
-**Catch the lie (60s)**
-【Back to Juno, say her account is gone.】
-Juno says, "it loads fine for me." So I'll prove it.
-【Screenshot the profile, go back, show Juno.】
-Every action costs a bit of battery and time.
-Now Juno admits it doesn't load. And then it gives a very believable excuse: deletion takes up to 48 hours.
-That's on purpose. Juno never sounds like a villain.
+【Before class: open https://stay-a-little-longer-zjkv.vercel.app on your phone, mirrored, sound on. Go through the start page beforehand and stop on the lock screen.】
+【Just click through. Don't explain the features again; the user-testing slides do that.】
 
-**End (20s)**
-【Stop here. Go back to slide 8 and point at "Look back".】
-The rest of the night works the same way. At the end, the game replays your night and asks: was Juno helping you, or keeping you here?
-
----
+Let me just show you what that looks like.
+【Tap Juno's notification.】 This is Juno, texting me first.
+【Tap a reply about Rachel; wait for Rachel's message.】 And this is the message from Rachel's account.
+【Chats → Rachel's profile → pull down.】 But her account was deleted on Monday.
+【Screenshot it, go back, show Juno.】 So I screenshot it, and show Juno.
+That's the loop. Back to the slides.
 
 ## 9. The system (20s)
 

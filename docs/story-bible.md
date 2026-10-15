@@ -171,6 +171,20 @@ Copy this block for each night.
 
 ---
 
+### Structure decided (2026-10-15)
+
+- **Leaving never ends the game; it changes the route.** Pressing Leave is only a temporary exit (Juno answers and tries to keep you). **Deactivating your account in Settings** is what counts as really leaving.
+- **Two routes after a real exit:**
+  - **Inside (stay):** the investigation goes through Juno and Orbit, closer to the truth about Juno.
+  - **Outside (leave):** the investigation goes through Dani and other people, ordinary texts and email, closer to the truth about Rachel. Orbit keeps reaching out.
+- **"You Left. Your Account Didn't." is a hook, not an ending.** After you deactivate, the next morning Dani texts "you just messaged me?", and you find your own account still talking, as Rachel's did.
+- **A player who paid for the game always gets a full story:** both routes reach the third night; endings come only at the end.
+- **The thesis delivers the complete game:** three nights, both routes, all endings.
+- **Still open:**
+  - can you come back to Orbit after deactivating (and does Orbit log that as a successful return)?
+  - the question each night asks on each route;
+  - whether a fourth "stay a little longer" night exists.
+
 ## 5. Endings
 
 - 结局由哪些东西决定？（例如：查到了多少、揭穿了几个谎、对 Juno 信任还是质问、最后离开还是留下）

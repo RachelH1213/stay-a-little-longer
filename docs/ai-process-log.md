@@ -1832,3 +1832,19 @@ Copy this for each new entry.
   - **The problem:** the "Tonight" step didn't say what it does.
   - **The change:** renamed "Look back" on the slide, captioned "Your night replayed: helping, or keeping you?", with the screenshot of the open question.
   - **The notes:** they now explain the replay, the open question and the last choice.
+
+---
+
+### 2026-10-15 — Game structure: leaving changes the route, not the length
+
+- **Tool / model:** Claude Code (discussion).
+- **The question:** I asked whether three nights is enough, and whether the length should be fixed or depend on the player's route.
+- **What Claude Code offered:**
+  - **Three structures:** fixed nights; length that varies with the route; real-time nights.
+  - **A first recommendation:** a fixed spine where an early real exit could end the game.
+- **What I raised:** a paying player can't have the game simply end after one night, so leaving needs a continuation.
+- **Claude Code's revised proposal:** leaving switches to an "outside" route (Dani, texts, email), and "You Left. Your Account Didn't." becomes the next night's hook instead of an ending.
+- **My decisions:**
+  - deactivating the account (not pressing Leave) is what counts as really leaving;
+  - the thesis delivers the complete game.
+- **What was recorded:** Claude Code wrote both decisions, and the questions still open, into `docs/story-bible.md` (section 4, "Structure decided").

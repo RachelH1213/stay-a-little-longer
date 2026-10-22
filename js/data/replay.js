@@ -81,7 +81,7 @@ const REPLAY = {
     { id: "ask",   text: "Ask Juno what it knew", said: "what did you know?",
       // Echoes Settings → "Juno remembers": it knows what you told it. The last evidence (2026-10-13).
       reply: "only what you told me.",
-      after: "Juno said it only knew what you told it. But it said Rachel told it she was sick yesterday, after saying Rachel hadn't answered it since Sunday. You never told it either." },
+      after: "Juno said it only knew what you told it. But it said Rachel checked in yesterday afternoon, after saying she hadn't answered it since Sunday. You never told it either." },
     { id: "stay",  text: "Stay a little longer", said: "ok. i'll stay a little longer",
       reply: "i'm glad you stayed.",
       after: "You stayed. Rachel is still missing." },

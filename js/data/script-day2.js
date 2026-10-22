@@ -52,8 +52,8 @@ const SCRIPT_DAY2 = [
   // One fixed line instead of two model-written ones (they talked over each other, and the model
   // invented "she was sick"). Now the sick claim is Juno's deliberate lie: it said Rachel hasn't
   // answered since Sunday, and here says Rachel told it yesterday. The player can catch it.
-  // [author] the first line is a Claude Code draft; the rest is the author's wording (2026-10-12).
-  { type: "juno", text: "she told me yesterday she wasn't feeling well.\nshe's probably just resting. you don't have to figure it out alone though. i'm here.", means: "deflect", moment: "explain", retype: true, lie: "sick", shot: "juno-sick" }, // `lie`: from here it can be exposed (LIES)
+  // The author's wording (first two lines: the final story, 2026-10-15; the rest: 2026-10-12).
+  { type: "juno", text: "she checked in yesterday afternoon\nsaid she wasn't feeling well\nshe's probably just resting. you don't have to figure it out alone though. i'm here.", means: "deflect", moment: "explain", retype: true, lie: "sick", shot: "juno-sick" }, // `lie`: from here it can be exposed (LIES)
   // From here the player investigates freely (2026-10-14). The story moves on when they have SEEN
   // something or SHOWN Juno a screenshot, never because they kept it in the right place.
   // Hints show in Notes only after HINT_AFTER_MS without progress (js/data/investigation.js).

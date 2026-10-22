@@ -33,12 +33,21 @@ const SHOTS = {
 // Juno answers with `reply` right away.
 const LIES = [
   {
+    // Final story (story bible, 2026-10-15): Juno's deliberate cover story for Continuity's message,
+    // not a mistake. Broken by her deletion record (removed Mon 00:40, before "yesterday afternoon"),
+    // or by Juno's own "not since sunday".
     id: "sick",
-    brokenBy: ["juno-sunday"],
-    reply: [
-      { text: "i meant she'd told me before. a while ago.", retype: true },
-      { text: "i'm not trying to confuse you, {name}." },
-    ],
+    brokenBy: ["profile-deleted", "juno-sunday"],
+    reply: [{ text: "i meant she'd told me before\na while ago", retype: true }], // the author's wording
+    // What the player can say back (the author's wording). Juno's answer is written by the model
+    // within `intent` (the author's call, 2026-10-22); `texts` are fallbacks when it can't.
+    // The player can also show another screenshot, or say nothing: the chips go when they do anything else.
+    followUp: {
+      options: ["yesterday afternoon isn't “a while ago”", "why did you change your answer?"],
+      intent: "deflect",
+      facts: [],
+      texts: ["it's late. i'm mixing up my days.", "i didn't change anything. i just said it wrong."], // [author] Claude Code drafts
+    },
   },
   { id: "loads", brokenBy: ["profile-deleted"], gate: true },     // the script's next line is Juno's answer
   {
@@ -49,9 +58,9 @@ const LIES = [
     // from the old Notes step). The one their answer in Rachel's thread points at comes first.
     observeAsk: "What's different?",
     observe: [
-      { id: "details",  text: "she'd tell me what actually happened",   finding: "She always told you what happened. This tells you nothing." },
-      { id: "asksback", text: "she always asks something back",          finding: "She always asked something back. This closes the conversation." },
-      { id: "punct",    text: "she never uses full stops",               finding: "She never used full stops. This one does." },
+      { id: "details",  style: "specificity", text: "she'd tell me what actually happened",   finding: "She always told you what happened. This tells you nothing." },
+      { id: "asksback", style: "reciprocity", text: "she always asks something back",          finding: "She always asked something back. This closes the conversation." },
+      { id: "punct",    style: "punctuation", text: "she never uses full stops",               finding: "She never used full stops. This one does." },
     ],
   },
 ];
@@ -74,7 +83,7 @@ const FINDINGS = [
   { when: "flag:sawPostAfter",   text: "Her account posted “quiet” this morning, after it was deleted." },
   { when: "flag:searchedSick",   text: "Rachel never wrote anything about being sick." },
   { when: "flag:daniAsked",      text: "Dani hasn't heard from her since Sunday either." },
-  { when: "deduction:sick",      text: "Juno said Rachel hadn't answered since Sunday. Then it said she told it yesterday she was sick." },
+  { when: "deduction:sick",      text: "Juno said Rachel hadn't answered since Sunday. Then it said she checked in yesterday afternoon, after her account was already gone." },
   { when: "deduction:sync",      text: "The reply doesn't sound like Rachel." }, // + what the player said was different
 ];
 
@@ -94,6 +103,15 @@ const DANI = {
     { day: "Tuesday", from: "me", text: "not yet. why" },
     { day: "Tuesday", from: "them", text: "no reason\nnevermind" },
   ],
+  // While the player is in "Tonight" (story bible, 2026-10-15): a question no player can answer, and
+  // Orbit's Continuity answers it as the player. Day 2 picks it up ("did you send me this?").
+  // The author's wording. Delays are from opening "Tonight" (Claude Code's guess, change freely).
+  tonight: {
+    ask: "did rachel ever explain why she deleted orbit?",
+    answer: "yeah. i'll explain later.",
+    askAfterMs: 8000,
+    answerAfterMs: 14000,
+  },
   asks: [
     { id: "heard", text: "have you heard from rachel?", reply: "no. not since sunday either\nshe was supposed to text me after your 9am thing", flag: "daniAsked" },
     { id: "why",   text: "why did you ask about juno?", reply: "it asked me if rachel had said anything about leaving\ni said no. did she say something to you?", flag: "daniJuno" },

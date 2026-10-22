@@ -1891,3 +1891,17 @@ Copy this for each new entry.
 - **What happened:** I proposed a research question about discovering retention goals and players' judgement of care, trust and respect for leaving, plus a theme question and two sub-questions, and asked which was better. Claude Code suggested merging care and trust and using "change how players judge" instead of "affect".
 - **What was recorded:** the shortened question, the theme and the sub-questions in `docs/story-bible.md` (section 7) and `docs/midterm-script.md`.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-22 — Night 1 moved onto the final story
+
+- **Tool / model:** Claude Code.
+- **What I asked:** start building the finished game: bring night 1 in line with the story bible.
+- **What Claude Code built:**
+  - Juno's sick lie now reads "she checked in yesterday afternoon / said she wasn't feeling well"; her deletion record (or Juno's "not since sunday") breaks it, and Juno answers "i meant she'd told me before / a while ago".
+  - The player can then answer ("yesterday afternoon isn't 'a while ago'" / "why did you change your answer?"); Juno's reply is written by the model within a deflect intent, as I chose. The two fallback lines are Claude Code drafts.
+  - What the player says is different about the reply is kept as style feedback; only its category goes in the log.
+  - During Tonight, Dani asks "did rachel ever explain why she deleted orbit?" and Orbit answers as the player: "yeah. i'll explain later."
+- **Still open:** what the Tonight question should be in the finished game (see the conversation).
+- **My decision:** [to fill in]

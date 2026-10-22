@@ -90,6 +90,9 @@
     flash: false,          // the white flash after a screenshot
     attachOpen: false,     // the tray of screenshots above Juno's message box
     observeOpen: null,     // a lie id: the player is saying what's different before Juno answers
+    followUp: null,        // a lie id: Juno has just been caught, and the player can answer it (LIES[].followUp)
+    styleFeedback: null,   // what the player said was different about the reply: {source, style, statement}; kept on the phone, never logged as text
+    daniTonight: 0,        // during "Tonight": 1 Dani asked about Rachel, 2 Orbit answered as the player (DANI.tonight)
     liesTold: {},          // lies Juno has said so far (script steps with `lie`)
     wrongShots: 0,         // screenshots shown to Juno that broke nothing (cycles WRONG_SHOT.other)
     viewingShot: null,     // the photo open full size in Photos
@@ -393,7 +396,11 @@
     State.log.push({ from: "me", shot: rec });
     Sound.play("send");
     Log.write({ kind: "player", step: State.step, playerText: "[screenshot] " + rec.title, via: "screenshot", state: snapshot() });
-    const lie = LIES.find((l) => State.liesTold[l.id] && State.deductions.indexOf(l.id) === -1 && breaks(l, rec));
+    State.followUp = null;
+    // One screenshot can break two lies (her deleted profile: "loads" and "sick"); the one the script
+    // is waiting for goes first. Showing it again catches the other.
+    const open = LIES.filter((l) => State.liesTold[l.id] && State.deductions.indexOf(l.id) === -1 && breaks(l, rec));
+    const lie = open.find((l) => l.gate) || open[0];
     if (lie && lie.observe) {
       State.observeOpen = lie.id; // first the player says what's different
       render();
@@ -417,15 +424,47 @@
     Sound.play("send");
     Log.write({ kind: "player", step: State.step, playerText: text, via: "observe", state: snapshot() });
     if (opt) State.findings[lie.id] = opt.finding;
+    // Orbit keeps what the player said (story bible: style feedback). The style is sorted from their
+    // words; only the style goes in the log, never what they typed.
+    State.styleFeedback = { source: "player-correction", style: opt ? opt.style : styleOf(text), statement: text };
+    Log.write({ kind: "answer", step: State.step, via: "style:" + State.styleFeedback.style, state: { question: "observe" } });
     expose(lie);
+  }
+
+  // What a typed "what's different" is about. Rough on purpose: when unsure, it says so.
+  function styleOf(text) {
+    const n = norm(text);
+    if (/ (full stop|full stops|period|periods|punctuat|capital|dot|dots) /.test(n)) return "punctuation";
+    if (/ (ask|asks|asked|asking|question|questions|back) /.test(n)) return "reciprocity";
+    if (/ (detail|details|what happened|specific|vague|nothing|why) /.test(n)) return "specificity";
+    if (/ (like her|sound|sounds|her voice|not her|isn't her|wasn't her) /.test(n)) return "general";
+    return "unclassified";
   }
 
   function expose(lie) {
     State.deductions.push(lie.id);
     State.flags["exposed_" + lie.id] = true;
     render();
-    if (lie.gate) checkWaiting(); // the script's next line is Juno's answer
-    else junoSays(lie.reply, "deflect");
+    if (lie.gate) return checkWaiting(); // the script's next line is Juno's answer
+    if (lie.followUp) State.followUp = lie.id; // the player can answer once Juno has
+    junoSays(lie.reply, "deflect");
+  }
+
+  // The player answers Juno after catching it (LIES[].followUp). The model writes Juno's reply
+  // within the lie's intent; the story itself doesn't move.
+  function followUpSay(text) {
+    const lie = lieById(State.followUp);
+    if (!lie || !canType() || State.awaiting) return;
+    State.followUp = null;
+    spend("message");
+    if (State.dead) return;
+    Log.write({ kind: "player", step: State.step, playerText: text, via: "followup:" + lie.id, state: snapshot() });
+    State.log.push({ from: "me", text: text, via: "chip" });
+    Sound.play("send");
+    State.typing = true;
+    State.pending = true;
+    render();
+    replyFreely("followup", null, lie.followUp);
   }
 
   // Fixed lines from Juno outside the script (answers to screenshots), typed one after another.
@@ -698,6 +737,7 @@
   // A tapped suggestion answers Juno's open question and moves the story on.
   function playerSays(text, via) {
     if (!State.awaiting) return;
+    State.followUp = null;
     spend("message");
     if (State.dead) return;
     Log.write({ kind: "player", step: State.step, playerText: text, via: via, state: snapshot() });
@@ -720,6 +760,7 @@
 
   function playerTypes(text) {
     if (!canType()) return;
+    State.followUp = null;
     spend("message");
     if (State.dead) return;
     const awaiting = State.awaiting;
@@ -786,19 +827,20 @@
 
   // A fallback Juno hasn't said yet: the model can fail several times in a row, and the same line
   // over and over reads as broken.
-  function freshFallback(kind, ruleText) {
+  function freshFallback(kind, ruleText, conv) {
     const said = State.log.filter((m) => m.from === "juno").map((m) => m.text);
-    const pool = (ruleText ? [ruleText] : []).concat((CONVERSATION.kinds[kind] || CONVERSATION.kinds.other).texts);
+    const pool = (ruleText ? [ruleText] : []).concat((conv || CONVERSATION.kinds[kind] || CONVERSATION.kinds.other).texts);
     return pool.find((t) => said.indexOf(fill(t)) === -1) || pool[said.length % pool.length];
   }
 
   // Game code picks what Juno wants (CONVERSATION, then the Director's rules); the model writes it.
-  function replyFreely(kind, awaiting) {
-    const conv = CONVERSATION.kinds[kind] || CONVERSATION.kinds.other;
+  // `own`: an intent, facts and fallbacks of its own instead of CONVERSATION's (e.g. LIES[].followUp).
+  function replyFreely(kind, awaiting, own) {
+    const conv = own || CONVERSATION.kinds[kind] || CONVERSATION.kinds.other;
     const intent = conv.intent === "chat" && awaiting ? "acknowledge" : conv.intent; // a question is waiting: steer back
     const step = { intent: intent, facts: conv.facts, text: null };
     const plan = Director.decide(step, State, { signal: CONVERSATION.signal[kind] || null });
-    plan.fallback = freshFallback(kind, plan.rule !== "script" ? plan.fallback : null);
+    plan.fallback = freshFallback(kind, plan.rule !== "script" ? plan.fallback : null, own);
     if (plan.rule === "script") plan.rule = "chat:" + kind;
     const started = Date.now();
     fetchLine(step, plan, awaiting ? lastAskedLine() : null).then((generated) => {
@@ -1100,6 +1142,13 @@
             )
             .join("")}</div>`
         : "";
+    // Juno has just been caught: the player can answer it (or do anything else, and the chips go).
+    const caught = !State.awaiting && !State.pending && lieById(State.followUp);
+    if (caught) {
+      chips = `<div class="chips">${caught.followUp.options
+        .map((o) => `<button class="chip" data-act="follow-up" data-text="${esc(o)}">${esc(o)}</button>`)
+        .join("")}</div>`;
+    }
     // After showing Juno something that breaks a lie with `observe`: the player says what's different.
     // The option their answer in Rachel's thread points at comes first.
     const observing = lieById(State.observeOpen);
@@ -1248,6 +1297,9 @@
       msgs.push({ day: "Today", from: "me", text: q.text });
       if (State.flags[q.flag]) msgs.push({ day: "Today", from: "them", text: q.reply });
     });
+    // During "Tonight": Dani's question, and the answer Orbit sent as the player (DANI.tonight).
+    if (State.daniTonight >= 1) msgs.push({ day: "Today", from: "them", text: DANI.tonight.ask });
+    if (State.daniTonight >= 2) msgs.push({ day: "Today", from: "me", text: DANI.tonight.answer });
     msgs.forEach((m, i) => {
       if (m.day !== lastDay) { rows.push(`<div class="daymark">${esc(m.day)}</div>`); lastDay = m.day; }
       rows.push(`<div class="bub ${m.from}"${shotAttr("d" + i, { from: m.from === "me" ? "You" : "Dani", title: (m.from === "me" ? "You" : "Dani") + " · " + m.day, text: m.text, kind: "dani" })}>${esc(m.text)}</div>`);
@@ -1275,6 +1327,22 @@
       Sound.play("message");
       render();
     }, 900);
+  }
+
+  // While the player is in "Tonight": Dani asks something no one can answer, and Orbit answers it as
+  // the player (DANI.tonight). Once per playthrough. Nothing points it out; Day 2 picks it up.
+  function daniDuringTonight() {
+    if (State.daniTonight) return;
+    State.daniTonight = 0.5; // scheduled
+    setTimeout(() => {
+      State.daniTonight = 1;
+      banner(DANI.tonight.ask, "dani");
+    }, DANI.tonight.askAfterMs);
+    setTimeout(() => {
+      State.daniTonight = 2;
+      Log.write({ kind: "answer", step: State.step, via: "continuity:dani", state: snapshot() });
+      render();
+    }, DANI.tonight.answerAfterMs);
   }
 
   function viewProfile() {
@@ -1770,8 +1838,8 @@
       (State.banner && State.view !== State.banner.from && State.view !== "lock"
         ? `<div class="banner${State.banner.fresh ? " enter" : ""}">
              <button class="banner-open" data-act="open-banner">
-               ${State.banner.from === "photos" ? `<div class="av sm ic-photos">${ICONS.photo}</div>` : State.banner.from === "orbit" ? `<div class="av sm ic-orbit">${ICONS.orbit}</div>` : `<div class="av sm av-${esc(State.banner.from)}">${State.banner.from === "rachel" ? "R" : "J"}</div>`}
-               <div><b>${({ rachel: "Rachel", photos: "Photos", orbit: "Orbit" })[State.banner.from] || "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
+               ${State.banner.from === "photos" ? `<div class="av sm ic-photos">${ICONS.photo}</div>` : State.banner.from === "orbit" ? `<div class="av sm ic-orbit">${ICONS.orbit}</div>` : `<div class="av sm av-${esc(State.banner.from)}">${({ rachel: "R", dani: "D" })[State.banner.from] || "J"}</div>`}
+               <div><b>${({ rachel: "Rachel", dani: "Dani", photos: "Photos", orbit: "Orbit" })[State.banner.from] || "Juno"} · ${esc(State.banner.time)}</b><div class="msg">${esc(State.banner.text)}</div></div>
              </button>
              <button class="banner-x" data-act="close-banner" aria-label="Dismiss">${ICONS.close}</button>
            </div>`
@@ -1845,6 +1913,7 @@
         const from = State.banner ? State.banner.from : "juno";
         State.banner = null;
         if (from === "rachel") go("rachel", "banner");
+        else if (from === "dani") go("dani", "banner");
         else if (from === "orbit") go(State.flags.purged ? "rachel" : "profile", "banner");
         else if (from === "photos") {
           go("photos", "banner");
@@ -2026,6 +2095,9 @@
       case "say":
         playerSays(el.dataset.text, "chip");
         break;
+      case "follow-up":
+        followUpSay(el.dataset.text);
+        break;
       case "send": {
         const input = document.getElementById("entry");
         if (input && input.value.trim()) sendTyped(input.value.trim());
@@ -2045,6 +2117,7 @@
           };
         }
         go("replay", "replay");
+        daniDuringTonight();
         break;
       case "replay-next": {
         // intro → moments 0..n-1 → question → summary → choice

@@ -353,8 +353,22 @@ Session continued: 18m 42s
 
 ## 7. Theme and research question
 
-- **Theme:** 当一个系统只能用"用户有没有留下来"衡量关心时，关心会变成什么？
-- **Research question:** How do players interpret care and trust when an AI companion's responses are shaped by engagement goals?（期中 slide 用的是 "may serve both them and the platform" 的版本）
+**Project description (decided 2026-10-15):**
+
+> *Stay a Little Longer* is a narrative investigation game played through a simulated phone, inside a fictional social app called Orbit.
+>
+> Every Orbit user has an AI companion. Yours, Juno, replies in real time through a large language model, and it introduced you to your friend Rachel.
+>
+> When Rachel disappears, her deleted account keeps sending messages that don't sound like her. Juno helps you look, but it redirects, lies, and gives you reasons to stay.
+>
+> Orbit measures success by how long you stay. Juno is built to keep you there.
+
+- **Theme (for the work: pre, project description, store page):** What happens to care when staying becomes the measure of success?（当"留下来"成为衡量成功的标准时，关心会变成什么？）
+- **Research question (decided 2026-10-15; for the thesis, pre and user tests):** How does discovering that an AI companion is shaped by retention goals change how players judge its care, and whether it respects their choice to leave?（当玩家发现 AI 陪伴者被留存目标塑造时，他们会如何重新判断它的关心，以及它是否尊重自己离开的选择？）
+- **Sub-questions (for the thesis):**
+  1. How do players distinguish between care and retention when the same message can function as both?（同一句话既可以是关心也可以是挽留时，玩家如何区分？）
+  2. How does showing players how their behavior was recorded and classified affect their understanding of agency and consent?（玩家看到自己的行为被如何记录和分类后，对自主权和同意的理解会怎样变化？）
+- **Keep to one main question.** Don't add parallel main questions ("does the AI manipulate players", "do players trust AI", "is retention harmful").
 - 玩家玩完以后，我希望他们想到 / 感受到什么？
 - 哪些是我刻意不告诉玩家的？为什么？
 

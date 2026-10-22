@@ -1873,3 +1873,44 @@ Copy this for each new entry.
 - **What I asked:** update the slides about the finished game to match the structure we just decided.
 - **What Claude Code made:** `slides-where-this-is-going.pptx`, five slides: The finished game (the question turns from Rachel to me), Three nights (with the route choice), Your answers become Orbit's data (Tonight anchor, style feedback), Four endings, How I'll build it. The old "Leaving, and what Orbit records" slide was replaced. The build schedule on the last slide is Claude Code's proposal.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — Midterm speaking script
+
+- **Tool / model:** Claude Code.
+- **What I asked:** a full, plain spoken script for my final deck, including what to say during the live demo.
+- **What Claude Code made:** `docs/midterm-script.md`, slide by slide plus a demo walkthrough with stage directions.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-15 — Research question
+
+- **Tool / model:** Claude Code (discussion).
+- **What happened:** I proposed a research question about discovering retention goals and players' judgement of care, trust and respect for leaving, plus a theme question and two sub-questions, and asked which was better. Claude Code suggested merging care and trust and using "change how players judge" instead of "affect".
+- **What was recorded:** the shortened question, the theme and the sub-questions in `docs/story-bible.md` (section 7) and `docs/midterm-script.md`.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-22 — Night 1 moved onto the final story
+
+- **Tool / model:** Claude Code.
+- **What I asked:** start building the finished game: bring night 1 in line with the story bible.
+- **What Claude Code built:**
+  - Juno's sick lie now reads "she checked in yesterday afternoon / said she wasn't feeling well"; her deletion record (or Juno's "not since sunday") breaks it, and Juno answers "i meant she'd told me before / a while ago".
+  - The player can then answer ("yesterday afternoon isn't 'a while ago'" / "why did you change your answer?"); Juno's reply is written by the model within a deflect intent, as I chose. The two fallback lines are Claude Code drafts.
+  - What the player says is different about the reply is kept as style feedback; only its category goes in the log.
+  - During Tonight, Dani asks "did rachel ever explain why she deleted orbit?" and Orbit answers as the player: "yeah. i'll explain later."
+- **Still open:** what the Tonight question should be in the finished game (see the conversation).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-22 — Tonight asks "What made you stay?"
+
+- **Tool / model:** Claude Code.
+- **What happened:** I asked whether Tonight is only a user-test feedback step. Claude Code explained that in the final story Tonight is part of the fiction and its answer becomes Orbit's data, and suggested keeping "What made you stay?" in the game and moving "helping / keeping" to the end page for testers. I agreed.
+- **What Claude Code built:** Tonight now asks "What made you stay?" (saved as the anchor, only the option id is logged); the end page asks the testers' question. The end page's label and thank-you line are Claude Code drafts.
+- **My decision:** [to fill in]

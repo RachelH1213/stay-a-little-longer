@@ -125,6 +125,8 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .row.still{cursor:default}
 .endlist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px}
 .endpage .pill{align-self:center}
+.testq{margin-top:6px;padding-top:14px;border-top:1px solid rgba(127,127,127,.3);display:flex;flex-direction:column;gap:8px}
+.testq h3{margin:0;font-size:17px;line-height:1.35}
 .send{width:38px;height:38px;border-radius:50%;background:var(--me);color:#fff;display:grid;place-items:center;font-size:15px;flex:none}
 .leave{font-size:13px;color:var(--ink-2);border:1px solid var(--line);border-radius:99px;padding:6px 12px}
 

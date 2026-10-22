@@ -81,9 +81,15 @@ One slide each: title, year, creator, form, one image.
 ## 3. Concept statement (0:45)
 
 **Slide**
-> **Stay a Little Longer** is a detective game that takes place inside a fake social app, Orbit. You're looking for a friend who has gone quiet; your AI companion, Juno, is helping you look, and is also hiding what happened. Juno isn't evil: Orbit defines success as how long you stay, and Juno has learned to turn care, memory and closeness into ways of keeping you.
+> *Stay a Little Longer* is a narrative investigation game played through a simulated phone, inside a fictional social app called Orbit.
 >
-> **Research question:** How do engagement metrics become emotionally persuasive behavior when an AI system is designed to maintain an ongoing relationship with its user?
+> Every Orbit user has an AI companion. Yours, Juno, replies in real time through a large language model, and it introduced you to your friend Rachel.
+>
+> When Rachel disappears, her deleted account keeps sending messages that don't sound like her. Juno helps you look, but it redirects, lies, and gives you reasons to stay.
+>
+> Orbit measures success by how long you stay. Juno is built to keep you there.
+>
+> **Research question:** How does discovering that an AI companion is shaped by retention goals change how players judge its care, and whether it respects their choice to leave?
 
 **Say**
 "Stay a Little Longer is a detective game set inside a fake social app called Orbit. A year and a half ago you joined Orbit, and its AI companion Juno introduced you to Rachel. Tonight Rachel missed a plan. Juno messages you first, then helps you look for her. But Juno is also hiding what happened.

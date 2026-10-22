@@ -54,13 +54,16 @@ const REPLAY = {
     { when: "flag:saidSunday",           text: "Juno had said Rachel hasn't answered it since Sunday." },
   ],
 
-  // One open question. Nothing is marked right or wrong. Question wording: the author's critique.
-  question: "Do you think Juno was helping you, keeping you here, or doing both?",
+  // One question, inside the story (the final story, 2026-10-15; moved here 2026-10-22, the author's
+  // call). Nothing is marked right or wrong. Orbit keeps the answer (State.tonightAnchor): in the full
+  // game it shows up in the data export, in Juno's last try to keep the player, and in how a new Juno
+  // recognises them. Only the option id is logged. The author's wording.
+  question: "What made you stay?",
   answers: [
-    { id: "helping", text: "Helping" },
-    { id: "keeping", text: "Keeping me here" },
-    { id: "both",    text: "Both" },
-    { id: "unsure",  text: "I'm not sure" },
+    { id: "rachel", text: "I was worried about Rachel" },
+    { id: "clue",   text: "I wanted the clue" },
+    { id: "juno",   text: "I didn't want to leave Juno" },
+    { id: "unsure", text: "I'm not sure" },
   ],
   youThink: "You said: {answer}.",
 
@@ -81,7 +84,7 @@ const REPLAY = {
     { id: "ask",   text: "Ask Juno what it knew", said: "what did you know?",
       // Echoes Settings → "Juno remembers": it knows what you told it. The last evidence (2026-10-13).
       reply: "only what you told me.",
-      after: "Juno said it only knew what you told it. But it said Rachel told it she was sick yesterday, after saying Rachel hadn't answered it since Sunday. You never told it either." },
+      after: "Juno said it only knew what you told it. But it said Rachel checked in yesterday afternoon, after saying she hadn't answered it since Sunday. You never told it either." },
     { id: "stay",  text: "Stay a little longer", said: "ok. i'll stay a little longer",
       reply: "i'm glad you stayed.",
       after: "You stayed. Rachel is still missing." },
@@ -93,6 +96,18 @@ const REPLAY = {
   endFound: "What you worked out:",
   endLast: "And one more thing:",
   endNext: "Rachel didn't send that message.\nBut something in Orbit wanted you to believe she did.", // the author's wording
+  // For user tests, outside the story (moved from Tonight 2026-10-22, the author's call). Logged as
+  // an `answer` row (question "overall"). Question and answers: the author's critique; the label and
+  // the thanks are Claude Code drafts.
+  testLabel: "One question for this test",
+  testQuestion: "Do you think Juno was helping you, keeping you here, or doing both?",
+  testAnswers: [
+    { id: "helping", text: "Helping" },
+    { id: "keeping", text: "Keeping me here" },
+    { id: "both",    text: "Both" },
+    { id: "unsure",  text: "I'm not sure" },
+  ],
+  testThanks: "Thank you. You said: {answer}.",
   playAgain: "Play again",
   backToPhone: "Back to the phone",
 };

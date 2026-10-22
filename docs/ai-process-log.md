@@ -1905,3 +1905,12 @@ Copy this for each new entry.
   - During Tonight, Dani asks "did rachel ever explain why she deleted orbit?" and Orbit answers as the player: "yeah. i'll explain later."
 - **Still open:** what the Tonight question should be in the finished game (see the conversation).
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-22 — Tonight asks "What made you stay?"
+
+- **Tool / model:** Claude Code.
+- **What happened:** I asked whether Tonight is only a user-test feedback step. Claude Code explained that in the final story Tonight is part of the fiction and its answer becomes Orbit's data, and suggested keeping "What made you stay?" in the game and moving "helping / keeping" to the end page for testers. I agreed.
+- **What Claude Code built:** Tonight now asks "What made you stay?" (saved as the anchor, only the option id is logged); the end page asks the testers' question. The end page's label and thank-you line are Claude Code drafts.
+- **My decision:** [to fill in]

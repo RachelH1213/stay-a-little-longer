@@ -92,7 +92,9 @@
     observeOpen: null,     // a lie id: the player is saying what's different before Juno answers
     followUp: null,        // a lie id: Juno has just been caught, and the player can answer it (LIES[].followUp)
     styleFeedback: null,   // what the player said was different about the reply: {source, style, statement}; kept on the phone, never logged as text
-    daniTonight: 0,        // during "Tonight": 1 Dani asked about Rachel, 2 Orbit answered as the player (DANI.tonight)
+    daniTonight: 0,
+    tonightAnchor: null,   // Tonight's "What made you stay?" (REPLAY.answers id); Orbit keeps it for later nights
+    testAnswer: null,      // the end page's question for testers (REPLAY.testAnswers id)        // during "Tonight": 1 Dani asked about Rachel, 2 Orbit answered as the player (DANI.tonight)
     liesTold: {},          // lies Juno has said so far (script steps with `lie`)
     wrongShots: 0,         // screenshots shown to Juno that broke nothing (cycles WRONG_SHOT.other)
     viewingShot: null,     // the photo open full size in Photos
@@ -1573,6 +1575,13 @@
             .join("")}</ul>
           ${State.finale ? `<p class="rintro">${esc(R.endLast)}</p><p class="endlast">${esc((R.choices.find((c) => c.id === State.finale) || {}).after || "")}</p>` : ""}
           <p class="rintro">${esc(R.endNext)}</p>
+          <div class="testq">
+            <p class="rctx left">${esc(R.testLabel)}</p>
+            <h3>${esc(R.testQuestion)}</h3>
+            ${State.testAnswer
+              ? `<p class="rline">${esc(R.testThanks.replace("{answer}", (R.testAnswers.find((a) => a.id === State.testAnswer) || {}).text || ""))}</p>`
+              : `<div class="rchoices">${R.testAnswers.map((a) => `<button class="pill" data-act="test-answer" data-id="${esc(a.id)}">${esc(a.text)}</button>`).join("")}</div>`}
+          </div>
           <button class="pill primary" data-act="play-again">${esc(R.playAgain)}</button>
         </div>`;
     } else if (r.page === "intro") {
@@ -2129,10 +2138,18 @@
         break;
       }
       case "replay-answer":
-        // One open question: recorded, never marked right or wrong.
+        // "What made you stay?": never marked right or wrong. Orbit keeps it; only the id is logged.
         State.replay.overall = id;
-        Log.write({ kind: "answer", step: State.step, via: id, state: { question: "overall" } });
+        State.tonightAnchor = id;
+        Log.write({ kind: "answer", step: State.step, via: "anchor:" + id, state: { question: "anchor" } });
         State.replay.page = "summary";
+        render();
+        break;
+      case "test-answer":
+        // The end page's question for testers, outside the story.
+        if (State.testAnswer) break;
+        State.testAnswer = id;
+        Log.write({ kind: "answer", step: State.step, via: id, state: { question: "overall" } });
         render();
         break;
       case "replay-choice":

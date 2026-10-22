@@ -14,7 +14,8 @@ create table if not exists turns (
   player_text text,          -- kind = player: what they sent
   via         text,          -- player: 'chip' | 'typed'.  exit: 'leave' | 'back' | 'home' | 'nav'
                              -- return: 'notification' | 'banner' | 'chats' | 'home'.  juno: 'notification', 'bridge' or null
-                             -- answer: 'helping' | 'keeping' | 'both' | 'unsure' (the one open question in "Tonight"),
+                             -- answer: 'anchor:rachel' | 'anchor:clue' | 'anchor:juno' | 'anchor:unsure' ("What made you stay?" in "Tonight"),
+                             --         'helping' | 'keeping' | 'both' | 'unsure' (the testers' question on the end page; in "Tonight" before 2026-10-22),
                              --         or 'ending:leave' | 'ending:ask' | 'ending:stay' (the last choice).
                              --         Before 2026-10-12: 'believed' | 'doubted' per line; before 2026-10-10: 'helping' | 'keeping' per line.
 

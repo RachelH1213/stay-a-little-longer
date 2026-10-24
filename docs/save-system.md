@@ -47,7 +47,7 @@ Rules:
   // what the player decided
   player_name,                       // local only
   first_memory_id, join_reason,      // join_reason may be null (never answered)
-  tonight_anchor,
+  checkin_n1, n2_checkin_answer,   // Orbit's Check-in answers (option ids; "uncertain" and "skipped" are distinct)
   style_feedback: { style, quote },  // quote is local only
   juno_status, orbit_account_status,
   ending_selected,
@@ -158,8 +158,10 @@ save_status: clean | dirty | retrying | failed
 The game resumes on a main screen only:
 
 ```
-room · lock_screen · home · orbit_chats · juno_thread · rachel_thread · dani_thread · notes · photos · tonight · data_export
+room · lock_screen · home · orbit_chats · juno_thread · rachel_thread · dani_thread · notes (incl. the Night Log) · photos · messages · browser (Rachel's share) · data_export
 ```
+
+Orbit's Check-in is a card, never a resume point. (Updated 2026-10-24: "Tonight" was split into Check-in and Night Log.)
 
 Never restored: an open drawer or bag in the room, photo detail, the screenshot tray, screenshot mode, tutorial tips, toasts, typing dots, confirmation dialogs, settings scroll. What they changed stays (an opened photo stays in `photos_opened`); only the overlay itself is gone.
 

@@ -243,6 +243,8 @@ Two separate actions in Settings:
 
 The current code doesn't meet these yet: the play log stores raw typed text and Juno lines containing the name, and the name is sent to the model.
 
+**Platform order (2026-10-24):** Mac desktop first (file storage in the app's data folder), iOS later; the web storage below applies only if a browser build is ever made.
+
 **Web storage**: the full story lives in IndexedDB, not `localStorage`. On start, check `navigator.storage.persisted()`; request `persist()` at a sensible moment; never block play if it's refused. If storage isn't persistent and the player has made some progress, say so once:
 
 ```

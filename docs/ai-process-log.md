@@ -2049,3 +2049,12 @@ Copy this for each new entry.
 - **What happened:** I decided the day isn't playable (a wordless transition), Night 2 starts Wednesday 11:20 PM, the player picks the phone up themselves, and Juno never speaks first on Night 2; I also wrote Dani's answer when asked for the email. Claude Code raised three ordering questions: whether Juno can be off before the route choice, what happens when opening Juno is the first Orbit action, and the second fake arriving together with Dani's request.
 - **What was recorded:** `docs/night2-scenes.md`.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Juno's switch from Night 1; the second fake's fallback; delivery vs reading order
+
+- **Tool / model:** Claude Code.
+- **What happened:** I decided Juno's switch exists from Night 1, that Juno's opening completes before the second fake when Juno is opened first, a fixed fallback at Wednesday 11:27 PM, Dani's request at least 3 minutes later, and that the game guarantees delivery order, not reading order. Claude Code noted the fallback still depends on the story clock, and that Night 1's two Juno opening beats can no longer be required.
+- **What was recorded:** `docs/night2-scenes.md`, `docs/night1-scenes.md`, `docs/story-bible.md` §6.
+- **My decision:** [to fill in]

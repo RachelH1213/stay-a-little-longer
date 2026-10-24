@@ -92,8 +92,8 @@ R = required (every playthrough passes through it); O = optional.
 | Beat ID | R/O | Trigger | The player sees | The player can | Evidence | State recorded | Juno intent / Orbit function | Clock / battery |
 |---|---|---|---|---|---|---|---|---|
 | `N1_LANDING.LOCK` | R | after Name | Lock screen 23:31: Juno's new notification; Rachel's Sunday notification below | tap Juno; tap Rachel | — | — | — | — |
-| `N1_JUNO_OPENING.awaiting_first_reply` | R | tapping Juno (or opening Juno from Chats) | Juno's thread on tonight's latest message; Suggested replies (4 options) | pick; type | — | — | ATTEND / PROFILE | message |
-| `N1_JUNO_OPENING.memory_created` | R | the first reply | Juno answers that reply only | keep talking; leave the thread | — | `first_memory_id` | ATTEND / PROFILE | message |
+| `N1_JUNO_OPENING.awaiting_first_reply` | O | tapping Juno (or opening Juno from Chats) | Juno's thread on tonight's latest message; Suggested replies (4 options) | pick; type | — | — | ATTEND / PROFILE | message |
+| `N1_JUNO_OPENING.memory_created` | O | the first reply | Juno answers that reply only | keep talking; leave the thread | — | `first_memory_id` | ATTEND / PROFILE | message |
 | `N1_RACHEL.THREAD_OPEN` | O | the player opens Rachel's thread | her Sunday messages (February, Tuesday 9 PM, the blue brick); a year of history above | scroll up (February); remember a blank old reply; screenshot | February thread (ordinary-looking), her voice | `knows_meeting` | — | open |
 | `N1_RACHEL.CONTACT` | O | the player sends from her thread | `Delivered`; never `Read`, never online, never typing | send (Suggested or typed); not send | — | `contacted_rachel`, what was sent (local) | — | message |
 | `N1_VERIFY.NUMBER` | O | Rachel's profile → the old number | "This number is no longer in service." | — | — | `knows_number_dead` | — | open |
@@ -121,6 +121,10 @@ R = required (every playthrough passes through it); O = optional.
 Notes for the Night Log (Notes) are written as facts are set, timed by when the player found them.
 
 ---
+
+## Juno's switch (decided 2026-10-24)
+
+Settings show `Juno On · Conversation Assist On` from Night 1, independent. A player can turn Juno off before ever opening it, so the two opening beats are optional and `first_memory_id` may be empty (Night 3's export needs a version for that). Turning it off never forces an untold lie; the rest of the night still works without Juno.
 
 ## Status
 

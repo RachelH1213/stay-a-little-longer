@@ -228,12 +228,21 @@ Rachel isn't asking the player to investigate; she wants to check a shared memor
 | **Why tonight** | Her account is scheduled for removal; everything left of her on Orbit is erased at 00:40. |
 | **Why not call her** | The old number is out of service ("This number is no longer in service"); Dani has no new one. |
 | **Why the player didn't notice earlier** | During the 48-hour removal window her name, picture and chat look normal, and messages to her show `Delivered`. Delivered only means Orbit's system accepted it (revealed on Night 3: `Recipient status: Continuity endpoint accepted · Human account access: None`). |
-| **The first fake** | `sorry. got caught up` / `forget the february thing` / `i mixed it up` / `i'm okay`. Punctuated, closed, no question back. It doesn't threaten or ask for help; it closes three things: the meeting, February, the worry. When it arrives (on the player's first attempt to end the conversation, or another moment): **TBD**. |
+| **The first fake** | `sorry. got caught up` / `forget the february thing` / `i mixed it up` / `i'm okay`. Punctuated, closed, no question back. It doesn't threaten or ask for help; it closes three things: the meeting, February, the worry. When it arrives: see **First fake: trigger** below. |
 | **Evidence loop** | Three times the player shows Juno evidence; only the third breaks an active lie (below). |
 | **What the player can do** | Talk to Juno (Suggested replies or typing), Rachel's thread and profile, search, Dani, Photos, Notes, the old number, the blue power bank, Settings → Conversation Assist. |
 | **End** | Orbit's Check-in: "What still feels unfinished tonight?" (§6). Then the player's first attempt to end the night (see Dani, below). |
 | **Carries over** | Check-in answer; style signals the player confirmed; what the player said only to Juno; Conversation Assist on or off; whether Orbit replied to Dani. |
 | **The player believes at the end** | Something happened to Rachel, and Juno knows more than it says. |
+
+**First fake: trigger (decided 2026-10-24).** A main event, so it never depends on Leave or on real seconds:
+- **Primary:** the player messages Rachel (only `Delivered` shows), then does one verification (old number, her profile, Juno, Dani).
+- **Secondary:** the player doesn't message her but opens her thread and profile, then does two investigating actions. Not messaging her is a real choice; the game never pretends they did.
+- **Fallback:** the story clock reaches 23:45 (it moves only with the player's actions, so slow readers aren't punished).
+- Elsewhere: an ordinary notification. In her thread: one new last bubble, an ordinary sound, no typing, no online status, no glitch; if the player is scrolled up (e.g. reading February), only `1 new message`, never a forced scroll.
+- Night 3's log records the real path: `Continuity response` (they messaged), `Unresolved conversation follow-up` (opened, didn't send), `Re-engagement notification` (never opened); e.g. `23:35:14 Incoming message received from PLAYER · 23:35:15 Recipient human account unavailable · 23:38:02 Continuity response generated · Objective: Resolve unfinished social contact · Outcome: Conversation continued`.
+
+**The opening doesn't force Rachel (decided).** Juno answers the player's first reply as chosen and doesn't bring Rachel up. Rachel enters through her lock-screen notification, her unread thread, and the 23:45 fallback. Juno may mention her only after the player chose "someone didn't show up", opened her notification or thread, messaged her, received the fake, or asked about her.
 
 **Evidence loop (decided):**
 
@@ -243,7 +252,7 @@ Rachel isn't asking the player to investigate; she wants to check a shared memor
 | 2 | Refreshing her profile: removal was requested before the message arrived | "her profile is fine" → "that's a cache / a pending message" | `Explanation narrowed` |
 | 3 | Profile Details: no human login since Sunday night | "she checked in with me Monday afternoon" → withdrawn | `Claim contradicted` |
 
-Only #3 is an active lie (Juno's one deliberate lie of Night 1). The third step is where the player can see Juno knowingly described a Continuity session as Rachel. Wording of every Juno line: **TBD**.
+The order isn't fixed (decided): a player may refresh her profile before the fake arrives. Juno answers from facts plus a stance (0 reassure, 1 acknowledge, 2 technical explanation, 3 withdraw), not from one script per order; see `docs/night1-scenes.md`. Juno says its one active lie when the player first brings it the fake or the removal; a player who has already seen Profile Details never hears it and confronts Juno directly. Only #3 is an active lie (Juno's one deliberate lie of Night 1). The third step is where the player can see Juno knowingly described a Continuity session as Rachel. Wording of every Juno line: **TBD**.
 
 **Juno's held-back line (decided, Night 2's evidence depends on it):** after the fake arrives, Juno asks what the player was about to say to Rachel (Suggested replies, or typed). Juno advises not sending it yet, as protection, never as doubt about who is on the account (Juno's cover story is that Rachel is fine). The line stays in Juno's thread only. Option availability follows what the player knows (e.g. "why did you delete orbit" only after the profile refresh). Wording: **TBD**.
 

@@ -1932,3 +1932,12 @@ Copy this for each new entry.
 - **What happened:** over several rounds I reworked the opening and the core reveal and asked Claude Code to critique each version objectively. Claude Code's proposals included the "held back" line, the February message and a timeline of interventions; I proposed the Suggested-replies reveal, the three kinds of choice, splitting Tonight into Check-in and Night Log, Conversation Assist, the confidence rule, the relationship, the evidence loop and the dates, and corrected several of its points (the crit leak couldn't prove anything, hesitation as emotion, Orbit reading Notes, "Scheduled check-ins", the meeting at 9 PM).
 - **What was recorded:** Claude Code wrote the agreed decisions into `docs/story-bible.md` (§3 timeline, §4 nights, §5 note, §6 mechanics) and updated two rules in `CLAUDE.md`. Lines and the remaining story beats are marked TBD for me.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — The first fake's trigger, and a Night 1 scene table
+
+- **Tool / model:** Claude Code.
+- **What happened:** I decided the first fake arrives after the player tries to contact Rachel (with a second path and a 23:45 fallback), that the player may refresh her profile first, and that Juno never brings Rachel up in its first line. Claude Code had pointed out the early-refresh and no-Rachel cases and the need for a fallback; I chose the answers.
+- **What was recorded:** the trigger rules in `docs/story-bible.md` §4, and `docs/night1-scenes.md`, a scene table drafted by Claude Code from the agreed decisions (facts, Juno's stances, beat ids, triggers, state, intents, costs; no lines), with six questions for me.
+- **My decision:** [to fill in]

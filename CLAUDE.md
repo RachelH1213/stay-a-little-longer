@@ -8,6 +8,8 @@ Read this before changing anything in this repo.
 
 The player looks for a friend (Rachel) who has gone quiet. Their AI companion (Juno) helps, and is also the one hiding what happened. Three in-game days, about 20 minutes.
 
+**Engine (2026-10-24, the author's call):** the full game is being built in **Unity** (6.3 LTS, URP) in its own repository, `StayALittleLonger`. This repository stays the single source of design (`docs/`) and holds the web prototype, which is frozen; the model layer (`api/reply.js` on Vercel) is reused by the Unity game over HTTP. Unity work happens in sessions on the author's computer, in the Unity project, with its own process log.
+
 This repo is currently the **Day 2 shell**: real screens, a hardcoded script, and a few of Juno's lines written by a model (Claude Haiku 5.5 by default), with intents picked by a first-draft Director.
 
 **Course work and AI use:** part of this project is also coursework for ULEC 2943. Read `docs/course-context.md` (including my AI consent policy) before any task. After any meaningful AI-assisted work, add an entry to `docs/ai-process-log.md` — facts only, and leave "My decision" for me.

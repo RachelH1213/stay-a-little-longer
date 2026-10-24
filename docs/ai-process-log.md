@@ -2084,3 +2084,11 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (a separate cloud session).
 - **What happened:** I opened a second session to check whether `unity-room/Assets/RoomPrototype` would compile in Unity 6. It read the five scripts and found no compile errors, but couldn't compile them (no Unity in the cloud). It changed nothing. It was opened on the web game's repository rather than locally in the Unity project, so the design session advised moving Unity work to the new `StayALittleLonger` repository and running Unity sessions on my computer, with their own process log there.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — The full game moves to Unity
+
+- **Tool / model:** Claude Code (discussion).
+- **What happened:** after my teacher suggested Unity and I set up a Unity 6.3 LTS (URP) project with its own GitHub repository (`StayALittleLonger`), I decided to build the full game there. Claude Code had compared web and Unity earlier and suggested trying the room first; I chose to start the full project. Claude Code wrote a first prompt for a Unity development session on my computer (read the design docs; make no design decisions; propose a foundation plan before code) and noted the decision in `CLAUDE.md`.
+- **My decision:** [to fill in]

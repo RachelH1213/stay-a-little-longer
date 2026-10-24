@@ -2013,3 +2013,12 @@ Copy this for each new entry.
 - **What happened:** I defined Continuity as a relationship-disruption system with two modes (REACTIVATION, IDENTITY PROXY), moved February under it, split Night 3 into two records, and decided Dani offers her own number on Night 2 so a deleting player can learn the old account spoke. Claude Code noted the times are Thursday, not Wednesday, that one draft line from Dani states the theme outright, and that "Orbit Relay" and a Messages app would be new.
 - **What was recorded:** `docs/story-bible.md` §6 (the three systems, two records, Dani outside Orbit, how a deleting player finds out).
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: the second fake's trigger, the prepared reply in Dani's thread
+
+- **Tool / model:** Claude Code.
+- **What happened:** I dropped "Orbit Relay" (Chats vs Messages), fixed Dani's line to `this is me`, and decided the second fake's trigger and that `Sending in 10s` happens when Dani asks whether to send Rachel's data. Claude Code pointed out that opening Notes can't trigger anything Orbit does, that the countdown should start as soon as Dani's question is on screen so every player with Assist on sees it, and that sending the link inside Orbit exposes it (left as TBD).
+- **What was recorded:** `docs/night2-scenes.md`, `docs/story-bible.md` §6.
+- **My decision:** [to fill in]

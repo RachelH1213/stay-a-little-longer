@@ -2076,3 +2076,11 @@ Copy this for each new entry.
 - **What happened:** my teacher suggested trying Unity, and I wanted to see whether the room (finding Rachel's power bank with the phone down) would be worth moving engines for. Claude Code compared web and Unity for this game (a single-view room is easy on the web; a lit 3D room and physical gestures favour Unity; moving means rebuilding every phone screen and losing play in a phone browser) and suggested trying the room alone first. I asked for that.
 - **What Claude Code made:** `unity-room/`, C# scripts and an editor command that builds the room from simple shapes (desk, lamp, window, tote bag, drawer, coat, phone) with the agreed rules: searching costs story time, the power bank, waiting to charge, one possible notification, picking the phone up goes to a lock screen. Not run yet (no Unity in the cloud session). Excluded from the web deploy (`.vercelignore`).
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — A second session checked the Unity prototype
+
+- **Tool / model:** Claude Code (a separate cloud session).
+- **What happened:** I opened a second session to check whether `unity-room/Assets/RoomPrototype` would compile in Unity 6. It read the five scripts and found no compile errors, but couldn't compile them (no Unity in the cloud). It changed nothing. It was opened on the web game's repository rather than locally in the Unity project, so the design session advised moving Unity work to the new `StayALittleLonger` repository and running Unity sessions on my computer, with their own process log there.
+- **My decision:** [to fill in]

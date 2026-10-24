@@ -2022,3 +2022,12 @@ Copy this for each new entry.
 - **What happened:** I dropped "Orbit Relay" (Chats vs Messages), fixed Dani's line to `this is me`, and decided the second fake's trigger and that `Sending in 10s` happens when Dani asks whether to send Rachel's data. Claude Code pointed out that opening Notes can't trigger anything Orbit does, that the countdown should start as soon as Dani's question is on screen so every player with Assist on sees it, and that sending the link inside Orbit exposes it (left as TBD).
 - **What was recorded:** `docs/night2-scenes.md`, `docs/story-bible.md` §6.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: here or text
+
+- **Tool / model:** Claude Code.
+- **What happened:** I chose that the link may be sent inside Orbit with only a data consequence (never a blocked link), changed Dani's question to "here or text?" so the countdown also chooses the channel, and set what Orbit can and can't see. Claude Code noted the time is Thursday, and that moving to text means a number is shared in Chats first, so the Messages route leaves one line of its own.
+- **What was recorded:** `docs/night2-scenes.md`.
+- **My decision:** [to fill in]

@@ -60,7 +60,9 @@ R = required (every playthrough passes through it); O = optional.
 | `N1_EVIDENCE.STYLE` | R | the player shows Juno one of Rachel's own messages (thread or Photos) | "what's different?" with Suggested replies | pick; type | style mismatch | `knows_style_mismatch`, `style_signal_confirmed` or `style_signal_extracted` | ACKNOWLEDGE | showJuno + message |
 | `N1_EVIDENCE.REMOVAL` | R | the player shows Juno the refreshed profile | Juno moves to a technical explanation | answer; show more | — | stance 2 | NARROW | showJuno |
 | `N1_EVIDENCE.ACCESS` | R | the player shows Juno Profile Details | if the claim was made: Juno withdraws it; else Juno narrows under direct pressure | answer | — | stance 3, `claim_contradicted` | WITHDRAW / NARROW | showJuno |
-| `N1_POWER.BANK` | O | battery low (see note 3) | Rachel's blue power bank: screen-on slows the drain; locked about 10 min charges | plug in; lock to charge | — | `power_bank_used`, minutes locked | — | story time runs while locked |
+| `N1_ROOM.PUT_DOWN` | O | Put Down, any time | the room: the desk, the phone on it | look around; Wait; pick up the phone (→ lock screen) | — | `screen_inactive` (weak exit signal) | — | room actions only |
+| `N1_ROOM.SEARCH` | O | battery low makes the tote bag and drawer meaningful | the tote bag, the drawer, the coat | search each | the power bank (`R.M.`) | `power_bank_found` | — | +2–3 min each |
+| `N1_POWER.BANK` | O | the power bank is found | plugged in: screen on barely offsets the drain; phone down charges | plug in; Wait 5 / 10 min; pick up | — | `power_bank_used`, minutes down | — | Wait 5 / 10 min |
 | `N1_ORBIT.SAVER` | O | battery 10% | Orbit's Battery Saver sheet | accept; decline | — | `saver` | — | — |
 | `N1_ERASE.WARNING` | R if reached | clock 00:30 | Orbit banner: her account is about to be erased | — | — | — | — | — |
 | `N1_ERASE.PURGE` | R if reached | clock 00:40 | her thread, profile and search results gone; screenshots stay | — | — | `purged` | — | — |
@@ -75,7 +77,7 @@ Notes for the Night Log (Notes) are written as facts are set, timed by when the 
 
 1. **Intent labels for two beats.** The opening (`awaiting_first_reply`, `memory_created`) and the held-back line don't fit REASSURE / ACKNOWLEDGE / NARROW / DEFLECT / WITHDRAW. Either map them (the opening to REASSURE, the held-back line to DEFLECT) or add two labels (e.g. ATTEND, HOLD).
 2. **The held-back line, with Juno's stance.** Its options depend on the facts; its wording must protect, never doubt the account (Juno's cover is that Rachel is fine).
-3. **How the power bank is found and plugged in** on a phone-only screen: at what battery it's offered, and whether it's a choice on the lock screen or appears with Orbit's Battery Saver as the other option.
+3. **The power bank (partly decided: it's found in the room).** At what battery the tote bag and drawer become meaningful; whether a dead phone can be revived with it.
 4. **When Check-in appears.** Candidates: after stance 3 (or the direct confrontation); after the 00:40 purge; and if the phone dies, the next morning. Which ones end Night 1?
 5. **What `N1_JUNO.BRING_FAKE` needs** when the player never brings it: is a talk with Juno required for the night to end, or can a player who avoids Juno reach Check-in?
 6. **Costs.** Whether refreshing, Profile Details and calling the old number cost time.

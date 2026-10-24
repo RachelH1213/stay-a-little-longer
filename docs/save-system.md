@@ -158,10 +158,10 @@ save_status: clean | dirty | retrying | failed
 The game resumes on a main screen only:
 
 ```
-lock_screen · home · orbit_chats · juno_thread · rachel_thread · dani_thread · notes · photos · tonight · data_export
+room · lock_screen · home · orbit_chats · juno_thread · rachel_thread · dani_thread · notes · photos · tonight · data_export
 ```
 
-Never restored: photo detail, the screenshot tray, screenshot mode, tutorial tips, toasts, typing dots, confirmation dialogs, settings scroll. What they changed stays (an opened photo stays in `photos_opened`); only the overlay itself is gone.
+Never restored: an open drawer or bag in the room, photo detail, the screenshot tray, screenshot mode, tutorial tips, toasts, typing dots, confirmation dialogs, settings scroll. What they changed stays (an opened photo stays in `photos_opened`); only the overlay itself is gone.
 
 ## 9. Save slots
 

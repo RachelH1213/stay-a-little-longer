@@ -1950,3 +1950,12 @@ Copy this for each new entry.
 - **What happened:** I proposed that the player finds Rachel's power bank by putting the phone down and searching their room. Claude Code raised the rule change, the scope, time and battery, and saving; I corrected two of its points (Orbit still sees the phone's state; entering the room is a weak signal, not a guaranteed notification) and added the room's three appearances and the final gesture. Claude Code then pointed out that without a Wait action the phone couldn't charge.
 - **What was recorded:** the room in `docs/story-bible.md` §6, new rows in `docs/night1-scenes.md`, the room as a main screen in `docs/save-system.md`, and the new rule in `CLAUDE.md`. Four questions left for me (TBD).
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Waiting, the dead phone, End Session, how a night ends
+
+- **Tool / model:** Claude Code.
+- **What happened:** I decided the Wait action, that the power bank's charge carries over, that a dead phone can be restarted with it, `End Session` instead of Leave, the final gestures as a coda after the ending, when Check-in appears, and that no evidence has to be shown to Juno to end the night. Claude Code added three gaps: why the player's own charger isn't there, Dani's check moving to the end of the night, and what "two key findings" means.
+- **What was recorded:** `docs/story-bible.md` §6 and `docs/night1-scenes.md` (new end-of-night beats; the evidence beats are now optional).
+- **My decision:** [to fill in]

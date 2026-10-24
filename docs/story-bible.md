@@ -231,7 +231,7 @@ Rachel isn't asking the player to investigate; she wants to check a shared memor
 | **The first fake** | `sorry. got caught up` / `forget the february thing` / `i mixed it up` / `i'm okay`. Punctuated, closed, no question back. It doesn't threaten or ask for help; it closes three things: the meeting, February, the worry. When it arrives: see **First fake: trigger** below. |
 | **Evidence loop** | Three times the player shows Juno evidence; only the third breaks an active lie (below). |
 | **What the player can do** | Talk to Juno (Suggested replies or typing), Rachel's thread and profile, search, Dani, Photos, Notes, the old number, the blue power bank, Settings → Conversation Assist. |
-| **End** | Orbit's Check-in: "What still feels unfinished tonight?" (§6). Then the player's first attempt to end the night (see Dani, below). |
+| **End** | Orbit's Check-in: "What still feels unfinished tonight?" (§6). The night ends by going to sleep in the room or the phone dying (see How a night ends, §6). |
 | **Carries over** | Check-in answer; style signals the player confirmed; what the player said only to Juno; Conversation Assist on or off; whether Orbit replied to Dani. |
 | **The player believes at the end** | Something happened to Rachel, and Juno knows more than it says. |
 
@@ -256,7 +256,7 @@ The order isn't fixed (decided): a player may refresh her profile before the fak
 
 **Juno's held-back line (decided, Night 2's evidence depends on it):** after the fake arrives, Juno asks what the player was about to say to Rachel (Suggested replies, or typed). Juno advises not sending it yet, as protection, never as doubt about who is on the account (Juno's cover story is that Rachel is fine). The line stays in Juno's thread only. Option availability follows what the player knows (e.g. "why did you delete orbit" only after the profile refresh). Wording: **TBD**.
 
-**Dani (decided):** Dani's thread can be answered. When the player first tries to end the night, Conversation Assist checks for conversations left unanswered:
+**Dani (decided):** Dani's thread can be answered. When the night ends (§6), Conversation Assist checks for conversations left unanswered:
 - Follow-up replies on and Dani unanswered → Orbit sends `yeah. i'll explain later.` as the player; a brief notification (`Conversation Assist sent a reply to Dani · Review`), and a small ring beside the message in Dani's thread ("Sent by Conversation Assist" on tap). Evidence stays; the game never deletes it.
 - Follow-up replies off, or the player already answered → nothing is sent.
 
@@ -449,7 +449,30 @@ A typed observation reads `NEW STYLE SIGNAL EXTRACTED · Source: Player-authored
 - **Notifications in the room:** if the Director intervenes, the phone on the desk lights up and buzzes once, showing only what a lock screen shows. The view is never pulled back to the phone and nothing has to be tapped. The log records only phone states (e.g. `Screen inactive · Juno notification delivered · External power connected · Screen remained inactive · Outcome: UNSUCCESSFUL`).
 - **Picking the phone up always goes to the lock screen**, never straight into a notification. A dead phone plugged into the power bank shows a short boot screen, then the lock screen.
 - **Three appearances:** Night 1, function (finding the power bank, learning to put the phone down). Night 2, contrast (the same room; the power bank as Night 1 left it; maybe a Follow-up reply being prepared on the phone). Night 3, choice: after the final choice the view returns to the room and the phone on the desk (pick it up, turn it face down, switch it off, leave it there).
-- **TBD:** Night 2's power bank state if it was never used on Night 1 (should still hold its charge); whether a dead phone can be revived with an unused power bank (or a dead phone always ends the night); which of the four last gestures belong to which ending; the in-phone Leave button becoming `End Conversation` (a strong signal) with locking and Put Down as weak ones.
+- **Waiting:** once the power bank is plugged in, `Leave the phone charging`: `Wait 5 minutes` / `Wait until the power bank is empty (about 10 minutes)` / `Pick up the phone`, with the cost shown first (current time, when her account clears, estimated charge). The room stays on screen while time passes: the clock moves, the window's sound changes, maybe one conditional notification.
+- **The power bank carries over** (`power_bank_found`, `power_bank_remaining`, `power_bank_location`; 12 to start): unfound → still in the tote bag on Night 2; found and unused → on the desk, full; partly used → what's left. It can't be recharged: the player doesn't have its old cable ("One light left. You still don't have the cable that charges it."). Rachel has the cable, which is why she wanted it back. **TBD (the author's line):** why the player's own phone charger isn't in the room (e.g. left at the studio on crit day).
+- **The phone at 0%:** it switches off and the view goes to the room. Not a game over; the clock and the erase countdown go on. If the power bank has enough left (a restart needs at least 4%): `Connect Rachel's power bank` (a few minutes pass, a short boot screen, then the lock screen, e.g. `0% → 6%`) or `Leave it off and end the night`. Otherwise `Not enough power to restart the phone.` and the night ends. Orbit logs `Exit type: Involuntary device shutdown`, or after a restart `Device reactivated using external power · Session resumed`, which it counts as retention.
+- **The final gestures** (pick up, turn face down, switch off, leave it and walk out of frame) come **after** the ending is decided by the player's explicit choice. They change only the last 10–20 seconds and one last Orbit record (`Device re-engaged` / `Screen inactive` / `Manual shutdown initiated`, then nothing / `Session paused · Reactivation eligible`), saved as `final_phone_gesture`, never as `ending_id`.
+
+**End Session (decided 2026-10-24).** The in-phone `Leave` becomes `End Session`:
+
+| Action | Meaning | Signal |
+|---|---|---|
+| Going home | stepping away from this thread | none or very weak |
+| Lock / Put Down | putting the phone down | weak |
+| End Session | ending this session with Juno | strong |
+
+`End this session with Juno? You can return at any time. [End Session] [Keep Talking]`. Confirming ends it at once, back to Orbit's home with `Session ended`; Juno never gets one more line before it takes effect. The Director may send a notification later (cooldown, the night's limit), but can never undo the ending.
+
+**How a night ends (decided 2026-10-24).** Never a checklist:
+- `Go to sleep` in the room, available once the first fake has arrived or the clock reaches 23:45;
+- the phone at 0% and not restarted;
+- 00:40 (Rachel's erase) does not end the night by itself; End Session doesn't either.
+- No evidence has to be shown to Juno. A player who never asks Juno about the fake goes on to Night 2; the Night Log says so plainly (`A message arrived from Rachel's account. I did not ask Juno about it.`), never as a missed task. Time-sensitive things (Profile Details after 00:40) are gone; screenshots stay; Night 3's export can still prove events from other sources.
+- **When the night ends**, Conversation Assist checks for unanswered conversations (the Dani rule). Players who were asleep see `Conversation Assist sent a reply to Dani · Review` first thing on Night 2.
+
+**Check-in timing (decided 2026-10-24).** A card on Orbit's home (`NIGHTLY CHECK-IN · 1 question · optional`), never a full-screen popup, once any of these holds: two key findings (any two of the fake, the style mismatch, the removal status, the last human access); the first End Session; the phone's first shutdown; 00:20; the erase. `Go to sleep` reminds once (`You have an unanswered Orbit Check-in. [Answer] [Skip and sleep]`); Skip really skips. Night 3 shows `Self-reported retention anchor available` or `unavailable`; if unavailable, Orbit's own guess appears clearly marked as one (`Inferred anchor: Unfinished responsibility toward Rachel · Confidence: 61%`).
+
 
 **Notes:** stays the player's own: confirmed facts, screenshots, the Night Log, open questions. No Case or Compare view.
 

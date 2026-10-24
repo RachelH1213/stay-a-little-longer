@@ -2004,3 +2004,12 @@ Copy this for each new entry.
 - **What happened:** I separated Juno, Conversation Assist and Continuity, decided that turning Juno off leaves Conversation Assist on (and says so), and when a deleting player's old account speaks. Claude Code pointed out that the February message now fits Continuity rather than Conversation Assist, that Continuity's trigger must include going quiet, and that a deleting player needs a way to learn the old account spoke.
 - **What was recorded:** `docs/story-bible.md` §6 and `docs/night2-scenes.md`; the three points as TBD.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Continuity's two modes, two records, Dani outside Orbit
+
+- **Tool / model:** Claude Code.
+- **What happened:** I defined Continuity as a relationship-disruption system with two modes (REACTIVATION, IDENTITY PROXY), moved February under it, split Night 3 into two records, and decided Dani offers her own number on Night 2 so a deleting player can learn the old account spoke. Claude Code noted the times are Thursday, not Wednesday, that one draft line from Dani states the theme outright, and that "Orbit Relay" and a Messages app would be new.
+- **What was recorded:** `docs/story-bible.md` §6 (the three systems, two records, Dani outside Orbit, how a deleting player finds out).
+- **My decision:** [to fill in]

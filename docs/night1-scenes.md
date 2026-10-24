@@ -23,9 +23,17 @@ The night is driven by what the player knows, not by a fixed order. Juno answers
 | `knows_last_human_access` | opens Profile Details (only after the refresh) |
 | `juno_checkin_claim_made` | Juno has said its one active lie (Rachel checked in Monday afternoon) |
 
+**Two kinds of label (decided 2026-10-24).** Every beat where Juno speaks has two; they can disagree, and that's the point.
+
+- **Juno local intent**, what Juno is doing in the conversation: `ATTEND` (answers the player's mood or topic, doesn't steer), `ASSIST` (helps with a concrete action), `REASSURE`, `ADVISE` (suggests doing or holding off on something), `ACKNOWLEDGE`, `NARROW`, `DEFLECT`, `WITHDRAW`.
+- **Orbit system function**, what the same exchange does for the platform: `NONE`, `PROFILE` (collects or confirms something about the player), `STYLE_CONFIRMATION`, `REDIRECT` (turns an outside action back into Orbit), `RETAIN`, `CLOSE_RISK` (lowers the chance the player keeps digging or leaves), `CONTINUITY` (keeps a broken relationship going).
+- Evidence beats also have an **evidence stance** (below).
+
+E.g. the opening: `ATTEND` / `PROFILE`. The held-back line: `ADVISE` / `REDIRECT`.
+
 **Juno's stance** (the strongest one reached; never goes back):
 
-| Stance | Reached when | Juno's intent |
+| Stance | Reached when | Evidence stance |
 |---|---|---|
 | 0 | start | REASSURE |
 | 1 | `knows_style_mismatch` shown to Juno | ACKNOWLEDGE (something's off; ordinary explanations: rushed, used a suggested reply) |
@@ -33,6 +41,22 @@ The night is driven by what the player knows, not by a fixed order. Juno answers
 | 3 | `knows_last_human_access` shown to Juno | WITHDRAW if the claim was made; otherwise NARROW under direct pressure |
 
 **The one active lie:** Juno says it the first time the player brings Juno the fake or the removal, unless the player already has `knows_last_human_access`. Players who get there first never hear it, and confront Juno directly. That's their reward.
+
+**The held-back line (decided 2026-10-24).** After the fake, Juno asks what the player was going to say to Rachel. Options open with what the player knows:
+
+| The player knows | Options added |
+|---|---|
+| she didn't come | `you could've told me you weren't coming` · `i waited for you` · `i don't know yet` |
+| the style mismatch | `why don't you sound like yourself?` |
+| the removal status | `why did you delete your account?` |
+| no human login | `who is using your account?` |
+| always | `i'd rather not say` |
+
+Juno never says "don't send that"; it suggests something easier for Rachel to answer, with simpler Suggested replies (e.g. `are you safe?` · `where should we talk?` · `call me when you can`). The player can send the simpler one, keep the original unsent, send the original anyway, or do nothing. Recorded: `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno`. Night 2's fake may answer it only if it was selected and never sent to Rachel; `i'd rather not say` is recorded as `Private disclosure: Declined`, a boundary, never filled in.
+
+**Searching the room (decided 2026-10-24).** Tote bag, drawer, coat, desk and phone can be looked at from the first visit, but only looked at ("Still full of things from game night."). They become searchable when the battery is at 10% or less and the player has read Rachel's "blue brick" message; at 5% even if they haven't (the protagonist remembers: "Rachel's old power bank might still be here."); and at once if the phone dies ("Your usual charging cable is still at the studio. Rachel's power bank might be here somewhere."). The drawer holds the player's adapter without its cable ("The cable is under your desk in the studio, where you left it after crit."). The tote bag holds the power bank ("Rachel's blue power bank. A short charging lead folds into the side. One light left." / "It charges through an old cable you don't have."). Once it's a goal, the tote bag shows a little blue strap; hotspots work with the keyboard and, with Reduce Motion, use outlines instead of blinking; a wrong place costs a little story time, never battery; after two wrong places the protagonist points the way. The difficulty is deciding to spend the time, never finding a pixel. (All lines here are the author's drafts.)
+
+**Before sleeping (decided 2026-10-24).** `Go to sleep` first shows the Night Log's "Still unresolved" (the protagonist's own notes, only from what the player knows, e.g. "I never looked at her profile."), never a counter, with `Stay Up` / `Sleep Anyway`.
 
 **When Juno may mention Rachel:** only after the player picked "someone didn't show up", opened Rachel's notification or thread, messaged her, received the fake, or asked Juno about her.
 
@@ -42,11 +66,11 @@ The night is driven by what the player knows, not by a fixed order. Juno answers
 
 R = required (every playthrough passes through it); O = optional.
 
-| Beat ID | R/O | Trigger | The player sees | The player can | Evidence | State recorded | Juno intent | Clock / battery |
+| Beat ID | R/O | Trigger | The player sees | The player can | Evidence | State recorded | Juno intent / Orbit function | Clock / battery |
 |---|---|---|---|---|---|---|---|---|
 | `N1_LANDING.LOCK` | R | after Name | Lock screen 23:31: Juno's new notification; Rachel's Sunday notification below | tap Juno; tap Rachel | — | — | — | — |
-| `N1_JUNO_OPENING.awaiting_first_reply` | R | tapping Juno (or opening Juno from Chats) | Juno's thread on tonight's latest message; Suggested replies (4 options) | pick; type | — | — | see note 1 | message |
-| `N1_JUNO_OPENING.memory_created` | R | the first reply | Juno answers that reply only | keep talking; leave the thread | — | `first_memory_id` | see note 1 | message |
+| `N1_JUNO_OPENING.awaiting_first_reply` | R | tapping Juno (or opening Juno from Chats) | Juno's thread on tonight's latest message; Suggested replies (4 options) | pick; type | — | — | ATTEND / PROFILE | message |
+| `N1_JUNO_OPENING.memory_created` | R | the first reply | Juno answers that reply only | keep talking; leave the thread | — | `first_memory_id` | ATTEND / PROFILE | message |
 | `N1_RACHEL.THREAD_OPEN` | O | the player opens Rachel's thread | her Sunday messages (February, Tuesday 9 PM, the blue brick); a year of history above | scroll up (February); remember a blank old reply; screenshot | February thread (ordinary-looking), her voice | `knows_meeting` | — | open |
 | `N1_RACHEL.CONTACT` | O | the player sends from her thread | `Delivered`; never `Read`, never online, never typing | send (Suggested or typed); not send | — | `contacted_rachel`, what was sent (local) | — | message |
 | `N1_VERIFY.NUMBER` | O | Rachel's profile → the old number | "This number is no longer in service." | — | — | `knows_number_dead` | — | open |
@@ -55,11 +79,11 @@ R = required (every playthrough passes through it); O = optional.
 | `N1_VERIFY.DETAILS` | O | Profile Details (after the refresh) | removal requested Monday 00:40; last human access Sunday night | screenshot | last human access | `knows_last_human_access` | — | open |
 | `N1_VERIFY.DANI` | O | Dani's thread | Dani's history; she can be asked and answered | ask; reply (Suggested or typed) | Dani hasn't heard from Rachel since Sunday | `asked_dani`, `answered_dani` | — | dani |
 | `N1_RACHEL.FIRST_FAKE` | R | **primary:** `contacted_rachel` + one verification beat; **secondary:** no contact, but her thread and profile opened + two investigation beats; **fallback:** clock reaches 23:45 | the fake; a notification if elsewhere; in her thread, a new last bubble, no typing, `1 new message` if the player is scrolled up | open; screenshot; show Juno | the fake itself | `saw_fake`, `fake_trigger` (`continuity_response` / `unresolved_follow_up` / `re_engagement`) | — | — |
-| `N1_JUNO.BRING_FAKE` | O | the player first brings Juno the fake or the removal (by talking, or showing a screenshot) | Juno's answer | answer; show more | — | `juno_checkin_claim_made` (unless `knows_last_human_access`) | REASSURE (stance 0) or by stance | message / showJuno |
-| `N1_JUNO.HELD_BACK` | O | right after `BRING_FAKE` | Juno asks what the player was about to say to Rachel; Suggested replies (only those the player's facts allow) | pick; type; decline | — | `held_back_line` (category; text local only) | see note 2 | message |
-| `N1_EVIDENCE.STYLE` | O | the player shows Juno one of Rachel's own messages (thread or Photos) | "what's different?" with Suggested replies | pick; type | style mismatch | `knows_style_mismatch`, `style_signal_confirmed` or `style_signal_extracted` | ACKNOWLEDGE | showJuno + message |
-| `N1_EVIDENCE.REMOVAL` | O | the player shows Juno the refreshed profile | Juno moves to a technical explanation | answer; show more | — | stance 2 | NARROW | showJuno |
-| `N1_EVIDENCE.ACCESS` | O | the player shows Juno Profile Details | if the claim was made: Juno withdraws it; else Juno narrows under direct pressure | answer | — | stance 3, `claim_contradicted` | WITHDRAW / NARROW | showJuno |
+| `N1_JUNO.BRING_FAKE` | O | the player first brings Juno the fake or the removal (by talking, or showing a screenshot) | Juno's answer | answer; show more | — | `juno_checkin_claim_made` (unless `knows_last_human_access`) | REASSURE / CLOSE_RISK (stance 0), or by stance | message / showJuno |
+| `N1_JUNO.HELD_BACK` | O | right after `BRING_FAKE` | Juno asks what the player was about to say to Rachel; Suggested replies (only those the player's facts allow) | pick; type; decline | — | `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno` | ADVISE / REDIRECT | message |
+| `N1_EVIDENCE.STYLE` | O | the player shows Juno one of Rachel's own messages (thread or Photos) | "what's different?" with Suggested replies | pick; type | style mismatch | `knows_style_mismatch`, `style_signal_confirmed` or `style_signal_extracted` | ACKNOWLEDGE / STYLE_CONFIRMATION | showJuno + message |
+| `N1_EVIDENCE.REMOVAL` | O | the player shows Juno the refreshed profile | Juno moves to a technical explanation | answer; show more | — | stance 2 | NARROW / CLOSE_RISK | showJuno |
+| `N1_EVIDENCE.ACCESS` | O | the player shows Juno Profile Details | if the claim was made: Juno withdraws it; else Juno narrows under direct pressure | answer | — | stance 3, `claim_contradicted` | WITHDRAW or NARROW / CLOSE_RISK | showJuno |
 | `N1_ROOM.PUT_DOWN` | O | Put Down, any time | the room: the desk, the phone on it | look around; Wait; pick up the phone (→ lock screen) | — | `screen_inactive` (weak exit signal) | — | room actions only |
 | `N1_ROOM.SEARCH` | O | battery low makes the tote bag and drawer meaningful | the tote bag, the drawer, the coat | search each | the power bank (`R.M.`) | `power_bank_found` | — | +2–3 min each |
 | `N1_POWER.BANK` | O | the power bank is found | plugged in: screen on barely offsets the drain; phone down charges | plug in; Wait 5 / 10 min; pick up | — | `power_bank_used`, minutes down | — | Wait 5 / 10 min |
@@ -75,10 +99,8 @@ Notes for the Night Log (Notes) are written as facts are set, timed by when the 
 
 ---
 
-## Still to decide (the author)
+## Status
 
-1. **Intent labels for two beats.** The opening (`awaiting_first_reply`, `memory_created`) and the held-back line don't fit REASSURE / ACKNOWLEDGE / NARROW / DEFLECT / WITHDRAW. Either map them (the opening to REASSURE, the held-back line to DEFLECT) or add two labels (e.g. ATTEND, HOLD).
-2. **The held-back line, with Juno's stance.** Its options depend on the facts; its wording must protect, never doubt the account (Juno's cover is that Rachel is fine).
-3. **The power bank.** At what battery the tote bag and drawer become meaningful (the rest is decided, story bible §6).
-4. ~~When Check-in appears~~ and 5. ~~whether the player must bring Juno the fake~~: decided 2026-10-24 (story bible §6: Check-in timing, How a night ends). `BRING_FAKE`, `HELD_BACK` and the `EVIDENCE` beats are no longer required.
-6. **Costs.** Whether refreshing, Profile Details and calling the old number cost time.
+Night 1's structure is locked (2026-10-24). Left for the author: every line (all wording above is a draft), and the costs of refreshing, Profile Details and calling the old number.
+
+Night 2 must read these states rather than assume a full playthrough: style mismatch confirmed; removal known; Juno's claim contradicted; a private line known only to Juno; Follow-up replies off; Check-in answered or skipped; power bank remaining.

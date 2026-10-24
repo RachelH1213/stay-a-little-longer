@@ -1959,3 +1959,12 @@ Copy this for each new entry.
 - **What happened:** I decided the Wait action, that the power bank's charge carries over, that a dead phone can be restarted with it, `End Session` instead of Leave, the final gestures as a coda after the ending, when Check-in appears, and that no evidence has to be shown to Juno to end the night. Claude Code added three gaps: why the player's own charger isn't there, Dani's check moving to the end of the night, and what "two key findings" means.
 - **What was recorded:** `docs/story-bible.md` §6 and `docs/night1-scenes.md` (new end-of-night beats; the evidence beats are now optional).
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 1 structure locked
+
+- **Tool / model:** Claude Code.
+- **What happened:** I split the labels into Juno's local intent and Orbit's system function, decided the held-back line's options and recording, and when the room becomes searchable. Claude Code suggested replacing my "Unresolved tonight: 3" counter with the Night Log's own "Still unresolved", since a counter is the kind of game UI the project avoids.
+- **What was recorded:** `docs/night1-scenes.md` (labels, held-back line, room search, before sleeping, status).
+- **My decision:** [to fill in]

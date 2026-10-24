@@ -2031,3 +2031,12 @@ Copy this for each new entry.
 - **What happened:** I chose that the link may be sent inside Orbit with only a data consequence (never a blocked link), changed Dani's question to "here or text?" so the countdown also chooses the channel, and set what Orbit can and can't see. Claude Code noted the time is Thursday, and that moving to text means a number is shared in Chats first, so the Messages route leaves one line of its own.
 - **What was recorded:** `docs/night2-scenes.md`.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: the morning
+
+- **Tool / model:** Claude Code.
+- **What happened:** I set the two Night 3 records for Chats vs Messages and chose a revised version of Claude Code's option C for the morning: Dani's two openings, then that Rachel asked about the crit on Sunday and that Dani will try Rachel's old email. Claude Code added that Orbit can read Dani mentioning the email (a Night 3 record and a reason Continuity speaks at once), a note to let Dani give facts rather than conclusions, and that the player may ask for the email.
+- **What was recorded:** `docs/night2-scenes.md` (The morning), `docs/story-bible.md` (the interlude, the relationship).
+- **My decision:** [to fill in]

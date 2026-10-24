@@ -187,7 +187,7 @@ Copy this block for each night.
 #### The relationship (decided)
 
 - The player and Rachel met through Orbit (Juno introduced them, March 2025) and mostly talk there.
-- The player has met her in person at Dani's group events, once at Rachel's old place. She has since moved; the player doesn't know her new address.
+- The player has met her in person at Dani's group events, once at Rachel's old place (game night; Dani helped run it, so Rachel emailed Dani the address; the player got the invite through an Orbit group). She has since moved; the player doesn't know her new address.
 - The September cat photos reached the player through an Orbit shared album, not a visit.
 - **Tuesday 9 PM is their first time meeting alone.**
 - Rachel once gave the player a phone number; it is no longer in service. The player has no new number, address or family contact.
@@ -262,9 +262,9 @@ The order isn't fixed (decided): a player may refresh her profile before the fak
 
 #### Day interlude 1
 
-- Orbit replied for the player → Dani: `did you send me this?`
-- Otherwise → Dani: `you never answered. did you find her?`
-- Both converge on Dani's new information (**TBD**).
+- Orbit replied for the player → Dani: `did you send this?` + a screenshot
+- Otherwise → Dani: `you never answered me / did you find anything?`
+- Both converge on Dani's news: Rachel asked her on Sunday whether the player's crit was still on Tuesday, and Dani found the email Rachel used for game night and will try it today (`docs/night2-scenes.md`, The morning).
 
 #### Night 2 — "My words aren't only mine" (shared)
 

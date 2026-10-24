@@ -20,8 +20,24 @@ Night 2: Wednesday. The day interlude, then the night. It ends with the route ch
   - `not yet`: nothing forced; they can ask later, without the 50-minute guarantee.
 - **What the channel changes (decided): only what Orbit sees, never what the player gets.** Both channels open the same full package: no lower evidence, no less time, no blocking, the same note from Rachel. Not a hidden right answer.
   - The share page says `Encrypted share · Bound to this device after opening · Contents are not visible to the referring app`, which is why Dani respects the player's choice; she may not realise Orbit still sees that a link was shared and opened.
-  - **Through Chats**, Orbit sees that Dani shared an external URL, when, the domain, that it was opened from Chats, and whether the player came back; never Rachel's note, February, the logs, or where the player stopped reading. Night 3: facts without numbers (`EXTERNAL SHARE OBSERVED · Source: Dani · Channel: Orbit Chats · External URL shared: Thursday · 12:09 AM · Opened from Orbit: Yes · Content access: Unavailable`), the inference with one (`Possible off-platform migration: 78%`), the business conclusion without (`Recommended action: Maintain contact inside Orbit`).
-  - **Through Messages**, Orbit sees only the number being shared in Chats (`Contact information shared in Chats`) and that the player left Orbit for a while; nothing about the link. The report never says anything was "hidden" (Orbit can't know what it didn't see); the feedback is the missing section.
+  - What Orbit sees depends on where things happen, never on what the player gets. The two Night 3 records (facts without numbers):
+
+    ```text
+    Through Chats:
+    CONTACT INFORMATION SHARED IN CHATS          (only if a number was also exchanged)
+    External contact card exchanged
+    EXTERNAL SHARE OBSERVED
+    External URL shared: Thursday · 12:09 AM
+    Opened from Orbit: Yes
+    Content access: Unavailable
+
+    Through Messages:
+    CONTACT INFORMATION SHARED IN CHATS
+    External contact card exchanged
+    Subsequent message activity: Unavailable
+    ```
+
+    `Unavailable` only means Orbit can't see past Chats; it never claims to know what the player received. The inference (`Possible off-platform migration: 78%`) and the business conclusion (`Recommended action: Maintain contact inside Orbit`) follow the confidence rule.
 - **Rachel speaks, once, read-only**, at the top of the package (draft wording, the author's): `rachel shared this with you / i'm safe / i'm sorry i left you with that / dani asked before sending this / look at february first / do you remember writing it?`. Lowercase, no full stops, a question back. The fake closed the question ("forget the february thing"); the real Rachel reopens it. `Replies are disabled for this share.`
 - **The route choice is explicit** (see `N2_ROUTE.CHOICE`).
 - **Turning Juno off really works**, like Follow-up replies: on Night 3 Juno doesn't speak first and Orbit never turns it back on. Orbit may ask; the player can turn it back on to confront it; without that, the final decision is still there, minus the last talk with Juno.
@@ -48,6 +64,22 @@ Night 2 reads these states and never assumes a full Night 1:
 **The second fake's source**, first one that exists: a line known only to Juno → a confirmed (or extracted) style signal → the Check-in answer → a non-personal fallback. Night 3's export names the real source.
 
 ---
+
+## The morning (decided 2026-10-24)
+
+Two openings, then one shared message. No second big lead in the morning (no "she closed all her accounts", no investigation, no safety).
+
+- **Orbit replied for the player on Night 1:** `did you send this?` + a screenshot of `yeah. i'll explain later.` The player can answer now or later.
+- **It didn't:** `you never answered me / did you find anything?`
+- **Then, for everyone** (draft wording, the author's): `also / rachel asked me sunday / if your crit was still on tuesday` … `i found the email she used / for game night / i'm going to try it today`.
+
+What it does: Rachel was still checking the meeting's practical details on Sunday, so "she forgot" gets harder to believe; Dani has a channel outside Orbit that may or may not still work; the player has a reason to wait for the night. It doesn't confirm she's safe.
+
+- **Why Dani has the email and the player doesn't:** Dani helped run game night at Rachel's old place; Rachel emailed her the address; the player got the invite through an Orbit group.
+- **Writing note:** let Dani give the fact; the player draws the conclusion (avoid "so she hadn't forgotten about 9").
+- **If the player asks for the email:** Dani declines for now (e.g. she wants to try first, Rachel may not want it shared). Wording TBD.
+- **Orbit reads Chats**, so Dani mentioning the email is visible to it. Night 3's Continuity record can show `Off-platform contact attempt mentioned in Chats · Dani → Rachel M.`, which also explains why Continuity speaks as Rachel the moment the player returns.
+- **States:** `dani_auto_reply_confronted`, `meeting_was_confirmed_sunday`, `dani_external_email_attempted`. `rachel_confirmed_safe` is set only when the player reads Rachel's note at night.
 
 ## The skeleton (required for everyone)
 
@@ -84,7 +116,7 @@ R = required, O = optional. Intent column: Juno local intent / Orbit system func
 | Beat ID | R/O | Trigger | The player sees | The player can | Evidence | State recorded | Juno intent / Orbit function | Clock / battery |
 |---|---|---|---|---|---|---|---|---|
 | `N2_MORNING.LOCK` | R | Continue after Night 1 | lock screen, morning: `Conversation Assist sent a reply to Dani · Review` (if it did); Dani's message | open Dani; review the auto reply | the auto reply (kept) | — | — | — |
-| `N2_MORNING.DANI` | R | opening Dani | `did you send me this?` (Orbit replied) or `you never answered. did you find her?`; then Dani's new information **(open 1)** | answer (Suggested or typed); show her the ring's "Sent by Conversation Assist" | — | `told_dani_not_me` | — | message |
+| `N2_MORNING.DANI` | R | opening Dani | `did you send this?` + screenshot (Orbit replied) or `you never answered me / did you find anything?`; then the Sunday crit question and the email (see The morning) | answer (Suggested or typed); show her the ring's "Sent by Conversation Assist"; ask for the email (declined) | Rachel checked the meeting on Sunday | `dani_auto_reply_confronted`, `meeting_was_confirmed_sunday`, `dani_external_email_attempted` | — | message |
 | `N2_DAY.CUT` | R | the morning conversation ends | the day passes, a short interlude **(open 2)** | — | — | — | — | — |
 | `N2_NIGHT.LOCK` | R | the night begins (start time **open 3**; battery ordinary, e.g. 68%) | lock screen; Juno's notification (by `claim_contradicted`) | open Juno; open anything else; Put Down | — | — | ATTEND or REASSURE / RETAIN | — |
 | `N2_JUNO.OPENING` | O | opening Juno | Juno's first lines tonight; after a contradicted claim it doesn't pretend nothing happened **(open 4)** | talk; End Session | — | — | ATTEND / RETAIN | message |
@@ -94,7 +126,7 @@ R = required, O = optional. Intent column: Juno local intent / Orbit system func
 | `N2_DANI.SAFE` | R | after the second fake; the request by 00:08, the link by 00:10 (unless the player said `not yet`) | Dani: Rachel is safe; she asked Dani not to tell Orbit where she is; with her consent, a one-time private link | ask Dani; open the link | — | `knows_rachel_safe` | — | message |
 | `N2_LINK.OPEN` | R | opening the link (from Chats or Messages; `link_channel` recorded) | outside Orbit (a simple browser view, **open 9**): Rachel's note on top, then her data; expires 1:00 AM | read; screenshot | the data | `opened_rachel_data` | — | refresh (first open) |
 | `N2_LINK.FEB` | R | in Rachel's data | `CONTINUITY MESSAGE SENT · Identity used: PLAYER · Delivery time: 23:42, Feb 10 · Player device status: inactive · Outcome: Rachel returned within 9h · SUCCESSFUL` | go back to the February thread; ask Dani ("weren't you asleep?") | the February record | `saw_feb_record`, `checked_feb_thread` | — | — |
-| `N2_LINK.RACHEL` | R | top of the package | Rachel's read-only note; replies disabled | read; screenshot | her real voice, next to the fakes | `read_rachel_note` | — | — |
+| `N2_LINK.RACHEL` | R | top of the package | Rachel's read-only note; replies disabled | read; screenshot | her real voice, next to the fakes | `read_rachel_note`, `rachel_confirmed_safe` | — | — |
 | `N2_LINK.EXPIRED` | O | 1:00 AM passes | the link no longer opens; the Night Log keeps what was seen | — | — | `link_expired` (Dani's summary next day) | — | — |
 | `N2_JUNO.CONFRONT` | O | the player brings Juno the leak or the February record | Juno moves from cover to precise, technical language; it doesn't confess (that's Night 3) | press; End Session | — | — | NARROW or DEFLECT / CLOSE_RISK | message / showJuno |
 | `N2_ROOM` | O | Put Down | the same room; the power bank as Night 1 left it; maybe the phone lights with a prepared reply | look; Wait; pick up | — | — | — | room costs |
@@ -106,7 +138,7 @@ R = required, O = optional. Intent column: Juno local intent / Orbit system func
 
 ## Open questions (the author)
 
-1. **Dani's new information in the morning.** What she knows by Wednesday morning that moves things on (e.g. she'll try to reach Rachel through someone she trusts tonight).
+1. ~~Dani's morning information~~: decided (The morning).
 2. **The day.** Is it only a cut (the day passes), or a short playable moment? A cut is the smallest.
 3. **Night 2's start time.** (Battery decided: ordinary charge; the pressure is the link.)
 4. **How Juno opens Night 2**, especially after its claim was contradicted. Its arc says "intimate again"; how much of Night 1 does it acknowledge?

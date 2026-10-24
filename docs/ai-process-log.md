@@ -1914,3 +1914,181 @@ Copy this for each new entry.
 - **What happened:** I asked whether Tonight is only a user-test feedback step. Claude Code explained that in the final story Tonight is part of the fiction and its answer becomes Orbit's data, and suggested keeping "What made you stay?" in the game and moving "helping / keeping" to the end page for testers. I agreed.
 - **What Claude Code built:** Tonight now asks "What made you stay?" (saved as the anchor, only the option id is logged); the end page asks the testers' question. The end page's label and thank-you line are Claude Code drafts.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-22 — Landing and save system specs
+
+- **Tool / model:** Claude Code (discussion, then writing).
+- **What happened:** over several rounds I proposed the landing flow and the save rules and asked Claude Code to critique them objectively. I kept most of my structure and adopted some of its corrections (an honest data notice, stable ids instead of array positions, saving the classification, timed-event states, a final-choice checkpoint); Claude Code accepted my corrections to its points (resume at stable beats, not every line; no promise that names are fully removed; persistent storage isn't a guarantee; save before rendering through one entry point; real separation of playtest and release).
+- **What was recorded:** `docs/landing.md` and `docs/save-system.md`, written by Claude Code from the agreed decisions; a pointer in `CLAUDE.md`. Nothing is built yet.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Nights 1–3 restructured in the story bible
+
+- **Tool / model:** Claude Code (discussion, then writing).
+- **What happened:** over several rounds I reworked the opening and the core reveal and asked Claude Code to critique each version objectively. Claude Code's proposals included the "held back" line, the February message and a timeline of interventions; I proposed the Suggested-replies reveal, the three kinds of choice, splitting Tonight into Check-in and Night Log, Conversation Assist, the confidence rule, the relationship, the evidence loop and the dates, and corrected several of its points (the crit leak couldn't prove anything, hesitation as emotion, Orbit reading Notes, "Scheduled check-ins", the meeting at 9 PM).
+- **What was recorded:** Claude Code wrote the agreed decisions into `docs/story-bible.md` (§3 timeline, §4 nights, §5 note, §6 mechanics) and updated two rules in `CLAUDE.md`. Lines and the remaining story beats are marked TBD for me.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — The first fake's trigger, and a Night 1 scene table
+
+- **Tool / model:** Claude Code.
+- **What happened:** I decided the first fake arrives after the player tries to contact Rachel (with a second path and a 23:45 fallback), that the player may refresh her profile first, and that Juno never brings Rachel up in its first line. Claude Code had pointed out the early-refresh and no-Rachel cases and the need for a fallback; I chose the answers.
+- **What was recorded:** the trigger rules in `docs/story-bible.md` §4, and `docs/night1-scenes.md`, a scene table drafted by Claude Code from the agreed decisions (facts, Juno's stances, beat ids, triggers, state, intents, costs; no lines), with six questions for me.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — The room
+
+- **Tool / model:** Claude Code (discussion, then writing).
+- **What happened:** I proposed that the player finds Rachel's power bank by putting the phone down and searching their room. Claude Code raised the rule change, the scope, time and battery, and saving; I corrected two of its points (Orbit still sees the phone's state; entering the room is a weak signal, not a guaranteed notification) and added the room's three appearances and the final gesture. Claude Code then pointed out that without a Wait action the phone couldn't charge.
+- **What was recorded:** the room in `docs/story-bible.md` §6, new rows in `docs/night1-scenes.md`, the room as a main screen in `docs/save-system.md`, and the new rule in `CLAUDE.md`. Four questions left for me (TBD).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Waiting, the dead phone, End Session, how a night ends
+
+- **Tool / model:** Claude Code.
+- **What happened:** I decided the Wait action, that the power bank's charge carries over, that a dead phone can be restarted with it, `End Session` instead of Leave, the final gestures as a coda after the ending, when Check-in appears, and that no evidence has to be shown to Juno to end the night. Claude Code added three gaps: why the player's own charger isn't there, Dani's check moving to the end of the night, and what "two key findings" means.
+- **What was recorded:** `docs/story-bible.md` §6 and `docs/night1-scenes.md` (new end-of-night beats; the evidence beats are now optional).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 1 structure locked
+
+- **Tool / model:** Claude Code.
+- **What happened:** I split the labels into Juno's local intent and Orbit's system function, decided the held-back line's options and recording, and when the room becomes searchable. Claude Code suggested replacing my "Unresolved tonight: 3" counter with the Night Log's own "Still unresolved", since a counter is the kind of game UI the project avoids.
+- **What was recorded:** `docs/night1-scenes.md` (labels, held-back line, room search, before sleeping, status).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — "Still unresolved" and costs
+
+- **Tool / model:** Claude Code.
+- **What happened:** I corrected Claude Code's example (it still hinted at the profile) and set the rule that "Still unresolved" comes only from what the player has run into, plus a cost table where reading is free and only new actions cost. I also set the approach for Night 2: five shared beats, with Night 1's states changing only how they look. Claude Code flagged that −1% per message doubles the prototype's drain.
+- **What was recorded:** `docs/night1-scenes.md`, one line in `docs/story-bible.md` §6.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2 scene table (draft)
+
+- **Tool / model:** Claude Code.
+- **What I asked:** start Night 2's scene table.
+- **What Claude Code made:** `docs/night2-scenes.md`, drafted from the agreed decisions: what Night 1 hands over, the five required beats, new facts, the scenes (no lines), and 13 open questions for me, including a logic gap (Rachel's account is erased on Night 1, so the second fake can't come "from her account" as things stand).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: the removed thread, the link, Rachel's note, the route choice
+
+- **Tool / model:** Claude Code.
+- **What happened:** I decided the second fake comes from the removed thread, that Night 2's pressure is Rachel's data link expiring (not the battery), that Rachel speaks once in a read-only note, how the route choice is made, and that turning Juno off really works. Claude Code added a date fix (the removal divider is Wednesday), a latest time for the link, that an expired link must still carry February second-hand, the order (fake before link), and two open questions (Juno vs Conversation Assist; deletion's removal window).
+- **What was recorded:** `docs/night2-scenes.md` and `docs/story-bible.md` §4 and §6.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Three systems: Juno, Conversation Assist, Continuity
+
+- **Tool / model:** Claude Code.
+- **What happened:** I separated Juno, Conversation Assist and Continuity, decided that turning Juno off leaves Conversation Assist on (and says so), and when a deleting player's old account speaks. Claude Code pointed out that the February message now fits Continuity rather than Conversation Assist, that Continuity's trigger must include going quiet, and that a deleting player needs a way to learn the old account spoke.
+- **What was recorded:** `docs/story-bible.md` §6 and `docs/night2-scenes.md`; the three points as TBD.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Continuity's two modes, two records, Dani outside Orbit
+
+- **Tool / model:** Claude Code.
+- **What happened:** I defined Continuity as a relationship-disruption system with two modes (REACTIVATION, IDENTITY PROXY), moved February under it, split Night 3 into two records, and decided Dani offers her own number on Night 2 so a deleting player can learn the old account spoke. Claude Code noted the times are Thursday, not Wednesday, that one draft line from Dani states the theme outright, and that "Orbit Relay" and a Messages app would be new.
+- **What was recorded:** `docs/story-bible.md` §6 (the three systems, two records, Dani outside Orbit, how a deleting player finds out).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: the second fake's trigger, the prepared reply in Dani's thread
+
+- **Tool / model:** Claude Code.
+- **What happened:** I dropped "Orbit Relay" (Chats vs Messages), fixed Dani's line to `this is me`, and decided the second fake's trigger and that `Sending in 10s` happens when Dani asks whether to send Rachel's data. Claude Code pointed out that opening Notes can't trigger anything Orbit does, that the countdown should start as soon as Dani's question is on screen so every player with Assist on sees it, and that sending the link inside Orbit exposes it (left as TBD).
+- **What was recorded:** `docs/night2-scenes.md`, `docs/story-bible.md` §6.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: here or text
+
+- **Tool / model:** Claude Code.
+- **What happened:** I chose that the link may be sent inside Orbit with only a data consequence (never a blocked link), changed Dani's question to "here or text?" so the countdown also chooses the channel, and set what Orbit can and can't see. Claude Code noted the time is Thursday, and that moving to text means a number is shared in Chats first, so the Messages route leaves one line of its own.
+- **What was recorded:** `docs/night2-scenes.md`.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: the morning
+
+- **Tool / model:** Claude Code.
+- **What happened:** I set the two Night 3 records for Chats vs Messages and chose a revised version of Claude Code's option C for the morning: Dani's two openings, then that Rachel asked about the crit on Sunday and that Dani will try Rachel's old email. Claude Code added that Orbit can read Dani mentioning the email (a Night 3 record and a reason Continuity speaks at once), a note to let Dani give facts rather than conclusions, and that the player may ask for the email.
+- **What was recorded:** `docs/night2-scenes.md` (The morning), `docs/story-bible.md` (the interlude, the relationship).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: the day, the return, Juno's silence
+
+- **Tool / model:** Claude Code.
+- **What happened:** I decided the day isn't playable (a wordless transition), Night 2 starts Wednesday 11:20 PM, the player picks the phone up themselves, and Juno never speaks first on Night 2; I also wrote Dani's answer when asked for the email. Claude Code raised three ordering questions: whether Juno can be off before the route choice, what happens when opening Juno is the first Orbit action, and the second fake arriving together with Dani's request.
+- **What was recorded:** `docs/night2-scenes.md`.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Juno's switch from Night 1; the second fake's fallback; delivery vs reading order
+
+- **Tool / model:** Claude Code.
+- **What happened:** I decided Juno's switch exists from Night 1, that Juno's opening completes before the second fake when Juno is opened first, a fixed fallback at Wednesday 11:27 PM, Dani's request at least 3 minutes later, and that the game guarantees delivery order, not reading order. Claude Code noted the fallback still depends on the story clock, and that Night 1's two Juno opening beats can no longer be required.
+- **What was recorded:** `docs/night2-scenes.md`, `docs/night1-scenes.md`, `docs/story-bible.md` §6.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: Rachel's share, Check-in, hand-over to Night 3
+
+- **Tool / model:** Claude Code.
+- **What happened:** I designed Rachel's private share (the phone's Browser, her note, three records that let the player tell Conversation Assist and Continuity apart) and Night 2's Check-in. Claude Code noted that February's wording echoes Juno's "don't disappear on me", that "please don't forward the files" constrains a publishing ending, that the first open must always complete, and that a "More" link adds UI; it then compiled what Night 3 reads from both nights.
+- **What was recorded:** `docs/night2-scenes.md` (Rachel's private share; Check-in, Night 2; Hand-over to Night 3).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — A Unity room prototype
+
+- **Tool / model:** Claude Code.
+- **What happened:** my teacher suggested trying Unity, and I wanted to see whether the room (finding Rachel's power bank with the phone down) would be worth moving engines for. Claude Code compared web and Unity for this game (a single-view room is easy on the web; a lit 3D room and physical gestures favour Unity; moving means rebuilding every phone screen and losing play in a phone browser) and suggested trying the room alone first. I asked for that.
+- **What Claude Code made:** `unity-room/`, C# scripts and an editor command that builds the room from simple shapes (desk, lamp, window, tote bag, drawer, coat, phone) with the agreed rules: searching costs story time, the power bank, waiting to charge, one possible notification, picking the phone up goes to a lock screen. Not run yet (no Unity in the cloud session). Excluded from the web deploy (`.vercelignore`).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — A second session checked the Unity prototype
+
+- **Tool / model:** Claude Code (a separate cloud session).
+- **What happened:** I opened a second session to check whether `unity-room/Assets/RoomPrototype` would compile in Unity 6. It read the five scripts and found no compile errors, but couldn't compile them (no Unity in the cloud). It changed nothing. It was opened on the web game's repository rather than locally in the Unity project, so the design session advised moving Unity work to the new `StayALittleLonger` repository and running Unity sessions on my computer, with their own process log there.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — The full game moves to Unity
+
+- **Tool / model:** Claude Code (discussion).
+- **What happened:** after my teacher suggested Unity and I set up a Unity 6.3 LTS (URP) project with its own GitHub repository (`StayALittleLonger`), I decided to build the full game there. Claude Code had compared web and Unity earlier and suggested trying the room first; I chose to start the full project. Claude Code wrote a first prompt for a Unity development session on my computer (read the design docs; make no design decisions; propose a foundation plan before code) and noted the decision in `CLAUDE.md`.
+- **My decision:** [to fill in]

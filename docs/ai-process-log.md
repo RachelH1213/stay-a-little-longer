@@ -2092,3 +2092,12 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (discussion).
 - **What happened:** after my teacher suggested Unity and I set up a Unity 6.3 LTS (URP) project with its own GitHub repository (`StayALittleLonger`), I decided to build the full game there. Claude Code had compared web and Unity earlier and suggested trying the room first; I chose to start the full project. Claude Code wrote a first prompt for a Unity development session on my computer (read the design docs; make no design decisions; propose a foundation plan before code) and noted the decision in `CLAUDE.md`.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Answering the Unity session's foundation plan
+
+- **Tool / model:** Claude Code (design session).
+- **What happened:** the Unity session proposed a foundation plan (repo setup, folders, IDs → store → save, UI Toolkit vs uGUI, compile checks) and listed open questions. In the design session Claude Code fixed two docs that hadn't followed the story (the lock-screen notification in `landing.md`; Tonight's leftovers in `save-system.md`) and suggested answers for me: only Juno's local intent goes to the model, a mapping from the old intent names to the new ones plus DISPUTE, and Mac desktop first.
+- **What was recorded:** `docs/landing.md`, `docs/save-system.md`. The intent mapping and the platform are waiting for my decision.
+- **My decision:** [to fill in]

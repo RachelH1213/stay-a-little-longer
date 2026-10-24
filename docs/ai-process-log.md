@@ -1977,3 +1977,12 @@ Copy this for each new entry.
 - **What happened:** I corrected Claude Code's example (it still hinted at the profile) and set the rule that "Still unresolved" comes only from what the player has run into, plus a cost table where reading is free and only new actions cost. I also set the approach for Night 2: five shared beats, with Night 1's states changing only how they look. Claude Code flagged that −1% per message doubles the prototype's drain.
 - **What was recorded:** `docs/night1-scenes.md`, one line in `docs/story-bible.md` §6.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2 scene table (draft)
+
+- **Tool / model:** Claude Code.
+- **What I asked:** start Night 2's scene table.
+- **What Claude Code made:** `docs/night2-scenes.md`, drafted from the agreed decisions: what Night 1 hands over, the five required beats, new facts, the scenes (no lines), and 13 open questions for me, including a logic gap (Rachel's account is erased on Night 1, so the second fake can't come "from her account" as things stand).
+- **My decision:** [to fill in]

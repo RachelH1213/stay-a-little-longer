@@ -2058,3 +2058,12 @@ Copy this for each new entry.
 - **What happened:** I decided Juno's switch exists from Night 1, that Juno's opening completes before the second fake when Juno is opened first, a fixed fallback at Wednesday 11:27 PM, Dani's request at least 3 minutes later, and that the game guarantees delivery order, not reading order. Claude Code noted the fallback still depends on the story clock, and that Night 1's two Juno opening beats can no longer be required.
 - **What was recorded:** `docs/night2-scenes.md`, `docs/night1-scenes.md`, `docs/story-bible.md` §6.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: Rachel's share, Check-in, hand-over to Night 3
+
+- **Tool / model:** Claude Code.
+- **What happened:** I designed Rachel's private share (the phone's Browser, her note, three records that let the player tell Conversation Assist and Continuity apart) and Night 2's Check-in. Claude Code noted that February's wording echoes Juno's "don't disappear on me", that "please don't forward the files" constrains a publishing ending, that the first open must always complete, and that a "More" link adds UI; it then compiled what Night 3 reads from both nights.
+- **What was recorded:** `docs/night2-scenes.md` (Rachel's private share; Check-in, Night 2; Hand-over to Night 3).
+- **My decision:** [to fill in]

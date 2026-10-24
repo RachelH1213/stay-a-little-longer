@@ -1923,3 +1923,12 @@ Copy this for each new entry.
 - **What happened:** over several rounds I proposed the landing flow and the save rules and asked Claude Code to critique them objectively. I kept most of my structure and adopted some of its corrections (an honest data notice, stable ids instead of array positions, saving the classification, timed-event states, a final-choice checkpoint); Claude Code accepted my corrections to its points (resume at stable beats, not every line; no promise that names are fully removed; persistent storage isn't a guarantee; save before rendering through one entry point; real separation of playtest and release).
 - **What was recorded:** `docs/landing.md` and `docs/save-system.md`, written by Claude Code from the agreed decisions; a pointer in `CLAUDE.md`. Nothing is built yet.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Nights 1–3 restructured in the story bible
+
+- **Tool / model:** Claude Code (discussion, then writing).
+- **What happened:** over several rounds I reworked the opening and the core reveal and asked Claude Code to critique each version objectively. Claude Code's proposals included the "held back" line, the February message and a timeline of interventions; I proposed the Suggested-replies reveal, the three kinds of choice, splitting Tonight into Check-in and Night Log, Conversation Assist, the confidence rule, the relationship, the evidence loop and the dates, and corrected several of its points (the crit leak couldn't prove anything, hesitation as emotion, Orbit reading Notes, "Scheduled check-ins", the meeting at 9 PM).
+- **What was recorded:** Claude Code wrote the agreed decisions into `docs/story-bible.md` (§3 timeline, §4 nights, §5 note, §6 mechanics) and updated two rules in `CLAUDE.md`. Lines and the remaining story beats are marked TBD for me.
+- **My decision:** [to fill in]

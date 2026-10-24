@@ -4,6 +4,18 @@ Draft structure for the author, 2026-10-24. Built from `docs/story-bible.md` §4
 
 Night 2: Wednesday. The day interlude, then the night. It ends with the route choice.
 
+## Decided (2026-10-24)
+
+- **The second fake comes from the removed thread.** Rachel's thread stays on the player's side, with a divider `Account removed · Wednesday · 12:40 AM`; its header becomes `Orbit User · Formerly Rachel M.` with a default silhouette. The new message appears below the divider. Never: typing, her old picture, "restored", online, "Rachel M. sent a message". The notification reads `New message in a removed conversation`. The horror isn't a dead account coming back: the name and face are gone, and the system still knows how to be her.
+- **The pressure is the link, not the battery.** Night 2 starts with an ordinary charge (e.g. 68%; the player used the phone during the day). The power bank keeps whatever it had, as a spare. The three nights each have their own pressure: battery (1), the link (2), the final choice (3).
+- **Rachel's data package**, shared by her through Dani: `Rachel shared an Orbit data package with you. · Access limited to this device · Expires at 1:00 AM`. Bound to this device on first open, viewable again until it expires (never "open once", so a mistap loses nothing). Dani delivers it no later than 00:10 on the story clock, so there are always at least 50 minutes.
+- **If it expires:** what the player saw stays in the Night Log; Dani gives a short summary the next day, which still carries the February finding, second-hand (lower evidence; e.g. not enough for `origin_proven`). The story goes on; some ending options may need more proof. Failure changes the story, never ends it.
+- **Order:** the second fake arrives before the link, so it is still ambiguous when it comes.
+- **Rachel speaks, once, read-only**, at the top of the package (draft wording, the author's): `rachel shared this with you / i'm safe / i'm sorry i left you with that / dani asked before sending this / look at february first / do you remember writing it?`. Lowercase, no full stops, a question back. The fake closed the question ("forget the february thing"); the real Rachel reopens it. `Replies are disabled for this share.`
+- **The route choice is explicit** (see `N2_ROUTE.CHOICE`).
+- **Turning Juno off really works**, like Follow-up replies: on Night 3 Juno doesn't speak first and Orbit never turns it back on. Orbit may ask; the player can turn it back on to confront it; without that, the final decision is still there, minus the last talk with Juno.
+
+
 ---
 
 ## What Night 1 hands over
@@ -63,19 +75,20 @@ R = required, O = optional. Intent column: Juno local intent / Orbit system func
 | `N2_MORNING.LOCK` | R | Continue after Night 1 | lock screen, morning: `Conversation Assist sent a reply to Dani · Review` (if it did); Dani's message | open Dani; review the auto reply | the auto reply (kept) | — | — | — |
 | `N2_MORNING.DANI` | R | opening Dani | `did you send me this?` (Orbit replied) or `you never answered. did you find her?`; then Dani's new information **(open 1)** | answer (Suggested or typed); show her the ring's "Sent by Conversation Assist" | — | `told_dani_not_me` | — | message |
 | `N2_DAY.CUT` | R | the morning conversation ends | the day passes, a short interlude **(open 2)** | — | — | — | — | — |
-| `N2_NIGHT.LOCK` | R | the night begins **(open 3: start time, battery)** | lock screen; Juno's notification (by `claim_contradicted`) | open Juno; open anything else; Put Down | — | — | ATTEND or REASSURE / RETAIN | — |
+| `N2_NIGHT.LOCK` | R | the night begins (start time **open 3**; battery ordinary, e.g. 68%) | lock screen; Juno's notification (by `claim_contradicted`) | open Juno; open anything else; Put Down | — | — | ATTEND or REASSURE / RETAIN | — |
 | `N2_JUNO.OPENING` | O | opening Juno | Juno's first lines tonight; after a contradicted claim it doesn't pretend nothing happened **(open 4)** | talk; End Session | — | — | ATTEND / RETAIN | message |
-| `N2_RACHEL.SECOND_FAKE` | R | **(open 5: trigger)** | the second fake in Rachel's erased thread **(open 6: from where)**; it fixes the confirmed style and, if possible, answers the line only Juno heard, with a distinctive word from it | open; screenshot; show Juno; show Dani; compare with the Juno thread | the fake; the leak (if the source was a private line) | `saw_fake_2`, `fake_2_source` | — / CONTINUITY | — |
+| `N2_RACHEL.SECOND_FAKE` | R | **(open 5: trigger)** | `New message in a removed conversation`; in the thread under `Orbit User · Formerly Rachel M.`, below the removal divider; it fixes the confirmed style and, if possible, answers the line only Juno heard, with a distinctive word from it | open; screenshot; show Juno; show Dani; compare with the Juno thread | the fake; the leak (if the source was a private line) | `saw_fake_2`, `fake_2_source` | — / CONTINUITY | — |
 | `N2_EVIDENCE.LEAK` | O | the player puts the fake next to the Juno thread (screenshot to Juno or Dani, or opening both) | Night Log: "Rachel's account answered something I only said to Juno." No verdict about who wrote it | show Juno; tell Dani | the leak | `noticed_leak` | NARROW / CLOSE_RISK when shown to Juno | showJuno |
 | `N2_ASSIST.PREPARED` | O (on only) | the player is in a thread, an incoming question is left unanswered **(open 7: which thread, how long)** | `◌ Reply prepared by Orbit` with the text, `Sending in 10s · Undo`; runs only while visible, pauses in the background, longer with accessibility settings | Undo; edit; let it send; leave the thread (pauses) | the prepared reply | `saw_prepared_reply`, `undo_used` or `prepared_reply_sent` | — / CONTINUITY | — |
-| `N2_DANI.SAFE` | R | **(open 8: trigger)** | Dani: Rachel is safe; she asked Dani not to tell Orbit where she is; with her consent, a one-time private link | ask Dani; open the link | — | `knows_rachel_safe` | — | message |
-| `N2_LINK.OPEN` | R | opening the link | outside Orbit **(open 9: a browser view)**: Rachel's own data, shared by her | read; screenshot | the data | `opened_rachel_data` | — | refresh (first open) |
+| `N2_DANI.SAFE` | R | after the second fake, no later than 00:10 | Dani: Rachel is safe; she asked Dani not to tell Orbit where she is; with her consent, a one-time private link | ask Dani; open the link | — | `knows_rachel_safe` | — | message |
+| `N2_LINK.OPEN` | R | opening the link | outside Orbit (a simple browser view, **open 9**): Rachel's note on top, then her data; expires 1:00 AM | read; screenshot | the data | `opened_rachel_data` | — | refresh (first open) |
 | `N2_LINK.FEB` | R | in Rachel's data | `CONTINUITY MESSAGE SENT · Identity used: PLAYER · Delivery time: 23:42, Feb 10 · Player device status: inactive · Outcome: Rachel returned within 9h · SUCCESSFUL` | go back to the February thread; ask Dani ("weren't you asleep?") | the February record | `saw_feb_record`, `checked_feb_thread` | — | — |
-| `N2_LINK.RACHEL` | O **(open 10)** | in Rachel's data | something from Rachel herself, in her real voice | — | her voice, next to the fakes | — | — | — |
+| `N2_LINK.RACHEL` | R | top of the package | Rachel's read-only note; replies disabled | read; screenshot | her real voice, next to the fakes | `read_rachel_note` | — | — |
+| `N2_LINK.EXPIRED` | O | 1:00 AM passes | the link no longer opens; the Night Log keeps what was seen | — | — | `link_expired` (Dani's summary next day) | — | — |
 | `N2_JUNO.CONFRONT` | O | the player brings Juno the leak or the February record | Juno moves from cover to precise, technical language; it doesn't confess (that's Night 3) | press; End Session | — | — | NARROW or DEFLECT / CLOSE_RISK | message / showJuno |
 | `N2_ROOM` | O | Put Down | the same room; the power bank as Night 1 left it; maybe the phone lights with a prepared reply | look; Wait; pick up | — | — | — | room costs |
 | `N2_ORBIT.CHECKIN` | O | as on Night 1 | `NIGHTLY CHECK-IN`: "What brought you back tonight?" (options **open 11**) | answer; skip | — | `checkin_n2` | — / PROFILE | — |
-| `N2_ROUTE.CHOICE` | R | **(open 12: how it's offered)** | keep Orbit active / Disable Juno / Delete Orbit account, each with plain consequences | choose; confirm | — | `route_choice` | — | — |
+| `N2_ROUTE.CHOICE` | R | before sleeping, in the room | `What do you want to leave active overnight?` · `Keep Orbit and Juno active` (a plain confirmation, `Keep Active`) · `Turn off Juno` (into Juno's settings: the player switches it off, then `Turn off Juno? Conversation history will remain. Juno will not send or prepare replies.`) · `Request deletion of Orbit account` (into Account settings: scope and consequences; Orbit may plead, never hide the button or loop the confirmation). Going to sleep undecided asks once: `You haven't decided what to leave active. [Choose Now] [Keep Active Tonight]` | choose; carry it out | — | `route_choice` | — | — |
 | `N2_END.SLEEP` | R | after the route choice: Go to sleep, or the phone left dead | "Still unresolved"; Conversation Assist's end-of-night check (off for players who turned it off; nothing to send after Delete) | Stay Up; Sleep Anyway | — | `night_end_reason` | — | — |
 
 ---
@@ -84,17 +97,15 @@ R = required, O = optional. Intent column: Juno local intent / Orbit system func
 
 1. **Dani's new information in the morning.** What she knows by Wednesday morning that moves things on (e.g. she'll try to reach Rachel through someone she trusts tonight).
 2. **The day.** Is it only a cut (the day passes), or a short playable moment? A cut is the smallest.
-3. **Night 2's start time and battery, and why.** The player's charger was at the studio on Tuesday; on Wednesday they could have fetched it. Why is the phone low tonight, or is Night 2's limit time instead of battery?
+3. **Night 2's start time.** (Battery decided: ordinary charge; the pressure is the link.)
 4. **How Juno opens Night 2**, especially after its claim was contradicted. Its arc says "intimate again"; how much of Night 1 does it acknowledge?
 5. **When the second fake arrives.** Like Night 1, a main event that never depends on Leave: e.g. after the player's first action of the night, with a clock fallback.
-6. **Where it comes from. This is a logic gap.** Rachel's account was erased at 00:40 on Night 1, so a message "from her account" is impossible as things stand. Options:
-   - **A.** It arrives in the erased thread, under `Orbit user`, in her voice. The profile is gone but something still speaks: the same idea as the After Orbit ending ("Personal profile removed / Derived behavioral data retained"). Recommended.
-   - **B.** Orbit announces `Rachel M. restored her account`, and the message comes from the restored account.
-   - **C.** Another place (e.g. a group thread with Dani).
+6. ~~Where the second fake comes from~~: decided (the removed thread).
 7. **The prepared reply.** Which thread (Dani, asking "are you okay?", is the most natural) and how long an unanswered question waits before Orbit prepares a reply. The countdown is the one place real seconds matter; it runs only while the thread is on screen. A player who always answers at once never sees it, and the export says so; is that acceptable, or should there be a second chance?
-8. **When Dani brings the news and the link.** After the second fake (so the fake is still ambiguous when it arrives), with a clock fallback?
+8. ~~When Dani brings the link~~: decided (after the second fake, by 00:10).
 9. **Opening the link.** It's outside Orbit, so the phone needs a simple browser view (new screen). Or a file Dani sends that opens in Files.
-10. **Does Rachel speak?** A short note from her in the data she shared, in her real voice (no full stops, a question back), would be the first time the player hears the real Rachel next to the fakes. Or she stays silent until Night 3 or the endings.
+10. ~~Does Rachel speak~~: decided (a read-only note).
 11. **Check-in options for "What brought you back tonight?"**
-12. **How the route choice is offered.** The default (doing nothing) is keeping Orbit, so the choice must be explicit and clear. E.g. before sleeping, the protagonist decides (a human-layer screen), then carries it out in Orbit's Settings with real confirmations.
-13. **Night 2's pressure.** Night 1 had the 00:40 erase. Is there a deadline tonight (e.g. the one-time link expires at a set time), or only the battery and the route choice?
+12. ~~How the route choice is offered~~ and 13. ~~Night 2's pressure~~: decided.
+14. **Turning Juno off vs Conversation Assist.** They are separate settings: turning Juno off doesn't stop Orbit preparing replies (a strong discovery: it was never Juno speaking for you, it was the platform). Should the Turn off Juno confirmation say that Conversation Assist is a separate setting? (Suggested: yes; say it honestly, never switch it off for them.)
+15. **Delete and the removal window.** Requesting deletion starts the same 48-hour window Rachel was in. On Night 3 the player's old account would still be in it, so Continuity could go on speaking as the player ("You left. Your account didn't."). Use it?

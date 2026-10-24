@@ -2067,3 +2067,12 @@ Copy this for each new entry.
 - **What happened:** I designed Rachel's private share (the phone's Browser, her note, three records that let the player tell Conversation Assist and Continuity apart) and Night 2's Check-in. Claude Code noted that February's wording echoes Juno's "don't disappear on me", that "please don't forward the files" constrains a publishing ending, that the first open must always complete, and that a "More" link adds UI; it then compiled what Night 3 reads from both nights.
 - **What was recorded:** `docs/night2-scenes.md` (Rachel's private share; Check-in, Night 2; Hand-over to Night 3).
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — A Unity room prototype
+
+- **Tool / model:** Claude Code.
+- **What happened:** my teacher suggested trying Unity, and I wanted to see whether the room (finding Rachel's power bank with the phone down) would be worth moving engines for. Claude Code compared web and Unity for this game (a single-view room is easy on the web; a lit 3D room and physical gestures favour Unity; moving means rebuilding every phone screen and losing play in a phone browser) and suggested trying the room alone first. I asked for that.
+- **What Claude Code made:** `unity-room/`, C# scripts and an editor command that builds the room from simple shapes (desk, lamp, window, tote bag, drawer, coat, phone) with the agreed rules: searching costs story time, the power bank, waiting to charge, one possible notification, picking the phone up goes to a lock screen. Not run yet (no Unity in the cloud session). Excluded from the web deploy (`.vercelignore`).
+- **My decision:** [to fill in]

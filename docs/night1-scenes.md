@@ -56,7 +56,30 @@ Juno never says "don't send that"; it suggests something easier for Rachel to an
 
 **Searching the room (decided 2026-10-24).** Tote bag, drawer, coat, desk and phone can be looked at from the first visit, but only looked at ("Still full of things from game night."). They become searchable when the battery is at 10% or less and the player has read Rachel's "blue brick" message; at 5% even if they haven't (the protagonist remembers: "Rachel's old power bank might still be here."); and at once if the phone dies ("Your usual charging cable is still at the studio. Rachel's power bank might be here somewhere."). The drawer holds the player's adapter without its cable ("The cable is under your desk in the studio, where you left it after crit."). The tote bag holds the power bank ("Rachel's blue power bank. A short charging lead folds into the side. One light left." / "It charges through an old cable you don't have."). Once it's a goal, the tote bag shows a little blue strap; hotspots work with the keyboard and, with Reduce Motion, use outlines instead of blinking; a wrong place costs a little story time, never battery; after two wrong places the protagonist points the way. The difficulty is deciding to spend the time, never finding a pixel. (All lines here are the author's drafts.)
 
-**Before sleeping (decided 2026-10-24).** `Go to sleep` first shows the Night Log's "Still unresolved" (the protagonist's own notes, only from what the player knows, e.g. "I never looked at her profile."), never a counter, with `Stay Up` / `Sleep Anyway`.
+**Before sleeping (decided 2026-10-24).** `Go to sleep` first shows the Night Log's "Still unresolved" (the protagonist's own notes), never a counter, with `Stay Up` / `Sleep Anyway`. Its lines come only from what the player has run into; a direction they never touched never appears (no "I never looked at her profile"):
+
+| The player has | "Still unresolved" says (draft) |
+|---|---|
+| only the missed meeting | `Rachel never arrived. I still don't know why.` |
+| the fake | `Rachel answered, but she didn't explain what happened.` |
+| the style mismatch | `The message didn't sound like her.` |
+| the removal, not the login record | `Her account was already being removed when the message arrived.` |
+| Juno's check-in claim, unverified | `Juno said Rachel checked in Monday. I haven't confirmed that.` |
+| Juno's claim contradicted | moves to confirmed facts |
+
+**Costs (decided 2026-10-24).** Reading is free; only a new action toward the outside world or a person moves the clock. Repeating something already done costs nothing.
+
+| Action | Time | Battery |
+|---|---:|---:|
+| reading messages, Notes, Profile Details | 0 | 0 |
+| going back, switching apps, opening Settings | 0 | 0 |
+| refreshing remote data (first time only) | +1 min | −1% |
+| sending a new message | +1 min | −1% |
+| calling a number (first time only; replaying the call record is free) | +2 min | −2% |
+| searching a room spot | +2–3 min | 0 |
+| waiting in the room | 5 / 10 min, chosen | the phone charges |
+
+To check in playtests: −1% per message is double the prototype's; at 20% a long talk with Juno alone can drain the phone.
 
 **When Juno may mention Rachel:** only after the player picked "someone didn't show up", opened Rachel's notification or thread, messaged her, received the fake, or asked Juno about her.
 
@@ -101,6 +124,6 @@ Notes for the Night Log (Notes) are written as facts are set, timed by when the 
 
 ## Status
 
-Night 1's structure is locked (2026-10-24). Left for the author: every line (all wording above is a draft), and the costs of refreshing, Profile Details and calling the old number.
+Night 1's structure is locked (2026-10-24). Left for the author: every line (all wording above is a draft).
 
-Night 2 must read these states rather than assume a full playthrough: style mismatch confirmed; removal known; Juno's claim contradicted; a private line known only to Juno; Follow-up replies off; Check-in answered or skipped; power bank remaining.
+**Night 2 (agreed approach, 2026-10-24):** one shared skeleton of five required beats (Dani's message the next day; back into Orbit that night; the second fake; material that proves Continuity exists; the route choice: keep / Disable Juno / Delete Orbit). Night 1's states change only how these beats look, never add branches. The second fake draws on, in order: a line known only to Juno; a confirmed style signal; the Check-in answer; otherwise a non-personal fallback. The states Night 2 reads: style mismatch confirmed; removal known; Juno's claim contradicted; a private line known only to Juno; Follow-up replies off; Check-in answered or skipped; power bank remaining.

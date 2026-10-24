@@ -1968,3 +1968,12 @@ Copy this for each new entry.
 - **What happened:** I split the labels into Juno's local intent and Orbit's system function, decided the held-back line's options and recording, and when the room becomes searchable. Claude Code suggested replacing my "Unresolved tonight: 3" counter with the Night Log's own "Still unresolved", since a counter is the kind of game UI the project avoids.
 - **What was recorded:** `docs/night1-scenes.md` (labels, held-back line, room search, before sleeping, status).
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — "Still unresolved" and costs
+
+- **Tool / model:** Claude Code.
+- **What happened:** I corrected Claude Code's example (it still hinted at the profile) and set the rule that "Still unresolved" comes only from what the player has run into, plus a cost table where reading is free and only new actions cost. I also set the approach for Night 2: five shared beats, with Night 1's states changing only how they look. Claude Code flagged that −1% per message doubles the prototype's drain.
+- **What was recorded:** `docs/night1-scenes.md`, one line in `docs/story-bible.md` §6.
+- **My decision:** [to fill in]

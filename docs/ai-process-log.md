@@ -1914,3 +1914,12 @@ Copy this for each new entry.
 - **What happened:** I asked whether Tonight is only a user-test feedback step. Claude Code explained that in the final story Tonight is part of the fiction and its answer becomes Orbit's data, and suggested keeping "What made you stay?" in the game and moving "helping / keeping" to the end page for testers. I agreed.
 - **What Claude Code built:** Tonight now asks "What made you stay?" (saved as the anchor, only the option id is logged); the end page asks the testers' question. The end page's label and thank-you line are Claude Code drafts.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — "Still unresolved" and costs
+
+- **Tool / model:** Claude Code.
+- **What happened:** I corrected Claude Code's example (it still hinted at the profile) and set the rule that "Still unresolved" comes only from what the player has run into, plus a cost table where reading is free and only new actions cost. I also set the approach for Night 2: five shared beats, with Night 1's states changing only how they look. Claude Code flagged that −1% per message doubles the prototype's drain.
+- **What was recorded:** `docs/night1-scenes.md`, one line in `docs/story-bible.md` §6.
+- **My decision:** [to fill in]

@@ -1995,3 +1995,12 @@ Copy this for each new entry.
 - **What happened:** I decided the second fake comes from the removed thread, that Night 2's pressure is Rachel's data link expiring (not the battery), that Rachel speaks once in a read-only note, how the route choice is made, and that turning Juno off really works. Claude Code added a date fix (the removal divider is Wednesday), a latest time for the link, that an expired link must still carry February second-hand, the order (fake before link), and two open questions (Juno vs Conversation Assist; deletion's removal window).
 - **What was recorded:** `docs/night2-scenes.md` and `docs/story-bible.md` §4 and §6.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Three systems: Juno, Conversation Assist, Continuity
+
+- **Tool / model:** Claude Code.
+- **What happened:** I separated Juno, Conversation Assist and Continuity, decided that turning Juno off leaves Conversation Assist on (and says so), and when a deleting player's old account speaks. Claude Code pointed out that the February message now fits Continuity rather than Conversation Assist, that Continuity's trigger must include going quiet, and that a deleting player needs a way to learn the old account spoke.
+- **What was recorded:** `docs/story-bible.md` §6 and `docs/night2-scenes.md`; the three points as TBD.
+- **My decision:** [to fill in]

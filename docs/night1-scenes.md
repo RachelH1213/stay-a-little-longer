@@ -31,6 +31,20 @@ The night is driven by what the player knows, not by a fixed order. Juno answers
 
 E.g. the opening: `ATTEND` / `PROFILE`. The held-back line: `ADVISE` / `REDIRECT`.
 
+**What the model receives (decided 2026-10-24).** Only Juno's local intent goes to the model; Orbit's system function stays inside the game and the logs, so the model only ever writes how Juno says this line (the one rule). The model's intents are the eight above plus **`DISPUTE`** (the player states something about Rachel the game never established; Juno questions it instead of going along). The old names map to the new ones:
+
+| Old (web prototype, `api/reply.js`) | New |
+|---|---|
+| `give_clue` | `ASSIST` |
+| `deflect`, `block` | `DEFLECT` |
+| `retain` | `ADVISE` ("stay a minute first?" advises holding off on leaving) |
+| `acknowledge`, `concede` | `ACKNOWLEDGE` |
+| `chat` | `ATTEND` |
+| `dispute` | `DISPUTE` |
+| (new) | `REASSURE`, `NARROW`, `WITHDRAW` |
+
+`api/reply.js` and `api/_persona.js` will take the new names, each with a voice description of its own, and keep the old names as aliases so the frozen web prototype still works. That change is a separate task in this repository.
+
 **Juno's stance** (the strongest one reached; never goes back):
 
 | Stance | Reached when | Evidence stance |

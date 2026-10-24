@@ -2101,3 +2101,12 @@ Copy this for each new entry.
 - **What happened:** the Unity session proposed a foundation plan (repo setup, folders, IDs → store → save, UI Toolkit vs uGUI, compile checks) and listed open questions. In the design session Claude Code fixed two docs that hadn't followed the story (the lock-screen notification in `landing.md`; Tonight's leftovers in `save-system.md`) and suggested answers for me: only Juno's local intent goes to the model, a mapping from the old intent names to the new ones plus DISPUTE, and Mac desktop first.
 - **What was recorded:** `docs/landing.md`, `docs/save-system.md`. The intent mapping and the platform are waiting for my decision.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Model intents and platform
+
+- **Tool / model:** Claude Code (design session).
+- **What happened:** I agreed to Claude Code's suggestions: only Juno's local intent goes to the model, using the eight new names plus DISPUTE, with the old names mapped and kept as aliases in `api/reply.js`; and Mac desktop first, iOS later, no WebGL for now.
+- **What was recorded:** `docs/night1-scenes.md` (the intents and the mapping), `CLAUDE.md`, `docs/save-system.md` §12.
+- **My decision:** [to fill in]

@@ -1917,9 +1917,54 @@ Copy this for each new entry.
 
 ---
 
-### 2026-10-24 — "Still unresolved" and costs
+### 2026-10-22 — Landing and save system specs
+
+- **Tool / model:** Claude Code (discussion, then writing).
+- **What happened:** over several rounds I proposed the landing flow and the save rules and asked Claude Code to critique them objectively. I kept most of my structure and adopted some of its corrections (an honest data notice, stable ids instead of array positions, saving the classification, timed-event states, a final-choice checkpoint); Claude Code accepted my corrections to its points (resume at stable beats, not every line; no promise that names are fully removed; persistent storage isn't a guarantee; save before rendering through one entry point; real separation of playtest and release).
+- **What was recorded:** `docs/landing.md` and `docs/save-system.md`, written by Claude Code from the agreed decisions; a pointer in `CLAUDE.md`. Nothing is built yet.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Nights 1–3 restructured in the story bible
+
+- **Tool / model:** Claude Code (discussion, then writing).
+- **What happened:** over several rounds I reworked the opening and the core reveal and asked Claude Code to critique each version objectively. Claude Code's proposals included the "held back" line, the February message and a timeline of interventions; I proposed the Suggested-replies reveal, the three kinds of choice, splitting Tonight into Check-in and Night Log, Conversation Assist, the confidence rule, the relationship, the evidence loop and the dates, and corrected several of its points (the crit leak couldn't prove anything, hesitation as emotion, Orbit reading Notes, "Scheduled check-ins", the meeting at 9 PM).
+- **What was recorded:** Claude Code wrote the agreed decisions into `docs/story-bible.md` (§3 timeline, §4 nights, §5 note, §6 mechanics) and updated two rules in `CLAUDE.md`. Lines and the remaining story beats are marked TBD for me.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — The first fake's trigger, and a Night 1 scene table
 
 - **Tool / model:** Claude Code.
-- **What happened:** I corrected Claude Code's example (it still hinted at the profile) and set the rule that "Still unresolved" comes only from what the player has run into, plus a cost table where reading is free and only new actions cost. I also set the approach for Night 2: five shared beats, with Night 1's states changing only how they look. Claude Code flagged that −1% per message doubles the prototype's drain.
-- **What was recorded:** `docs/night1-scenes.md`, one line in `docs/story-bible.md` §6.
+- **What happened:** I decided the first fake arrives after the player tries to contact Rachel (with a second path and a 23:45 fallback), that the player may refresh her profile first, and that Juno never brings Rachel up in its first line. Claude Code had pointed out the early-refresh and no-Rachel cases and the need for a fallback; I chose the answers.
+- **What was recorded:** the trigger rules in `docs/story-bible.md` §4, and `docs/night1-scenes.md`, a scene table drafted by Claude Code from the agreed decisions (facts, Juno's stances, beat ids, triggers, state, intents, costs; no lines), with six questions for me.
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — The room
+
+- **Tool / model:** Claude Code (discussion, then writing).
+- **What happened:** I proposed that the player finds Rachel's power bank by putting the phone down and searching their room. Claude Code raised the rule change, the scope, time and battery, and saving; I corrected two of its points (Orbit still sees the phone's state; entering the room is a weak signal, not a guaranteed notification) and added the room's three appearances and the final gesture. Claude Code then pointed out that without a Wait action the phone couldn't charge.
+- **What was recorded:** the room in `docs/story-bible.md` §6, new rows in `docs/night1-scenes.md`, the room as a main screen in `docs/save-system.md`, and the new rule in `CLAUDE.md`. Four questions left for me (TBD).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Waiting, the dead phone, End Session, how a night ends
+
+- **Tool / model:** Claude Code.
+- **What happened:** I decided the Wait action, that the power bank's charge carries over, that a dead phone can be restarted with it, `End Session` instead of Leave, the final gestures as a coda after the ending, when Check-in appears, and that no evidence has to be shown to Juno to end the night. Claude Code added three gaps: why the player's own charger isn't there, Dani's check moving to the end of the night, and what "two key findings" means.
+- **What was recorded:** `docs/story-bible.md` §6 and `docs/night1-scenes.md` (new end-of-night beats; the evidence beats are now optional).
+- **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 1 structure locked
+
+- **Tool / model:** Claude Code.
+- **What happened:** I split the labels into Juno's local intent and Orbit's system function, decided the held-back line's options and recording, and when the room becomes searchable. Claude Code suggested replacing my "Unresolved tonight: 3" counter with the Night Log's own "Still unresolved", since a counter is the kind of game UI the project avoids.
+- **What was recorded:** `docs/night1-scenes.md` (labels, held-back line, room search, before sleeping, status).
 - **My decision:** [to fill in]

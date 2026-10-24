@@ -2040,3 +2040,12 @@ Copy this for each new entry.
 - **What happened:** I set the two Night 3 records for Chats vs Messages and chose a revised version of Claude Code's option C for the morning: Dani's two openings, then that Rachel asked about the crit on Sunday and that Dani will try Rachel's old email. Claude Code added that Orbit can read Dani mentioning the email (a Night 3 record and a reason Continuity speaks at once), a note to let Dani give facts rather than conclusions, and that the player may ask for the email.
 - **What was recorded:** `docs/night2-scenes.md` (The morning), `docs/story-bible.md` (the interlude, the relationship).
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-24 — Night 2: the day, the return, Juno's silence
+
+- **Tool / model:** Claude Code.
+- **What happened:** I decided the day isn't playable (a wordless transition), Night 2 starts Wednesday 11:20 PM, the player picks the phone up themselves, and Juno never speaks first on Night 2; I also wrote Dani's answer when asked for the email. Claude Code raised three ordering questions: whether Juno can be off before the route choice, what happens when opening Juno is the first Orbit action, and the second fake arriving together with Dani's request.
+- **What was recorded:** `docs/night2-scenes.md`.
+- **My decision:** [to fill in]

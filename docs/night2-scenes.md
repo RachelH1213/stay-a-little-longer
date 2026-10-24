@@ -71,15 +71,30 @@ Two openings, then one shared message. No second big lead in the morning (no "sh
 
 - **Orbit replied for the player on Night 1:** `did you send this?` + a screenshot of `yeah. i'll explain later.` The player can answer now or later.
 - **It didn't:** `you never answered me / did you find anything?`
-- **Then, for everyone** (draft wording, the author's): `also / rachel asked me sunday / if your crit was still on tuesday` … `i found the email she used / for game night / i'm going to try it today`.
+- **Then, for everyone** (the author's wording): `rachel asked me sunday / if your crit was still on tuesday` … `i found an old email / from game night` … `i'm going to try it`.
 
 What it does: Rachel was still checking the meeting's practical details on Sunday, so "she forgot" gets harder to believe; Dani has a channel outside Orbit that may or may not still work; the player has a reason to wait for the night. It doesn't confirm she's safe.
 
 - **Why Dani has the email and the player doesn't:** Dani helped run game night at Rachel's old place; Rachel emailed her the address; the player got the invite through an Orbit group.
 - **Writing note:** let Dani give the fact; the player draws the conclusion (avoid "so she hadn't forgotten about 9").
-- **If the player asks for the email:** Dani declines for now (e.g. she wants to try first, Rachel may not want it shared). Wording TBD.
-- **Orbit reads Chats**, so Dani mentioning the email is visible to it. Night 3's Continuity record can show `Off-platform contact attempt mentioned in Chats · Dani → Rachel M.`, which also explains why Continuity speaks as Rachel the moment the player returns.
+- **If the player asks** `can you send me the email?`: `let me try it first` / `if it still works / i'll ask what she's okay with me sharing`. The email may be dead; Dani doesn't hand out Rachel's contact on her own; consent again; nothing confirms she's safe; it sets up Rachel agreeing to share at night.
+- **Orbit reads Chats**, so Dani mentioning the email is visible to it. Night 3: `OFF-PLATFORM CONTACT ATTEMPT · Mentioned in Chats: Wednesday · 8:16 AM · Initiated by: Dani · Intended contact: Rachel M. · Method mentioned: Email`. Orbit doesn't know whether she sent it or got an answer; if the link later comes through Messages, the record ends at `Outcome: Unavailable` (no data, not failure). It also explains why Continuity speaks as Rachel the moment the player returns.
 - **States:** `dani_auto_reply_confronted`, `meeting_was_confirmed_sunday`, `dani_external_email_attempted`. `rachel_confirmed_safe` is set only when the player reads Rachel's note at night.
+
+## The day and the return (decided 2026-10-24)
+
+- **The day isn't playable.** A short transition without words: the morning talk with Dani ends; daylight changes; the room darkens. On the desk: the player's ordinary charging cable, back from the studio; Rachel's power bank where Night 1 left it, with what's left; the crit materials moved. The phone is at 68%. No new states during the day.
+- **Night 2 starts Wednesday 11:20 PM**, shown only as `WEDNESDAY · 11:20 PM` (no "Night 2", no chapter).
+- **The player picks the phone up themselves.** The night opens in the room: the phone dark on the desk, no buzz, no Juno, no fake yet. Tap → lock screen (no story notifications) → unlock → whatever the player opens first. Night 1: Juno called the player in. Night 2: the player came back on their own, for an unresolved question. Night 3 still files it as `23:20:14 Screen active · 23:20:21 Orbit opened · Return source: Organic` → `Reactivation: SUCCESSFUL`; Orbit can't tell whether they came back to trust it, question it or investigate it.
+- **Continuity starts only inside Orbit** (the second fake's trigger, above). Notes and Messages don't count.
+- **Juno doesn't speak first on Night 2.** Silent unless opened. Not "still awake?" again, not "you came back". When opened:
+  - before the second fake: one ordinary reply about the present (e.g. how the day was), not Rachel or Dani: `ATTEND / PROFILE`;
+  - after it: only from what the player shows it; it never acts as if it saw what the player received (no system-layer knowledge): not shown → nothing; shown → `ACKNOWLEDGE / NARROW`; the private-line leak pointed out → `DEFLECT` or a short silence;
+  - turned off → no reply; Dani and the data carry the night.
+- **TBD (ordering):**
+  - Can Juno be off at the start of Night 2? Only if Juno's own switch exists from Night 1 (so far Night 1's Settings have only Conversation Assist). If it appears only at the route choice, Night 2's opening has two states, not three.
+  - If the player's first Orbit action is opening Juno, the second fake would land with Juno's first line. Suggested: Juno answers once, then the fake arrives as a notification.
+  - If the player stays in Notes or Messages until Dani's 00:08 notification draws them into Orbit, the fake and Dani's request arrive together. Suggested: Dani's request comes a few story minutes after the fake; if the player hasn't entered Orbit by 00:08, Dani's notification still comes, opening it delivers the fake first, and her request follows.
 
 ## The skeleton (required for everyone)
 
@@ -117,9 +132,9 @@ R = required, O = optional. Intent column: Juno local intent / Orbit system func
 |---|---|---|---|---|---|---|---|---|
 | `N2_MORNING.LOCK` | R | Continue after Night 1 | lock screen, morning: `Conversation Assist sent a reply to Dani · Review` (if it did); Dani's message | open Dani; review the auto reply | the auto reply (kept) | — | — | — |
 | `N2_MORNING.DANI` | R | opening Dani | `did you send this?` + screenshot (Orbit replied) or `you never answered me / did you find anything?`; then the Sunday crit question and the email (see The morning) | answer (Suggested or typed); show her the ring's "Sent by Conversation Assist"; ask for the email (declined) | Rachel checked the meeting on Sunday | `dani_auto_reply_confronted`, `meeting_was_confirmed_sunday`, `dani_external_email_attempted` | — | message |
-| `N2_DAY.CUT` | R | the morning conversation ends | the day passes, a short interlude **(open 2)** | — | — | — | — | — |
-| `N2_NIGHT.LOCK` | R | the night begins (start time **open 3**; battery ordinary, e.g. 68%) | lock screen; Juno's notification (by `claim_contradicted`) | open Juno; open anything else; Put Down | — | — | ATTEND or REASSURE / RETAIN | — |
-| `N2_JUNO.OPENING` | O | opening Juno | Juno's first lines tonight; after a contradicted claim it doesn't pretend nothing happened **(open 4)** | talk; End Session | — | — | ATTEND / RETAIN | message |
+| `N2_DAY.CUT` | R | the morning conversation ends | the wordless transition (see The day and the return) | — | — | — | — | — |
+| `N2_NIGHT.ROOM` | R | Wednesday 11:20 PM, 68% | the room, the phone dark on the desk | pick it up (→ lock screen, no story notifications) | — | `return_source: organic` | — | — |
+| `N2_JUNO.OPENING` | O | the player opens Juno | by state (see The day and the return); never speaks first | talk; End Session | — | — | ATTEND / PROFILE, or by what's shown | message |
 | `N2_RACHEL.SECOND_FAKE` | R | after the first Orbit action of the night, or 7 story minutes (see Decided) | `New message in a removed conversation`; in the thread under `Orbit User · Formerly Rachel M.`, below the removal divider; it fixes the confirmed style and, if possible, answers the line only Juno heard, with a distinctive word from it | open; screenshot; show Juno; show Dani; compare with the Juno thread | the fake; the leak (if the source was a private line) | `saw_fake_2`, `fake_2_source` | — / CONTINUITY | — |
 | `N2_EVIDENCE.LEAK` | O | the player puts the fake next to the Juno thread (screenshot to Juno or Dani, or opening both) | Night Log: "Rachel's account answered something I only said to Juno." No verdict about who wrote it | show Juno; tell Dani | the leak | `noticed_leak` | NARROW / CLOSE_RISK when shown to Juno | showJuno |
 | `N2_ASSIST.PREPARED` | O (on only) | Dani's `here or text?` on screen | `◌ Reply prepared by Orbit · here is fine`, `Sending in 10s · Undo`; runs only while visible, pauses in the background, longer with accessibility settings | Undo; edit; let it send; leave the thread (pauses) | the prepared reply | `saw_prepared_reply`, `undo_used` or `prepared_reply_sent` | — / CONTINUITY | — |
@@ -139,9 +154,7 @@ R = required, O = optional. Intent column: Juno local intent / Orbit system func
 ## Open questions (the author)
 
 1. ~~Dani's morning information~~: decided (The morning).
-2. **The day.** Is it only a cut (the day passes), or a short playable moment? A cut is the smallest.
-3. **Night 2's start time.** (Battery decided: ordinary charge; the pressure is the link.)
-4. **How Juno opens Night 2**, especially after its claim was contradicted. Its arc says "intimate again"; how much of Night 1 does it acknowledge?
+2. ~~The day~~, 3. ~~start time~~ and 4. ~~how Juno opens~~: decided (The day and the return); three ordering questions remain there.
 5. **When the second fake arrives.** Like Night 1, a main event that never depends on Leave: e.g. after the player's first action of the night, with a clock fallback.
 6. ~~Where the second fake comes from~~: decided (the removed thread).
 7. ~~The prepared reply~~ (decided: Dani's thread). Was: Which thread (Dani, asking "are you okay?", is the most natural) and how long an unanswered question waits before Orbit prepares a reply. The countdown is the one place real seconds matter; it runs only while the thread is on screen. A player who always answers at once never sees it, and the export says so; is that acceptable, or should there be a second chance?

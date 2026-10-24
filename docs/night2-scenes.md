@@ -204,7 +204,7 @@ Night 2's structure is complete (2026-10-24); lines are the author's. Night 3 re
 
 1. ~~Dani's morning information~~: decided (The morning).
 2. ~~The day~~, 3. ~~start time~~ and 4. ~~how Juno opens~~: decided (The day and the return); three ordering questions remain there.
-5. **When the second fake arrives.** Like Night 1, a main event that never depends on Leave: e.g. after the player's first action of the night, with a clock fallback.
+5. ~~When the second fake arrives~~: decided.
 6. ~~Where the second fake comes from~~: decided (the removed thread).
 7. ~~The prepared reply~~ (decided: Dani's thread). Was: Which thread (Dani, asking "are you okay?", is the most natural) and how long an unanswered question waits before Orbit prepares a reply. The countdown is the one place real seconds matter; it runs only while the thread is on screen. A player who always answers at once never sees it, and the export says so; is that acceptable, or should there be a second chance?
 8. ~~When Dani brings the link~~: decided (after the second fake, by 00:10).

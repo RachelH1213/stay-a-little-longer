@@ -26,6 +26,11 @@ Three layers. Once released, an id is never renamed.
 
 Plus **turn ids** (`N1_JUNO_014`, one per free-typed exchange) and **event ids** (`DANI_DURING_TONIGHT`, one per timed event).
 
+**Conventions (decided 2026-10-25):**
+- **Case:** scene ids are `UPPER_SNAKE` (`N1_JUNO_OPENING`); everything inside a scene is `lower_snake` after the dot (`N1_JUNO_OPENING.awaiting_first_reply`, `N1_JUNO_OPENING.juno.still_awake`). Event ids are `UPPER_SNAKE` with no dot (`N1_ERASE_WARNING`, `DANI_DURING_TONIGHT`).
+- **Three types in the scene tables:** a **beat** is a resume point (the player is waiting to choose or answer); an **event** is something the system does by time or condition (state saved, §6; never a resume point); an **action** is something the player does that sets facts (recorded as done; never a resume point). Action ids use the beat format but are never resumed to.
+- **Turn ids:** `NIGHT_THREAD_seq`, e.g. `N1_JUNO_014`, `N2_DANI_003`. Each night and each thread counts from 001; every free-typed exchange that involves the model adds one; the counter is saved, and a number is never reused.
+
 Rules:
 - Every line and option has a content id, but only beats are resume points. A save never resumes in the middle of a run of automatic lines.
 - If the game closes partway through a beat (two of three automatic lines shown), it resumes at that beat's start and replays it, skipping every content id already in `completed_content_ids`. No half lines, no repeated typing, no reordered replies.

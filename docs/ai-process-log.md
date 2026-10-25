@@ -2110,3 +2110,12 @@ Copy this for each new entry.
 - **What happened:** I agreed to Claude Code's suggestions: only Juno's local intent goes to the model, using the eight new names plus DISPUTE, with the old names mapped and kept as aliases in `api/reply.js`; and Mac desktop first, iOS later, no WebGL for now.
 - **What was recorded:** `docs/night1-scenes.md` (the intents and the mapping), `CLAUDE.md`, `docs/save-system.md` §12.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-25 — ID conventions and three types of row
+
+- **Tool / model:** Claude Code (design session).
+- **What happened:** the Unity session asked about mixed case in beat ids, rows that look like timed events rather than resume points, and turn numbering. Claude Code suggested: upper-case scene ids with lower-case parts inside a scene; splitting the scene tables' rows into beats, events and actions; turn ids counted per night and thread. I agreed.
+- **What was recorded:** `docs/save-system.md` §2; a Type column and renamed ids in `docs/night1-scenes.md` and `docs/night2-scenes.md`.
+- **My decision:** [to fill in]

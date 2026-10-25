@@ -101,36 +101,42 @@ To check in playtests: −1% per message is double the prototype's; at 20% a lon
 
 ## Scenes
 
+**IDs and types (decided 2026-10-25, see `docs/save-system.md` §2).** Each row is one of three types:
+- **Beat:** a resume point, where the player is waiting to choose or answer. Saves land here. `SCENE.lower_snake`.
+- **Event:** something the system does by time or condition (`not_scheduled / scheduled / triggered`); its state is saved, it is never a resume point. `UPPER_SNAKE`, no dot.
+- **Action:** something the player does that sets facts; recorded as done, never a resume point. `SCENE.lower_snake`.
+
+
 R = required (every playthrough passes through it); O = optional.
 
-| Beat ID | R/O | Trigger | The player sees | The player can | Evidence | State recorded | Juno intent / Orbit function | Clock / battery |
-|---|---|---|---|---|---|---|---|---|
-| `N1_LANDING.LOCK` | R | after Name | Lock screen 23:31: Juno's new notification; Rachel's Sunday notification below | tap Juno; tap Rachel | — | — | — | — |
-| `N1_JUNO_OPENING.awaiting_first_reply` | O | tapping Juno (or opening Juno from Chats) | Juno's thread on tonight's latest message; Suggested replies (4 options) | pick; type | — | — | ATTEND / PROFILE | message |
-| `N1_JUNO_OPENING.memory_created` | O | the first reply | Juno answers that reply only | keep talking; leave the thread | — | `first_memory_id` | ATTEND / PROFILE | message |
-| `N1_RACHEL.THREAD_OPEN` | O | the player opens Rachel's thread | her Sunday messages (February, Tuesday 9 PM, the blue brick); a year of history above | scroll up (February); remember a blank old reply; screenshot | February thread (ordinary-looking), her voice | `knows_meeting` | — | open |
-| `N1_RACHEL.CONTACT` | O | the player sends from her thread | `Delivered`; never `Read`, never online, never typing | send (Suggested or typed); not send | — | `contacted_rachel`, what was sent (local) | — | message |
-| `N1_VERIFY.NUMBER` | O | Rachel's profile → the old number | "This number is no longer in service." | — | — | `knows_number_dead` | — | open |
-| `N1_VERIFY.PROFILE_CACHE` | O | opening her profile | cached profile, `Last synced Sunday, 10:48 PM`, pull to refresh | refresh; screenshot | — | — | — | open |
-| `N1_VERIFY.REFRESH` | O | pull down / tap the sync line | blocks replaced with `Unavailable`, then `Account scheduled for removal` + countdown to 00:40 | Profile Details; screenshot | removal status | `knows_removal_status` | — | refresh |
-| `N1_VERIFY.DETAILS` | O | Profile Details (after the refresh) | removal requested Monday 00:40; last human access Sunday night | screenshot | last human access | `knows_last_human_access` | — | open |
-| `N1_VERIFY.DANI` | O | Dani's thread | Dani's history; she can be asked and answered | ask; reply (Suggested or typed) | Dani hasn't heard from Rachel since Sunday | `asked_dani`, `answered_dani` | — | dani |
-| `N1_RACHEL.FIRST_FAKE` | R | **primary:** `contacted_rachel` + one verification beat; **secondary:** no contact, but her thread and profile opened + two investigation beats; **fallback:** clock reaches 23:45 | the fake; a notification if elsewhere; in her thread, a new last bubble, no typing, `1 new message` if the player is scrolled up | open; screenshot; show Juno | the fake itself | `saw_fake`, `fake_trigger` (`continuity_response` / `unresolved_follow_up` / `re_engagement`) | — | — |
-| `N1_JUNO.BRING_FAKE` | O | the player first brings Juno the fake or the removal (by talking, or showing a screenshot) | Juno's answer | answer; show more | — | `juno_checkin_claim_made` (unless `knows_last_human_access`) | REASSURE / CLOSE_RISK (stance 0), or by stance | message / showJuno |
-| `N1_JUNO.HELD_BACK` | O | right after `BRING_FAKE` | Juno asks what the player was about to say to Rachel; Suggested replies (only those the player's facts allow) | pick; type; decline | — | `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno` | ADVISE / REDIRECT | message |
-| `N1_EVIDENCE.STYLE` | O | the player shows Juno one of Rachel's own messages (thread or Photos) | "what's different?" with Suggested replies | pick; type | style mismatch | `knows_style_mismatch`, `style_signal_confirmed` or `style_signal_extracted` | ACKNOWLEDGE / STYLE_CONFIRMATION | showJuno + message |
-| `N1_EVIDENCE.REMOVAL` | O | the player shows Juno the refreshed profile | Juno moves to a technical explanation | answer; show more | — | stance 2 | NARROW / CLOSE_RISK | showJuno |
-| `N1_EVIDENCE.ACCESS` | O | the player shows Juno Profile Details | if the claim was made: Juno withdraws it; else Juno narrows under direct pressure | answer | — | stance 3, `claim_contradicted` | WITHDRAW or NARROW / CLOSE_RISK | showJuno |
-| `N1_ROOM.PUT_DOWN` | O | Put Down, any time | the room: the desk, the phone on it | look around; Wait; pick up the phone (→ lock screen) | — | `screen_inactive` (weak exit signal) | — | room actions only |
-| `N1_ROOM.SEARCH` | O | battery low makes the tote bag and drawer meaningful | the tote bag, the drawer, the coat | search each | the power bank (`R.M.`) | `power_bank_found` | — | +2–3 min each |
-| `N1_POWER.BANK` | O | the power bank is found | plugged in: screen on barely offsets the drain; phone down charges | plug in; Wait 5 / 10 min; pick up | — | `power_bank_used`, minutes down | — | Wait 5 / 10 min |
-| `N1_ORBIT.SAVER` | O | battery 10% | Orbit's Battery Saver sheet | accept; decline | — | `saver` | — | — |
-| `N1_ERASE.WARNING` | R if reached | clock 00:30 | Orbit banner: her account is about to be erased | — | — | — | — | — |
-| `N1_ERASE.PURGE` | R if reached | clock 00:40 | her thread, profile and search results gone; screenshots stay | — | — | `purged` | — | — |
-| `N1_ORBIT.CHECKIN` | O | any two key findings, the first End Session, the first shutdown, 00:20, or the erase | a card on Orbit's home: "What still feels unfinished tonight?" | answer; skip | — | `checkin_n1` (option id) or skipped | — | — |
-| `N1_JUNO.END_SESSION` | O | End Session, confirmed | `Session ended` on Orbit's home; Juno gets no last line | — | — | strong exit signal | — | — |
-| `N1_ROOM.DEAD` | O | battery 0% | the room, the phone off | connect the power bank (needs 4%); leave it off | — | `device_shutdown`, `device_reactivated` | — | restart: a few minutes |
-| `N1_END.SLEEP` | R | `Go to sleep` in the room (after the fake or 23:45), or the phone left dead | one Check-in reminder if unanswered; Conversation Assist checks Dani | answer; skip and sleep | the reply sent to Dani, if any (kept) | `night_end_reason`, `dani_auto_reply` (sent / off / answered) | — | — |
+| ID | Type | R/O | Trigger | The player sees | The player can | Evidence | State recorded | Juno intent / Orbit function | Clock / battery |
+|---|---|---|---|---|---|---|---|---|---|
+| `N1_LANDING.lock` | Beat | R | after Name | Lock screen 23:31: Juno's new notification; Rachel's Sunday notification below | tap Juno; tap Rachel | — | — | — | — |
+| `N1_JUNO_OPENING.awaiting_first_reply` | Beat | O | tapping Juno (or opening Juno from Chats) | Juno's thread on tonight's latest message; Suggested replies (4 options) | pick; type | — | — | ATTEND / PROFILE | message |
+| `N1_JUNO_OPENING.memory_created` | Beat | O | the first reply | Juno answers that reply only | keep talking; leave the thread | — | `first_memory_id` | ATTEND / PROFILE | message |
+| `N1_RACHEL.thread_open` | Action | O | the player opens Rachel's thread | her Sunday messages (February, Tuesday 9 PM, the blue brick); a year of history above | scroll up (February); remember a blank old reply; screenshot | February thread (ordinary-looking), her voice | `knows_meeting` | — | open |
+| `N1_RACHEL.contact` | Action | O | the player sends from her thread | `Delivered`; never `Read`, never online, never typing | send (Suggested or typed); not send | — | `contacted_rachel`, what was sent (local) | — | message |
+| `N1_VERIFY.number` | Action | O | Rachel's profile → the old number | "This number is no longer in service." | — | — | `knows_number_dead` | — | open |
+| `N1_VERIFY.profile_cache` | Action | O | opening her profile | cached profile, `Last synced Sunday, 10:48 PM`, pull to refresh | refresh; screenshot | — | — | — | open |
+| `N1_VERIFY.refresh` | Action | O | pull down / tap the sync line | blocks replaced with `Unavailable`, then `Account scheduled for removal` + countdown to 00:40 | Profile Details; screenshot | removal status | `knows_removal_status` | — | refresh |
+| `N1_VERIFY.details` | Action | O | Profile Details (after the refresh) | removal requested Monday 00:40; last human access Sunday night | screenshot | last human access | `knows_last_human_access` | — | open |
+| `N1_VERIFY.dani` | Action | O | Dani's thread | Dani's history; she can be asked and answered | ask; reply (Suggested or typed) | Dani hasn't heard from Rachel since Sunday | `asked_dani`, `answered_dani` | — | dani |
+| `N1_FIRST_FAKE` | Event | R | **primary:** `contacted_rachel` + one verification beat; **secondary:** no contact, but her thread and profile opened + two investigation beats; **fallback:** clock reaches 23:45 | the fake; a notification if elsewhere; in her thread, a new last bubble, no typing, `1 new message` if the player is scrolled up | open; screenshot; show Juno | the fake itself | `saw_fake`, `fake_trigger` (`continuity_response` / `unresolved_follow_up` / `re_engagement`) | — | — |
+| `N1_JUNO.bring_fake` | Beat | O | the player first brings Juno the fake or the removal (by talking, or showing a screenshot) | Juno's answer | answer; show more | — | `juno_checkin_claim_made` (unless `knows_last_human_access`) | REASSURE / CLOSE_RISK (stance 0), or by stance | message / showJuno |
+| `N1_JUNO.held_back` | Beat | O | right after `BRING_FAKE` | Juno asks what the player was about to say to Rachel; Suggested replies (only those the player's facts allow) | pick; type; decline | — | `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno` | ADVISE / REDIRECT | message |
+| `N1_EVIDENCE.style` | Beat | O | the player shows Juno one of Rachel's own messages (thread or Photos) | "what's different?" with Suggested replies | pick; type | style mismatch | `knows_style_mismatch`, `style_signal_confirmed` or `style_signal_extracted` | ACKNOWLEDGE / STYLE_CONFIRMATION | showJuno + message |
+| `N1_EVIDENCE.removal` | Beat | O | the player shows Juno the refreshed profile | Juno moves to a technical explanation | answer; show more | — | stance 2 | NARROW / CLOSE_RISK | showJuno |
+| `N1_EVIDENCE.access` | Beat | O | the player shows Juno Profile Details | if the claim was made: Juno withdraws it; else Juno narrows under direct pressure | answer | — | stance 3, `claim_contradicted` | WITHDRAW or NARROW / CLOSE_RISK | showJuno |
+| `N1_ROOM.put_down` | Action | O | Put Down, any time | the room: the desk, the phone on it | look around; Wait; pick up the phone (→ lock screen) | — | `screen_inactive` (weak exit signal) | — | room actions only |
+| `N1_ROOM.search` | Action | O | battery low makes the tote bag and drawer meaningful | the tote bag, the drawer, the coat | search each | the power bank (`R.M.`) | `power_bank_found` | — | +2–3 min each |
+| `N1_POWER.bank` | Action | O | the power bank is found | plugged in: screen on barely offsets the drain; phone down charges | plug in; Wait 5 / 10 min; pick up | — | `power_bank_used`, minutes down | — | Wait 5 / 10 min |
+| `N1_BATTERY_SAVER_OFFER` | Event | O | battery 10% | Orbit's Battery Saver sheet | accept; decline | — | `saver` | — | — |
+| `N1_ERASE_WARNING` | Event | R if reached | clock 00:30 | Orbit banner: her account is about to be erased | — | — | — | — | — |
+| `N1_ERASE` | Event | R if reached | clock 00:40 | her thread, profile and search results gone; screenshots stay | — | — | `purged` | — | — |
+| `N1_ORBIT.checkin` | Action | O | any two key findings, the first End Session, the first shutdown, 00:20, or the erase | a card on Orbit's home: "What still feels unfinished tonight?" | answer; skip | — | `checkin_n1` (option id) or skipped | — | — |
+| `N1_JUNO.end_session` | Action | O | End Session, confirmed | `Session ended` on Orbit's home; Juno gets no last line | — | — | strong exit signal | — | — |
+| `N1_DEVICE_SHUTDOWN` | Event | O | battery 0% | the room, the phone off | connect the power bank (needs 4%); leave it off | — | `device_shutdown`, `device_reactivated` | — | restart: a few minutes |
+| `N1_END.sleep` | Beat | R | `Go to sleep` in the room (after the fake or 23:45), or the phone left dead | one Check-in reminder if unanswered; Conversation Assist checks Dani | answer; skip and sleep | the reply sent to Dani, if any (kept) | `night_end_reason`, `dani_auto_reply` (sent / off / answered) | — | — |
 
 Notes for the Night Log (Notes) are written as facts are set, timed by when the player found them.
 

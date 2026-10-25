@@ -39,36 +39,66 @@ Rules:
 
 ## 3. Save schema
 
+Revised 2026-10-25 (the Unity session found that one resume point and the first field list couldn't hold what the scene tables record). One slice per system; each system's logic only changes its own slice.
+
 ```
 {
   schema_version, game_version, saved_at,
 
   // where
-  night, clock, battery, route,
-  scene_id, resume_id,
+  night, clock, battery,              // clock: minutes from 00:00 of the night's start day (23:31 = 1411, 00:40 after midnight = 1480)
+  route,                              // keep | juno_off | deletion_requested (set by the route choice)
+  main_screen,                        // §8: where the player was, resumed first
+  open_beats: { thread → resume_id }, // one waiting beat per thread or place: lock_screen, room, juno, rachel, dani (more if needed)
   completed_content_ids: [],
-  main_screen,                       // §8
 
   // what the player decided
-  player_name,                       // local only
-  first_memory_id, join_reason,      // join_reason may be null (never answered)
-  checkin_n1, n2_checkin_answer,   // Orbit's Check-in answers (option ids; "uncertain" and "skipped" are distinct)
-  style_feedback: { style, quote },  // quote is local only
-  juno_status, orbit_account_status,
+  player_name,                        // local only
+  first_memory_id, join_reason,       // either may be null
+  checkin_n1, n2_checkin_answer,      // option ids; "uncertain" and "skipped" are distinct
+  style_feedback: { style, quote },   // quote is local only
   ending_selected,
 
-  // what the player found
-  evidence_found: [], screenshots: [], photos_opened: [],
-  notes_confirmed: [], deductions: [],
+  // story
+  facts: [],                          // every yes/no fact (knows_meeting, contacted_rachel, rachel_confirmed_safe, dani_number_saved, …)
+  actions_done: [],                   // action ids
+  events: { event_id → not_scheduled | scheduled | triggered },   // §6
   truth_flags: { first_lie_proven, origin_proven, retention_proven, juno_knew },
-  dani_state, rachel_history_state,
+  night_end_reason: { N1: …, N2: … },
+  screenshots: [], photos_opened: [],
+
+  // systems (only what isn't a yes/no fact)
+  juno: {
+    status,                           // on | off
+    stance,                           // 0–3 (docs/night1-scenes.md)
+    checkin_claim_made,
+    private_line: { selected, category, sent_to_rachel, known_only_to_juno },   // the text, if typed, is local only
+    turns: { … },                     // §5
+    turn_counters: { thread → n }
+  },
+  assist: {
+    suggested_replies_on, follow_up_replies_on,
+    counts: { suggested_shown, suggested_selected, player_authored, follow_up_prepared, follow_up_cancelled, sent_without_confirmation }
+  },
+  continuity: {
+    fake_triggers: { N1: …, N2: … },  // continuity_response | unresolved_follow_up | re_engagement | returned_to_orbit | scheduled
+    dani_auto_reply,                  // sent | off | answered
+    link_channel,                     // chats | messages | none
+    observed: []                      // what Orbit saw (share observed, contact card, email mentioned, return source …), for Night 3
+  },
+  room: {
+    power_bank: { found, remaining, location },
+    saver
+  },
 
   // what was said
-  transcript: [ { content_id | turn_id, speaker, displayed_text, intent_id, scene_id, clock, source } ],
-  turns: { ... },                    // §5
-  events: { ... }                    // §6
+  transcript: [ { content_id | turn_id, speaker, displayed_text, intent_id, scene_id, clock, source } ]
 }
 ```
+
+- **Facts vs fields:** anything yes/no is a fact; a field only when it has more than two values or a number. New facts never change the schema.
+- **Open beats:** the player can leave one conversation waiting (Juno asking what they were going to say) and go elsewhere; each thread keeps its own waiting beat, and returning to that thread resumes it. `main_screen` says where to put the player on Continue.
+- **Not yet:** `orbit_account_status` waits for Night 3 (the delete route has an old and a new account). `dani_state` and `rachel_history_state` are dropped: facts and actions cover them.
 
 `source` is one of `script`, `model`, `fallback`, `player_choice`, `player_text`.
 

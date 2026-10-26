@@ -2128,3 +2128,12 @@ Copy this for each new entry.
 - **What happened:** the Unity session's store plan found gaps in the save schema: no place for most states the scene tables record, only one resume point although several conversations can wait at once, and undefined values. Claude Code suggested a set of yes/no facts plus done actions, one slice per system for everything else, one waiting beat per thread, values for `route` and `juno_status`, and dropping two fields. I agreed.
 - **What was recorded:** `docs/save-system.md` §3; a stale trigger name fixed in `docs/night1-scenes.md`.
 - **My decision:** [to fill in]
+
+---
+
+### 2026-10-26 — Project 1 submission materials
+
+- **Tool / model:** Claude Code (design session).
+- **What I asked:** read the Project 1 brief (due Oct 28), tell me what to submit, and make it.
+- **What Claude Code did:** listed the deliverables; made `docs/project1/README.md` (checklist), `docs/project1/ai-documentation.md` (a summary of this log: tools, where AI sits in the game, use by phase, what stayed mine, data and ethics notes) and `docs/project1/essay-outline.md` (sections, word budgets, evidence from this log, questions); took four screenshots of the live game, one in presenter mode showing which Juno lines a model wrote. It declined to write the essay itself, since the essay is my own critical reflection and would otherwise have to be cited as AI-written.
+- **My decision:** [to fill in]

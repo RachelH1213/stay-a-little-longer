@@ -102,7 +102,7 @@ Huang, Rachel. "Working File." Course process journal, *AI, Creativity & Social 
 
 ## Appendix: AI Documentation
 
-This appendix lists every AI tool, model and system used in the project, where AI sits inside the game, and how it was used over time. It is a summary of my process log (`docs/ai-process-log.md` in the project repository: about 100 dated entries, 2026-09-24 to 2026-10-27), which records each AI-assisted step and my decision about it.
+This appendix lists every AI tool, model and system used in the project, where AI sits inside the game, and how it was used over time. It is a summary of my process log (`docs/ai-process-log.md` in the project repository: 103 dated entries, 2026-09-24 to 2026-10-27), which records each AI-assisted step and my decision about it.
 
 **The project:** a detective game played through a simulated phone, inside a fictional social app called Orbit. Playable section (Night 1): https://stay-a-little-longer-zjkv.vercel.app. Adding `?director` to the address turns on Director Mode (Figure 2).
 
@@ -129,6 +129,8 @@ The game's rule: game code decides what Juno wants to say; the model only writes
 
 Lines that carry a clue, or a lie the player can catch, are always written by me, never by the model.
 
+![Figure 5. Typing freely, in Director Mode. I typed something the story never says ("she's dead. her mom just called me"). The game sorted it as a claim and chose the intent "dispute": Juno must not accept it. Claude Haiku 5.5 wrote the words ("model"). The line doesn't agree that Rachel is dead, but it still leans toward comfort more than doubt: the game controls what Juno is trying to do, not exactly how it sounds. Above it, "deflect · script · fallback" is a line where the model's answer was not used and my written line was shown instead.](../screens/05-claim-dispute.png){width=2.4in}
+
 | | |
 |-----------------------------------|-----------------------------------|
 | ![](../screens/01-start.png){width=2.2in} | ![](../screens/02-start-choices.png){width=2.2in} |
@@ -148,13 +150,143 @@ Lines that carry a clue, or a lie the player can catch, are always written by me
 
 **This essay (Oct 27).** I wrote the essay. Claude Code checked it against my log and checked that the sources are real; at my request it drafted the banner example in "How I Used AI" from my log entry of 2026-10-12, and it laid out this document and its figures.
 
-### D. What stayed mine
+### D. Key moments, annotated
+
+Each one is a dated entry in my process log. Prompts are quoted as I typed them (in Chinese where I wrote in Chinese).
+
+**1. Planning before code (2026-09-24, "Model layer").** I asked Claude Code to explain the architecture "in under 150 words, without writing code", then to plan the model layer before building it. *What it proposed:* making Juno's lines model-written. *What I decided:* only five low-stakes lines, with every plot line and piece of evidence kept in the script, and Juno's voice in its own file so I could rewrite it.
+
+**2. A rule I didn't write (2026-10-01, "Director and truth graph").** Asked to plan the Director, Claude Code came back with four open questions; I answered "你帮我决定和优化" ("you decide and optimise it for me"). *What it did:* among other rules, it wrote the one that tells Juno to keep the player close when they say goodnight. *Why it matters:* the retention goal the game is about was first turned into code by an AI tool, not by me.
+
+**3. The most control I handed over (2026-10-08, "Remaining review items decided by Claude Code").** About the review items still open, I said "你觉得怎么改最好就怎么改" ("change it however you think best"). *What it did:* moved Rachel's reply from 18:40 to 22:40 and chose the exact wording of a clue. *What I decided:* I kept both at the time; both were changed again later by me.
+
+**4. The model inventing a fact (2026-10-08, "Guards added and tested live").** In a live test, the free model (GLM-4.5 Flash) wrote "just remembered she hates her phone dying at night.", a confident detail about Rachel that nothing in the game says. *What I decided:* the lines that carry a clue or a lie became fixed, written lines, and the guards now throw away any model line that invents what happened to Rachel.
+
+**5. A player inventing a fact (2026-10-14, "Juno doesn't go along with things the player makes up").** I typed "she got hit by a car, her mom just called me", and Juno took it as true and comforted me like a counsellor. *What changed:* a new kind of message (a claim) and a new intent, "dispute"; a limit of 25 words per line. Figure 5 shows how far this works now.
+
+**6. Choosing the model (2026-10-14, "Switchable model" and "Juno's lines now come from Claude Haiku 5.5").** After a classroom test, Juno's lines almost always fell back to the script, because the free model was slow and rate-limited. I asked whether I needed to train my own model; Claude Code said no, and made the model switchable. *What I decided:* I compared the models side by side on my comparison page and chose Claude Haiku 5.5.
+
+**7. An error I caught (2026-10-14, "Slide: Where this started redone").** For my midterm, Claude Code put three of Juno's fictional lines from my own design on a slide as if real apps had said them. I asked where the lines came from. *What changed:* the slide now uses Figure 2 of De Freitas et al. (2025), checked against the paper itself.
+
+**8. Asking for critique, not agreement (2026-10-15 to 10-25, the full game's design).** I proposed the structure and asked Claude Code to "保持客观 不要附和我" ("stay objective, don't just agree with me"). *Examples:* I proposed a counter, "Unresolved tonight: 3"; it pointed out that a counter is the kind of game interface the project avoids, and I accepted its alternative. It proposed a "ferry photo" clue; I rejected it as too flat. It proposed Rachel's February message; I kept it.
+
+### E. What stayed mine
 
 From my Consent Policy: the main idea, research question, story, characters, visual direction, clues and interaction design are mine; Claude Code may write code, explain, implement and compare options, but not replace the concept or make final narrative, visual or ethical decisions. Where that line was crossed or blurred, the log says so (above all 2026-10-08).
 
-### E. Data and ethics notes recorded along the way
+### F. Data and ethics notes recorded along the way
 
 - Player names are kept on the device and never logged; answers to the game's questions are logged as option ids only.
 - Found during the work and not yet fixed in the prototype: the test log stores raw typed text and Juno lines that may contain the name, and the name is sent to the model. Recorded as a requirement before any public release.
 - The game shows a help note outside the fiction if a player says they are in real danger.
 - Model cost: about one cent per playthrough with Claude Haiku 5.5, with a cap on model calls per night.
+
+### G. Every entry in my process log
+
+The full log records, for each entry, the tool and model, what I asked, what the tool did, errors, testing, and my decision.
+
+| Date | Entry |
+|------|--------------------------------------------------------------|
+| 09-24 | Model layer (Task 1) with Claude Code |
+| 10-01 | Course context and this log |
+| 10-01 | Status wording update and Task 2 plan |
+| 10-01 | Director and truth graph (Tasks 2–3) |
+| 10-05 | Play log (Task 4) |
+| 10-07 | Leaving and notifications (Task 5) |
+| 10-07 | Look-back quiz (Task 6) |
+| 10-08 | Review of the draft files |
+| 10-08 | Fixing review items 1–4 |
+| 10-08 | Chips no longer trigger Director rules |
+| 10-08 | Review items 5–10 |
+| 10-08 | Remaining review items decided by Claude Code |
+| 10-08 | Setup questions and a configurable GLM endpoint |
+| 10-08 | First live test: real GLM (z.ai) and real Supabase |
+| 10-08 | Drafted block/retain wording and preferred model, tested live |
+| 10-08 | Guards added and tested live |
+| 10-08 | My phone playtest, and fixes for off-script typing and the look-back |
+| 10-08 | Juno talking to an empty room: one line, then wait |
+| 10-08 | Pacing between Juno's lines, and a banner for Rachel's reply |
+| 10-08 | Making the opening and the evidence mechanic understandable |
+| 10-10 | Splitting the phone from the game: the notebook layer |
+| 10-10 | Home screen + Notes app instead of the notebook; fixing the bounce |
+| 10-10 | The look-back question: "did you believe it?" |
+| 10-12 | Clarity pass: premise, goal, clue 3 as the ending |
+| 10-12 | Fixes from a written playtest critique |
+| 10-12 | Rewriting lines so the player finds it themselves |
+| 10-12 | Banner shaking; no detour through Notes for Rachel's reply |
+| 10-12 | Making it look like a real phone (part one: fidelity, not style) |
+| 10-12 | Notes: from free pairing to questions |
+| 10-12 | "Tonight" rebuilt as a replay, with a last choice |
+| 10-13 | Immersion: a new opening, the player's name, "Not Delivered", faster pacing |
+| 10-13 | Night pass: a visual system, game feel, sound |
+| 10-13 | Real photos for Rachel |
+| 10-13 | Wallpaper |
+| 10-13 | Fixing what a full playthrough exposed |
+| 10-13 | Start page: one line removed |
+| 10-13 | Context for the player: who Juno is, why they're here |
+| 10-13 | Fixes from a full playthrough with the new start page |
+| 10-13 | Start page in two screens |
+| 10-13 | A choice inside Rachel's old messages |
+| 10-14 | Investigating rebuilt: screenshots, showing Juno, freer play |
+| 10-14 | Screenshots easier to see, the story teaches them, Photos as a real camera roll |
+| 10-14 | The first screenshot, taught when the story needs it |
+| 10-14 | Switchable model for Juno, and a comparison page |
+| 10-14 | Juno's lines now come from Claude Haiku 5.5 |
+| 10-14 | Juno answers what the player actually types |
+| 10-14 | Juno doesn't go along with things the player makes up |
+| 10-14 | A help note for real danger, and fallbacks that don't repeat |
+| 10-14 | The night as a resource: battery, the 00:40 erase, the phone dying |
+| 10-14 | Making the night visible, and telling the player |
+| 10-14 | Notifications no longer cover the top bar |
+| 10-14 | Midterm presentation draft |
+| 10-14 | Presentation draft revised around the new theme |
+| 10-14 | Review and edits of my midterm slides |
+| 10-14 | Midterm slides rebuilt: the project, how the demo plays, one slide per user-test problem, the full game |
+| 10-14 | Slide: why I switched Juno's model |
+| 10-14 | Slide: Notes and the paperclip as one problem |
+| 10-14 | Slide: "Where this started" redone |
+| 10-14 | Opening slide checked against the paper itself |
+| 10-14 | Slide 3 rebuilt with the paper's own passages |
+| 10-14 | Title slide and "What the game is" made concrete |
+| 10-14 | "What the game is" and "How you play", split so they don't repeat the user-test slides |
+| 10-14 | Concept statement slide from my own statement |
+| 10-15 | Research question on "What the game is" |
+| 10-15 | "How you play", complete |
+| 10-15 | Presentation flow, and "How you play" as a screenshot map |
+| 10-15 | Game structure: leaving changes the route, not the length |
+| 10-15 | The full game's structure, written into the story bible |
+| 10-15 | Presentation: "Where this is going" slides rebuilt from the final structure |
+| 10-15 | Midterm speaking script |
+| 10-15 | Research question |
+| 10-22 | Night 1 moved onto the final story |
+| 10-22 | Tonight asks "What made you stay?" |
+| 10-22 | Landing and save system specs |
+| 10-24 | Nights 1–3 restructured in the story bible |
+| 10-24 | The first fake's trigger, and a Night 1 scene table |
+| 10-24 | The room |
+| 10-24 | Waiting, the dead phone, End Session, how a night ends |
+| 10-24 | Night 1 structure locked |
+| 10-24 | "Still unresolved" and costs |
+| 10-24 | Night 2 scene table (draft) |
+| 10-24 | Night 2: the removed thread, the link, Rachel's note, the route choice |
+| 10-24 | Three systems: Juno, Conversation Assist, Continuity |
+| 10-24 | Continuity's two modes, two records, Dani outside Orbit |
+| 10-24 | Night 2: the second fake's trigger, the prepared reply in Dani's thread |
+| 10-24 | Night 2: here or text |
+| 10-24 | Night 2: the morning |
+| 10-24 | Night 2: the day, the return, Juno's silence |
+| 10-24 | Juno's switch from Night 1; the second fake's fallback; delivery vs reading order |
+| 10-24 | Night 2: Rachel's share, Check-in, hand-over to Night 3 |
+| 10-24 | A Unity room prototype |
+| 10-24 | A second session checked the Unity prototype |
+| 10-24 | The full game moves to Unity |
+| 10-24 | Answering the Unity session's foundation plan |
+| 10-24 | Model intents and platform |
+| 10-25 | ID conventions and three types of row |
+| 10-25 | Save schema revised for the store |
+| 10-26 | Project 1 submission materials |
+| 10-27 | Project 1 essay checked |
+| 10-27 | An example paragraph for the essay |
+| 10-27 | Final essay laid out, and this log's open decisions filled |
+| 10-27 | Correction: the critiques credited to ChatGPT were mine |
+| 10-27 | The essay's appendix expanded |

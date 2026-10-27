@@ -2157,8 +2157,14 @@ Copy this for each new entry.
 - **What it did:** Laid out my final essay as a Word file and a PDF (`docs/project1/final/`), unchanged except for three figures with captions, italic titles and an appendix summarising the AI documentation. At my request it also filled the decisions still open in this log from what later entries and our conversations show (marked *(filled from the record)*), leaving three questions only I can answer: the tools used for the first commit, the removed "Juno is still typing…" toast, and why I didn't delete the `doubt` rule's fallback.
 - **My decision:** [to fill in]
 
-### 2026-10-27: ChatGPT removed from the record
+### 2026-10-27: Correction: the critiques credited to ChatGPT were mine
 
 - **Tool:** Claude Code
 - **What it did:** At my request, corrected the entries of 2026-10-13 that named ChatGPT as the source of two playthrough critiques, the opening proposal and the four answers in Rachel's old messages. They were my own writing, partly from classmates' suggestions. Each corrected line is marked; ChatGPT was also removed from the AI documentation, the essay's appendix, the checklist, the outline and `CLAUDE.md`.
 - **My decision:** I didn't use ChatGPT on this project.
+
+### 2026-10-27: The essay's appendix expanded
+
+- **Tool:** Claude Code
+- **What it did:** Added to the AI documentation in my essay's appendix: a new screenshot of free typing in Director Mode (I typed "she's dead. her mom just called me"; the game chose `dispute`, and Claude Haiku 5.5 wrote a line that doesn't accept it but still leans toward comfort), eight annotated moments taken from this log with my prompts quoted, and a list of every entry in this log.
+- **My decision:** [to fill in]

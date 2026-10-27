@@ -12,7 +12,7 @@ Evidence references point to dated entries in `docs/ai-process-log.md` (cite the
 
 **Evidence**
 - The project in one paragraph: `docs/project1/ai-documentation.md`, opening; the project description in `docs/story-bible.md` §7.
-- AI on two levels: as a tool I worked with (Claude Code, ChatGPT), and as material inside the work (Juno's lines written live by a model, inside rules I wrote).
+- AI on two levels: as a tool I worked with (Claude Code), and as material inside the work (Juno's lines written live by a model, inside rules I wrote).
 - The research question (`docs/story-bible.md` §7).
 
 **Questions for me**
@@ -29,7 +29,7 @@ Evidence references point to dated entries in `docs/ai-process-log.md` (cite the
 - **Division of labour I set myself:** the AI consent policy in `docs/course-context.md`.
 - **Code and systems:** Tasks 1–6, each planned before code (2026-09-24 to 10-07).
 - **The moment I handed over the most control:** 2026-10-08, "Remaining review items decided by Claude Code" (it changed a clue's wording and the timeline; I kept it; the note in that entry calls it the most creative control handed over).
-- **Combining two AIs' proposals:** 2026-10-13, "Context for the player" (ChatGPT's proposal with Claude Code's edits).
+- **Combining my proposal with Claude Code's:** 2026-10-13, "Context for the player".
 - **Testing changed the design:** 2026-10-14, "Investigating rebuilt" (classmates and teacher); 2026-10-14, model comparison and the switch to Claude Haiku 5.5.
 - **Critique in both directions** in the full-game design (2026-10-15 to 10-25): ideas I proposed (Suggested-replies reveal, three kinds of choice, splitting Tonight) and ideas I rejected (the "ferry photo" clue, a counter of unresolved items, Orbit reading Notes); Claude Code's suggestions I adopted (the February message, the held-back line).
 - **Errors I caught:** fictional lines presented as research on a slide; a figure it said had no source (2026-10-14).

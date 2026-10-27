@@ -27,13 +27,13 @@ Due **October 28**. Prepared 2026-10-26 by Claude Code from the assignment page 
    - 2026-10-08 — Remaining review items decided by Claude Code (already filled; the clearest case of handing over control)
    - 2026-10-10 — Splitting the phone from the game; and (later) Home screen + Notes app instead of the notebook
    - 2026-10-12 (late night) — "Tonight" rebuilt as a replay
-   - 2026-10-13 — Context for the player (ChatGPT's proposal combined with Claude Code's)
+   - 2026-10-13 — Context for the player (my proposal combined with Claude Code's)
    - 2026-10-14 — Investigating rebuilt: screenshots, showing Juno, freer play
    - 2026-10-14 — Juno doesn't go along with things the player makes up
    - 2026-10-14 — A help note for real danger
    - 2026-10-22 — Night 1 moved onto the final story
    - 2026-10-24 — Nights 1–3 restructured in the story bible
    - 2026-10-24 — The full game moves to Unity
-2. **Check `ai-documentation.md`** for anything wrong or missing (e.g. AI tools used outside this repository, such as ChatGPT sessions not in the log).
+2. **Check `ai-documentation.md`** for anything wrong or missing (e.g. AI tools used outside this repository).
 3. **Write the essay** from `essay-outline.md`.
 4. **Export** the documentation (and the essay) to PDF if Canvas needs a file.

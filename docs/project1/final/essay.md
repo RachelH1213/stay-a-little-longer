@@ -113,7 +113,6 @@ This appendix lists every AI tool, model and system used in the project, where A
 | Claude Code, running Claude Opus 5.5 (coding agent) | Anthropic | Wrote and debugged the code from my instructions; drafted documentation, design specs and scene tables from decisions I made in discussion; critiqued my design proposals; drafted midterm slides and a speaking script; wrote a Unity room prototype; checked this essay against my log and its sources. | 2026-09-24 to 2026-10-27 |
 | Claude Haiku 5.5 (language model, in the game) | Anthropic | Writes some of Juno's lines live, inside an intent and a set of allowed facts chosen by my game code; also sorts what the player types. | in the game since 2026-10-14 |
 | GLM-4.5 Flash / GLM-4.7 Flash (language models, in the game) | Zhipu (z.ai) | Juno's model before 2026-10-14. Replaced after a classroom test (replies off the point, slow). | 2026-09-24 to 2026-10-14 |
-| ChatGPT | OpenAI | Recorded in my log as the source of two written critiques of my playthroughs and a proposal for the opening, which I combined with Claude Code's. | 2026-10-12 to 2026-10-13 |
 | `compare.html` (my own tool) | me, built with Claude Code | Sends the same game moments to several models side by side, so I could choose Juno's model. | 2026-10-14 |
 
 Not AI, but part of the system: Vercel (hosts the model call), Supabase (play log for tests), Unity 6.3 with its Pipeline command-line package (for the full game). Not used: Unity's AI Assistant.
@@ -139,7 +138,7 @@ Lines that carry a clue, or a lie the player can catch, are always written by me
 
 **Building the system (Sept 24 – Oct 8).** Claude Code built the model layer, the Director and truth graph, the play log, leaving and notifications, and the look-back, each planned with me first. In a review of draft files, I told it to decide the remaining items itself; it changed a clue's wording and the story's timeline, and I kept the changes (log, 2026-10-08, "Remaining review items decided by Claude Code"). This is the point where I handed over the most creative control. First live tests with a real model, and guards against invented facts.
 
-**Playtesting and redesign (Oct 8 – Oct 14).** My own playtests, written critiques and a classroom test drove rebuilds: the opening, Notes inside the phone, the look-back as a replay, investigating with screenshots, Juno disputing things players invent, and a help note when a player says they are in real danger. After the classroom test I compared models and switched Juno to Claude Haiku 5.5.
+**Playtesting and redesign (Oct 8 – Oct 14).** My own playtests, my written critiques (partly from classmates' suggestions) and a classroom test drove rebuilds: the opening, Notes inside the phone, the look-back as a replay, investigating with screenshots, Juno disputing things players invent, and a help note when a player says they are in real danger. After the classroom test I compared models and switched Juno to Claude Haiku 5.5.
 
 **Presentation (Oct 14 – 15).** Claude Code drafted midterm slides and a script. Errors it made that I caught: it presented Juno's fictional lines from my own design as if real apps had said them (replaced with a figure from De Freitas et al. 2025, checked against the paper), and it wrongly said one of the study's figures had no source.
 

@@ -1173,7 +1173,7 @@ Copy this for each new entry.
 ### 2026-10-13 (evening) — Fixing what a full playthrough exposed
 
 - **Tool / model:** Claude Code (`claude-opus-5-5`).
-- **What I found:** after a full playthrough I got a detailed critique from ChatGPT:
+- **What I found:** after a full playthrough I wrote a detailed critique, partly from classmates' suggestions: *(corrected 2026-10-27: not ChatGPT)*
   - the name form breaks the opening;
   - the phone is too small on desktop and replies get cut off;
   - the dark UI is generic;
@@ -1227,7 +1227,7 @@ Copy this for each new entry.
 
 - **Tool / model:** Claude Code.
 - **What I found:** without me explaining, a new player doesn't know what Orbit is, who Juno is, or what Juno does for them.
-- **What I asked for:** I compared ChatGPT's proposal with Claude Code's and chose a combined version.
+- **What I asked for:** I compared my own proposal with Claude Code's and chose a combined version. *(corrected 2026-10-27: not ChatGPT)*
 - **What Claude Code built:**
   - **Start page:** a short premise ("A year and a half ago, you joined Orbit. Orbit gave you Juno, an AI companion that… Through Juno, you met Rachel. Tonight, Rachel missed a plan. Then Juno messaged you first."). Then two choices and my name:
     - "Why did you join Orbit?" (someone to talk to / stay connected / meet people / I don't remember);
@@ -1237,7 +1237,7 @@ Copy this for each new entry.
   - **Juno's profile:** tapping Juno's name in the thread shows "Your Orbit companion · Together since March 2025 · Introduced you to Rachel, Dani, Theo, May" and "Juno remembers", with my choice on top.
   - **Ending:** after any of the three last choices, Juno adds one line tied to why I joined (e.g. someone to talk to → "you came here because you didn't want to be alone. why leave now?"). On Leave it's a second notification.
 - **Wording:**
-  - the premise, the choices, the four first lines, the "connect" and "don't remember" ending lines: ChatGPT's proposal with Claude Code's edits;
+  - the premise, the choices, the four first lines, the "connect" and "don't remember" ending lines: my proposal with Claude Code's edits; *(corrected 2026-10-27: not ChatGPT)*
   - Juno's older messages (except the 3am line), the profile, the memories and the "meet people" ending line: Claude Code drafts.
 - **Testing (Chromium at 390px):**
   - a new test picks each "remember" option and checks the lock notice, Juno's first line, the older messages, the profile and the order of memories;
@@ -1251,7 +1251,7 @@ Copy this for each new entry.
 ### 2026-10-13 (night) — Fixes from a full playthrough with the new start page
 
 - **Tool / model:** Claude Code.
-- **What I found:** I played again from a fresh save (stay connected / someone didn't show up / Alex / Stay) and got a critique from ChatGPT. Three things were simply wrong:
+- **What I found:** I played again from a fresh save (stay connected / someone didn't show up / Alex / Stay) and wrote a critique, partly from classmates' suggestions. Three things were simply wrong: *(corrected 2026-10-27: not ChatGPT)*
   - the goal "Find out who sent the reply" got ticked, but comparing her voice only shows Rachel probably didn't write it, not who did;
   - after "still thinking about who didn't show?" → "you remembered", Juno jumped to a different memory ("you said nobody reaches out first anymore");
   - Tonight said Rachel "hadn't answered since Tuesday", but today is Tuesday and Juno had said "since Sunday" (the same mistake was in one fact in `truth.js`).
@@ -1295,14 +1295,14 @@ Copy this for each new entry.
 ### 2026-10-13 (night) — A choice inside Rachel's old messages
 
 - **Tool / model:** Claude Code.
-- **My decision:** add the choice ChatGPT proposed to Rachel's old messages, so what Rachel was like is something the player says, not something Notes tells them.
+- **My decision:** add the choice I proposed to Rachel's old messages, so what Rachel was like is something the player says, not something Notes tells them.
 - **What Claude Code built:**
   - **Rachel's message:** in August 2025, Rachel asks: "ok real question / why did you keep talking to me / like after juno introduced us / most people ghost after a week lol". The player's reply under it is blank: "What did you say back?".
   - **The choice:** tapping it offers four answers: "you always asked something back", "you made bad nights funny", "juno was right about us", "i don't know. i just did". The answer becomes the player's own message in the thread. It's logged (`recall:<id>`), and it's optional.
   - **The link to Notes:** if the answer points at a difference, "What feels different about the reply?" shows it ("You told her once: “you made bad nights funny”") and lists the matching option first:
     - asked back → "she asks nothing back";
     - bad nights funny → "she gives no details".
-- **Wording:** Rachel's question (no full stops, as her rule says) and the "You told her once" line are Claude Code drafts. The four answers are from ChatGPT's proposal.
+- **Wording:** Rachel's question (no full stops, as her rule says) and the "You told her once" line are Claude Code drafts. The four answers are from my proposal. *(corrected 2026-10-27: not ChatGPT)*
 - **Testing (Chromium at 390px):**
   - a new test opens the choice, picks an answer, checks it becomes a message, and checks that Notes quotes it and orders the options;
   - all flow tests were rerun and pass.
@@ -2143,7 +2143,7 @@ Copy this for each new entry.
 
 - **Tool:** Claude Code
 - **What it did:** Checked my essay against the assignment (sections, length about 2,150 words) and against this log and repository; checked that the sources exist. Anthropic's Transparency Hub does list Claude Haiku 5.5's training data as the essay says; Crawford and Joler is real and cited correctly. Points raised: the consent policy is dated 2026-10-01, after Task 1 (2026-09-24), while the essay says it came before the project; the failing-test example is not in this log; the 2026-10-08 entry (Claude Code changed a clue's wording and the timeline) is not mentioned, while the essay says AI did not decide clues; ChatGPT and the Zhipu GLM models are missing; the essay calls Juno "she" while the game uses "it"; the course title differs from `docs/course-context.md`; "Working File" is listed but not cited in the text; the guards check less than "invents information outside the current story state" suggests.
-- **My decision:** I revised my essay: I replaced the test example (next entry) and now cite my Consent Policy as my Week 5 assignment. I didn't add ChatGPT, because I say I didn't use it; the entries of 2026-10-12 and 2026-10-13 in this log name ChatGPT, so that conflict is still open. *(filled from the record)*
+- **My decision:** I revised my essay: I replaced the test example (next entry) and now cite my Consent Policy as my Week 5 assignment. I didn't add ChatGPT, because I didn't use it: the critiques and proposals that the entries of 2026-10-13 had attributed to ChatGPT were my own writing, partly from classmates' suggestions, and those entries are corrected. *(filled from the record)*
 
 ### 2026-10-27: An example paragraph for the essay
 
@@ -2156,3 +2156,9 @@ Copy this for each new entry.
 - **Tool:** Claude Code
 - **What it did:** Laid out my final essay as a Word file and a PDF (`docs/project1/final/`), unchanged except for three figures with captions, italic titles and an appendix summarising the AI documentation. At my request it also filled the decisions still open in this log from what later entries and our conversations show (marked *(filled from the record)*), leaving three questions only I can answer: the tools used for the first commit, the removed "Juno is still typing…" toast, and why I didn't delete the `doubt` rule's fallback.
 - **My decision:** [to fill in]
+
+### 2026-10-27: ChatGPT removed from the record
+
+- **Tool:** Claude Code
+- **What it did:** At my request, corrected the entries of 2026-10-13 that named ChatGPT as the source of two playthrough critiques, the opening proposal and the four answers in Rachel's old messages. They were my own writing, partly from classmates' suggestions. Each corrected line is marked; ChatGPT was also removed from the AI documentation, the essay's appendix, the checklist, the outline and `CLAUDE.md`.
+- **My decision:** I didn't use ChatGPT on this project.

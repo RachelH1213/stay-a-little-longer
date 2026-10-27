@@ -102,7 +102,7 @@ Huang, Rachel. "Working File." Course process journal, *AI, Creativity & Social 
 
 ## Appendix: AI Documentation
 
-This appendix lists every AI tool, model and system used in the project, where AI sits inside the game, and how it was used over time. It is a summary of my process log (`docs/ai-process-log.md` in the project repository: 103 dated entries, 2026-09-24 to 2026-10-27), which records each AI-assisted step and my decision about it.
+This appendix lists every AI tool, model and system used in the project, where AI sits inside the game, and how it was used over time. It is a summary of my process log (`docs/ai-process-log.md` in the project repository: 102 dated entries, 2026-09-24 to 2026-10-27), which records each AI-assisted step and my decision about it.
 
 **The project:** a detective game played through a simulated phone, inside a fictional social app called Orbit. Playable section (Night 1): https://stay-a-little-longer-zjkv.vercel.app. Adding `?director` to the address turns on Director Mode (Figure 2).
 
@@ -288,5 +288,4 @@ The full log records, for each entry, the tool and model, what I asked, what the
 | 10-27 | Project 1 essay checked |
 | 10-27 | An example paragraph for the essay |
 | 10-27 | Final essay laid out, and this log's open decisions filled |
-| 10-27 | Correction: the critiques credited to ChatGPT were mine |
 | 10-27 | The essay's appendix expanded |

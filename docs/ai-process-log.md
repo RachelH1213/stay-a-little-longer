@@ -2143,3 +2143,9 @@ Copy this for each new entry.
 - **Tool:** Claude Code
 - **What it did:** Checked my essay against the assignment (sections, length about 2,150 words) and against this log and repository; checked that the sources exist. Anthropic's Transparency Hub does list Claude Haiku 5.5's training data as the essay says; Crawford and Joler is real and cited correctly. Points raised: the consent policy is dated 2026-10-01, after Task 1 (2026-09-24), while the essay says it came before the project; the failing-test example is not in this log; the 2026-10-08 entry (Claude Code changed a clue's wording and the timeline) is not mentioned, while the essay says AI did not decide clues; ChatGPT and the Zhipu GLM models are missing; the essay calls Juno "she" while the game uses "it"; the course title differs from `docs/course-context.md`; "Working File" is listed but not cited in the text; the guards check less than "invents information outside the current story state" suggests.
 - **My decision:** [to fill in]
+
+### 2026-10-27: An example paragraph for the essay
+
+- **Tool:** Claude Code
+- **What it did:** At my request, wrote one English paragraph for the Project 1 essay to replace my test-failure example, which the log doesn't record. The new example is the shaking banner (2026-10-12, night), with facts taken from that entry.
+- **My decision:** [to fill in]

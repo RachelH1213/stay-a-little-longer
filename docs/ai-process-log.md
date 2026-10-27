@@ -2137,3 +2137,9 @@ Copy this for each new entry.
 - **What I asked:** read the Project 1 brief (due Oct 28), tell me what to submit, and make it.
 - **What Claude Code did:** listed the deliverables; made `docs/project1/README.md` (checklist), `docs/project1/ai-documentation.md` (a summary of this log: tools, where AI sits in the game, use by phase, what stayed mine, data and ethics notes) and `docs/project1/essay-outline.md` (sections, word budgets, evidence from this log, questions); took four screenshots of the live game, one in presenter mode showing which Juno lines a model wrote. It declined to write the essay itself, since the essay is my own critical reflection and would otherwise have to be cited as AI-written.
 - **My decision:** [to fill in]
+
+### 2026-10-27: Project 1 essay checked
+
+- **Tool:** Claude Code
+- **What it did:** Checked my essay against the assignment (sections, length about 2,150 words) and against this log and repository; checked that the sources exist. Anthropic's Transparency Hub does list Claude Haiku 5.5's training data as the essay says; Crawford and Joler is real and cited correctly. Points raised: the consent policy is dated 2026-10-01, after Task 1 (2026-09-24), while the essay says it came before the project; the failing-test example is not in this log; the 2026-10-08 entry (Claude Code changed a clue's wording and the timeline) is not mentioned, while the essay says AI did not decide clues; ChatGPT and the Zhipu GLM models are missing; the essay calls Juno "she" while the game uses "it"; the course title differs from `docs/course-context.md`; "Working File" is listed but not cited in the text; the guards check less than "invents information outside the current story state" suggests.
+- **My decision:** [to fill in]

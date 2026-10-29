@@ -2167,5 +2167,5 @@ Copy this for each new entry.
 
 - **Tool:** Claude Code (design session)
 - **What happened:** The Unity session's save plan asked five questions. Claude Code suggested: a notice after 3 failed saves in a row; a `[TBD]` placeholder with a draft for the message when both saves are broken; only `endings_seen` and the Before You Begin version in `meta_progress` for now, dropping "completed" (the same as a non-empty list) and "unlocked chapters" (the game has no chapters); the import limits as proposed; the 12-hour clock on the Continue label; and changing Unity's `companyName` before any save exists. I agreed.
-- **What was recorded:** `docs/save-system.md` §1, §7, §9, §13.
+- **What was recorded:** `docs/save-system.md` §1, §7, §9, §10, §13.
 - **My decision:** [to fill in]

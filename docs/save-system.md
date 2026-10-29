@@ -238,7 +238,7 @@ File name never includes the player's name: `stay-a-little-longer-save-2026-10-2
 read → validate → migrate → preview → player confirms → back up the old save → write
 ```
 
-Validation: size limit, JSON, `schema_version`, `game_version`, required fields, every id known, string and array length limits, legal state combinations, whether it can be migrated. Imported text is only ever rendered as text, never as HTML, and no field is executed. The preview shows only `Night 2 · 11:34 PM · Last saved October 22 · Game version 1.2`, never typed text. Nothing is overwritten before the player confirms.
+Validation: size limit (file ≤ 2 MB, any string ≤ 4,000 characters, transcript ≤ 5,000 entries), JSON, `schema_version`, `game_version`, required fields, every id known, string and array length limits, legal state combinations, whether it can be migrated. Imported text is only ever rendered as text, never as HTML, and no field is executed. The preview shows only `Night 2 · 11:34 PM · Last saved October 22 · Game version 1.2`, never typed text. Nothing is overwritten before the player confirms.
 
 ## 11. Deleting local data
 

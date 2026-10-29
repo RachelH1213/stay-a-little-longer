@@ -8,7 +8,7 @@ Decided with the author, 2026-10-22. A spec for the full game; `docs/landing.md`
 
 - One story in progress, saved automatically. No Save / Load menu.
 - Settings, accessibility and the record of completed endings are kept apart from the story and survive New Game.
-- The title screen shows `Continue · Night N · HH:MM` when a story save exists.
+- The title screen shows `Continue · Night N · h:mm AM/PM` when a story save exists (12-hour clock, as everywhere in the full game).
 - Real time never moves the story. Closing the game for three days and coming back is still `Night 1 · 12:14 AM`; nothing is erased and nothing is missed while the game is closed.
 - After an ending: `Replay from Final Choice` and `Start New Game`.
 
@@ -175,7 +175,7 @@ save_status: clean | dirty | retrying | failed
 
 - Success: `clean`, then render.
 - Failure: keep the state in memory, mark `dirty`, render anyway, retry on the next change.
-- The first failure retries silently. After repeated failures, one non-blocking notice:
+- The first failure retries silently. After 3 failures in a row, one non-blocking notice; one success resets the count:
 
   ```
   Your progress couldn't be saved on this device.
@@ -207,7 +207,7 @@ Never restored: an open drawer or bag in the room, photo detail, the screenshot 
 | `active_save` | the story in progress | yes |
 | `backup_save` | the last save that passed validation, kept before each write | yes |
 | `final_choice_checkpoint` | the whole state and transcript on entering the Final Choice | yes |
-| `meta_progress` | endings seen, completed, unlocked chapters, settings, accessibility, the accepted version of Before You Begin | no |
+| `meta_progress` | `endings_seen` (ending ids; "completed the game" is a non-empty list), the accepted version of Before You Begin; settings and accessibility values added with the Settings screen | no |
 
 `meta_progress` never holds the name, free text, generated dialogue, the style feedback quote, or any typed words.
 
@@ -292,7 +292,7 @@ Suggest adding to the home screen; never require it. Desktop and mobile builds u
 
 ## 13. Version migration
 
-Every save carries `schema_version`, `game_version` and `saved_at`. A new version ships with a migration from each older schema; a save that can't be migrated falls back to the backup, then to New Game with a clear message. Ids are never renamed (§2), which is what keeps migrations small.
+Every save carries `schema_version`, `game_version` and `saved_at`. A new version ships with a migration from each older schema; a save that can't be migrated falls back to the backup, then to New Game with this message (outside the fiction, wording `[TBD]`; draft: "Your saved game couldn't be opened, so a new game has started. Your settings and endings are still here."). Ids are never renamed (§2), which is what keeps migrations small.
 
 ## 14. Implementation phases
 

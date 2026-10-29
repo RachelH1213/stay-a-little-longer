@@ -157,27 +157,6 @@ Juno 则说：
 
 ## 4. The three nights
 
-Copy this block for each night.
-
-### Night N — title
-- **Date and start time:**
-- **The question this night:** 玩家这一晚要弄清楚的一个问题。
-- **What the player knows at the start:**
-- **What they can find tonight, and where:** 每条线索至少两条路能找到（聊天、相册、搜索、Dani、主页……）。
-- **Juno's lies tonight, and what breaks each one:**
-
-  | Juno says | What breaks it | What Juno does when caught |
-  |---|---|---|
-  | | | |
-
-- **What disappears tonight, and when:** （倒计时：几点会被清除？截图能不能留住？）
-- **Battery at the start, and why:** （蓝色充电器？）
-- **How the night ends:** 剧情走完 / 手机没电 / 时间到。三种情况分别会怎样？
-- **What carries over to the next night:** （截下来的东西、Juno 的态度、Juno 趁夜里做了什么）
-- **The last thing on screen:**
-
----
-
 ### Structure (revised 2026-10-24)
 
 > Replaces "Structure (final, 2026-10-15)". Routes, endings and scope still stand; Nights 1–2 are rewritten. The prototype's night ("three lies caught") is not the model for the full game.

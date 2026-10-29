@@ -75,6 +75,7 @@ Without one: `New Game · Settings · Credits`.
   ```
 
   Buttons are never "Yes / No". `Start Over` is not styled like the primary action (low-saturation red text).
+- `Start Over` doesn't delete anything by itself: the old save is replaced only when the player finishes Name and reaches the lock screen. Quitting during Before You Begin or Name keeps the old save and `Continue`.
 - After a completed ending, the menu also offers `Replay from Final Choice` (save-system §9).
 - Layout, motion and sound: **TBD**, the next discussion (§10).
 

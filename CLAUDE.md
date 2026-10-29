@@ -12,7 +12,7 @@ The player looks for a friend (Rachel) who has gone quiet. Their AI companion (J
 
 This repo is currently the **Day 2 shell**: real screens, a hardcoded script, and a few of Juno's lines written by a model (Claude Haiku 5.5 by default), with intents picked by a first-draft Director.
 
-**Course work and AI use:** part of this project is also coursework for ULEC 2943. Read `docs/course-context.md` (including my AI consent policy) before any task. After any meaningful AI-assisted work, add an entry to `docs/ai-process-log.md` — facts only, and leave "My decision" for me.
+**Course work:** the ULEC 2943 project (Project 1) is finished, submitted 2026-10-28. `docs/ai-process-log.md` is closed: don't add entries to it.
 
 ## The one rule
 

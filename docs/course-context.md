@@ -29,24 +29,3 @@ The section should show:
 Project 2 starts after Project 1. It asks me to take a critical issue I find through Project 1 and turn it into public advocacy or social action. The detailed brief hasn't been released yet.
 
 Possible directions, nothing decided: transparency, meaningful consent, emotional manipulation, or retention incentives in AI companion systems.
-
-## My AI consent policy
-
-The main idea, research question, story, characters, visual direction, clues and interaction design come from me.
-
-Claude Code **may**:
-
-- write and debug code from my instructions;
-- explain unfamiliar code;
-- help implement interaction systems;
-- suggest technical approaches when I ask;
-- help me compare implementation options.
-
-Claude Code **should not**:
-
-- replace my main concept;
-- redesign the story or research question on its own;
-- brainstorm new core project directions unless I specifically ask;
-- make final visual, narrative or ethical decisions for me.
-
-A language model may write some of Juno's dialogue, but only after my system has decided Juno's intention, allowed information, emotional strategy and story constraints. The model is never the source of truth for the mystery.

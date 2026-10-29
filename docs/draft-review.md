@@ -224,7 +224,6 @@ The convention is fixed strings rather than `new Date()`, so the fix would be a 
 ## 11. Still empty
 
 - **The real truth:** what actually happened to Rachel isn't in `js/data/truth.js`. There's an `[author]` placeholder there.
-- **The process log:** every "My decision" field in `docs/ai-process-log.md` is still empty.
 
 ---
 

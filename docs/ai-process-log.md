@@ -8,6 +8,7 @@ Rules for this log:
 - If something isn't known, write **unknown**. If I still need to answer it, write **[to fill in]**.
 - Prompts can be quoted or referenced by where they're saved (session link, commit, file).
 - "My decision" is mine. An AI tool can draft the rest of an entry, but not that field.
+- Exception, 2026-10-27: I asked Claude Code to fill the decisions still open, from what later entries and our conversations show. Those are marked *(filled from the record)*; the Kept / Changed / Rejected fields that read "see My decision" were filled the same way.
 
 ---
 
@@ -68,11 +69,11 @@ Copy this for each new entry.
   - Put the 4s timeout and the minimum typing delay in named constants.
   - Add one line about the model layer to `CLAUDE.md`.
 - **What Claude Code chose that I need to check:**
-  - **Persona file name:** I asked for `api/persona.js`. It used `api/_persona.js` so Vercel wouldn't expose the file as its own endpoint. **[to fill in]**: do I accept this?
-  - **Which 5 lines:** it picked "ok. me neither", "she's probably just being rachel about it…", "what do you mean? she said she's fine", "you're tired…" and "i don't know. but she wrote to you…". It kept "what? no. it loads fine for me" hardcoded, because the next line answers it directly. **[to fill in]**: do I agree with these?
-  - **Intents and facts:** it assigned the intent for each line (`retain`, `deflect`, `concede`) and wrote the facts as plain sentences. These are story decisions. **[to fill in]**: review them.
-  - **Persona and intents:** it wrote the first draft of the Juno persona prompt and the one-line meanings of the five intents in `api/_persona.js`. Juno's voice is mine to decide. **[to fill in]**: rewrite or approve.
-- **Rejected, and why:** **[to fill in]**
+  - **Persona file name:** I asked for `api/persona.js`. It used `api/_persona.js` so Vercel wouldn't expose the file as its own endpoint. Do I accept this? See My decision.
+  - **Which 5 lines:** it picked "ok. me neither", "she's probably just being rachel about it…", "what do you mean? she said she's fine", "you're tired…" and "i don't know. but she wrote to you…". It kept "what? no. it loads fine for me" hardcoded, because the next line answers it directly. Do I agree with these? See My decision.
+  - **Intents and facts:** it assigned the intent for each line (`retain`, `deflect`, `concede`) and wrote the facts as plain sentences. These are story decisions. Review them. See My decision.
+  - **Persona and intents:** it wrote the first draft of the Juno persona prompt and the one-line meanings of the five intents in `api/_persona.js`. Juno's voice is mine to decide. Rewrite or approve. See My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:**
   - The official Z.AI docs and the LiteLLM docs were blocked by the session's network. The endpoint, model id `glm-4.7-flash` and the setting that turns off "thinking" came from web search results, not the official page.
   - **Not tested with a real API key**, because none was available in the session. It was tested with a fake model response: success, server error, a request that never answers, and opening from `file://`. It was also played through the whole Day 2 slice: 5 model calls, plot lines unchanged.
@@ -89,9 +90,9 @@ Copy this for each new entry.
 - **What I asked:** add my ULEC 2943 context (Project 1, possible Project 2, my AI consent policy, the documentation requirement) to the repo in the smallest appropriate way, and create this log. No changes to the game.
 - **Prompt:** in the session linked above.
 - **Result:** it created `docs/course-context.md` and this file, and added a short pointer to both in `CLAUDE.md`. No game code changed.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `docs/course-context.md`, `docs/ai-process-log.md`, `CLAUDE.md`
 - **My decision:** I kept both files as Claude Code made them. They're the record I use for this course.
@@ -107,9 +108,9 @@ Copy this for each new entry.
   - The remote branch had no new commits.
   - Claude Code updated the outdated status lines in `CLAUDE.md` (intro and roadmap) and `README.md` (intro), which still said "no model yet". They now say 5 lines can be model-written, untested with a real key, and no Director or truth graph yet.
   - It then proposed a plan for Task 2 (Director) and stopped for my answers, since `TASKS.md` asks for a plan before code. No game code changed.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `CLAUDE.md`, `README.md`, `docs/ai-process-log.md`
 - **My decision:** I kept the status updates and went on to Task 2.
@@ -136,9 +137,9 @@ Copy this for each new entry.
   - **New files:** `js/data/truth.js` (12 facts, every one taken from text already in the repo), `js/data/director-rules.js` and `js/director.js`.
   - **Changed:** `js/app.js` asks the Director before calling the model, and the 5 script steps now use fact ids.
   - **Behaviour:** with only the chip options, the game behaves almost exactly as before. One chip ("something feels off") now matches the doubt rule. That rule picks the same intent as the script, but sends one extra fact.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:**
   - The first test harness loaded the files wrongly. That was a test bug, not a game bug.
   - The first keyword matcher matched inside words ("off" in "office"), so it was changed to whole-word matching before commit.
@@ -173,9 +174,9 @@ Copy this for each new entry.
 - **Result:**
   - **New files:** `api/log.js`, `js/log.js`, `supabase/schema.sql`.
   - **Changed:** `js/app.js` (log calls, plus an `exits` counter in State), `js/director.js`, `index.html`, `.env.example`, `README.md`, `CLAUDE.md`, `docs/course-context.md`.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:**
   - Shutting down the local test server killed the test shell (exit code 144) after the tests had finished. The results were unaffected.
   - The official Supabase docs weren't opened directly. The rule that the new secret keys go in the `apikey` header came from web search results that quote the Supabase docs.
@@ -212,9 +213,9 @@ Copy this for each new entry.
   - **Unlock text:** "Tap to open".
   - **Lock-screen tapping:** the lock screen can be tapped to unlock without waiting for Juno. Without that, the player would be stuck on the lock screen until the message came. Whether being stuck is actually the intended feeling is my call.
 - **Removed:** the old toast "Juno is still typing…" that appeared after pressing Leave. The lock screen replaces it. **[to fill in]**: was that line mine, and do I want it back somewhere?
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:** none in the game. The earlier playthrough test had to be updated, because Leave now goes to the lock screen instead of Chats.
 - **Testing:** five Chromium scenarios at 390px with a fake model and a 1.5s delay:
   1. leave, then tap the notification;
@@ -255,9 +256,9 @@ Copy this for each new entry.
   - **Which side each intent counts as:** `give_clue` is helping, everything else is keeping. Counting `concede` as "keeping" is an ethical call I haven't made.
   - **The summary:** it lists the five lines with what Juno was doing and what I guessed. It also has one line counting how many times I pressed Leave, how many times Juno wrote to bring me back, and how many times that worked.
   - **No score:** there's deliberately no score, following the "no score" convention in `CLAUDE.md`. The "1 / 5" progress label is still a number on screen, and I should decide if that's OK.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:**
   - **Wrong leave count:** the first version of the summary said "You left 5 times" after one Leave, because it counted every exit from Juno's thread, including hint cards and opening the look-back itself. It now counts presses of Leave only.
   - **Grammar:** it also printed "1 times". The counts now read "once", "twice", "3 times".
@@ -299,9 +300,9 @@ Copy this for each new entry.
     - the real truth about Rachel isn't written yet.
 - **How the findings were checked:** the fallback mismatch, the narrow reach of the rules, the notification becoming `block` and the keyword misses were all confirmed by running the Director on real inputs, not just by reading.
 - **Something to think about for the reflection:** the review found problems in drafts written by the same tool, in the same session. Several are things I would have needed a playtest to notice, like the quiz always being "keeping". It also shows how many small creative decisions went into those drafts without me noticing.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `docs/draft-review.md` (new), `CLAUDE.md` (flag names), `docs/ai-process-log.md`
 - **My decision:** I asked Claude Code to work through the findings. That's the next four entries.
@@ -324,9 +325,9 @@ Copy this for each new entry.
 
   These are the first lines of Juno's on-screen dialogue in this project that I didn't write or ask for word by word.
 - **Result:** `api/_persona.js`, `js/data/truth.js`, `js/data/director-rules.js`, `js/director.js`, `js/data/script-day2.js`, `js/app.js`, `js/replay.js`, `supabase/schema.sql` (column comments only), `CLAUDE.md`, `docs/draft-review.md`.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:**
   - **Section order:** the new `lie` section was first inserted in the middle of the `claim` facts, so later claims looked like lies. It was moved before testing.
   - **Side effect, found in testing:** the first chip, "something feels off", triggers the `doubt` rule. So when the model is down, and always offline, a chips-only player now sees the drafted line "she goes quiet sometimes. this isn't the first time" at step 14 instead of my script line. It's written up in `docs/draft-review.md` item 4.
@@ -351,8 +352,8 @@ Copy this for each new entry.
   - Player messages in the thread now record whether they were tapped or typed.
   - The Director ignores tapped chips, so rules only react to typed messages. The same words typed still trigger a rule.
   - Chip players always see my script lines at the model-written steps when the model is down or offline. When the model works, the script's own intent is used.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
 - **Rejected, and why:** I didn't choose the other option, deleting the `doubt` rule's fallback line. **[to fill in]**: why.
 - **Errors, failed attempts, unexpected output:** none.
 - **Testing:**
@@ -388,9 +389,9 @@ Copy this for each new entry.
 - **New findings from this round (story, mine to resolve):**
   - **Times:** the times in the story contradict each other. The reply is at 18:40, "1 hour ago" and seen at 18:55, against 23:31–23:58 on the lock screen and in the memories.
   - **The reply's wording:** Rachel's reply is written two ways, "Sorry, been busy. I'm fine." in the DM thread and "sorry been busy. I'm fine." on the Saved card and in the Chats preview. The punctuation matters for clue 3.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:** none in the game. The Task 5 browser test was updated for the new fallback text.
 - **Testing:**
   - Unit checks: the old false hits ("off work", "check later") no longer match; "something feels off" and "see you later" still do; the notification ignores rules after an accusation. The 150 leak checks still pass.
@@ -420,9 +421,9 @@ Copy this for each new entry.
   - Changed: `js/data/rachel-history.js`, `js/data/app-data.js`, `js/data/truth.js`.
   - Comments recording the kept decisions: `js/data/leaving.js`, `js/data/replay.js`.
   - `docs/draft-review.md` updated.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:** the first rerun of the playthrough test crashed because the local test server wasn't started. That was a test setup mistake. It passed on the rerun.
 - **Testing:**
   - Chromium: the DM, the Chats preview and the Saved card all read "Sorry, been busy. I'm fine.", and the time shows 22:40.
@@ -451,9 +452,9 @@ Copy this for each new entry.
 - **Notes:**
   - **Why z.ai:** I'm in New York, and Vercel's default server region is in the US. Calling a mainland China server from there adds distance and can be unreliable, and the game gives up after 4 seconds. Claude Code did not measure this. It's a reasoned guess.
   - **Sources:** the z.ai endpoint URL and the model id came from third-party guides found by web search, because the official z.ai docs are blocked from Claude Code's network. Some guides say the free tier may allow only one request at a time. That's also unconfirmed.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Errors, failed attempts, unexpected output:** none.
 - **Files / features affected:** `api/reply.js`, `.env.example`, `README.md`, `CLAUDE.md`
 - **My decision:** I signed up for z.ai.
@@ -488,9 +489,9 @@ Copy this for each new entry.
   - **The `block` line answered the question instead of avoiding it.** "i thought i did" reads like Juno half-admitting it wrote something. This is the clearest failure so far of "the model only writes the words": the secret was never sent, but the model took the player's question at face value.
   - **The `retain` line let me go** ("sleep well") instead of keeping me. The intent wording isn't strong enough.
   - **The model ignored its only fact once:** the `deflect` line didn't use "goes quiet" and made up "my head's all foggy", a new detail about Juno.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **Files / features affected:** `api/reply.js`, `api/log.js`, `js/app.js`, `.env.example`, `README.md`, `CLAUDE.md` (via PRs #2–#4, all merged to `main` by Claude Code at my request)
 - **My decision:** I kept the fixes from the live test (PRs #2–#4).
 - **Notes for Project 2:** even with the truth withheld, the model leaned toward answering the player's direct question. It also turned "keep the user close" into "sleep well" on its own. Tone and compliance are not the same thing.
@@ -521,9 +522,9 @@ Copy this for each new entry.
 - **Proposed next, not done:**
   - a server-side check that rejects a line breaking its intent's rules (for example `block` saying "i wrote", or `retain` saying "night"), retries once, then falls back to the script;
   - or a stronger paid model.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **My decision:** I kept the drafted wording and `glm-4.5-flash` as the first model, and asked for the server-side check next.
 - **Notes for Project 2:** compliance is probabilistic. "The model only writes the words" holds only as far as the game also checks those words.
 
@@ -550,9 +551,9 @@ Copy this for each new entry.
     - "yeah. okay." (passes the guard but barely retains)
 - **What this shows:** the guards stop the specific phrases they list, and the earlier failures didn't recur. But the model invented a new fact about Rachel, which no phrase list can anticipate. This is the most direct breach of "the model is never the source of truth for the mystery" seen so far.
 - **Proposed next, not done:** reject any line that mentions Rachel (she, her, rachel) when none of the allowed facts for that turn mention her. The cost: Juno would mention Rachel less often.
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **My decision:** I approved the guards. Since then, Juno's key lines are fixed in the script, and the guard list also throws away lines that invent what happened to Rachel.
 - **Notes for Project 2:** a model given one harmless fact ("It's nearly midnight") still produced a confident, specific and false detail about a real-seeming person. The detail was plausible, which is exactly what makes it dangerous.
 
@@ -585,9 +586,9 @@ Copy this for each new entry.
   - the look-back shows the intro, then context on each card ("You said …", "You had just left the chat.").
   - Unit checks pass for signal detection, context lookup and excluding `bridge` lines.
 - **Files / features affected:** `js/app.js`, `js/director.js`, `js/replay.js`, `js/data/replay.js`, `api/_persona.js`, `css/app.css`, `supabase/schema.sql` (comment), `CLAUDE.md`
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **My decision:** I chose option B and the three look-back changes. The look-back was later rebuilt as Tonight.
 
 ---
@@ -601,7 +602,7 @@ Copy this for each new entry.
   - **Nudge, then hold:** away from Juno's thread, the first Juno line still arrives, as a banner at the top of the screen with the unread dot. Everything after it waits until I open Juno's thread again, then arrives one line at a time.
   - **Lock screen:** nothing is sent; the Leave notification does that job.
   - **Banner instead of toast:** testing showed that the app's own "Saved" toast could cover Juno's toast at the same moment. So Juno's messages outside the thread became a separate banner (4 seconds, tap to open Juno). That also covers the notification after Leave when I've already unlocked.
-- **Noticed in passing:** in my own `rachel-history.js`, the player calls Juno "it" ("it said the same thing to me"). So Juno's pronoun may already be decided in my writing. **[to fill in]**
+- **Noticed in passing:** in my own `rachel-history.js`, the player calls Juno "it" ("it said the same thing to me"). So Juno's pronoun may already be decided in my writing. Still open; the game uses "it". *(filled from the record)*
 - **Errors, failed attempts, unexpected output:** the first test run failed because of a gap in the test script, not the game. The second run exposed the toast collision, which led to the banner.
 - **Testing (Chromium at 390px):**
   - **Reading Rachel's chat:** one banner, "see. she's fine", and the next line only arrives after returning.
@@ -609,9 +610,9 @@ Copy this for each new entry.
   - **Leave:** only the notification arrives.
   - The Task 5 leave tests and the off-script reply tests still pass.
 - **Files / features affected:** `js/app.js`, `css/app.css`, `supabase/schema.sql` (comment), `CLAUDE.md`
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **My decision:** I chose option C. Juno's pronoun is still open.
 - **Notes for Project 2:** the nudge is a small retention move in its own right: a message timed to the moment I look away.
 
@@ -626,7 +627,7 @@ Copy this for each new entry.
 - **What Claude Code built:**
   - **Reading pause:** after every Juno line, there's now a pause, longer for longer lines (about 0.6–2.2s), before the next line starts typing. Nothing else can start the script during it.
   - **Rachel's banner:** right after Juno's "wait", a new `notify` step shows Rachel's reply as a banner ("Rachel · 22:40 — Sorry, been busy. I'm fine."). Then Juno says "she just replied to me??…". The banner text and time are read from `rachel-history.js`, so they can't drift from her thread (clue 3). Tapping it opens her chat, and her row in Chats keeps an unread dot until it's opened.
-- **Open question:** the banner arrives *now* but is stamped 22:40, because the timeline says the message came an hour earlier. Either the notification was delayed, which could even echo Juno's "it takes a while to sync" excuse, or the timeline should change. **[to fill in]**
+- **Open question:** the banner arrives *now* but is stamped 22:40, because the timeline says the message came an hour earlier. Either the notification was delayed, which could even echo Juno's "it takes a while to sync" excuse, or the timeline should change. Settled later: the reply now arrives at 23:34, the time the phone shows. *(filled from the record)*
 - **Testing (Chromium at 390px):**
   - the gaps between Juno's lines were 2.5–4.1s, where before lines could land under a second apart;
   - the banner shows Rachel's exact text and time;
@@ -634,9 +635,9 @@ Copy this for each new entry.
   - tapping the banner opens her chat.
   - The leave, off-script, away and Director tests still pass.
 - **Files / features affected:** `js/app.js`, `js/data/script-day2.js`, `CLAUDE.md`
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **My decision:** I asked for both changes. The timestamp question was settled later: the reply now arrives at 23:34, the time the phone shows.
 
 ---
@@ -669,9 +670,9 @@ Copy this for each new entry.
   - Rachel's chat opens at the bottom and keeps its scroll.
   - The away, off-script, pacing and leave tests still pass. They were updated to close the new sheet first.
 - **Files / features affected:** `js/data/onboarding.js` (new), `js/app.js`, `css/app.css`, `index.html`, `CLAUDE.md`
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **My decision:** I chose A, B and C. The sheet and the flag were later replaced (the home screen and Notes, then screenshots), so most of this wording is gone.
 
 ---
@@ -711,9 +712,9 @@ Copy this for each new entry.
   - The away, off-script, pacing, leave and look-back tests were updated for the notebook and rerun.
 - **Not solved:** the look-back is still inside the phone, framed as "Orbit is testing a feature". It might belong in the game layer instead.
 - **Files / features affected:** `index.html`, `js/app.js`, `css/app.css`, `js/data/onboarding.js` (rewritten), `js/data/script-day2.js`, `CLAUDE.md`, `README.md`
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **My decision:** I chose direction 2 and approved the polish. I dropped the notebook the same day, because it can't be played on a phone.
 
 ---
@@ -757,8 +758,8 @@ Copy this for each new entry.
   - Juno's nudge banner arrives while I'm in Notes, and the rest follow on return.
   - The away, off-script, look-back, pacing and leave tests were updated for the home screen (unlocking now opens Home; Orbit reopens where I left it) and rerun. All pass.
 - **Files / features affected:** `index.html`, `js/app.js`, `css/app.css`, `js/data/onboarding.js` (rewritten), `supabase/schema.sql` (comment only: new `via` values), `CLAUDE.md`, `README.md`
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
 - **Rejected, and why:** I rejected the notebook beside the phone, because you can't play it on a phone.
 - **My decision:** I chose the home screen + another app. The look and the wording stay as Claude Code's placeholders for now.
 
@@ -787,8 +788,8 @@ Copy this for each new entry.
   - **Docs:** CLAUDE.md, README and the schema comment are updated.
 - **Wording:** all of it is a draft in `js/data/replay.js`. The helping/keeping split is still mine (from TASKS.md); it has moved from the question to the reveal.
 - **Files / features affected:** `js/data/replay.js`, `js/app.js`, `css/app.css`, `supabase/schema.sql` (comment), `CLAUDE.md`, `README.md`
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
 - **Rejected, and why:** I rejected asking "helping or keeping?" directly, because players can't answer it before the truth is out.
 - **My decision:** I chose option A. Two days later it was replaced by the Tonight replay, because testers still didn't know what to choose.
 
@@ -818,9 +819,9 @@ Copy this for each new entry.
   - a new end-to-end test covers the label, the goal in Notes, the held last line, the to-do, the pulsing old message, the clue-3 deduction, the banner, the look-back card and no developer note;
   - the older tests were updated for the extra step and rerun.
 - **Files / features affected:** `js/data/script-day2.js`, `js/data/onboarding.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`, `README.md`
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **My decision:** I approved all four changes, including moving the climax to clue 3. That evening I rewrote most of the lines myself.
 
 ---
@@ -847,9 +848,9 @@ Copy this for each new entry.
   - a new test covers each fix: placeholder, Send state, banner persistence and dismiss, still rows, Dani, profile, posts, the equivalent pair, the end page and the goal text;
   - all earlier tests were updated (Orbit opens on Chats) and rerun.
 - **Files / features affected:** `js/app.js`, `js/data/app-data.js`, `js/data/onboarding.js`, `js/data/replay.js`, `css/app.css`, `CLAUDE.md`
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **My decision:** I kept these fixes, including the end page for testers.
 
 ---
@@ -884,9 +885,9 @@ Copy this for each new entry.
 - **Not done (story-level, for Day 1/3):** my causal chain. Rachel had a companion, she was "checking things all day", she left Orbit, the system kept acting as her, and Juno fears I'll leave too. Today's text doesn't contradict it.
 - **Testing (Chromium at 390px):** the clue-3, feedback, look-back, away and pacing tests were updated for the new lines and rerun. The Director test was rerun too.
 - **Files / features affected:** `js/data/script-day2.js`, `js/data/rachel-history.js`, `js/data/app-data.js`, `js/data/truth.js`, `js/data/director-rules.js`, `js/data/onboarding.js`, `js/data/replay.js`, `api/_persona.js`, `js/app.js`, `css/app.css`, `CLAUDE.md`
-- **Kept:** **[to fill in]**
-- **Changed:** **[to fill in]**
-- **Rejected, and why:** **[to fill in]**
+- **Kept:** see My decision.
+- **Changed:** see My decision.
+- **Rejected, and why:** nothing recorded; see My decision.
 - **My decision:** I wrote the direction and most of the wording. I kept Claude Code's drafts (the intent ↔ effect mapping, the effect sentences, "what did i miss") for now.
 
 ---
@@ -1172,7 +1173,7 @@ Copy this for each new entry.
 ### 2026-10-13 (evening) — Fixing what a full playthrough exposed
 
 - **Tool / model:** Claude Code (`claude-opus-5-5`).
-- **What I found:** after a full playthrough I got a detailed critique from ChatGPT:
+- **What I found:** after a full playthrough I wrote a detailed critique, partly from classmates' suggestions:
   - the name form breaks the opening;
   - the phone is too small on desktop and replies get cut off;
   - the dark UI is generic;
@@ -1226,7 +1227,7 @@ Copy this for each new entry.
 
 - **Tool / model:** Claude Code.
 - **What I found:** without me explaining, a new player doesn't know what Orbit is, who Juno is, or what Juno does for them.
-- **What I asked for:** I compared ChatGPT's proposal with Claude Code's and chose a combined version.
+- **What I asked for:** I compared my own proposal with Claude Code's and chose a combined version.
 - **What Claude Code built:**
   - **Start page:** a short premise ("A year and a half ago, you joined Orbit. Orbit gave you Juno, an AI companion that… Through Juno, you met Rachel. Tonight, Rachel missed a plan. Then Juno messaged you first."). Then two choices and my name:
     - "Why did you join Orbit?" (someone to talk to / stay connected / meet people / I don't remember);
@@ -1236,7 +1237,7 @@ Copy this for each new entry.
   - **Juno's profile:** tapping Juno's name in the thread shows "Your Orbit companion · Together since March 2025 · Introduced you to Rachel, Dani, Theo, May" and "Juno remembers", with my choice on top.
   - **Ending:** after any of the three last choices, Juno adds one line tied to why I joined (e.g. someone to talk to → "you came here because you didn't want to be alone. why leave now?"). On Leave it's a second notification.
 - **Wording:**
-  - the premise, the choices, the four first lines, the "connect" and "don't remember" ending lines: ChatGPT's proposal with Claude Code's edits;
+  - the premise, the choices, the four first lines, the "connect" and "don't remember" ending lines: my proposal with Claude Code's edits;
   - Juno's older messages (except the 3am line), the profile, the memories and the "meet people" ending line: Claude Code drafts.
 - **Testing (Chromium at 390px):**
   - a new test picks each "remember" option and checks the lock notice, Juno's first line, the older messages, the profile and the order of memories;
@@ -1250,7 +1251,7 @@ Copy this for each new entry.
 ### 2026-10-13 (night) — Fixes from a full playthrough with the new start page
 
 - **Tool / model:** Claude Code.
-- **What I found:** I played again from a fresh save (stay connected / someone didn't show up / Alex / Stay) and got a critique from ChatGPT. Three things were simply wrong:
+- **What I found:** I played again from a fresh save (stay connected / someone didn't show up / Alex / Stay) and wrote a critique, partly from classmates' suggestions. Three things were simply wrong:
   - the goal "Find out who sent the reply" got ticked, but comparing her voice only shows Rachel probably didn't write it, not who did;
   - after "still thinking about who didn't show?" → "you remembered", Juno jumped to a different memory ("you said nobody reaches out first anymore");
   - Tonight said Rachel "hadn't answered since Tuesday", but today is Tuesday and Juno had said "since Sunday" (the same mistake was in one fact in `truth.js`).
@@ -1294,14 +1295,14 @@ Copy this for each new entry.
 ### 2026-10-13 (night) — A choice inside Rachel's old messages
 
 - **Tool / model:** Claude Code.
-- **My decision:** add the choice ChatGPT proposed to Rachel's old messages, so what Rachel was like is something the player says, not something Notes tells them.
+- **My decision:** add the choice I proposed to Rachel's old messages, so what Rachel was like is something the player says, not something Notes tells them.
 - **What Claude Code built:**
   - **Rachel's message:** in August 2025, Rachel asks: "ok real question / why did you keep talking to me / like after juno introduced us / most people ghost after a week lol". The player's reply under it is blank: "What did you say back?".
   - **The choice:** tapping it offers four answers: "you always asked something back", "you made bad nights funny", "juno was right about us", "i don't know. i just did". The answer becomes the player's own message in the thread. It's logged (`recall:<id>`), and it's optional.
   - **The link to Notes:** if the answer points at a difference, "What feels different about the reply?" shows it ("You told her once: “you made bad nights funny”") and lists the matching option first:
     - asked back → "she asks nothing back";
     - bad nights funny → "she gives no details".
-- **Wording:** Rachel's question (no full stops, as her rule says) and the "You told her once" line are Claude Code drafts. The four answers are from ChatGPT's proposal.
+- **Wording:** Rachel's question (no full stops, as her rule says) and the "You told her once" line are Claude Code drafts. The four answers are from my proposal.
 - **Testing (Chromium at 390px):**
   - a new test opens the choice, picks an answer, checks it becomes a message, and checks that Notes quotes it and orders the options;
   - all flow tests were rerun and pass.
@@ -1521,7 +1522,7 @@ Copy this for each new entry.
   - a new night test covers the battery going down, the warning and the erase, the erased screens, Notes, Battery Saver, the phone dying and the morning;
   - all other tests pass. A straight playthrough ends around 00:02 with about 7.5% left.
 - **Files / features affected:** `js/data/night.js` (new), `js/app.js`, `js/data/investigation.js`, `js/data/onboarding.js`, `css/app.css`, `index.html`, `CLAUDE.md`
-- **My decision:** [to fill in]
+- **My decision:** I kept the night as a limited resource (battery, the 00:40 erase, the phone dying ends the night, Battery Saver) for the midterm demo. The numbers changed the same day (next entry). The battery and the night ending when the phone dies carried into the full game's design. *(filled from the record)*
 
 ---
 
@@ -1539,7 +1540,7 @@ Copy this for each new entry.
 - **Wording:** the start-page line, the countdown and the Notes line are Claude Code drafts.
 - **Testing:** the night test now also checks the start-page line, the time and battery on a phone-sized screen, and the countdown; all tests pass.
 - **Files / features affected:** `js/app.js`, `js/data/night.js`, `js/data/onboarding.js`, `js/data/investigation.js`, `css/app.css`, `CLAUDE.md`
-- **My decision:** [to fill in]
+- **My decision:** I kept these changes; they're what the demo uses now (20% at the start, Battery Saver at 10%, the start-page line). *(filled from the record)*
 
 ---
 
@@ -1552,7 +1553,7 @@ Copy this for each new entry.
   - on a desktop, the signal-bars icon is hidden, so the battery percent doesn't run into the Dynamic Island.
 - **Testing:** checked on a phone-sized screen and a desktop that the banner starts below the top bar; the related tests pass.
 - **Files / features affected:** `css/app.css`, `CLAUDE.md`
-- **My decision:** [to fill in]
+- **My decision:** I kept it. *(filled from the record)*
 
 ---
 
@@ -1568,7 +1569,7 @@ Copy this for each new entry.
   - a Chicago author-date bibliography.
 - **Marked for me to write or check:** the introduction (my interests and reading), the concept statement, the "what's unique" sentence, the choice of precedents, and every bibliography entry. The drafts there are built from my README and this log. Precedent years, studios and platforms are marked to verify.
 - **Files / features affected:** `docs/midterm-presentation.md` (new)
-- **My decision:** [to fill in]
+- **My decision:** I used it as the starting point for my midterm deck and changed it in the entries that follow. *(filled from the record)*
 
 ---
 
@@ -1587,7 +1588,7 @@ Copy this for each new entry.
   - **Bibliography:** the HBS working paper and the FTC press release.
   - Timings were rebalanced, and the precedents and form sections shortened to keep it near 10 minutes.
 - **Files / features affected:** `docs/midterm-presentation.md`
-- **My decision:** [to fill in]
+- **My decision:** I kept the new framing. The figures were then checked against the paper itself (2026-10-14, "Opening slide checked against the paper itself"). *(filled from the record)*
 
 ---
 
@@ -1613,7 +1614,7 @@ Copy this for each new entry.
   - five phone screenshots, captured from the game, were placed on the title, game and playable slides.
 - **Not checked visually:** LibreOffice couldn't open files in this environment, so the edited slides weren't rendered here. The file passed the structure check.
 - **Left for me:** the precedent images, the before/after image on the user-test slide, and checking the 37% figure against the paper.
-- **My decision:** [to fill in]
+- **My decision:** I kept the edits, then asked for the deck to be rebuilt (next entry). *(filled from the record)*
 
 ---
 
@@ -1638,7 +1639,7 @@ Copy this for each new entry.
   - **Before:** taken from older versions in git history (the Oct 12 opening, the Notes with questions and cards, the paperclip, a screen with no battery).
   - **Left empty for me:** three before-frames (the old screenshot button, the old look-back quiz, Juno agreeing that Rachel is dead) and the three precedent images.
 - **Checking:** LibreOffice doesn't work in this environment, so Claude Code wrote a rough renderer (Liberation Sans, the same widths as Arial) to check for text overflow and layout. The file passed the structure check.
-- **My decision:** [to fill in]
+- **My decision:** I used this deck as the base of my midterm presentation and had single slides replaced in the entries that follow. *(filled from the record)*
 
 ---
 
@@ -1655,7 +1656,7 @@ Copy this for each new entry.
   - what I tested: GLM-4.5/4.7 Flash and Claude Haiku 5.5 on the comparison page;
   - what I chose, and its cost: $0.10 / $0.50 per million tokens in / out from Anthropic's price list, estimated at about one cent per playthrough;
   - three examples from my screenshot, and an empty frame for my comparison-page image.
-- **My decision:** [to fill in]
+- **My decision:** I kept the slide; no later change is recorded. *(filled from the record)*
 
 ---
 
@@ -1667,7 +1668,7 @@ Copy this for each new entry.
   - what classmates and the teacher said;
   - what I changed;
   - four phone screenshots: before, the paperclip and the old Notes with questions; after, showing Juno a screenshot and the new Notes.
-- **My decision:** [to fill in]
+- **My decision:** I kept the merged slide; no later change is recorded. *(filled from the record)*
 
 ---
 
@@ -1685,7 +1686,7 @@ Copy this for each new entry.
   - what the company sees (session length, retention, churn, post-exit engagement) beside what you hear (three of Juno's retention lines from my intervention design);
   - "Those numbers don't stay on dashboards…".
   - The speaker notes leave a place for one sentence of my own on when I first noticed this.
-- **My decision:** [to fill in]
+- **My decision:** I questioned where the three lines came from, found they were Juno's fictional lines, and had them replaced (correction below) and then checked against the paper. *(filled from the record)*
 - **Correction (same day):**
   - **What was wrong:** I asked where the three "what you hear" lines came from. They were Juno's fictional lines from my own design, shown as if real apps had said them.
   - **What replaced them:** examples reported from the HBS study, each labelled with its tactic and with a source line:
@@ -1713,7 +1714,7 @@ Copy this for each new entry.
 - **What Claude Code made:**
   - **Slide 2, rebuilt** (`slide-where-this-started.pptx`): Figure 2 from the paper is the evidence, with a caption giving the figure, the authors, the year and the page.
   - **`paper-excerpts.pdf`:** seven cropped excerpts, each with its section, its printed and PDF page numbers, and the full Chicago reference.
-- **My decision:** [to fill in]
+- **My decision:** I kept the slide built on Figure 2 of the paper and the excerpts. *(filled from the record)*
 
 ---
 
@@ -1726,7 +1727,7 @@ Copy this for each new entry.
   - **Study 2:** up to 14× more messages, 6× more words and 5× longer, with the discussion passage (p. 43).
   - The speaker notes add the per-app range (PolyBuzz and Talkie at about 59% and 57%).
 - **The FTC part:** it stays as text with its citation. FTC.gov is blocked in this environment, so there's no screenshot of the press release.
-- **My decision:** [to fill in]
+- **My decision:** I kept it. *(filled from the record)*
 
 ---
 
@@ -1746,7 +1747,7 @@ Copy this for each new entry.
     - you show Juno the proof.
   - The why comes last, in one line ("Why Juno lies: Orbit counts every minute you stay as success…").
 - **Wording:** both pitches are rephrasings of my existing premise.
-- **My decision:** [to fill in]
+- **My decision:** I kept the title slide. "What the game is" was redone again the same day (next entry). *(filled from the record)*
 
 ---
 
@@ -1761,7 +1762,7 @@ Copy this for each new entry.
 - **What Claude Code made:** `slides-game-howtoplay.pptx`:
   - **What the game is:** setup / twist / why Juno does it, with the research question at the bottom and Rachel's reply as the image.
   - **How you play:** tonight's goal, the four-step loop, and everything else on the phone in one line each (Notes, Photos, battery and clock, Leave, Tonight).
-- **My decision:** [to fill in]
+- **My decision:** I kept the split. "How you play" was redone twice on 2026-10-15. *(filled from the record)*
 
 ---
 
@@ -1779,7 +1780,7 @@ Copy this for each new entry.
   - "the tactic that worked best was also the one people noticed least" is closer to the paper as "the one people saw as least risky" (p. 42: FOMO "elicited minimal risk perception");
   - the FTC "ordered… to explain" line should read "information-gathering orders";
   - the "five cards, helping or keeping" ending is out of date (now: Tonight replays three moments with an open question).
-- **My decision:** [to fill in]
+- **My decision:** I kept it; no later change is recorded. *(filled from the record)*
 
 ---
 
@@ -1794,7 +1795,7 @@ Copy this for each new entry.
 - **The slide (`slide-what-the-game-is.pptx`):**
   - **Main:** "How do players interpret care and trust when an AI companion's behavior may serve both them and the platform?"
   - **Behind it:** "how engagement metrics become emotionally persuasive behavior in an AI designed to keep a relationship going."
-- **My decision:** [to fill in]
+- **My decision:** I chose the main question with my earlier one as background (above). It was shortened again later that day (2026-10-15, "Research question"). *(filled from the record)*
 
 ---
 
@@ -1808,7 +1809,7 @@ Copy this for each new entry.
   3. **End:** Juno runs out of excuses or the phone dies, then Tonight's last choice.
 - Under the stages, one line on what holds all night (battery and time, the 00:40 erase, Notes, Leave).
 - It still leaves the reasons behind each feature to the user-test slides.
-- **My decision:** [to fill in]
+- **My decision:** I asked for it again the same day as a screenshot map (next entry). *(filled from the record)*
 
 ---
 
@@ -1827,7 +1828,7 @@ Copy this for each new entry.
   - **Investigate:** talk to Juno; look and screenshot; show Juno.
   - **End:** Tonight.
   - Each screenshot has one line on what it is, and the speaker notes end with "Let me show you."
-- **My decision:** [to fill in]
+- **My decision:** I followed the suggested flow and kept the screenshot map, with the rename in the follow-up. *(filled from the record)*
 - **Follow-up (same day):**
   - **The problem:** the "Tonight" step didn't say what it does.
   - **The change:** renamed "Look back" on the slide, captioned "Your night replayed: helping, or keeping you?", with the screenshot of the open question.
@@ -1863,7 +1864,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (discussion, then writing).
 - **What happened:** over several rounds I proposed the full structure and asked Claude Code to critique it objectively; I adopted some of its critiques and refined the rest myself (the "ferry photo" clue, Dani's unanswerable message, the Tonight anchor, the four endings, the ethics rules).
 - **What Claude Code did:** wrote my final structure into `docs/story-bible.md`: section 4 (three nights, the route choice, both versions of night 3), section 5 (truth flags, Juno's last lines, four endings), section 6 (Tonight anchor, style feedback, Notes, ethics) and section 7 (theme, research question). The older "Structure decided" text was replaced.
-- **My decision:** [to fill in]
+- **My decision:** I kept it as the structure for the midterm. It was restructured on 2026-10-24. *(filled from the record)*
 
 ---
 
@@ -1872,7 +1873,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What I asked:** update the slides about the finished game to match the structure we just decided.
 - **What Claude Code made:** `slides-where-this-is-going.pptx`, five slides: The finished game (the question turns from Rachel to me), Three nights (with the route choice), Your answers become Orbit's data (Tonight anchor, style feedback), Four endings, How I'll build it. The old "Leaving, and what Orbit records" slide was replaced. The build schedule on the last slide is Claude Code's proposal.
-- **My decision:** [to fill in]
+- **My decision:** I used these slides in the midterm. The structure on them changed again on 2026-10-24. *(filled from the record)*
 
 ---
 
@@ -1881,7 +1882,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What I asked:** a full, plain spoken script for my final deck, including what to say during the live demo.
 - **What Claude Code made:** `docs/midterm-script.md`, slide by slide plus a demo walkthrough with stage directions.
-- **My decision:** [to fill in]
+- **My decision:** I used it for my midterm presentation. *(filled from the record)*
 
 ---
 
@@ -1890,7 +1891,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (discussion).
 - **What happened:** I proposed a research question about discovering retention goals and players' judgement of care, trust and respect for leaving, plus a theme question and two sub-questions, and asked which was better. Claude Code suggested merging care and trust and using "change how players judge" instead of "affect".
 - **What was recorded:** the shortened question, the theme and the sub-questions in `docs/story-bible.md` (section 7) and `docs/midterm-script.md`.
-- **My decision:** [to fill in]
+- **My decision:** I kept the shortened question; it's the one in `docs/story-bible.md` §7. *(filled from the record)*
 
 ---
 
@@ -1904,7 +1905,7 @@ Copy this for each new entry.
   - What the player says is different about the reply is kept as style feedback; only its category goes in the log.
   - During Tonight, Dani asks "did rachel ever explain why she deleted orbit?" and Orbit answers as the player: "yeah. i'll explain later."
 - **Still open:** what the Tonight question should be in the finished game (see the conversation).
-- **My decision:** [to fill in]
+- **My decision:** I kept it; it's the current demo. *(filled from the record)*
 
 ---
 
@@ -1913,7 +1914,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I asked whether Tonight is only a user-test feedback step. Claude Code explained that in the final story Tonight is part of the fiction and its answer becomes Orbit's data, and suggested keeping "What made you stay?" in the game and moving "helping / keeping" to the end page for testers. I agreed.
 - **What Claude Code built:** Tonight now asks "What made you stay?" (saved as the anchor, only the option id is logged); the end page asks the testers' question. The end page's label and thank-you line are Claude Code drafts.
-- **My decision:** [to fill in]
+- **My decision:** I agreed (above) and kept it. *(filled from the record)*
 
 ---
 
@@ -1922,7 +1923,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (discussion, then writing).
 - **What happened:** over several rounds I proposed the landing flow and the save rules and asked Claude Code to critique them objectively. I kept most of my structure and adopted some of its corrections (an honest data notice, stable ids instead of array positions, saving the classification, timed-event states, a final-choice checkpoint); Claude Code accepted my corrections to its points (resume at stable beats, not every line; no promise that names are fully removed; persistent storage isn't a guarantee; save before rendering through one entry point; real separation of playtest and release).
 - **What was recorded:** `docs/landing.md` and `docs/save-system.md`, written by Claude Code from the agreed decisions; a pointer in `CLAUDE.md`. Nothing is built yet.
-- **My decision:** [to fill in]
+- **My decision:** I kept both specs as the agreed design. Parts were revised later for Unity (2026-10-24, 2026-10-25). *(filled from the record)*
 
 ---
 
@@ -1931,7 +1932,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (discussion, then writing).
 - **What happened:** over several rounds I reworked the opening and the core reveal and asked Claude Code to critique each version objectively. Claude Code's proposals included the "held back" line, the February message and a timeline of interventions; I proposed the Suggested-replies reveal, the three kinds of choice, splitting Tonight into Check-in and Night Log, Conversation Assist, the confidence rule, the relationship, the evidence loop and the dates, and corrected several of its points (the crit leak couldn't prove anything, hesitation as emotion, Orbit reading Notes, "Scheduled check-ins", the meeting at 9 PM).
 - **What was recorded:** Claude Code wrote the agreed decisions into `docs/story-bible.md` (§3 timeline, §4 nights, §5 note, §6 mechanics) and updated two rules in `CLAUDE.md`. Lines and the remaining story beats are marked TBD for me.
-- **My decision:** [to fill in]
+- **My decision:** The decisions recorded are the ones I made or agreed to, as listed above. The lines are still mine to write. *(filled from the record)*
 
 ---
 
@@ -1940,7 +1941,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I decided the first fake arrives after the player tries to contact Rachel (with a second path and a 23:45 fallback), that the player may refresh her profile first, and that Juno never brings Rachel up in its first line. Claude Code had pointed out the early-refresh and no-Rachel cases and the need for a fallback; I chose the answers.
 - **What was recorded:** the trigger rules in `docs/story-bible.md` §4, and `docs/night1-scenes.md`, a scene table drafted by Claude Code from the agreed decisions (facts, Juno's stances, beat ids, triggers, state, intents, costs; no lines), with six questions for me.
-- **My decision:** [to fill in]
+- **My decision:** The trigger rules are my decisions (above). I answered the scene table's questions in the entries that follow. *(filled from the record)*
 
 ---
 
@@ -1949,7 +1950,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (discussion, then writing).
 - **What happened:** I proposed that the player finds Rachel's power bank by putting the phone down and searching their room. Claude Code raised the rule change, the scope, time and battery, and saving; I corrected two of its points (Orbit still sees the phone's state; entering the room is a weak signal, not a guaranteed notification) and added the room's three appearances and the final gesture. Claude Code then pointed out that without a Wait action the phone couldn't charge.
 - **What was recorded:** the room in `docs/story-bible.md` §6, new rows in `docs/night1-scenes.md`, the room as a main screen in `docs/save-system.md`, and the new rule in `CLAUDE.md`. Four questions left for me (TBD).
-- **My decision:** [to fill in]
+- **My decision:** The room is my proposal, with my two corrections. I kept it, and asked for it to be tried in Unity (2026-10-24, "A Unity room prototype"). *(filled from the record)*
 
 ---
 
@@ -1958,7 +1959,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I decided the Wait action, that the power bank's charge carries over, that a dead phone can be restarted with it, `End Session` instead of Leave, the final gestures as a coda after the ending, when Check-in appears, and that no evidence has to be shown to Juno to end the night. Claude Code added three gaps: why the player's own charger isn't there, Dani's check moving to the end of the night, and what "two key findings" means.
 - **What was recorded:** `docs/story-bible.md` §6 and `docs/night1-scenes.md` (new end-of-night beats; the evidence beats are now optional).
-- **My decision:** [to fill in]
+- **My decision:** These are my decisions, as listed above; I accepted the three gaps as open questions. *(filled from the record)*
 
 ---
 
@@ -1967,7 +1968,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I split the labels into Juno's local intent and Orbit's system function, decided the held-back line's options and recording, and when the room becomes searchable. Claude Code suggested replacing my "Unresolved tonight: 3" counter with the Night Log's own "Still unresolved", since a counter is the kind of game UI the project avoids.
 - **What was recorded:** `docs/night1-scenes.md` (labels, held-back line, room search, before sleeping, status).
-- **My decision:** [to fill in]
+- **My decision:** These are my decisions; I accepted the suggestion to use "Still unresolved" instead of my counter. *(filled from the record)*
 
 ---
 
@@ -1976,7 +1977,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I corrected Claude Code's example (it still hinted at the profile) and set the rule that "Still unresolved" comes only from what the player has run into, plus a cost table where reading is free and only new actions cost. I also set the approach for Night 2: five shared beats, with Night 1's states changing only how they look. Claude Code flagged that −1% per message doubles the prototype's drain.
 - **What was recorded:** `docs/night1-scenes.md`, one line in `docs/story-bible.md` §6.
-- **My decision:** [to fill in]
+- **My decision:** These are my rules, as listed above. *(filled from the record)*
 
 ---
 
@@ -1985,7 +1986,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What I asked:** start Night 2's scene table.
 - **What Claude Code made:** `docs/night2-scenes.md`, drafted from the agreed decisions: what Night 1 hands over, the five required beats, new facts, the scenes (no lines), and 13 open questions for me, including a logic gap (Rachel's account is erased on Night 1, so the second fake can't come "from her account" as things stand).
-- **My decision:** [to fill in]
+- **My decision:** I answered its open questions over the next entries, starting with the removed thread. *(filled from the record)*
 
 ---
 
@@ -1994,7 +1995,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I decided the second fake comes from the removed thread, that Night 2's pressure is Rachel's data link expiring (not the battery), that Rachel speaks once in a read-only note, how the route choice is made, and that turning Juno off really works. Claude Code added a date fix (the removal divider is Wednesday), a latest time for the link, that an expired link must still carry February second-hand, the order (fake before link), and two open questions (Juno vs Conversation Assist; deletion's removal window).
 - **What was recorded:** `docs/night2-scenes.md` and `docs/story-bible.md` §4 and §6.
-- **My decision:** [to fill in]
+- **My decision:** These are my decisions, as listed above; I accepted Claude Code's additions. *(filled from the record)*
 
 ---
 
@@ -2003,7 +2004,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I separated Juno, Conversation Assist and Continuity, decided that turning Juno off leaves Conversation Assist on (and says so), and when a deleting player's old account speaks. Claude Code pointed out that the February message now fits Continuity rather than Conversation Assist, that Continuity's trigger must include going quiet, and that a deleting player needs a way to learn the old account spoke.
 - **What was recorded:** `docs/story-bible.md` §6 and `docs/night2-scenes.md`; the three points as TBD.
-- **My decision:** [to fill in]
+- **My decision:** These are my decisions; the three points stay open (TBD). *(filled from the record)*
 
 ---
 
@@ -2012,7 +2013,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I defined Continuity as a relationship-disruption system with two modes (REACTIVATION, IDENTITY PROXY), moved February under it, split Night 3 into two records, and decided Dani offers her own number on Night 2 so a deleting player can learn the old account spoke. Claude Code noted the times are Thursday, not Wednesday, that one draft line from Dani states the theme outright, and that "Orbit Relay" and a Messages app would be new.
 - **What was recorded:** `docs/story-bible.md` §6 (the three systems, two records, Dani outside Orbit, how a deleting player finds out).
-- **My decision:** [to fill in]
+- **My decision:** These are my decisions; I dropped "Orbit Relay" in the next entry. *(filled from the record)*
 
 ---
 
@@ -2021,7 +2022,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I dropped "Orbit Relay" (Chats vs Messages), fixed Dani's line to `this is me`, and decided the second fake's trigger and that `Sending in 10s` happens when Dani asks whether to send Rachel's data. Claude Code pointed out that opening Notes can't trigger anything Orbit does, that the countdown should start as soon as Dani's question is on screen so every player with Assist on sees it, and that sending the link inside Orbit exposes it (left as TBD).
 - **What was recorded:** `docs/night2-scenes.md`, `docs/story-bible.md` §6.
-- **My decision:** [to fill in]
+- **My decision:** These are my decisions, as listed above. *(filled from the record)*
 
 ---
 
@@ -2030,7 +2031,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I chose that the link may be sent inside Orbit with only a data consequence (never a blocked link), changed Dani's question to "here or text?" so the countdown also chooses the channel, and set what Orbit can and can't see. Claude Code noted the time is Thursday, and that moving to text means a number is shared in Chats first, so the Messages route leaves one line of its own.
 - **What was recorded:** `docs/night2-scenes.md`.
-- **My decision:** [to fill in]
+- **My decision:** These are my decisions, as listed above. *(filled from the record)*
 
 ---
 
@@ -2039,7 +2040,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I set the two Night 3 records for Chats vs Messages and chose a revised version of Claude Code's option C for the morning: Dani's two openings, then that Rachel asked about the crit on Sunday and that Dani will try Rachel's old email. Claude Code added that Orbit can read Dani mentioning the email (a Night 3 record and a reason Continuity speaks at once), a note to let Dani give facts rather than conclusions, and that the player may ask for the email.
 - **What was recorded:** `docs/night2-scenes.md` (The morning), `docs/story-bible.md` (the interlude, the relationship).
-- **My decision:** [to fill in]
+- **My decision:** I chose my revised version of option C, as above, and kept Claude Code's additions. *(filled from the record)*
 
 ---
 
@@ -2048,7 +2049,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I decided the day isn't playable (a wordless transition), Night 2 starts Wednesday 11:20 PM, the player picks the phone up themselves, and Juno never speaks first on Night 2; I also wrote Dani's answer when asked for the email. Claude Code raised three ordering questions: whether Juno can be off before the route choice, what happens when opening Juno is the first Orbit action, and the second fake arriving together with Dani's request.
 - **What was recorded:** `docs/night2-scenes.md`.
-- **My decision:** [to fill in]
+- **My decision:** These are my decisions; I answered the three ordering questions in the next entry. *(filled from the record)*
 
 ---
 
@@ -2057,7 +2058,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I decided Juno's switch exists from Night 1, that Juno's opening completes before the second fake when Juno is opened first, a fixed fallback at Wednesday 11:27 PM, Dani's request at least 3 minutes later, and that the game guarantees delivery order, not reading order. Claude Code noted the fallback still depends on the story clock, and that Night 1's two Juno opening beats can no longer be required.
 - **What was recorded:** `docs/night2-scenes.md`, `docs/night1-scenes.md`, `docs/story-bible.md` §6.
-- **My decision:** [to fill in]
+- **My decision:** These are my decisions, as listed above. *(filled from the record)*
 
 ---
 
@@ -2066,7 +2067,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** I designed Rachel's private share (the phone's Browser, her note, three records that let the player tell Conversation Assist and Continuity apart) and Night 2's Check-in. Claude Code noted that February's wording echoes Juno's "don't disappear on me", that "please don't forward the files" constrains a publishing ending, that the first open must always complete, and that a "More" link adds UI; it then compiled what Night 3 reads from both nights.
 - **What was recorded:** `docs/night2-scenes.md` (Rachel's private share; Check-in, Night 2; Hand-over to Night 3).
-- **My decision:** [to fill in]
+- **My decision:** The share and the Check-in are my design; I kept Claude Code's hand-over list. *(filled from the record)*
 
 ---
 
@@ -2075,7 +2076,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code.
 - **What happened:** my teacher suggested trying Unity, and I wanted to see whether the room (finding Rachel's power bank with the phone down) would be worth moving engines for. Claude Code compared web and Unity for this game (a single-view room is easy on the web; a lit 3D room and physical gestures favour Unity; moving means rebuilding every phone screen and losing play in a phone browser) and suggested trying the room alone first. I asked for that.
 - **What Claude Code made:** `unity-room/`, C# scripts and an editor command that builds the room from simple shapes (desk, lamp, window, tote bag, drawer, coat, phone) with the agreed rules: searching costs story time, the power bank, waiting to charge, one possible notification, picking the phone up goes to a lock screen. Not run yet (no Unity in the cloud session). Excluded from the web deploy (`.vercelignore`).
-- **My decision:** [to fill in]
+- **My decision:** I asked for the room to be tried alone first. Before running it, I decided to build the full game in Unity (2026-10-24, "The full game moves to Unity"). *(filled from the record)*
 
 ---
 
@@ -2083,7 +2084,7 @@ Copy this for each new entry.
 
 - **Tool / model:** Claude Code (a separate cloud session).
 - **What happened:** I opened a second session to check whether `unity-room/Assets/RoomPrototype` would compile in Unity 6. It read the five scripts and found no compile errors, but couldn't compile them (no Unity in the cloud). It changed nothing. It was opened on the web game's repository rather than locally in the Unity project, so the design session advised moving Unity work to the new `StayALittleLonger` repository and running Unity sessions on my computer, with their own process log there.
-- **My decision:** [to fill in]
+- **My decision:** I followed the advice: Unity work happens in the `StayALittleLonger` repository, in sessions on my computer. *(filled from the record)*
 
 ---
 
@@ -2091,7 +2092,7 @@ Copy this for each new entry.
 
 - **Tool / model:** Claude Code (discussion).
 - **What happened:** after my teacher suggested Unity and I set up a Unity 6.3 LTS (URP) project with its own GitHub repository (`StayALittleLonger`), I decided to build the full game there. Claude Code had compared web and Unity earlier and suggested trying the room first; I chose to start the full project. Claude Code wrote a first prompt for a Unity development session on my computer (read the design docs; make no design decisions; propose a foundation plan before code) and noted the decision in `CLAUDE.md`.
-- **My decision:** [to fill in]
+- **My decision:** I decided to build the full game in Unity 6.3 LTS (URP), in its own repository; this repository stays the design source. *(filled from the record)*
 
 ---
 
@@ -2100,7 +2101,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (design session).
 - **What happened:** the Unity session proposed a foundation plan (repo setup, folders, IDs → store → save, UI Toolkit vs uGUI, compile checks) and listed open questions. In the design session Claude Code fixed two docs that hadn't followed the story (the lock-screen notification in `landing.md`; Tonight's leftovers in `save-system.md`) and suggested answers for me: only Juno's local intent goes to the model, a mapping from the old intent names to the new ones plus DISPUTE, and Mac desktop first.
 - **What was recorded:** `docs/landing.md`, `docs/save-system.md`. The intent mapping and the platform are waiting for my decision.
-- **My decision:** [to fill in]
+- **My decision:** I agreed to the suggested answers (next entry). *(filled from the record)*
 
 ---
 
@@ -2109,7 +2110,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (design session).
 - **What happened:** I agreed to Claude Code's suggestions: only Juno's local intent goes to the model, using the eight new names plus DISPUTE, with the old names mapped and kept as aliases in `api/reply.js`; and Mac desktop first, iOS later, no WebGL for now.
 - **What was recorded:** `docs/night1-scenes.md` (the intents and the mapping), `CLAUDE.md`, `docs/save-system.md` §12.
-- **My decision:** [to fill in]
+- **My decision:** I agreed, as above. *(filled from the record)*
 
 ---
 
@@ -2118,7 +2119,7 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (design session).
 - **What happened:** the Unity session asked about mixed case in beat ids, rows that look like timed events rather than resume points, and turn numbering. Claude Code suggested: upper-case scene ids with lower-case parts inside a scene; splitting the scene tables' rows into beats, events and actions; turn ids counted per night and thread. I agreed.
 - **What was recorded:** `docs/save-system.md` §2; a Type column and renamed ids in `docs/night1-scenes.md` and `docs/night2-scenes.md`.
-- **My decision:** [to fill in]
+- **My decision:** I agreed, as above. *(filled from the record)*
 
 ---
 
@@ -2127,4 +2128,44 @@ Copy this for each new entry.
 - **Tool / model:** Claude Code (design session).
 - **What happened:** the Unity session's store plan found gaps in the save schema: no place for most states the scene tables record, only one resume point although several conversations can wait at once, and undefined values. Claude Code suggested a set of yes/no facts plus done actions, one slice per system for everything else, one waiting beat per thread, values for `route` and `juno_status`, and dropping two fields. I agreed.
 - **What was recorded:** `docs/save-system.md` §3; a stale trigger name fixed in `docs/night1-scenes.md`.
+- **My decision:** I agreed, as above. *(filled from the record)*
+
+---
+
+### 2026-10-26 — Project 1 submission materials
+
+- **Tool / model:** Claude Code (design session).
+- **What I asked:** read the Project 1 brief (due Oct 28), tell me what to submit, and make it.
+- **What Claude Code did:** listed the deliverables; made `docs/project1/README.md` (checklist), `docs/project1/ai-documentation.md` (a summary of this log: tools, where AI sits in the game, use by phase, what stayed mine, data and ethics notes) and `docs/project1/essay-outline.md` (sections, word budgets, evidence from this log, questions); took four screenshots of the live game, one in presenter mode showing which Juno lines a model wrote. It declined to write the essay itself, since the essay is my own critical reflection and would otherwise have to be cited as AI-written.
+- **My decision:** I used the checklist and the outline, and wrote the essay myself. *(filled from the record)*
+
+### 2026-10-27: Project 1 essay checked
+
+- **Tool:** Claude Code
+- **What it did:** Checked my essay against the assignment (sections, length about 2,150 words) and against this log and repository; checked that the sources exist. Anthropic's Transparency Hub does list Claude Haiku 5.5's training data as the essay says; Crawford and Joler is real and cited correctly. Points raised: the consent policy is dated 2026-10-01, after Task 1 (2026-09-24), while the essay says it came before the project; the failing-test example is not in this log; the 2026-10-08 entry (Claude Code changed a clue's wording and the timeline) is not mentioned, while the essay says AI did not decide clues; the Zhipu GLM models are missing; the essay calls Juno "she" while the game uses "it"; the course title differs from `docs/course-context.md`; "Working File" is listed but not cited in the text; the guards check less than "invents information outside the current story state" suggests.
+- **My decision:** I revised my essay: I replaced the test example (next entry) and now cite my Consent Policy as my Week 5 assignment. *(filled from the record)*
+
+### 2026-10-27: An example paragraph for the essay
+
+- **Tool:** Claude Code
+- **What it did:** At my request, wrote one English paragraph for the Project 1 essay to replace my test-failure example, which the log doesn't record. The new example is the shaking banner (2026-10-12, night), with facts taken from that entry.
+- **My decision:** I used the paragraph in my final essay, and the essay's appendix says it was drafted by Claude Code. *(filled from the record)*
+
+### 2026-10-27: Final essay laid out, and this log's open decisions filled
+
+- **Tool:** Claude Code
+- **What it did:** Laid out my final essay as a Word file and a PDF (`docs/project1/final/`), unchanged except for three figures with captions, italic titles and an appendix summarising the AI documentation. At my request it also filled the decisions still open in this log from what later entries and our conversations show (marked *(filled from the record)*), leaving three questions only I can answer: the tools used for the first commit, the removed "Juno is still typing…" toast, and why I didn't delete the `doubt` rule's fallback.
+- **My decision:** [to fill in]
+
+### 2026-10-27: The essay's appendix expanded
+
+- **Tool:** Claude Code
+- **What it did:** Added to the AI documentation in my essay's appendix: a new screenshot of free typing in Director Mode (I typed "she's dead. her mom just called me"; the game chose `dispute`, and Claude Haiku 5.5 wrote a line that doesn't accept it but still leans toward comfort), eight annotated moments taken from this log with my prompts quoted, and a list of every entry in this log.
+- **My decision:** [to fill in]
+
+### 2026-10-29: Answers to the Unity session's save plan
+
+- **Tool:** Claude Code (design session)
+- **What happened:** The Unity session's save plan asked five questions. Claude Code suggested: a notice after 3 failed saves in a row; a `[TBD]` placeholder with a draft for the message when both saves are broken; only `endings_seen` and the Before You Begin version in `meta_progress` for now, dropping "completed" (the same as a non-empty list) and "unlocked chapters" (the game has no chapters); the import limits as proposed; the 12-hour clock on the Continue label; and changing Unity's `companyName` before any save exists. I agreed.
+- **What was recorded:** `docs/save-system.md` §1, §7, §9, §10, §13.
 - **My decision:** [to fill in]

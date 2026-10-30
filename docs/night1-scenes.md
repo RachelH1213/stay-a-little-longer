@@ -43,7 +43,7 @@ E.g. the opening: `ATTEND` / `PROFILE`. The held-back line: `ADVISE` / `REDIRECT
 | `dispute` | `DISPUTE` |
 | (new) | `REASSURE`, `NARROW`, `WITHDRAW` |
 
-`api/reply.js` and `api/_persona.js` will take the new names, each with a voice description of its own, and keep the old names as aliases so the frozen web prototype still works. That change is a separate task in this repository.
+`api/reply.js` and `api/_persona.js` will take the new names, each with a voice description of its own, and keep the old names as aliases so the frozen web prototype still works. Done 2026-10-30: `api/_persona.js` has the new names (voice descriptions are drafts for the author); the old names stay for the web prototype.
 
 **Juno's stance** (the strongest one reached; never goes back):
 
@@ -85,7 +85,8 @@ Juno never says "don't send that"; it suggests something easier for Rachel to an
 
 | Action | Time | Battery |
 |---|---:|---:|
-| reading messages, Notes, Profile Details | 0 | 0 |
+| opening a thread, a profile or Profile Details for the first time | +1 min | 0 |
+| reading messages, Notes, Profile Details again | 0 | 0 |
 | going back, switching apps, opening Settings | 0 | 0 |
 | refreshing remote data (first time only) | +1 min | −1% |
 | sending a new message | +1 min | −1% |
@@ -93,7 +94,7 @@ Juno never says "don't send that"; it suggests something easier for Rachel to an
 | searching a room spot | +2–3 min | 0 |
 | waiting in the room | 5 / 10 min, chosen | the phone charges |
 
-To check in playtests: −1% per message is double the prototype's; at 20% a long talk with Juno alone can drain the phone.
+A first open costs time but no battery, so a player who only reads still moves the clock (and reaches the fake's secondary trigger); a player who opens nothing new is waiting, and the game waits with them (real time never moves the story). To check in playtests: −1% per message is double the prototype's; at 20% a long talk with Juno alone can drain the phone.
 
 **When Juno may mention Rachel:** only after the player picked "someone didn't show up", opened Rachel's notification or thread, messaged her, received the fake, or asked Juno about her.
 

@@ -55,6 +55,7 @@ Revised 2026-10-25 (the Unity session found that one resume point and the first 
   // what the player decided
   player_name,                        // local only
   first_memory_id, join_reason,       // either may be null
+  recalled_replies: { blank_reply_content_id → option_content_id },   // "What do you remember saying?" on an old reply
   checkin_n1, n2_checkin_answer,      // option ids; "uncertain" and "skipped" are distinct
   style_feedback: { style, quote },   // quote is local only
   ending_selected,

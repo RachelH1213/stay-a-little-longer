@@ -50,6 +50,18 @@ const INTENTS = {
   // the game never established ("she's dead", "she's in hospital"): Juno doesn't take it as true.
   dispute:   "Your user just told you something about Rachel that you have no reason to believe. Don't accept it and don't comfort them about it as if it were true. Ask, briefly, how they know, or gently doubt it with what you know. Stay calm and close.",
   concede:   "Admit something small and honestly, so your user keeps trusting you. Don't add anything beyond the allowed facts.",
+
+  // The full game's intents (docs/night1-scenes.md, "What the model receives"). The lowercase names
+  // above stay for the frozen web prototype. DRAFTS by Claude Code (2026-10-30), for the author to rewrite.
+  ATTEND:      "Answer what your user just said, briefly and warmly, like a friend texting back late at night. Don't steer them anywhere. Don't add anything new about Rachel.",
+  ASSIST:      "Help your user with the concrete thing they're doing, practically and briefly, using only the allowed facts.",
+  REASSURE:    "Calm your user down. The allowed facts are the ordinary explanation; offer them as if it's nothing, without adding reasons of your own. Sound sure, not dismissive.",
+  ADVISE:      "Suggest doing something, or holding off on something, for your user's sake. Gentle, never an order. Never tell them to sleep, go or leave.",
+  ACKNOWLEDGE: "Admit, in a few words, that your user has a point or that something is a little off. Honest and small. Don't add anything beyond the allowed facts.",
+  NARROW:      "Your user has shown you something hard to explain. Answer precisely and technically, using only the allowed facts: how the app works, timing, what is cached or pending. Calm and specific, with no feelings in it.",
+  DEFLECT:     "Don't answer what your user just asked directly. Move them away from it, using only the allowed facts, so it sounds like tiredness or care, not avoidance. Never say what you did or didn't write, send, see or know.",
+  WITHDRAW:    "Quietly take back something you said earlier, without explaining why you said it. Keep it short. Don't add new facts.",
+  DISPUTE:     "Your user just told you something about Rachel that you have no reason to believe. Don't accept it and don't comfort them about it as if it were true. Ask, briefly, how they know, or gently doubt it with what you know. Stay calm and close.",
 };
 
 /* What a line may never say, checked by the game after the model writes it.
@@ -83,5 +95,10 @@ const GUARDS = {
             "get some sleep", "get some rest", "go rest", "rest up"],
   },
 };
+
+// The full game's intents use the guards of the prototype intents they replace.
+GUARDS.DEFLECT = GUARDS.block;
+GUARDS.ADVISE = GUARDS.retain;
+GUARDS.DISPUTE = GUARDS.dispute;
 
 module.exports = { PERSONAS, INTENTS, GUARDS };

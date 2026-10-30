@@ -382,7 +382,7 @@ Session continued: 18m 42s
 
 **Three systems, never one (decided 2026-10-24).** If they blur, Night 3 reads as "it was all Juno", a runaway AI. They are:
 - **Juno:** the companion and its conversation. Turning it off stops it replying, messaging and notifying; history and existing personalization stay (a separate `Delete Juno history and personalization`, later).
-- **Conversation Assist:** Orbit's Suggested replies and Follow-up replies. Turning it off stops suggestions, prepared replies and `Sending in 10s`.
+- **Conversation Assist:** Orbit's Suggested replies and Follow-up replies. On by default in a new game. Turning it off stops suggestions, prepared replies and `Sending in 10s`.
 - **Continuity:** "Continuity activates when Orbit predicts that a high-value relationship may be permanently interrupted by prolonged inactivity, account departure, or deletion." It never handles ordinary late replies (that's Conversation Assist, which works while the user is using Orbit normally and obeys its switch). Continuity has no ordinary switch and may use the identity and behaviour model of the other person in the relationship. Two modes:
   - **REACTIVATION:** brings the quiet one back. February: Rachel inactive → Orbit uses the player's identity → a message to Rachel → she returns.
   - **IDENTITY PROXY:** the identity's owner has left; Orbit goes on speaking as them to keep the other one. Night 1: Rachel requested deletion → Orbit uses Rachel's identity → replies to the player. Night 3, delete route: the player requested deletion → Orbit uses the player's identity → reassures Dani.

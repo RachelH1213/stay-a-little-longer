@@ -24,12 +24,12 @@ Three layers. Once released, an id is never renamed.
 | **Resume point** (beat) | `N1_JUNO_OPENING.awaiting_first_reply` | where a save resumes; only stable interaction boundaries |
 | **Content** | `N1_JUNO_OPENING.juno.still_awake` | every line, option and notification: what has been shown, no duplicates, localisation, logs, tests |
 
-Plus **turn ids** (`N1_JUNO_014`, one per free-typed exchange) and **event ids** (`DANI_DURING_TONIGHT`, one per timed event).
+Plus **turn ids** (`N1_JUNO_014`, one per model-written line) and **event ids** (`DANI_DURING_TONIGHT`, one per timed event).
 
 **Conventions (decided 2026-10-25):**
 - **Case:** scene ids are `UPPER_SNAKE` (`N1_JUNO_OPENING`); everything inside a scene is `lower_snake` after the dot (`N1_JUNO_OPENING.awaiting_first_reply`, `N1_JUNO_OPENING.juno.still_awake`). Event ids are `UPPER_SNAKE` with no dot (`N1_ERASE_WARNING`, `DANI_DURING_TONIGHT`).
 - **Three types in the scene tables:** a **beat** is a resume point (the player is waiting to choose or answer); an **event** is something the system does by time or condition (state saved, §6; never a resume point); an **action** is something the player does that sets facts (recorded as done; never a resume point). Action ids use the beat format but are never resumed to.
-- **Turn ids:** `NIGHT_THREAD_seq`, e.g. `N1_JUNO_014`, `N2_DANI_003`. Each night and each thread counts from 001; every free-typed exchange that involves the model adds one; the counter is saved, and a number is never reused.
+- **Turn ids:** `NIGHT_THREAD_seq`, e.g. `N1_JUNO_014`, `N2_DANI_003`. Each night and each thread counts from 001; every line the model writes adds one, whether the player typed or tapped a suggestion; the counter is saved, and a number is never reused.
 
 Rules:
 - Every line and option has a content id, but only beats are resume points. A save never resumes in the middle of a run of automatic lines.
@@ -92,10 +92,11 @@ Revised 2026-10-25 (the Unity session found that one resume point and the first 
   },
 
   // what was said
-  transcript: [ { content_id | turn_id, speaker, displayed_text, intent_id, scene_id, clock, source } ]
+  transcript: [ { content_id | turn_id, thread_id, speaker, displayed_text, intent_id, scene_id, clock, source } ]
 }
 ```
 
+- **`thread_id`:** which conversation the line belongs to (`juno`, `rachel`, `dani`, …), never inferred from the scene, since one scene can hold several threads.
 - **Facts vs fields:** anything yes/no is a fact; a field only when it has more than two values or a number. New facts never change the schema.
 - **Open beats:** the player can leave one conversation waiting (Juno asking what they were going to say) and go elsewhere; each thread keeps its own waiting beat, and returning to that thread resumes it. `main_screen` says where to put the player on Continue.
 - **Not yet:** `orbit_account_status` waits for Night 3 (the delete route has an old and a new account). `dani_state` and `rachel_history_state` are dropped: facts and actions cover them.

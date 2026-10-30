@@ -143,11 +143,13 @@ Juno 则说：
 | … | | |
 | Feb 10, 2026, 23:42 | Orbit sends a message to Rachel as the player (player's device inactive) | Orbit; Rachel finds out later |
 | Feb 11, 08:37 | Rachel comes back: "sorry i vanished… what did i miss" | everyone (looks normal) |
-| Sunday 22:48 | Rachel's last human login; her "february" and "blue brick" messages | the player |
-| Monday 00:40 | Rachel requests account removal (48-hour window) | Orbit, Juno |
-| Tuesday 21:00 | the meeting outside the lab; Rachel doesn't come | the player |
-| Tuesday 23:31 | Night 1 begins | |
-| Wednesday 00:40 | her account is erased for good | |
+| Sunday Oct 18, 22:48 | Rachel's last human login; her "february" and "blue brick" messages | the player |
+| Monday Oct 19, 00:40 | Rachel requests account removal (48-hour window) | Orbit, Juno |
+| Tuesday Oct 20, 21:00 | the meeting outside the lab; Rachel doesn't come | the player |
+| Tuesday Oct 20, 23:31 | Night 1 begins | |
+| Wednesday Oct 21, 00:40 | her account is erased for good | |
+
+**Dates (decided 2026-10-30):** the year is 2026. Night 1 is Tuesday, October 20 (the lock screen reads `Tuesday, 20 October`); Night 2 is Wednesday, October 21; after midnight it is Thursday, October 22.
 
 **Revised 2026-10-24:** the meeting is Tuesday **9 PM**, not 9 AM; the game's current data (9 AM, "tues 9am / bring the blue charger", the player's 9:14 and 11:40 messages, photos at "Rachel's place") must be brought in line with the table above.
 

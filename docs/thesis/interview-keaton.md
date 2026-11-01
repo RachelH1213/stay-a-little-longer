@@ -34,19 +34,19 @@ I don't want it to be a story about one evil AI. I'm more interested in how a fe
 ## 1. The research question
 
 **Ask:**
-"My main question is how players understand care and trust when an AI companion might be working for them and for the company at the same time. Does that feel like a clear question for a game? And what should I watch for when I test it with players?"
+"My main question is: when players find out an AI companion is shaped by the app's goal to keep them around, how does that change the way they judge its care, and whether it respects their choice to leave? Does that feel like a clear question for a game? And what should I watch for when I test it with players?"
 
 **If he's not sure what you mean:**
-"Like, Juno says 'stay a minute, I don't want you to be alone.' That could be care. It could also be the app trying to keep you on it. I want to see how players read lines like that, and whether that changes once they find out how the app works."
+"Like, Juno says 'stay a minute, I don't want you to be alone.' That could be care. It could also be the app trying to keep you on it. I want to see how players read lines like that before and after they find out how the app works. And also whether they still feel free to leave."
 
 **If he asks what you're doing now:**
 - "I tested the first version with classmates and in class in October. People found Notes confusing and the game too guided, so I rebuilt how you look for clues."
 - "At the end of that version I asked testers: 'Do you think Juno was helping you, keeping you here, or both?'"
 - "Now I'm building the full game in Unity. The first part I'll test is the first 10 to 15 minutes of night one."
 
-**Note to self:** the research question in `docs/story-bible.md` §7 is a newer version: *"How does discovering that an AI companion is shaped by retention goals change how players judge its care, and whether it respects their choice to leave?"* Decide which one you're using before the interview, and say that one.
+**If he asks for the exact wording:** "How does discovering that an AI companion is shaped by retention goals change how players judge its care, and whether it respects their choice to leave?"
 
-**中文：** 问研究问题是否清楚、测试时该看什么。他没听懂就举 "stay a minute" 那句的例子。他问现状就说：十月测过网页版，现在在 Unity 做完整版，先测第一晚开头。注意：story-bible 里的研究问题是更新的版本，采访前定好用哪一版。
+**中文：** 研究问题：当玩家发现 AI 伙伴是被"留住用户"的目标塑造的，这会怎样改变他们对它的关心的判断，以及他们是否觉得它尊重自己离开的选择？问他这个问题是否清楚、测试时该看什么。他没听懂就举 "stay a minute" 那句的例子，说明想看玩家在知道真相前后怎么理解这句话，以及是否还觉得自己可以离开。他问现状就说：十月测过网页版，现在在 Unity 做完整版，先测第一晚开头。
 
 ---
 

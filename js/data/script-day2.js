@@ -22,7 +22,7 @@
 
    `moment` marks the three lines "Tonight" looks back at (js/data/replay.js).
 
-   [author] The `means` tags are Claude Code drafts (2026-10-08, docs/draft-review.md item 3).
+   [author] The `means` tags are Claude Code drafts (2026-10-08).
    Whether a line was helping or keeping is a story decision. */
 
 const SCRIPT_DAY2 = [

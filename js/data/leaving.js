@@ -14,7 +14,7 @@ const LEAVING = {
   message: {
     intent: "retain",
     facts: ["late"],
-    text: "you still there?", // [author] Claude Code draft (2026-10-08, docs/draft-review.md item 8); was "you up?", which repeated the opening
+    text: "you still there?", // [author] Claude Code draft (2026-10-08); was "you up?", which repeated the opening
   },
 
   // Shown at the bottom of the lock screen while there's no notification. Tapping it unlocks to Chats.

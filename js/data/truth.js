@@ -16,7 +16,7 @@
 
    Everything here comes from content already in the repo (the Day 2 script, EVIDENCE, PAIRS,
    CLAUDE.md). DRAFT: the `kind`, `intents` and `requires` values were proposed by Claude Code
-   and still need the author's review. Revised 2026-10-08 (docs/draft-review.md item 2):
+   and still need the author's review. Revised 2026-10-08:
    added the `lie` kind, and reworded `reply-an-hour-ago` so a `real` fact doesn't contradict a secret. */
 
 const TRUTH = {

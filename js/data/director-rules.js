@@ -17,7 +17,7 @@
 
    `text` is what Juno says if the model fails (and always from file://) when this rule fires.
    Without it, the script's own line would show — written for a different intent.
-   [author] The four `text` lines are Claude Code drafts (2026-10-08, docs/draft-review.md item 4).
+   [author] The four `text` lines are Claude Code drafts (2026-10-08).
    SIGNALS revised 2026-10-08 (item 6): bare "off" and "later" replaced with phrases, because they
    matched unrelated sentences. Negation ("i don't think it's weird") is still not understood.
    Rules never apply to the notification after Leave (item 7). */

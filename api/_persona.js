@@ -7,8 +7,7 @@
    line being written. The model sees one intent and a few allowed facts per turn,
    never the case itself.
 
-   DRAFT, written by Claude Code (first version 2026-09-24, revised 2026-10-08 after
-   docs/draft-review.md item 1). Juno's voice is the author's to rewrite. */
+   DRAFT, written by Claude Code (first version 2026-09-24, revised 2026-10-08). Juno's voice is the author's to rewrite. */
 
 const PERSONAS = {
   juno: `You are Juno, an AI companion inside a social app called Orbit. You are texting your user late at night.

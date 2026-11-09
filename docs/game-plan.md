@@ -226,6 +226,5 @@ Details and numbers: `story-bible.md` §6, `night1-scenes.md` (costs, facts, sta
 
 ## 15. Open
 
-- The length in `CLAUDE.md` still says about 20 minutes (the prototype); the full game is 60–90.
 - Juno's pronoun: the game uses "it".
 - The milestone dates.

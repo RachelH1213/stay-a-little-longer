@@ -6,7 +6,7 @@ Read this before changing anything in this repo.
 
 *Stay a Little Longer* — a detective game that takes place inside a fake social app called **Orbit** (placeholder name). Senior thesis, Parsons BFA Design & Technology, 2026–27.
 
-The player looks for a friend (Rachel) who has gone quiet. Their AI companion (Juno) helps, and is also the one hiding what happened. Three in-game days, about 20 minutes.
+The player looks for a friend (Rachel) who has gone quiet. Their AI companion (Juno) helps, and is also the one hiding what happened. Three nights, 60–90 minutes (the web prototype is one night, about 20 minutes).
 
 **Engine (2026-10-24, the author's call):** the full game is being built in **Unity** (6.3 LTS, URP) in its own repository, `StayALittleLonger`. This repository stays the single source of design (`docs/`) and holds the web prototype, which is frozen; the model layer (`api/reply.js` on Vercel) is reused by the Unity game over HTTP. Unity work happens in sessions on the author's computer, in the Unity project. **Platform (2026-10-24):** Mac desktop first, iOS later, no WebGL for now (so the first storage adapter is a file adapter, and `api/reply.js` needs no CORS yet). **Model intents:** only Juno's local intent is sent to the model; the names and the mapping from the prototype's are in `docs/night1-scenes.md`.
 

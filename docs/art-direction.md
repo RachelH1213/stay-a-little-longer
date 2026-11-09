@@ -15,13 +15,12 @@ A dark, quiet pixel-art room at night, seen from the chair at the desk; the phon
 1. **Warm on the surface, wrong underneath.** The look must never announce a villain or a horror game. The unease comes slowly, from what Orbit does, not from the art.
 2. **Two materials, two worlds.** People leave marks that are hand-made and imperfect: pixels, paper, handwriting, tape. Orbit is clean, smooth, lit from within. The player can tell which is which at a glance.
 3. **Everything readable.** Clues live in text (Rachel never uses full stops), so every word on screen is crisp and real, never pixel-blurred or gibberish.
-4. **Made by the author.** The room, the paper and the key images are drawn, photographed or scanned by the author. Generated images are not used for anything the player sees.
 
 ## 3. References
 
 | Reference | What to take | What not to take |
 |---|---|---|
-| *Daily Protocol* (concept images the author collected) | the colour grade (desaturated grey-green, one sharp accent); collage of paper, polaroids, tape and clips; menus and notebooks that look like real documents | the horror cast (machine heads, ghosts); illegible text; the AI-generated look |
+| *Daily Protocol* (concept images the author collected) | the colour grade (desaturated grey-green, one sharp accent); collage of paper, polaroids, tape and clips; menus and notebooks that look like real documents | the horror cast (machine heads, ghosts); illegible text |
 | *The Last Night* | pixel art lit by modern, soft light; night; depth from layers | the cyberpunk setting |
 | *VA-11 Hall-A* | one fixed seat, most of the game is talking; a pixel room around crisp text | the bright anime palette |
 | *Signalis* | cold, quiet palette; interfaces that feel like documents | the horror |
@@ -65,7 +64,7 @@ The visual system stays the one decided on 2026-10-13: phone, humans, Orbit.
 - **Notes and the Night Log** look like the player's real notebook: lined or grid paper, handwriting, the player's screenshots as polaroids taped in, sticky notes, a few crossings-out.
 - **Rachel's private share (Night 2)** looks scanned and personal: her own paper, her own marks.
 - **Orbit's records (Night 3)** are the opposite: clean system documents, monospaced fields, no hand anywhere.
-- **Source material** is real: the author's notebook, paper, tape and handwriting, scanned or photographed, then cleaned up.
+- **Textures** come from real paper, tape and handwriting, scanned or photographed, then cleaned up.
 
 ## 9. The test (one or two days)
 
@@ -97,5 +96,4 @@ If pixel art doesn't work (it doesn't feel right, or it's too much drawing), the
 
 - Horror imagery: machine heads, ghosts, gore, jump scares.
 - Text that looks like text but can't be read.
-- Generated images or generated 3D models in anything the player sees.
 - A bright, cute palette.

@@ -182,6 +182,8 @@ All other copy on these screens: **TBD** by the author.
 
 ## 10. Still TBD
 
+The look of the room, the phone and the paper layer is in `docs/art-direction.md` (on trial).
+
 - Title screen: desktop and phone composition, where the title sits, how Continue looks, the first second of sound and motion.
 - All final copy: content note, consent, data page, the first reply's options, Juno's memory line.
 - Credits.

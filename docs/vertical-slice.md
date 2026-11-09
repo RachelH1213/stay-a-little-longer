@@ -46,7 +46,7 @@ The slice is done when every item below is true. Nothing outside this list needs
 - The room is final: the desk, the lamp, the window, the objects, at night; lit by the lamp and the phone's screen.
 - The view is first person from the chair: holding the phone, putting it down, picking it up, all final in camera, timing and feel.
 - The phone is a real object in the room; its screen shows the game's UI, with the glow and reflection a screen has at night.
-- The visual direction is decided (landing §10): the three layers (phone, humans, Orbit), colours, type, icons, the lock-screen wallpaper, all made to work on the phone in the room.
+- The visual direction is decided (`docs/art-direction.md`, on trial since 2026-11-09): the three layers (phone, humans, Orbit), colours, type, icons, the lock-screen wallpaper, all made to work on the phone in the room.
 - Every screen in the slice is final, at 1080p and at the smallest Mac window the game allows; the text on the phone is readable when it is held.
 
 **Motion and sound**
@@ -98,7 +98,7 @@ The slice is done when every item below is true. Nothing outside this list needs
 
 ## 6. Order of work (Unity)
 
-1. **The presentation prototype:** the room at the desk in first person, the phone as an object with the existing screens (lock screen, Juno's thread) on it, picking up and putting down, the lamp and screen light, the phone lighting up on the desk. The author judges the look here before more screens are built.
+1. **The presentation prototype** (now the pixel-art test, `docs/art-direction.md` §9): the room at the desk in first person, the phone as an object with the existing screens (lock screen, Juno's thread) on it, picking up and putting down, the lamp and screen light, the phone lighting up on the desk. The author judges the look here before more screens are built.
 2. Visual direction decided (the author) and applied to the room and the existing screens.
 3. Home screen, Orbit Chats, Rachel's thread; quick settings stored, text size working.
 4. Her profile, the refresh, Profile Details, the old number.

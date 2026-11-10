@@ -25,7 +25,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 ### Before the game
 
 **E00 · Feb 10, 10:18–10:23 PM · Rachel says she might leave**
-- **Origin:** Rachel and the player, both real. Rachel: `i think i might take a break from this app for a while / everything feels like too much lately`. The player: `yeah i get it / take some time if you need to. no pressure`. Rachel: `thanks / idk. i'll think about it`. (Drafts.)
+- **Origin:** Rachel and the player, both real. Rachel: `i think i might take a break from this app for a while / everything feels like too much lately`. The player: `yeah i get it / take some time if you need to. no pressure`. Rachel: `thanks / idk / i'll think about it`. (Drafts.)
 - **Both saw:** all of it.
 - **Orbit:** reads it as a farewell (`Farewell detected`).
 
@@ -64,17 +64,22 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Origin:** Rachel creates an Orbit Plans card, `First time, finally · Tuesday, Oct 20 · 9:00 PM`, at an ordinary public place (the author's choice); the player accepts it by hand. They had wanted to meet for a while; the meeting has nothing to do with February. (Exact day: the author's.)
 - **Both saw:** the same card.
 
-**E04 · Sun Oct 18, about 10:40 PM · Her last Sunday messages (locked 2026-11-10)**
-- **Origin:** Rachel, after reading her archive (E03). She doesn't say what she found:
+**E04 · Sun Oct 18, about 10:40 PM · Her last Sunday messages (revised 2026-11-10)**
+- **Origin:** Rachel, after reading her archive (E03). She doesn't say what she found, and doesn't mention Orbit:
   ```text
+  Rachel M.  10:41 PM
   weird question
-  do you remember that night in february
-  when i said i might leave orbit
-  there's something i want to compare with you
-  actually don't answer here
-  can i show you on tuesday?
+  do you remember what you said to me that night in february
+
+  You  10:58 PM
+  yeah i remember that night
+  why?
+
+  Rachel M.  11:03 PM
+  there's something i wanna show you
+  when i see you
   ```
-- **Both saw:** the same messages.
+- **Both saw:** the same messages. Each means a different message by "what you said": the player, their real reply (E00); Rachel, the one Continuity added (E01).
 - **Check:** the player's thread, any time; Night 1, scrolling back to February (E00, E02) is the natural next step.
 
 **E05 · Mon Oct 19, 12:40 AM · Rachel requests deletion**
@@ -121,7 +126,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 ### Night 1 (Tuesday 11:31 PM onward)
 
 **E10 · 11:31 PM · Night 1 begins**
-- Juno's lock-screen notification (`still awake?`), Rachel's Sunday messages below. Juno's line is an ordinary evening check-in from the player's usual late-night habits; Juno doesn't track where the player has been and knows nothing about the evening until the player brings Rachel up.
+- Juno's lock-screen notification (`still awake?`), nothing else; Rachel's Sunday messages are already read, in her thread. Juno's line is an ordinary evening check-in from the player's usual late-night habits; Juno doesn't track where the player has been and knows nothing about the evening until the player brings Rachel up.
 
 **E11 · Night 1 · Finding the change (with Juno)**
 - **Origin:** the player asks; Juno looks.

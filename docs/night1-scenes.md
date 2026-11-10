@@ -4,7 +4,7 @@ Draft structure for the author. First version 2026-10-24; **rebuilt 2026-11-10**
 
 Night 1: Tuesday, October 20, 11:31 PM → Check-in. Battery 20%. Rachel's account closes for good at 12:40 AM.
 
-**What the player knows at 11:31 PM** (from the message history and the room, not played): they and Rachel met through Juno a year and a half ago and have only ever talked on Orbit; about a week ago she set up their first meeting, Tuesday 9 PM; on Sunday she asked whether they remembered "that night in february"; tonight they waited about forty minutes, messaged her (`Delivered`, no reply), and came home. They didn't ask Juno while they waited.
+**What the player knows at 11:31 PM** (from the message history and the room, not played): they and Rachel met through Juno a year and a half ago and have only ever talked on Orbit; about a week ago she set up their first meeting, Tuesday 9 PM; on Sunday she asked whether they remembered what they said to her "that night in february", they said yes, and she said she'd show them something when they met; tonight they waited about forty minutes, messaged her (`Delivered`, no reply), and came home. They didn't ask Juno while they waited.
 
 **What really happened** (the player finds out piece by piece): at 5:12 PM Rachel moved the meeting to Saturday and left her email in the note; Contact Protection hid the email from the player; Conversation Assist accepted the change for them under Auto-Coordinate, which they enabled in June; Rachel screenshotted the confirmation and left Orbit for good. Tonight at 11:45 PM Continuity writes to the player as her.
 
@@ -144,7 +144,7 @@ A first open costs time but no battery, so a player who only reads still moves t
 
 | ID | Type | R/O | Trigger | The player sees | The player can | State recorded | Juno intent / Orbit function | Clock / battery |
 |---|---|---|---|---|---|---|---|---|
-| `N1_LANDING.lock` | Beat | R | after Name | lock screen 11:31 PM, Tuesday 20 October: Juno's `still awake?` (an ordinary evening check-in, E10); Rachel's Sunday messages below | tap Juno; tap Rachel | — | — | — |
+| `N1_LANDING.lock` | Beat | R | after Name | lock screen 11:31 PM, Tuesday 20 October: Juno's `still awake?` (an ordinary evening check-in, E10); nothing from Rachel (her Sunday messages are read) | tap Juno; unlock to the home screen | — | — | — |
 | `N1_JUNO_OPENING.awaiting_first_reply` | Beat | O | tapping Juno | Juno's thread; Suggested replies (4) with `◌ Suggested replies` | pick; type | — | ATTEND / PROFILE | message |
 | `N1_JUNO_OPENING.memory_created` | Beat | O | the first reply | Juno answers that reply only | keep talking; leave | `first_memory_id` | ATTEND / PROFILE | message |
 | `N1_RACHEL.thread_open` | Action | O | the player opens Rachel's thread | her Sunday messages; the player's 9 PM messages (`Delivered`); a year of history above, incl. February (E00, E02); one blank old reply | scroll up; remember a blank reply; screenshot; open the plan from the small plan tag at the top (`First time, finally · Shared plan`: the name only, never the date) | `knows_meeting` | — | open |

@@ -193,18 +193,25 @@ Juno 则说：
 
 #### The hook (decided)
 
-Rachel's last messages, Sunday night (locked 2026-11-10; the meeting itself was set about a week earlier, with nothing to do with February):
+Rachel's last messages, Sunday night (revised 2026-11-10; the meeting itself was set about a week earlier, with nothing to do with February):
 
 ```text
+Rachel M.  10:41 PM
 weird question
-do you remember that night in february
-when i said i might leave orbit
-there's something i want to compare with you
-actually don't answer here
-can i show you on tuesday?
+do you remember what you said to me that night in february
+
+You  10:58 PM
+yeah i remember that night
+why?
+
+Rachel M.  11:03 PM
+there's something i wanna show you
+when i see you
 ```
 
-Rachel isn't asking the player to investigate; she wants to check a shared memory, and not on Orbit. She moves the meeting to Saturday on Tuesday afternoon; Conversation Assist accepts for the player, who goes on Tuesday (`docs/evidence-matrix.md`).
+Rachel isn't asking the player to investigate; she wants to check a shared memory in person. Both believe they remember that night: the player remembers their own `take some time if you need to. no pressure`; Rachel means the message Continuity added in their name, which the player never saw (`docs/evidence-matrix.md` E00–E02). Nothing here names Orbit, her data or anything wrong with the app.
+
+**Principle (2026-11-10):** the player may suspect Orbit on Night 1, but only from records they find themselves, never because a character tells them the app is the problem. She moves the meeting to Saturday on Tuesday afternoon; Conversation Assist accepts for the player, who goes on Tuesday (`docs/evidence-matrix.md`).
 
 #### Night 1 — "Is that really Rachel?" (shared; rewritten 2026-11-10)
 
@@ -235,7 +242,7 @@ What really happened, event by event: `docs/evidence-matrix.md`. Beats and trigg
 | **Carries over** | Check-in answer; style signals the player confirmed; what the player said only to Juno; what Juno was given and said; Conversation Assist and Auto-Coordinate on or off; whether Orbit replied to Dani; whether the player asked Dani. |
 | **The player believes at the end** | Rachel didn't stand me up: Orbit said yes to Saturday for me. So who apologised to me tonight? |
 
-**The opening doesn't force Rachel (decided).** Juno's `still awake?` is an ordinary evening check-in; it doesn't know where the player has been. Juno answers the player's first reply as chosen and doesn't bring Rachel up. Rachel enters through her lock-screen notification, her thread, and the fake. Juno may mention her only after the player chose "someone didn't show up", opened her notification or thread, messaged her, received the fake, or asked about her.
+**The opening doesn't force Rachel (decided).** Juno's `still awake?` is an ordinary evening check-in; it doesn't know where the player has been. Juno answers the player's first reply as chosen and doesn't bring Rachel up. Rachel enters through her thread (the player's own unanswered 9 PM messages at the top of Chats) and the fake. Juno may mention her only after the player chose "someone didn't show up", opened her thread, messaged her, received the fake, or asked about her.
 
 **Juno tonight (decided 2026-11-10).** It finds the reschedule, explains Auto-Coordinate and the June setting, says Orbit filtered the email, declines once in the open (read activity), and suggests Dani. Everything it says is true except one fixed line about MSG_1048 (`docs/night1-scenes.md`, Juno's stance). Wording of every Juno line: **TBD**.
 

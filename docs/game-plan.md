@@ -82,7 +82,7 @@ What happened, event by event: `evidence-matrix.md`.
 | Feb 10, 2026, 10:18 PM | Rachel says she might take a break from Orbit; the player answers kindly |
 | Feb 10, 2026, 11:42 PM | Continuity adds a message as the player that only Rachel sees; she stays |
 | about a week before Night 1 | Rachel sets up their first meeting, Tuesday 9 PM; the player accepts |
-| Sunday Oct 18, evening | Rachel downloads her data; asks whether the player remembers that night in February and whether she can show them on Tuesday |
+| Sunday Oct 18, evening | Rachel downloads her data; asks whether the player remembers what they said to her that night in February; she'll show them something when they meet |
 | Monday Oct 19, 12:40 AM | Rachel requests account removal (48 hours) |
 | Tuesday Oct 20, 5:12 PM | Rachel moves the meeting to Saturday; Conversation Assist accepts for the player; Rachel leaves Orbit |
 | Tuesday Oct 20, 9 PM | the player waits; Continuity defers (the plan says Saturday) |

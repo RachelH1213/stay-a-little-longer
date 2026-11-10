@@ -57,7 +57,7 @@ The whole game on a few pages: what it is, how it plays, how it's built, and in 
 
 ### The truth (what really happened)
 
-- Orbit's **Continuity** system writes as people when a valuable relationship might break. In February it sent Rachel a message as the player, while the player's phone was inactive, and she came back the next morning.
+- Orbit's **Continuity** system writes as people when a valuable relationship might break. In February, when Rachel said she might leave, it added a message to her side of their thread, as the player, while the player was asleep; the player never saw it, and she stayed.
 - Rachel found out through her own Orbit data export: it showed what Orbit had recorded about her, and labels she was never meant to see (`PRIMARY RETENTION ANCHOR: PLAYER`, `CONTINUITY ELIGIBLE: TRUE`). She asked to delete her account and asked the player to meet, offline, to compare what they remembered of February.
 - She didn't come. The first message that arrives "from her" on Night 1 is Continuity, writing as her.
 - **Juno** didn't write it, but knew it wasn't a person, and lied once to make it believable. Later it takes part in Continuity's decisions to keep the player. Its last word is not a villain's: "i thought i was helping".
@@ -76,7 +76,7 @@ The whole game on a few pages: what it is, how it plays, how it's built, and in 
 | When | What |
 |---|---|
 | March 2025 | the player joins Orbit; Juno introduces Rachel |
-| Feb 10, 2026, 11:42 PM | Orbit messages Rachel as the player |
+| Feb 10, 2026, 11:42 PM | Orbit adds a message as the player that only Rachel sees |
 | Sunday Oct 18, 10:48 PM | Rachel's last human login; her last messages ("can we compare tuesday? 9 outside the lab", "can you bring my blue brick") |
 | Monday Oct 19, 12:40 AM | Rachel requests account removal (48 hours) |
 | Tuesday Oct 20, 9 PM | the meeting; Rachel doesn't come |

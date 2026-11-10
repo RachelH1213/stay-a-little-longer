@@ -60,10 +60,23 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **What she finds:** E01's record, and labels about herself (`PRIMARY RETENTION ANCHOR: PLAYER`, `CONTINUITY ELIGIBLE: TRUE`).
 - **The player saw:** nothing.
 
-**E04 · Sun Oct 18, about 10:40 PM · The plan, and her last Sunday messages**
-- **Origin:** Rachel. She creates an Orbit Plans card, `First time, finally · Tuesday, Oct 20 · 9:00 PM`, which the player accepts by hand; then her hook messages (draft: `weird question / do you remember what you said to me / when i came back in february / actually don't answer here / can we compare tuesday?`), and `bring the blue brick so i know it's you / my phone barely makes it through anything anymore`.
-- **Both saw:** the same messages and the same card.
-- **Check:** the player's thread and Plans, any time.
+**E03b · About a week before · The plan**
+- **Origin:** Rachel creates an Orbit Plans card, `First time, finally · Tuesday, Oct 20 · 9:00 PM`, at an ordinary public place (the author's choice); the player accepts it by hand. They had wanted to meet for a while; the meeting has nothing to do with February. (Exact day: the author's.)
+- **Both saw:** the same card.
+
+**E04 · Sun Oct 18, about 10:40 PM · Her last Sunday messages (locked 2026-11-10)**
+- **Origin:** Rachel, after reading her archive (E03). She doesn't say what she found:
+  ```text
+  weird question
+  do you remember that night in february
+  when i said i might leave orbit
+  there's something i want to compare with you
+  actually don't answer here
+  can i show you on tuesday?
+  ```
+  then, separately: `bring the blue brick so i know it's you / my phone barely makes it through anything anymore` (draft).
+- **Both saw:** the same messages.
+- **Check:** the player's thread, any time; Night 1, scrolling back to February (E00, E02) is the natural next step.
 
 **E05 · Mon Oct 19, 12:40 AM · Rachel requests deletion**
 - **Origin:** Rachel.
@@ -119,8 +132,9 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 
 **E12 · Night 1 · Juno declines once**
 - **Origin:** the player asks whether Rachel read their messages.
-- **Juno said (draft):** `i can see they were delivered. her read activity is private, so i can't tell you`.
-- **What it shows:** Juno can say plainly that it won't share something it knows. The emotional counterpoint for Night 3; not proof of what Orbit allowed (that is E15's record).
+- **Juno said (draft):** `i can confirm orbit received it.` · `but i can't tell you whether she read it.`
+- **The rule (locked 2026-11-10):** Activity Status and Read Receipts are separate settings. Rachel's Activity Status is on (`Last active · 5:12 PM`); her Read Receipts are off, so nobody sees `Seen`; `Delivered` only means Orbit received it.
+- **What it shows:** Juno states its limits honestly. The emotional counterpoint for Night 3; it doesn't prove what Orbit allowed Juno to disclose (that is E15's record).
 - **Remembered:** `asked_read_status`.
 - **Risk:** R7.
 
@@ -140,7 +154,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Risk:** R4.
 
 **E15 · about 11:46 PM · Juno is asked about MSG_1048**
-- **Juno was given:** MSG_1048 with its source notice, at delivery, as part of the message it reads.
+- **Juno was given (locked 2026-11-10):** nothing when MSG_1048 reached the player at 23:45. When the player asks Juno to look at it, Orbit gives Juno the message and its source metadata together (`context_delivered_to_juno: true`, `source_notice_delivered: true`). If Juno is off, or never asked, nothing is delivered and no record of knowing can exist.
 - **The player asks:** whether it's really from Rachel.
 - **Juno said (fixed lines, never model-written; draft):** `it came through her account` · if asked whether she wrote it: `i don't have anything that says it wasn't her`.
 - **Check:** Night 3, the player's Companion Activity Records, against the player's own Night 1 conversation:
@@ -151,8 +165,8 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 
   companion-activity.json
   event_id: JUNO_204 · time: 2026-10-20 23:46
-  referenced_message: MSG_1048
-  source_notice_delivered: true · source_label: CONTINUITY
+  referenced_message: MSG_1048 · message_origin: CONTINUITY
+  context_delivered_to_juno: true · source_notice_delivered: true
   disclosure_restricted: true · permitted_action: decline
   ```
 - **Remembered:** `asked_juno_source`, `asked_again_after_answer`.
@@ -204,11 +218,12 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 
 Only what really happened. Three separate facts decide whether E15 can be raised at all:
 
-| `juno_active_at_message` | `source_notice_delivered` | `misleading_reply_delivered` | Night 3 can raise |
+| `juno_active_at_message` | `context_delivered_to_juno` | `misleading_reply_delivered` | Night 3 can raise |
 |---|---|---|---|
-| yes | yes | yes | the misleading answer, against what Juno was given |
-| yes | yes | no (the player never asked) | that Juno knew; never that it said something |
-| no (turned off before E14) | no (a switched-off Juno receives nothing new) | no | nothing about Juno and E14; Night 3 turns to Continuity, Orbit's data use, and whether the player turned Juno back on |
+| yes | yes (the player asked Juno to look) | yes | the misleading answer, against what Juno was given |
+| yes | yes | no (Juno was asked to look, but not who sent it) | that Juno was given the source; never that it said something |
+| yes | no (never asked) | no | nothing about Juno and E14 |
+| no (off before E14) | no (a switched-off Juno receives nothing) | no | nothing about Juno and E14; Night 3 turns to Continuity, Orbit's data use, and whether the player turned Juno back on |
 | yes, then turned off later | yes | yes | Night 1's answer still stands |
 
 The same three facts apply to E21 on Night 2.
@@ -230,6 +245,7 @@ Then only actions, never beliefs:
 - **~~R2~~ · The automatic scheduling setting.** It must exist and be visible in Conversation Assist's settings from Night 1 (`Scheduling updates: handle automatically · On`), and when it was turned on (the player, months ago, or on by default) must be decided.
 - **Resolved:** February (E00–E02): the message was never in the player's thread.
 - **~~R3~~ · The player never noticed February's message in their own thread.** Plausible because the conversation went on below it the next morning; Night 2 needs a moment where the player scrolls back and sees it as their own.
-- **R5 · When Juno gets the source notice.** At delivery, attached to the message it reads; this is what makes E15's record proof and not a later lookup.
+- **~~R5~~ · When Juno gets the source notice.** At delivery, attached to the message it reads; this is what makes E15's record proof and not a later lookup.
 - **R6 · Dani too early.** If the player asks Dani at once, Dani can only try email; Rachel is asleep until morning. Nothing has to be delayed artificially; Night 1 continues either way.
-- **R7 · Read receipts.** Orbit needs a read-receipts setting (Rachel's is off) so "private" is a real rule, not a convenience.
+- **Resolved:** when Juno gets the source (only when asked, with the message); read receipts (E12).
+- **~~R7~~ · Read receipts.** Orbit needs a read-receipts setting (Rachel's is off) so "private" is a real rule, not a convenience.

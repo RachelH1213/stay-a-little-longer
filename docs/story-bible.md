@@ -194,29 +194,25 @@ Juno 则说：
 
 #### The hook (decided)
 
-Rachel's last messages, Sunday night (draft wording, the author's):
+Rachel's last messages, Sunday night (locked 2026-11-10; the meeting itself was set about a week earlier, with nothing to do with February):
 
 ```text
 weird question
-
-do you remember what you said to me
-when i came back in february
-
+do you remember that night in february
+when i said i might leave orbit
+there's something i want to compare with you
 actually don't answer here
-
-can we compare tuesday?
-9 outside the lab
+can i show you on tuesday?
 ```
 
-then, separately:
+then, separately (draft):
 
 ```text
-also can you bring my blue brick
-
-my phone barely makes it through crit anymore
+bring the blue brick so i know it's you
+my phone barely makes it through anything anymore
 ```
 
-Rachel isn't asking the player to investigate; she wants to check a shared memory, and not on Orbit. She doesn't show up at 9 PM.
+Rachel isn't asking the player to investigate; she wants to check a shared memory, and not on Orbit. She moves the meeting to Saturday on Tuesday afternoon; Conversation Assist accepts for the player, who goes on Tuesday (`docs/evidence-matrix.md`).
 
 #### Night 1 — "Is that really Rachel?" (shared)
 
@@ -271,7 +267,7 @@ The order isn't fixed (decided): a player may refresh her profile before the fak
 - **If the player sent that line to Rachel anyway**, the leak uses the strongest other thing said only to Juno; if there is none, Night 2 uses only the style layer and the leak waits for the Night 3 export.
 - **The player sees Conversation Assist act:** in an open thread, `◌ Reply prepared by Orbit · Sending in 10s · Undo`. Not a reflex test: the countdown runs only while visible, pauses in the background, is longer with accessibility settings, and the story continues either way. Players who turned Follow-up replies off never see it.
 - **Rachel is safe.** Dani reaches her through a channel she still trusts and, with her consent, gives the player a one-time private link.
-- **February (the personal layer):** Rachel's data shows a message added on Feb 10, 23:42, as the player and visible only to her, while the player was asleep (`Farewell detected · visible_to: recipient_only`); the next morning she thanked the player and stayed (`Conversation reopened · Outcome: SUCCESSFUL`). The player checks it against their own thread, where the message isn't, and against their own memory of what they really said (`take some time, no pressure`). Style is only foreshadowing, never the proof. This is what Rachel wanted to compare on Tuesday. (Open: how the player confirms they were asleep at 23:42, now that Dani isn't someone who would know.)
+- **February (the personal layer):** Rachel's data shows a message added on Feb 10, 23:42, as the player and visible only to her, while the player was asleep (`Farewell detected · visible_to: recipient_only`); the next morning she thanked the player and stayed (`Conversation reopened · Outcome: SUCCESSFUL`). The player checks it against their own thread, where the message isn't, and against their own memory of what they really said (`take some time, no pressure`). Style is only foreshadowing, never the proof. This is what Rachel wanted to compare on Tuesday. The proof isn't that the player was asleep, but three records together: Rachel's side has the message, the player's sent history doesn't, and her archive has the reactivation record for that minute.
 - **Ends with the route choice:** Keep Orbit active / Disable Juno / Delete Orbit account.
 - **The player believes at the end:** Orbit didn't only impersonate Rachel; it once took part in my side of the relationship.
 

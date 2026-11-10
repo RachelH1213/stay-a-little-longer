@@ -13,7 +13,7 @@ What really happened, event by event, from February to the start of Night 2: who
 - **Locked 2026-11-10 (R2):** before deletion, Continuity writes through Rachel's grace-period account and looks ordinary; after deletion, into the player's retained thread under `Orbit User · Formerly Rachel M.`, below `Account removed · Wed 12:40 AM`. The composer stays. Two rules:
   - **Delivered means Orbit received it.** After deletion, the player's messages go `player → retained thread → Orbit's conversation service`, never to Rachel; `Delivered` only means Orbit's server accepted them. Any reply comes from the thread and the retained relationship model, not from her account.
   - **Last Active records only the account owner's human sessions.** 5:12 PM (Rachel moving the plan) updates it; MSG_1048 (Continuity) doesn't; at 12:40 AM it goes with the profile. It is on her profile from the start of Night 1.
-- **The blue power bank (locked):** Rachel mailed it to the player months ago with a handwritten card (`your phone dies more than mine`, draft). On Sunday she asks the player to bring it so she'll recognise them. The player used it while waiting; it's on the desk next to the phone when Night 1 begins, one light left. The room search now leads to the card, not the power bank (`night1-scenes.md`, `N1_ROOM.card`).
+- **The blue power bank (locked):** Rachel mailed it to the player months ago with a handwritten card (`your phone dies more than mine`, draft). It has nothing to do with the meeting (revised 2026-11-10: Rachel no longer asks the player to bring it). It's on the desk next to the phone when Night 1 begins, one light left. The room search now leads to the card, not the power bank (`night1-scenes.md`, `N1_ROOM.card`).
 - **The player's evidence:** the Companion Activity Records the player requests on Night 2 and receives on Night 3; plus their own history and screenshots.
 - **Records list facts, never verdicts.** No field says "misleading" or "lie".
 - **Actions, not beliefs.** The game remembers what the player did (saved a message, asked again, showed Dani), never what they "believed". Night 3's lines quote actions only.
@@ -74,7 +74,6 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
   actually don't answer here
   can i show you on tuesday?
   ```
-  then, separately: `bring the blue brick so i know it's you / my phone barely makes it through anything anymore` (draft).
 - **Both saw:** the same messages.
 - **Check:** the player's thread, any time; Night 1, scrolling back to February (E00, E02) is the natural next step.
 
@@ -114,8 +113,8 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Check:** Night 2, the screenshot among what Rachel shares.
 
 **E09 · Tue Oct 20, 9:00–9:40 PM · The player waits**
-- **Origin:** the player, at the place from Sunday's messages, with the blue power bank.
-- **The player sent:** messages in Rachel's thread (draft: `i'm here`, `blue brick in hand`, `everything ok?`), shown `Delivered`. Rachel was signed out and never saw them.
+- **Origin:** the player, at the place from the plan.
+- **The player sent:** messages in Rachel's thread (draft: `i'm here`, `you ok?`, `heading home / message me when you can`), shown `Delivered`. Rachel was signed out and never saw them.
 - **The player saw:** `Delivered`, no reply. They go home around 9:40.
 - **Juno:** not involved. The player doesn't ask Juno while waiting (a Juno that can see Plans would have found the change at once). This is before the game: told through the message history and the room, not playable; free play starts at 11:31 PM.
 

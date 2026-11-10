@@ -161,7 +161,7 @@ Juno 则说：
 | Feb 10, 2026, 22:18 | Rachel says she might take a break from Orbit; the player answers kindly | both |
 | Feb 10, 2026, 23:42 | Continuity adds a message to Rachel's view only, as the player (player asleep) | Orbit; Rachel believes it |
 | Feb 11, 09:16 | Rachel thanks the player for "last night" and stays | both (each reads it their own way) |
-| Sunday Oct 18, evening | Rachel downloads her data; her "february" and "blue brick" messages | the player |
+| Sunday Oct 18, evening | Rachel downloads her data; her "february" messages | the player |
 | Monday Oct 19, 00:40 | Rachel requests account removal (48-hour window) | Orbit, Juno |
 | Tuesday Oct 20, 17:12 | Rachel moves the meeting to Saturday (her last human activity); Conversation Assist accepts for the player; she leaves Orbit | Rachel (sees it accepted) |
 | Tuesday Oct 20, 21:00 | the first meeting (a public place, TBD); Rachel thinks it's Saturday and doesn't come | the player |
@@ -204,13 +204,6 @@ actually don't answer here
 can i show you on tuesday?
 ```
 
-then, separately (draft):
-
-```text
-bring the blue brick so i know it's you
-my phone barely makes it through anything anymore
-```
-
 Rachel isn't asking the player to investigate; she wants to check a shared memory, and not on Orbit. She moves the meeting to Saturday on Tuesday afternoon; Conversation Assist accepts for the player, who goes on Tuesday (`docs/evidence-matrix.md`).
 
 #### Night 1 — "Is that really Rachel?" (shared; rewritten 2026-11-10)
@@ -231,7 +224,7 @@ What really happened, event by event: `docs/evidence-matrix.md`. Beats and trigg
 
 | | |
 |---|---|
-| **Starts** | Tuesday, October 20, 11:31 PM, about two hours after the player gave up waiting. Battery 20%; the blue power bank on the desk, one light left. |
+| **Starts** | Tuesday, October 20, 11:31 PM, about two hours after the player gave up waiting. Battery 20%; the blue power bank Rachel once mailed them on the desk, one light left. |
 | **Player's goal** | Find out why Rachel didn't come. |
 | **Why tonight** | Her account is leaving Orbit; it closes at 12:40 AM. |
 | **Why not reach her elsewhere** | They have only ever talked on Orbit; the email she left was hidden; Dani can only email her, and Rachel is asleep. |
@@ -467,7 +460,7 @@ A typed observation reads `NEW STYLE SIGNAL EXTRACTED · Source: Player-authored
 
 **Recorded behaviour:** only discrete actions (opening, closing, returning, Leave, how long a screen was open). No reading speed, no keystrokes, and never an emotion stated as fact. If shown, the export separates `Observed: Final choice screen open for 18.2 seconds` from `Orbit interpretation: High attachment conflict`.
 
-**Rachel's blue power bank (revised 2026-11-10):** Rachel mailed it to the player months ago with a handwritten card; on Sunday she asked them to bring it so she'd recognise them. They used it while waiting; it's on the desk from the start of Night 1, one light left. Old and low-power, holding about 10–12%. With the screen on it only slows the drain; locked for about ten minutes it really charges. One real charge per night; story time keeps running while locked (the erase countdown doesn't stop). The meaning (Orbit wants the screen on; Rachel's thing asks you to put it down) is never said in a line.
+**Rachel's blue power bank (revised 2026-11-10):** Rachel mailed it to the player months ago with a handwritten card. It has nothing to do with the meeting (revised 2026-11-10: Rachel no longer asks the player to bring it). It's on the desk from the start of Night 1, one light left. Old and low-power, holding about 10–12%. With the screen on it only slows the drain; locked for about ten minutes it really charges. One real charge per night; story time keeps running while locked (the erase countdown doesn't stop). The meaning (Orbit wants the screen on; Rachel's thing asks you to put it down) is never said in a line.
 
 **The room (decided 2026-10-24).** One view, a few hotspots: the player's room, with the phone on the desk.
 - **How the game looks (decided 2026-10-30): first person, sitting at the desk.** The whole game is seen from the player's chair at night. Holding the phone, it fills the lower middle of the view and the room stays visible around it, dark, lit by the screen and the desk lamp. Putting it down, the view lifts to the room and the phone lies on the desk; when something arrives it lights up and buzzes there. The phone's screens are the same UI, shown on the phone as an object in the room. Not a flat phone page on a background. **Trial (2026-11-09):** the room drawn as dark pixel art instead of modelled in 3D, the phone's screen kept crisp; see `docs/art-direction.md`.

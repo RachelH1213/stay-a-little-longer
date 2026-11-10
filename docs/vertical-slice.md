@@ -79,7 +79,7 @@ The slice is done when every item below is true. Nothing outside this list needs
 | Before You Begin | the playtest consent and data notice |
 | Lock screen | Juno's notification; Rachel's Sunday messages (the drafts in the story bible) |
 | Juno's opening | the 4 Suggested replies; a fallback for Juno's answer to each |
-| Rachel's thread | the year of history (from the prototype, moved to the final timeline: Tuesday 9 PM, the blue power bank); the Suggested replies for messaging her |
+| Rachel's thread | the year of history (from the prototype, moved to the final timeline: Tuesday 9 PM); the Suggested replies for messaging her |
 | Her profile | cached blocks, `Unavailable`, removal, Profile Details |
 | The old number | the call record |
 | The first fake | the final wording |

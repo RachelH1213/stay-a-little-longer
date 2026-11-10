@@ -82,7 +82,7 @@ What happened, event by event: `evidence-matrix.md`.
 | Feb 10, 2026, 10:18 PM | Rachel says she might take a break from Orbit; the player answers kindly |
 | Feb 10, 2026, 11:42 PM | Continuity adds a message as the player that only Rachel sees; she stays |
 | about a week before Night 1 | Rachel sets up their first meeting, Tuesday 9 PM; the player accepts |
-| Sunday Oct 18, evening | Rachel downloads her data; asks whether the player remembers that night in February; asks them to bring the blue power bank |
+| Sunday Oct 18, evening | Rachel downloads her data; asks whether the player remembers that night in February and whether she can show them on Tuesday |
 | Monday Oct 19, 12:40 AM | Rachel requests account removal (48 hours) |
 | Tuesday Oct 20, 5:12 PM | Rachel moves the meeting to Saturday; Conversation Assist accepts for the player; Rachel leaves Orbit |
 | Tuesday Oct 20, 9 PM | the player waits; Continuity defers (the plan says Saturday) |
@@ -103,7 +103,7 @@ Tuesday, October 20, 11:31 PM, battery 20%. The failed meeting has already happe
 - The fake is generated when one shared eligibility rule is met (11:45 PM at the latest); its time and trigger are recorded from the actual playthrough.
 - Juno's part is conditional: it receives a message's source only when the player asks it to look while it's on; later evidence reflects only what it really received and said.
 - **The held-back line:** Juno asks what the player was going to say to Rachel and advises keeping it for her; what the player says only to Juno can come back on Night 2.
-- **The room:** the blue power bank is on the desk, nearly empty; Rachel's handwritten card is in the drawer. Neither gates the investigation.
+- **The room:** the blue power bank Rachel once mailed the player is on the desk, nearly empty; Rachel's handwritten card is in the drawer. Neither gates the investigation.
 - **Ends** when the player goes to sleep or the phone dies. Orbit asks a Check-in question; if Dani was left unanswered, Orbit answers her as the player.
 
 ### Day interlude

@@ -108,7 +108,7 @@ Continue
 
 - 23:31.
 - Juno: `still awake?` This line does not depend on any choice.
-- Below it, Rachel's older notification from Sunday: her last messages (the February question, `can we compare tuesday? / 9 outside the lab`, and the blue brick), as in `docs/story-bible.md` §4, The hook. The meeting was Tuesday 9 PM, two and a half hours before the night starts.
+- Below it, Rachel's older notification from Sunday: her last messages (the February question, ending `can i show you on tuesday?`), as in `docs/story-bible.md` §4, The hook. The meeting was Tuesday 9 PM, two and a half hours before the night starts.
 - Tapping Juno's notification opens Juno's thread.
 
 ### 4.5 Tonight's conversation

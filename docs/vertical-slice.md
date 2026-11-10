@@ -6,7 +6,7 @@ The biggest risk it has to settle is the presentation: the game is seen in first
 
 Revised 2026-10-30: the room and the first-person view moved into the slice and to the front of the work.
 
-Decided 2026-10-30. Sources: `docs/landing.md`, `docs/night1-scenes.md`, `docs/story-bible.md` §4 and §6, `docs/save-system.md`. Where this file and those disagree, those win; this file only chooses what is in the slice and what "final" means.
+Revised 2026-11-10 to the rebuilt Night 1 (the changed plan, forwarding, MSG_1048 A/B, Dani's email). Decided 2026-10-30. Sources: `docs/night1-routes.md`, `docs/landing.md`, `docs/night1-scenes.md`, `docs/story-bible.md` §4 and §6, `docs/save-system.md`. Where this file and those disagree, those win; this file only chooses what is in the slice and what "final" means.
 
 **Deadline:** TBD (the author's; tie it to a thesis review).
 
@@ -17,24 +17,26 @@ Decided 2026-10-30. Sources: `docs/landing.md`, `docs/night1-scenes.md`, `docs/s
 From the title screen to the end of the held-back line, about 10–15 minutes:
 
 1. Title → Before You Begin → Name.
-2. The room, at the desk, 11:31 PM. The phone on the desk lights up: Juno's notification above Rachel's Sunday messages. The player picks it up (lock screen, Tuesday 20 October).
-3. Juno's opening: `still awake?`, the first reply, Juno's answer.
-4. Rachel's thread: her Sunday messages, a year of history, a message to her that shows `Delivered`.
-5. Her profile: the cached version, the refresh that replaces it with `Unavailable`, `Account scheduled for removal` and the countdown, then Profile Details.
-6. The first fake arrives (any of its three triggers).
-7. Evidence: a screenshot, shown to Juno. Juno answers from the player's facts and its stance; the one active lie is told or skipped as the scene table says.
-8. The held-back line: Juno asks what the player was going to say to Rachel; the player picks, types, declines, sends the simpler one, or sends the original.
-9. The slice ends: one screen outside the fiction ("End of the slice"), then the title.
+2. The room, at the desk, 11:31 PM. The phone on the desk lights up with Juno's notification (`still awake?`), nothing else. The player picks it up (lock screen, Tuesday 20 October).
+3. Juno's opening: the first reply, Juno's answer.
+4. Rachel's thread: the player's own 9 PM messages (`Delivered`), her Sunday messages, a year of history; a new message to her shows `Delivered`.
+5. The plan: the tag at the top of her thread → Saturday, Change History, the hidden email, `Handled by Conversation Assist` → Settings (Auto-Coordinate). Found alone or with Juno's help.
+6. Her profile: the cached version, the refresh that replaces it with `Unavailable`, `Leaving Orbit · Account closes Wed 12:40 AM` and the countdown, `Last active · 5:12 PM`.
+7. Dani: she hasn't heard from Rachel; she emails her tonight.
+8. The first fake arrives (the one eligibility rule), version A or B by what the player wrote in Rachel's thread.
+9. Evidence: the player forwards the fake to Juno (or says yes when Juno asks to look), or to Dani. Juno answers only what the player raises; the one fixed misleading line only if asked who sent it.
+10. The held-back line: Juno asks what the player was going to say to Rachel; the player picks, types, declines, sends the simpler one, or sends the original.
+11. The slice ends: one screen outside the fiction ("End of the slice"), then the title.
 
-The order between 4, 5 and 6 is free, as in the full game. At any point the player can put the phone down, look around the room and pick it up again; if the fake arrives while the phone is down, it lights up on the desk. A player who never talks to Juno about the fake still reaches the end (see §5).
+The order between 4 and 10 is free, as in the full game; `docs/night1-routes.md` is the test list. At any point the player can put the phone down, look around the room and pick it up again; if the fake arrives while the phone is down, it lights up on the desk. A player who never talks to Juno about the fake still reaches the end (see §5).
 
 ## 2. Beats and systems in the slice
 
 | In | Out (later) |
 |---|---|
-| `N1_ROOM.put_down` (put down, look around, pick up), `N1_LANDING.lock`, `N1_JUNO_OPENING.*`, `N1_RACHEL.thread_open`, `N1_RACHEL.contact`, `N1_VERIFY.number`, `N1_VERIFY.profile_cache`, `N1_VERIFY.refresh`, `N1_VERIFY.details`, `N1_FIRST_FAKE`, `N1_JUNO.bring_fake`, `N1_JUNO.held_back`, `N1_EVIDENCE.style`, `N1_EVIDENCE.removal`, `N1_EVIDENCE.access` | `N1_VERIFY.dani`, searching the room and the power bank, Waiting, Battery Saver, the erase warning and the erase, Check-in, End Session, shutdown, `N1_END.sleep`, Settings beyond the quick settings |
+| `N1_ROOM.put_down` (put down, look around, pick up), `N1_LANDING.lock`, `N1_JUNO_OPENING.*`, `N1_RACHEL.thread_open`, `N1_RACHEL.contact`, `N1_PLANS.history`, `N1_JUNO.reschedule`, `N1_JUNO.read_status`, `N1_JUNO.dani`, `N1_DANI.ask`, `N1_DANI.email`, `N1_VERIFY.profile_cache`, `N1_VERIFY.refresh`, `N1_FIRST_FAKE` (A/B), `N1_RACHEL.reply_after_fake`, `N1_JUNO.bring_fake`, `N1_JUNO.held_back`, `N1_EVIDENCE.style`, `N1_EVIDENCE.last_active`, Auto-Coordinate in Settings | `N1_ROOM.card`, the power bank and Waiting, Battery Saver, the erase warning and the erase, Check-in, End Session, shutdown, `N1_END.sleep`, Settings beyond the quick settings and Auto-Coordinate |
 
-Systems the slice needs: the room (one view at the desk, a few things to look at, the lamp and the screen as light sources, the phone as an object that lights up and buzzes); picking up and putting down; the phone shell (status bar, home screen, Orbit Chats, home bar); Rachel's thread and profile; screenshots and the tray in Juno's thread (Photos only as far as the tray needs it); facts, Juno's stances and the one lie; time and battery costs; Suggested replies with the Orbit ring (`◌ Suggested replies`) and the first-time line; typing with the classifier; the model through the new intents; autosave and resume at every beat; the quick settings (text size, Reduce Motion, sound).
+Systems the slice needs: the room (one view at the desk, a few things to look at, the lamp and the screen as light sources, the phone as an object that lights up and buzzes); picking up and putting down; the phone shell (status bar, home screen, Orbit Chats, home bar); Rachel's thread, the plan and its history, her profile, Dani's thread; Forward (long-press) and Juno's look-at-it consent; screenshots to Photos (they keep how a screen looked; they never give Juno a message's source); facts, Juno's knowledge records and the one fixed line; the MSG_1048 A/B rule; time and battery costs; Suggested replies with the Orbit ring (`◌ Suggested replies`) and the first-time line; typing with the classifier; the model through the new intents; autosave and resume at every beat; the quick settings (text size, Reduce Motion, sound).
 
 The 00:40 erase is outside the slice, so the countdown on her profile runs but the slice ends long before it.
 
@@ -77,14 +79,16 @@ The slice is done when every item below is true. Nothing outside this list needs
 | Where | What |
 |---|---|
 | Before You Begin | the playtest consent and data notice |
-| Lock screen | Juno's notification; Rachel's Sunday messages (the drafts in the story bible) |
+| Lock screen | Juno's notification |
 | Juno's opening | the 4 Suggested replies; a fallback for Juno's answer to each |
-| Rachel's thread | the year of history (from the prototype, moved to the final timeline: Tuesday 9 PM, the blue power bank); the Suggested replies for messaging her |
-| Her profile | cached blocks, `Unavailable`, removal, Profile Details |
-| The old number | the call record |
-| The first fake | the final wording |
-| Juno on the fake | the answer at each stance; the one lie; the withdrawal |
-| Evidence | "what's different?" and its Suggested replies; Juno's answer to each stance |
+| Rachel's thread | the year of history (from the prototype, moved to the final timeline: Tuesday 9 PM, February, Sunday); the Suggested replies for messaging her |
+| The plan | the card, Change History, Rachel's note |
+| Juno on the plan | the explanation, the email, read status, suggesting Dani |
+| Dani | her Night 1 conversation and both emails |
+| Her profile | cached blocks, `Unavailable`, removal, Last active |
+| The first fake | the final wording of versions A and B |
+| Juno on the fake | its answer to each thing the player can raise; the consent question; the one fixed line |
+| Evidence | the Suggested replies for each version; vague doubt, a specific style feature, content |
 | The held-back line | Juno's question; the options; Juno's advice; the simpler Suggested replies |
 | Facts for the model | one sentence per fact the model may receive |
 | End of the slice | the closing screen |
@@ -92,7 +96,8 @@ The slice is done when every item below is true. Nothing outside this list needs
 ## 5. When the slice is done
 
 - A first-time player reaches the end of the held-back line in 10–15 minutes without help.
-- In playtests, most players notice the fake doesn't sound like Rachel without being told.
+- In playtests, most players notice something wrong with the fake without being told (the date in A, the unanswered question in B, the style, February).
+- Every route and cross test in `docs/night1-routes.md` reaches the end, and every key line can be traced to what its speaker had been given.
 - A player who skips Juno entirely still reaches the end screen (the fake arrives by 23:45; the slice ends a few minutes after it, when the player leaves Rachel's thread or the clock reaches 23:55).
 - The §3 list is all true.
 
@@ -101,9 +106,9 @@ The slice is done when every item below is true. Nothing outside this list needs
 1. **The presentation prototype** (now the pixel-art test, `docs/art-direction.md` §9): the room at the desk in first person, the phone as an object with the existing screens (lock screen, Juno's thread) on it, picking up and putting down, the lamp and screen light, the phone lighting up on the desk. The author judges the look here before more screens are built.
 2. Visual direction decided (the author) and applied to the room and the existing screens.
 3. Home screen, Orbit Chats, Rachel's thread; quick settings stored, text size working.
-4. Her profile, the refresh, Profile Details, the old number.
-5. The first fake and its triggers; the end of the slice and its screen.
-6. Screenshots, the tray, showing Juno; facts and stances; the one lie.
+4. The plan and its history, Settings (Auto-Coordinate); her profile and the refresh; Dani's thread.
+5. The first fake, its eligibility rule and versions A/B; the end of the slice and its screen.
+6. Forward, Juno's consent, screenshots to Photos; facts, knowledge records and the one fixed line.
 7. The model client with fallbacks and the cap (`api/reply.js` already takes the new intents).
 8. Typing and the classifier (the classification table comes first, in `night1-scenes.md`).
 9. The held-back line.

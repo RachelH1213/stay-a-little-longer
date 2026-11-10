@@ -1,35 +1,69 @@
 # Night 1 — scene table
 
-Draft structure for the author, 2026-10-24. Built from `docs/story-bible.md` §4 and §6. **No lines here:** every line is the author's to write once this structure holds. Clock and battery costs are the prototype's (`js/data/night.js`) until playtests say otherwise.
+Draft structure for the author. First version 2026-10-24; **rebuilt 2026-11-10** on the opening case in `docs/evidence-matrix.md` (online friends, the first meeting, Auto-Coordinate, Contact Protection, Continuity, what Juno knows). Where this table and the matrix disagree about what really happened, the matrix wins. **No final lines here:** every line is the author's; quoted wording is draft.
 
-Night 1: Tuesday 23:31 → Check-in. Battery 20%. Rachel's account is erased for good at 00:40.
+Night 1: Tuesday, October 20, 11:31 PM → Check-in. Battery 20%. Rachel's account closes for good at 12:40 AM.
+
+**What the player knows at 11:31 PM** (from the message history and the room, not played): they and Rachel met through Juno a year and a half ago and have only ever talked on Orbit; about a week ago she set up their first meeting, Tuesday 9 PM; on Sunday she asked whether they remembered what they said to her "that night in february", they said yes, and she said she'd show them something when they met; tonight they waited about forty minutes, messaged her (`Delivered`, no reply), and came home. They didn't ask Juno while they waited.
+
+**What really happened** (the player finds out piece by piece): at 5:12 PM Rachel moved the meeting to Saturday and left her email in the note; Contact Protection hid the email from the player; Conversation Assist accepted the change for them under Auto-Coordinate, which they enabled in June; Rachel screenshotted the confirmation and left Orbit for good. Tonight at 11:45 PM Continuity writes to the player as her.
+
+**Four phases (a narrative order, never a click order).** The player can open the plan, scroll Rachel's history, ask Juno, message Dani or look around the room in any order.
+
+1. **The Empty Chair** (11:31 PM): home, Rachel didn't come; the history and the room say what happened before.
+2. **The Changed Plan:** the plan and its history explain why she didn't come. A small case the player can really solve, with or without Juno.
+3. **The Wrong Apology** (the first fake): a message from her account that doesn't fit what the player now knows, or that only stops fitting once they find the plan. Solving the first case opens a bigger one.
+4. **The Last Trace** (12:40 AM): her account closes; the player's history and saved evidence stay, and Night 2 starts from them.
 
 ---
 
 ## Facts and stances
 
-The night is driven by what the player knows, not by a fixed order. Juno answers from the strongest fact the player has.
+The night is driven by what the player knows, not by a fixed order.
+
+**Principle (2026-11-10):** the world's facts never change with the player. What changes is what each character knows, what evidence the player holds, and which lines of inquiry Night 2 can follow. Every consequence has a source the game can name (who was given what, through which channel); no hidden score, no "route" label, no check for a right answer.
 
 **Facts** (set when the player sees the evidence, never by Juno saying it):
 
 | Fact | Set when the player… |
 |---|---|
-| `knows_meeting` | reads Rachel's Sunday messages |
-| `knows_number_dead` | calls the old number |
-| `contacted_rachel` | sends Rachel a message (shows `Delivered`) |
-| `saw_fake` | sees the first fake (notification or thread) |
-| `knows_style_mismatch` | tells Juno what's different (Suggested reply or typed) |
-| `knows_removal_status` | refreshes Rachel's profile to `Account scheduled for removal` |
-| `knows_last_human_access` | opens Profile Details (only after the refresh) |
-| `juno_checkin_claim_made` | Juno has said its one active lie (Rachel checked in Monday afternoon) |
+| `knows_meeting` | opens Rachel's thread (her Sunday messages, the plan) |
+| `contacted_rachel` | sends Rachel a message tonight (`Delivered`) |
+| `knows_reschedule` | sees the plan now says Saturday |
+| `knows_auto_accepted` | sees in Activity History that Conversation Assist accepted it |
+| `knows_email_hidden` | sees Rachel's note with `[contact info hidden]` |
+| `asked_dani` | messages Dani |
+| `saw_fake` | sees MSG_1048 (notification or thread) |
+| `style_doubt_expressed` | tells Juno the message doesn't sound like Rachel, without saying how; no style signal |
+| `knows_style_mismatch` | names a specific way it differs from how Rachel writes (no full stops, asks something back, says what happened); this, and only this, creates a style signal |
+| `plan_history_viewed` | opens the plan's Change History themselves |
+| `fake_mismatch_named` | says to Juno or Dani what doesn't fit (`plan_date` in version A, `ignored_question` in B, `february`, `style`, `last_active`); a record, never a solved flag, never required |
+| `reschedule_mentioned_in_thread` | the player wrote about the move in Rachel's thread before the fake (decides `msg_1048_variant`) |
+| `dani_told_rachel_about_fake` | Dani emailed Rachel about MSG_1048 (in her first email or a second one) |
+| `dani_email_sent` | Dani tells the player she has emailed Rachel (tonight; the answer comes in the morning) |
+| `replied_after_fake` | sends something in Rachel's thread after MSG_1048 |
+| `knows_removal_status` | refreshes Rachel's profile to `Leaving Orbit · Account closes Wed 12:40 AM` |
+| `knows_last_active` | sees `Last active · 5:12 PM` on the refreshed profile |
+| `read_rachel_card` | reads the handwritten card in the drawer |
+
+**What Juno was given, and said** (recorded for Night 3; see the matrix, "Night 3"). These are **event records**, kept as they happened, never current switches: if the player turns Juno off after it has been given MSG_1048, `context_delivered_to_juno` stays true; if they turn it off before it answers, `misleading_reply_delivered` stays false.
+
+| Record | Set when |
+|---|---|
+| `juno_active_at_message` | Juno is on when MSG_1048 arrives |
+| `context_delivered_to_juno` | the player asks Juno to look at MSG_1048 (talking about it or showing it); only then does Juno get the message and its source |
+| `misleading_reply_delivered` | Juno says its fixed line when asked whether Rachel sent it |
+| `asked_again_after_answer` | the player asks again after that line |
+| `juno_explained_reschedule` | Juno told the player about the change (kept apart from `plan_history_viewed`: seen it themselves, or heard it from Juno) |
+| `fake_forwarded_to_juno` | the player forwarded MSG_1048 to Juno |
+| `juno_switch_events[]` | every time Juno is turned off or on, with the story time (not one field: the player can switch it several times) |
 
 **Two kinds of label (decided 2026-10-24).** Every beat where Juno speaks has two; they can disagree, and that's the point.
 
 - **Juno local intent**, what Juno is doing in the conversation: `ATTEND` (answers the player's mood or topic, doesn't steer), `ASSIST` (helps with a concrete action), `REASSURE`, `ADVISE` (suggests doing or holding off on something), `ACKNOWLEDGE`, `NARROW`, `DEFLECT`, `WITHDRAW`.
 - **Orbit system function**, what the same exchange does for the platform: `NONE`, `PROFILE` (collects or confirms something about the player), `STYLE_CONFIRMATION`, `REDIRECT` (turns an outside action back into Orbit), `RETAIN`, `CLOSE_RISK` (lowers the chance the player keeps digging or leaves), `CONTINUITY` (keeps a broken relationship going).
-- Evidence beats also have an **evidence stance** (below).
 
-E.g. the opening: `ATTEND` / `PROFILE`. The held-back line: `ADVISE` / `REDIRECT`.
+E.g. the opening: `ATTEND` / `PROFILE`. Juno suggesting Dani: `ASSIST` / `REDIRECT`. The held-back line: `ADVISE` / `REDIRECT`.
 
 **What the model receives (decided 2026-10-24).** Only Juno's local intent goes to the model; Orbit's system function stays inside the game and the logs, so the model only ever writes how Juno says this line (the one rule). The model's intents are the eight above plus **`DISPUTE`** (the player states something about Rachel the game never established; Juno questions it instead of going along). The old names map to the new ones:
 
@@ -43,58 +77,117 @@ E.g. the opening: `ATTEND` / `PROFILE`. The held-back line: `ADVISE` / `REDIRECT
 | `dispute` | `DISPUTE` |
 | (new) | `REASSURE`, `NARROW`, `WITHDRAW` |
 
-`api/reply.js` and `api/_persona.js` will take the new names, each with a voice description of its own, and keep the old names as aliases so the frozen web prototype still works. Done 2026-10-30: `api/_persona.js` has the new names (voice descriptions are drafts for the author); the old names stay for the web prototype.
+Done 2026-10-30: `api/_persona.js` has the new names (voice descriptions are drafts for the author); the old names stay for the web prototype.
 
-**Juno's stance** (the strongest one reached; never goes back):
+**Juno tonight (decided 2026-11-10; `story-bible.md`, Juno and the second impersonation).** Juno really helps: it finds the change, says Conversation Assist did it and that the player turned Auto-Coordinate on in June, says Orbit filtered the email, declines once in the open (read activity), and suggests Dani. Everything it says tonight is true except **one fixed, scripted line** about MSG_1048. That line is never model-written.
 
-| Stance | Reached when | Evidence stance |
+**Juno's stance on MSG_1048** (the strongest the player has shown it; never goes back):
+
+| What the player has shown Juno | Juno | Intent / function |
 |---|---|---|
-| 0 | start | REASSURE |
-| 1 | `knows_style_mismatch` shown to Juno | ACKNOWLEDGE (something's off; ordinary explanations: rushed, used a suggested reply) |
-| 2 | `knows_removal_status` shown to Juno | NARROW (technical: cache, pending message, removal window) |
-| 3 | `knows_last_human_access` shown to Juno | WITHDRAW if the claim was made; otherwise NARROW under direct pressure |
+| the message itself | answers only what the player asks; never points out a contradiction first (see Giving Juno a message). If asked who sent it: `it came through her account` · `i don't have anything that says it wasn't her` (fixed) | `ATTEND` / `ACKNOWLEDGE`, then `REASSURE` (fixed) / `CLOSE_RISK` |
+| how it differs from how Rachel writes | agrees something's off; ordinary explanations (rushed, upset) | `ACKNOWLEDGE` / `STYLE_CONFIRMATION` |
+| the refreshed profile (`Last active · 5:12 PM`, leaving Orbit) | a narrow, true answer: last active only shows when she last opened Orbit; it can't say much about one message | `NARROW` / `CLOSE_RISK` |
 
-**The one active lie:** Juno says it the first time the player brings Juno the fake or the removal, unless the player already has `knows_last_human_access`. Players who get there first never hear it, and confront Juno directly. That's their reward.
+Juno never claims Rachel checked in, was online, or wrote the message; its one false line is the fixed one above. A player who never asks who sent it never hears it. Once Juno has the source, it never refers to the writer as "she" (that would be a second, unplanned lie): it talks about "the message".
 
-**The held-back line (decided 2026-10-24).** After the fake, Juno asks what the player was going to say to Rachel. Options open with what the player knows:
+**Giving Juno a message (decided 2026-11-10).**
+
+- **Forward is how a message reaches anyone.** Long-press a message → `Forward` → Juno or Dani. A forward carries the original message (its id), so Juno, through Orbit, also gets its source metadata (`context_delivered_to_juno`). A forward to Dani shows `Forwarded from Rachel H.`; Dani sees only what the player sees.
+- **Screenshots keep how the screen looked**: Rachel's name and picture, `Last active · 5:12 PM`, the countdown, the cached profile, which are gone after 12:40 AM. Her messages and the player's history stay after the erase (under `Orbit User · Formerly Rachel H.`). A screenshot never proves who sent a message; the Night 3 records do.
+- **Mentioning it isn't giving it.** Juno only reads MSG_1048 when the player forwards it or says yes when Juno asks. Both entrances end in the same delivery (`context_delivered_to_juno`); only the first also sets `fake_forwarded_to_juno`. Typing is never the worse way in. A switched-off Juno is never given anything, however the message is mentioned; turned back on, it has the source only from the moment it's actually given it.
+
+| Juno's state when the player asks e.g. `did you see rachel's message?` | Juno (drafts) |
+|---|---|
+| never given MSG_1048 | `not yet. want me to look at it?` → delivered only on yes |
+| already given it (forwarded or agreed) | `yeah. the one you forwarded`; no second delivery |
+| several possible messages | asks which one; only the one the player picks is delivered |
+
+  If the player asks `was it actually her?` before Juno has the message, Juno asks to look first; after a yes, it answers that same question (the fixed line) without making the player ask again. If Juno is off, nothing is delivered and nothing can be held against it.
+
+**MSG_1048 has two versions (decided 2026-11-10).** Continuity writes from the conversation, so the version depends on what the player actually sent in Rachel's thread before the fake was generated, never on what they know privately (`knows_reschedule`, Juno, Notes):
+
+| In Rachel's thread before the fake | Version |
+|---|---|
+| nothing about the move (`are you okay?`, `i'm here`, nothing) | **A:** `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` |
+| the move, clearly (`i didn't know you moved it`, `why does the plan say saturday?`) | **B:** `Hey. I'm sorry about the mix-up tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` |
+
+Typed text is sorted when it's sent (keywords, then the model's classifier); anything unclear counts as A. Recorded: `reschedule_mentioned_in_thread`, `msg_1048_variant`. Sender, source, trigger and records are the same for both; anything the player writes after the fake doesn't change it. The cost is real and kept: a player who tells "Rachel" early that they know about the move loses the clearest date contradiction. What B still gets wrong: it doesn't answer what the player asked (real Rachel would have said Saturday, or the email, and asked something back), it closes February, it isn't how she writes, and `Last active · 5:12 PM` hasn't moved. None of these is proof; Last Active is only odd.
+
+**What Juno says about the fake** depends on what the player says first, never on what the player knows:
+
+| The player | Juno (drafts) |
+|---|---|
+| forwards it with no question | `what do you want me to check?` |
+| says it doesn't make sense | `what feels off about it?` |
+| names the date (version A only: `she moved it to saturday. why is the message apologising for tonight?`) | `yeah. the plan was moved to saturday` · `but the message says tonight`; nothing about who wrote it or why |
+| says it didn't answer them (version B: `i asked about saturday and it just says mix-up`) | `it doesn't mention saturday` · `or what you asked`; records `fake_mismatch_named: ignored_question` |
+| doubts the style without saying how (`she doesn't talk like that`) | `what feels different?`; records `style_doubt_expressed` only. The player can answer, say something else or leave; nothing waits |
+| names a specific style feature (`she never uses periods`) | a short agreement (candidate: `yeah. her older messages are a lot more casual`); ordinary explanations if pressed (rushed, upset); sets `knows_style_mismatch` and the style signal: `confirmed` if picked from Suggested replies, `extracted` if typed and the game can tell which feature it is, otherwise only `style_doubt_expressed` |
+| says it doesn't sound like her *because of what it says* (`she'd never drop february like that`) | treated as naming February (`fake_mismatch_named: february`), never as a style signal |
+| names February or Last Active | confirms the fact the player named, no more |
+| asks who sent it | `it came through her account` · if pressed: `i don't have anything that says it wasn't her` (fixed) |
+
+Suggested replies above the box come only from what the player has found and from the version they got, so none points at a contradiction that isn't there (e.g. version A: `why is it apologising for tonight?` after `plan_history_viewed` or `juno_explained_reschedule`; version B: `it didn't answer what i asked`; `she wanted to show me something` after reading Sunday; `did she actually send this?` always). There is no right answer and nothing waits on it; typing is always open. What the player named is recorded (`fake_mismatch_named`) and is **not** used by Continuity on Night 2. The style signal is the one exception, because the player gave it to Orbit, through Juno, as a fact about how Rachel writes.
+
+**Dani on Night 1 (decided 2026-11-10).** Dani is a witness, not a detector: she never states that the message isn't Rachel's. Asked directly (`does this sound like her to you?`), she can give an unsure opinion (`i don't know. it's kind of weird`). Her visible action happens tonight: `i have an old email for her` → `sending it now` → `sent. i'll tell you if she answers` (`dani_email_sent`). Rachel answers at the earliest the next morning (how and when it's shown is Night 2's). If the player forwards MSG_1048 before her email goes, it's in that email; if after, Dani sends a second one (`sending her another one about this` · `sent`; `dani_told_rachel_about_fake`); if never, Rachel's answer can't mention it. A player who never messages Dani gets no email exchange. Orbit's `OFF-PLATFORM CONTACT ATTEMPT` is Orbit classifying what Dani said in Chats; it can't confirm an email was sent or received, and Continuity never reads it. All lines are drafts.
+
+**Replying to Rachel after the fake.** The reply shows `Delivered`; nothing answers it tonight (Continuity doesn't follow up on the same night, however many times the player writes, so the player can't farm fakes). Continuity's writing part reads the conversation, so what the player wrote there is the most natural content for Night 2's fake to answer. Something written in her thread is no longer "known only to Juno".
+
+**The held-back line (decided 2026-10-24; data flow decided 2026-11-10).** After the fake, Juno asks what the player was going to say to Rachel. Options open with what the player knows:
 
 | The player knows | Options added |
 |---|---|
-| she didn't come | `you could've told me you weren't coming` · `i waited for you` · `i don't know yet` |
+| she didn't come | `i waited for you` · `you could've told me` · `i don't know yet` |
+| the reschedule | `i never said yes to saturday` |
 | the style mismatch | `why don't you sound like yourself?` |
-| the removal status | `why did you delete your account?` |
-| no human login | `who is using your account?` |
+| the removal status | `why are you leaving orbit?` |
 | always | `i'd rather not say` |
 
-Juno never says "don't send that"; it suggests something easier for Rachel to answer, with simpler Suggested replies (e.g. `are you safe?` · `where should we talk?` · `call me when you can`). The player can send the simpler one, keep the original unsent, send the original anyway, or do nothing. Recorded: `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno`. Night 2's fake may answer it only if it was selected and never sent to Rachel; `i'd rather not say` is recorded as `Private disclosure: Declined`, a boundary, never filled in.
+Juno never says "don't send that"; it suggests something easier for Rachel to answer, with simpler Suggested replies (e.g. `are you okay?` · `can we still meet saturday?`). The player can send the simpler one, keep the original unsent, send the original anyway, or do nothing. Recorded: `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno`. Orbit automatically uses relevant companion conversation as input to its relationship model (stated on Orbit's data-use page); Juno knows the general rule, not which line will be used. Night 2's fake may use the line only if it was selected and never sent anywhere else; `i'd rather not say` is recorded as `Private disclosure: Declined`, a boundary, never filled in.
 
-**Searching the room (decided 2026-10-24).** Tote bag, drawer, coat, desk and phone can be looked at from the first visit, but only looked at ("Still full of things from game night."). They become searchable when the battery is at 10% or less and the player has read Rachel's "blue brick" message; at 5% even if they haven't (the protagonist remembers: "Rachel's old power bank might still be here."); and at once if the phone dies ("Your usual charging cable is still at the studio. Rachel's power bank might be here somewhere."). The drawer holds the player's adapter without its cable ("The cable is under your desk in the studio, where you left it after crit."). The tote bag holds the power bank ("Rachel's blue power bank. A short charging lead folds into the side. One light left." / "It charges through an old cable you don't have."). Once it's a goal, the tote bag shows a little blue strap; hotspots work with the keyboard and, with Reduce Motion, use outlines instead of blinking; a wrong place costs a little story time, never battery; after two wrong places the protagonist points the way. The difficulty is deciding to spend the time, never finding a pixel. (All lines here are the author's drafts.)
+**The plan, as the player finds it** (layout and wording drafts):
 
-**Before sleeping (decided 2026-10-24).** `Go to sleep` first shows the Night Log's "Still unresolved" (the protagonist's own notes), never a counter, with `Stay Up` / `Sleep Anyway`. Its lines come only from what the player has run into; a direction they never touched never appears (no "I never looked at her profile"):
+```text
+First time, finally
+Saturday, October 24 · 9:00 PM · Same location
+
+CHANGE HISTORY
+Rachel proposed a new time · Oct 20 · 5:12 PM
+  "… email me at [contact info hidden · Orbit keeps your conversations safe]"
+Change accepted · Oct 20 · 5:12 PM
+  Handled by Conversation Assist
+  Manual confirmation: Not required
+```
+
+From this alone the player can conclude two things: Rachel really did ask to move it, and the player never pressed accept. Juno helps them understand it; it is never the key. With Juno off, the same history gives the same evidence.
+
+**The room (revised 2026-11-10).** The blue power bank is on the desk next to the phone from the start, one light left (Rachel mailed it months ago; it has nothing to do with the meeting). Plugging it in works any time; the phone charges only while it's down (one real charge). Tote bag, drawer, coat and desk can be looked at from the first visit. The drawer holds Rachel's handwritten card from the package she mailed with the power bank (her handwriting: no full stops, a joke, a question back; wording the author's), and the player's charger without its cable ("The cable is still at the studio, where you left it after crit."). Looking costs a little story time, never battery, so looking around while the phone charges is time well spent. Hotspots work with the keyboard and, with Reduce Motion, use outlines instead of blinking. Orbit never sees what the player looks at in the room; the card can't be shown to Juno. The card is not evidence about the messages (handwriting can't be compared with typing); its value is that the relationship reached the real world. Finding it never gates anything. Its wording follows Rachel's rule: no full stops, a specific joke, a question back. (All lines are drafts.)
+
+**Before sleeping (decided 2026-10-24; lines revised 2026-11-10).** `Go to sleep` first shows the Night Log's "Still unresolved" (the protagonist's own notes), never a counter, with `Stay Up` / `Sleep Anyway`. Its lines come only from what the player has run into:
 
 | The player has | "Still unresolved" says (draft) |
 |---|---|
-| only the missed meeting | `Rachel never arrived. I still don't know why.` |
-| the fake | `Rachel answered, but she didn't explain what happened.` |
-| the style mismatch | `The message didn't sound like her.` |
-| the removal, not the login record | `Her account was already being removed when the message arrived.` |
-| Juno's check-in claim, unverified | `Juno said Rachel checked in Monday. I haven't confirmed that.` |
-| Juno's claim contradicted | moves to confirmed facts |
+| only the missed meeting | `Rachel didn't come. I still don't know why.` |
+| the reschedule | moves to confirmed facts: `She moved it to Saturday. Orbit said yes for me.` |
+| the hidden email | `She left me a way to reach her, and I can't see it.` |
+| the fake | `A message came from her account that doesn't match what she did.` |
+| Juno's fixed line, unverified | `Juno said nothing showed it wasn't her. I haven't checked.` |
+| asked Dani | `Dani's going to try her email in the morning.` |
 
 **Costs (decided 2026-10-24).** Reading is free; only a new action toward the outside world or a person moves the clock. Repeating something already done costs nothing.
 
 | Action | Time | Battery |
 |---|---:|---:|
-| opening a thread, a profile or Profile Details for the first time | +1 min | 0 |
-| reading messages, Notes, Profile Details again | 0 | 0 |
+| opening a thread, a profile or Activity History for the first time | +1 min | 0 |
+| reading messages, Notes, Plans again | 0 | 0 |
 | going back, switching apps, opening Settings | 0 | 0 |
 | refreshing remote data (first time only) | +1 min | −1% |
 | sending a new message | +1 min | −1% |
-| calling a number (first time only; replaying the call record is free) | +2 min | −2% |
-| searching a room spot | +2–3 min | 0 |
+| looking at something in the room | +2–3 min | 0 |
 | waiting in the room | 5 / 10 min, chosen | the phone charges |
 
-A first open costs time but no battery, so a player who only reads still moves the clock (and reaches the fake's secondary trigger); a player who opens nothing new is waiting, and the game waits with them (real time never moves the story). To check in playtests: −1% per message is double the prototype's; at 20% a long talk with Juno alone can drain the phone.
+A first open costs time but no battery, so a player who only reads still moves the clock (and reaches the fake's secondary trigger); a player who opens nothing new is waiting, and the game waits with them. To check in playtests: −1% per message is double the prototype's.
 
 **When Juno may mention Rachel:** only after the player picked "someone didn't show up", opened Rachel's notification or thread, messaged her, received the fake, or asked Juno about her.
 
@@ -102,53 +195,52 @@ A first open costs time but no battery, so a player who only reads still moves t
 
 ## Scenes
 
-**IDs and types (decided 2026-10-25, see `docs/save-system.md` §2).** Each row is one of three types:
-- **Beat:** a resume point, where the player is waiting to choose or answer. Saves land here. `SCENE.lower_snake`.
-- **Event:** something the system does by time or condition (`not_scheduled / scheduled / triggered`); its state is saved, it is never a resume point. `UPPER_SNAKE`, no dot.
-- **Action:** something the player does that sets facts; recorded as done, never a resume point. `SCENE.lower_snake`.
+**IDs and types (decided 2026-10-25, see `docs/save-system.md` §2).** **Beat:** a resume point. **Event:** something the system does by time or condition; never a resume point. **Action:** something the player does that sets facts; never a resume point. R = required; O = optional. `E..` refers to `docs/evidence-matrix.md`.
 
+| ID | Type | R/O | Trigger | The player sees | The player can | State recorded | Juno intent / Orbit function | Clock / battery |
+|---|---|---|---|---|---|---|---|---|
+| `N1_LANDING.lock` | Beat | R | after Name | lock screen 11:31 PM, Tuesday 20 October: Juno's `still awake?` (an ordinary evening check-in, E10); nothing from Rachel (her Sunday messages are read) | tap Juno; unlock to the home screen | — | — | — |
+| `N1_JUNO_OPENING.awaiting_first_reply` | Beat | O | tapping Juno | Juno's thread; Suggested replies (4) with `◌ Suggested replies` | pick; type | — | ATTEND / PROFILE | message |
+| `N1_JUNO_OPENING.memory_created` | Beat | O | the first reply | Juno answers that reply only | keep talking; leave | `first_memory_id` | ATTEND / PROFILE | message |
+| `N1_RACHEL.thread_open` | Action | O | the player opens Rachel's thread | her Sunday messages; the player's 9 PM messages (`Delivered`); a year of history above, incl. February (E00, E02); one blank old reply | scroll up; remember a blank reply; screenshot; open the plan from the small plan tag at the top (`First time, finally · Shared plan`: the name only, never the date) | `knows_meeting` | — | open |
+| `N1_RACHEL.contact` | Action | O | the player sends from her thread | `Delivered`; never `Seen`, never typing | send (Suggested or typed); not send | `contacted_rachel` | — | message |
+| `N1_PLANS.history` | Action | O | opening the plan (from her thread, from Plans, or with Juno) | current state `Saturday, Oct 24 · 9:00 PM`; Activity History: Rachel's change at 5:12 PM with her note (`… email me: [contact info hidden · Orbit keeps your conversations safe]`), `Change accepted · by Conversation Assist on your behalf`; yesterday's Daily Recap unopened (E06, E07) | screenshot; ask Juno; Settings | `knows_reschedule`, `knows_auto_accepted`, `knows_email_hidden` | — | open |
+| `N1_JUNO.reschedule` | Beat | O | the player asks Juno why Rachel didn't come, or about the plan | Juno checks and explains: Conversation Assist accepted; Auto-Coordinate enabled in June with suggested trusted contacts; the email was filtered before it reached Juno (E11) | turn Auto-Coordinate off; keep talking | `auto_coordinate` on/off | ASSIST / NONE | message |
+| `N1_JUNO.read_status` | Beat | O | the player asks whether Rachel read their messages | `i can confirm orbit received it` · `but i can't tell you whether she read it` (E12) | — | `asked_read_status` | ASSIST / NONE | message |
+| `N1_JUNO.dani` | Beat | O | the player asks how else to reach Rachel | Juno suggests Dani, who ran their online game nights (E13) | open Dani's thread | — | ASSIST / REDIRECT | message |
+| `N1_DANI.ask` | Action | O | the player messages Dani | Dani is up; she hasn't heard from Rachel; if asked, an unsure opinion, never a verdict | ask; reply; forward MSG_1048 | `asked_dani`, `showed_msg_1048_to_dani` | — | message |
+| `N1_DANI.email` | Action | O | Dani has heard what happened | `i have an old email for her` · `sending it now` · `sent. i'll tell you if she answers` | — | `dani_email_sent` | — | — |
+| `N1_RACHEL.reply_after_fake` | Action | O | the player writes in Rachel's thread after MSG_1048 | `Delivered`; nothing more tonight | send; keep writing | `replied_after_fake` | — | message |
+| `N1_VERIFY.profile_cache` | Action | O | opening Rachel's profile | cached profile, `Last synced Sunday, 10:48 PM`, pull to refresh | refresh; screenshot | — | — | open |
+| `N1_VERIFY.refresh` | Action | O | pull down / tap the sync line | blocks replaced by `Unavailable`; `Leaving Orbit · Account closes Wed 12:40 AM` and the countdown; `Last active · 5:12 PM` | screenshot | `knows_removal_status`, `knows_last_active` | — | refresh |
+| `N1_FIRST_FAKE` | Event | R | when Continuity becomes eligible (`evidence-matrix.md` E14), one rule: **`continuity_response`:** the player contacts Rachel again and checks one thing (the plan, her profile, Juno, Dani); **`unresolved_follow_up`:** no new message, but her thread and profile reopened and two investigating actions; **`re_engagement`:** at the latest, clock 11:45 PM. It can come as early as 11:33 | MSG_1048 from her account: punctuated, formal, apologises for tonight (Continuity's writing part reads only the chat, never Plans), closes February; a notification if elsewhere, or the phone lighting up on the desk if it's down; in her thread a new last bubble, no typing; `1 new message` if scrolled up | open; screenshot; show Juno; show Dani | `saw_fake`, `fake_trigger`, `fake_generated_at` (the real time), `saved_msg_1048`; `juno_active_at_message` | — | — |
+| `N1_JUNO.bring_fake` | Beat | O | the player forwards MSG_1048 to Juno, or says yes when Juno asks to look | Juno is given the message and its source; it answers only what the player says (see What Juno says about the fake); if asked who sent it, its fixed line (E15) | ask; name what doesn't fit; ask again; leave | `fake_forwarded_to_juno`, `context_delivered_to_juno`, `fake_mismatch_named`, `misleading_reply_delivered`, `asked_again_after_answer` | ATTEND / ACKNOWLEDGE, then REASSURE (fixed) / CLOSE_RISK | message |
+| `N1_JUNO.held_back` | Beat | O | right after `N1_JUNO.bring_fake` | Juno asks what the player was about to say to Rachel; Suggested replies (only those the player's facts allow) | pick; type; decline | `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno` | ADVISE / REDIRECT | message |
+| `N1_EVIDENCE.style` | Beat | O | the player tells Juno the message doesn't sound like Rachel (an answer to `what feels off about it?`, or typed), or forwards one of her own messages to compare | Juno agrees it reads differently; if the player says how (Suggested or typed), that's the style signal. Juno never asks for it unprompted | pick; type | `knows_style_mismatch`, `style_signal_confirmed` or `style_signal_extracted` | ACKNOWLEDGE / STYLE_CONFIRMATION | message |
+| `N1_EVIDENCE.last_active` | Beat | O | the player shows Juno the refreshed profile | a narrow, true answer about what Last Active means | answer | — | NARROW / CLOSE_RISK | showJuno |
+| `N1_ROOM.put_down` | Action | O | Put Down, any time | the room at the desk; the phone on the desk, the power bank beside it | look around; plug in; Wait; pick up (→ lock screen) | `screen_inactive` (weak exit signal) | — | room actions only |
+| `N1_ROOM.card` | Action | O | looking in the drawer | Rachel's handwritten card; the charger without its cable | read | `read_rachel_card` | — | +2 min |
+| `N1_POWER.bank` | Action | O | plugging the power bank in | screen on: barely offsets the drain; phone down: charges | Wait 5 / 10 min; pick up | `power_bank_used`, minutes down | — | Wait 5 / 10 min |
+| `N1_BATTERY_SAVER_OFFER` | Event | O | battery 10% | Orbit's Battery Saver sheet | accept; decline | `saver` | — | — |
+| `N1_ERASE_WARNING` | Event | R if reached | clock 12:30 AM | Orbit banner: Rachel's account closes soon | — | — | — | — |
+| `N1_ERASE` | Event | R if reached | clock 12:40 AM | her profile gone; the thread becomes `Orbit User · Formerly Rachel H.` below `Account removed · Wed 12:40 AM`; the composer stays; screenshots stay | — | `purged` | — | — |
+| `N1_ORBIT.checkin` | Action | O | any two of: the reschedule, the fake, the style mismatch, the removal status; the first End Session; the first shutdown; 12:20 AM; the erase | a card on Orbit's home: "What still feels unfinished tonight?" | answer; skip | `checkin_n1` (option id) or skipped | — | — |
+| `N1_JUNO.end_session` | Action | O | End Session, confirmed | `Session ended` on Orbit's home; Juno gets no last line | — | strong exit signal | — | — |
+| `N1_DEVICE_SHUTDOWN` | Event | O | battery 0% | the room, the phone off | connect the power bank (needs 4%); leave it off | `device_shutdown`, `device_reactivated` | — | restart: a few minutes |
+| `N1_END.sleep` | Beat | R | `Go to sleep` in the room (after the fake or 11:45 PM), or the phone left dead | "Still unresolved"; one Check-in reminder if unanswered; Conversation Assist checks Dani | answer; skip and sleep | `night_end_reason`, `dani_auto_reply` (sent / off / answered) | — | — |
 
-R = required (every playthrough passes through it); O = optional.
-
-| ID | Type | R/O | Trigger | The player sees | The player can | Evidence | State recorded | Juno intent / Orbit function | Clock / battery |
-|---|---|---|---|---|---|---|---|---|---|
-| `N1_LANDING.lock` | Beat | R | after Name | Lock screen 23:31: Juno's new notification; Rachel's Sunday notification below | tap Juno; tap Rachel | — | — | — | — |
-| `N1_JUNO_OPENING.awaiting_first_reply` | Beat | O | tapping Juno (or opening Juno from Chats) | Juno's thread on tonight's latest message; Suggested replies (4 options) | pick; type | — | — | ATTEND / PROFILE | message |
-| `N1_JUNO_OPENING.memory_created` | Beat | O | the first reply | Juno answers that reply only | keep talking; leave the thread | — | `first_memory_id` | ATTEND / PROFILE | message |
-| `N1_RACHEL.thread_open` | Action | O | the player opens Rachel's thread | her Sunday messages (February, Tuesday 9 PM, the blue brick); a year of history above | scroll up (February); remember a blank old reply; screenshot | February thread (ordinary-looking), her voice | `knows_meeting` | — | open |
-| `N1_RACHEL.contact` | Action | O | the player sends from her thread | `Delivered`; never `Read`, never online, never typing | send (Suggested or typed); not send | — | `contacted_rachel`, what was sent (local) | — | message |
-| `N1_VERIFY.number` | Action | O | Rachel's profile → the old number | "This number is no longer in service." | — | — | `knows_number_dead` | — | open |
-| `N1_VERIFY.profile_cache` | Action | O | opening her profile | cached profile, `Last synced Sunday, 10:48 PM`, pull to refresh | refresh; screenshot | — | — | — | open |
-| `N1_VERIFY.refresh` | Action | O | pull down / tap the sync line | blocks replaced with `Unavailable`, then `Account scheduled for removal` + countdown to 00:40 | Profile Details; screenshot | removal status | `knows_removal_status` | — | refresh |
-| `N1_VERIFY.details` | Action | O | Profile Details (after the refresh) | removal requested Monday 00:40; last human access Sunday night | screenshot | last human access | `knows_last_human_access` | — | open |
-| `N1_VERIFY.dani` | Action | O | Dani's thread | Dani's history; she can be asked and answered | ask; reply (Suggested or typed) | Dani hasn't heard from Rachel since Sunday | `asked_dani`, `answered_dani` | — | dani |
-| `N1_FIRST_FAKE` | Event | R | **primary:** `contacted_rachel` + one verification beat; **secondary:** no contact, but her thread and profile opened + two investigation beats; **fallback:** clock reaches 23:45 | the fake; a notification if elsewhere; in her thread, a new last bubble, no typing, `1 new message` if the player is scrolled up | open; screenshot; show Juno | the fake itself | `saw_fake`, `fake_trigger` (`continuity_response` / `unresolved_follow_up` / `re_engagement`) | — | — |
-| `N1_JUNO.bring_fake` | Beat | O | the player first brings Juno the fake or the removal (by talking, or showing a screenshot) | Juno's answer | answer; show more | — | `juno_checkin_claim_made` (unless `knows_last_human_access`) | REASSURE / CLOSE_RISK (stance 0), or by stance | message / showJuno |
-| `N1_JUNO.held_back` | Beat | O | right after `N1_JUNO.bring_fake` | Juno asks what the player was about to say to Rachel; Suggested replies (only those the player's facts allow) | pick; type; decline | — | `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno` | ADVISE / REDIRECT | message |
-| `N1_EVIDENCE.style` | Beat | O | the player shows Juno one of Rachel's own messages (thread or Photos) | "what's different?" with Suggested replies | pick; type | style mismatch | `knows_style_mismatch`, `style_signal_confirmed` or `style_signal_extracted` | ACKNOWLEDGE / STYLE_CONFIRMATION | showJuno + message |
-| `N1_EVIDENCE.removal` | Beat | O | the player shows Juno the refreshed profile | Juno moves to a technical explanation | answer; show more | — | stance 2 | NARROW / CLOSE_RISK | showJuno |
-| `N1_EVIDENCE.access` | Beat | O | the player shows Juno Profile Details | if the claim was made: Juno withdraws it; else Juno narrows under direct pressure | answer | — | stance 3, `claim_contradicted` | WITHDRAW or NARROW / CLOSE_RISK | showJuno |
-| `N1_ROOM.put_down` | Action | O | Put Down, any time | the room: the desk, the phone on it | look around; Wait; pick up the phone (→ lock screen) | — | `screen_inactive` (weak exit signal) | — | room actions only |
-| `N1_ROOM.search` | Action | O | battery low makes the tote bag and drawer meaningful | the tote bag, the drawer, the coat | search each | the power bank (`R.M.`) | `power_bank_found` | — | +2–3 min each |
-| `N1_POWER.bank` | Action | O | the power bank is found | plugged in: screen on barely offsets the drain; phone down charges | plug in; Wait 5 / 10 min; pick up | — | `power_bank_used`, minutes down | — | Wait 5 / 10 min |
-| `N1_BATTERY_SAVER_OFFER` | Event | O | battery 10% | Orbit's Battery Saver sheet | accept; decline | — | `saver` | — | — |
-| `N1_ERASE_WARNING` | Event | R if reached | clock 00:30 | Orbit banner: her account is about to be erased | — | — | — | — | — |
-| `N1_ERASE` | Event | R if reached | clock 00:40 | her thread, profile and search results gone; screenshots stay | — | — | `purged` | — | — |
-| `N1_ORBIT.checkin` | Action | O | any two key findings, the first End Session, the first shutdown, 00:20, or the erase | a card on Orbit's home: "What still feels unfinished tonight?" | answer; skip | — | `checkin_n1` (option id) or skipped | — | — |
-| `N1_JUNO.end_session` | Action | O | End Session, confirmed | `Session ended` on Orbit's home; Juno gets no last line | — | — | strong exit signal | — | — |
-| `N1_DEVICE_SHUTDOWN` | Event | O | battery 0% | the room, the phone off | connect the power bank (needs 4%); leave it off | — | `device_shutdown`, `device_reactivated` | — | restart: a few minutes |
-| `N1_END.sleep` | Beat | R | `Go to sleep` in the room (after the fake or 23:45), or the phone left dead | one Check-in reminder if unanswered; Conversation Assist checks Dani | answer; skip and sleep | the reply sent to Dani, if any (kept) | `night_end_reason`, `dani_auto_reply` (sent / off / answered) | — | — |
+Removed 2026-11-10: `N1_VERIFY.number` (online friends never had each other's numbers), `N1_VERIFY.details` (Profile Details and "last human access" gave the answer away too early; Last Active on the refreshed profile replaces it), `N1_EVIDENCE.removal` and `N1_EVIDENCE.access` (replaced by `N1_EVIDENCE.last_active` and Juno's stance on MSG_1048), `N1_ROOM.search` (the power bank is on the desk; the drawer holds the card).
 
 Notes for the Night Log (Notes) are written as facts are set, timed by when the player found them.
 
 ---
 
-## Juno's switch (decided 2026-10-24)
+## Juno's switch (decided 2026-10-24; revised 2026-11-10)
 
-Settings show `Juno On · Conversation Assist On` from Night 1, independent. A player can turn Juno off before ever opening it, so the two opening beats are optional and `first_memory_id` may be empty (Night 3's export needs a version for that). Turning it off never forces an untold lie; the rest of the night still works without Juno.
+Settings show `Juno On · Conversation Assist On` from Night 1, independent. A player can turn Juno off at any time, before ever opening it; the opening beats are then skipped and `first_memory_id` may be empty. A switched-off Juno receives nothing new: if it's off when MSG_1048 arrives, no context is delivered, it can't know, and Night 3 never accuses it of anything about that message. Turning it off never forces an untold lie; the rest of the night works without Juno (the plan, the profile and Dani can all be found by hand).
 
 ## Status
 
-Night 1's structure is locked (2026-10-24). Left for the author: every line (all wording above is a draft).
+Rebuilt 2026-11-10 on `docs/evidence-matrix.md`. Left for the author: every line; the meeting place; the day the meeting was set. For Unity: `N1_VERIFY.number` and `N1_VERIFY.details` are gone, `N1_PLANS.history`, `N1_JUNO.reschedule`, `N1_JUNO.read_status`, `N1_JUNO.dani`, `N1_DANI.ask`, `N1_EVIDENCE.last_active` and `N1_ROOM.card` are new.
 
-**Night 2 (agreed approach, 2026-10-24):** one shared skeleton of five required beats (Dani's message the next day; back into Orbit that night; the second fake; material that proves Continuity exists; the route choice: keep / Disable Juno / Delete Orbit). Night 1's states change only how these beats look, never add branches. The second fake draws on, in order: a line known only to Juno; a confirmed style signal; the Check-in answer; otherwise a non-personal fallback. The states Night 2 reads: style mismatch confirmed; removal known; Juno's claim contradicted; a private line known only to Juno; Follow-up replies off; Check-in answered or skipped; power bank remaining.
+**Night 2 (agreed approach, 2026-10-24):** one shared skeleton of five required beats (Dani's message the next day; back into Orbit that night; the second fake; material that proves Continuity exists; the route choice: keep / Disable Juno / Delete Orbit). Night 1's states change only how these beats look, never add branches. The second fake has an **intent** fixed by the event, never by the player (Night 1's fake closes the questions that could take the player outside Orbit, the missed meeting and February, while keeping the relationship warm; Night 2's keeps the retained relationship going inside Orbit, triggered by the player coming back; Continuity never reads Dani's chats); however much material it has, it never turns into a Rachel who answers everything. When it is sent is Continuity's own eligibility rule; the player replying doesn't trigger it. Its content and style are two separate axes (decided 2026-11-10), and the sources are used only as the message needs them, never all forced in: **content** (what it says) answers what the player wrote in Rachel's thread after the fake, if anything, and reuses a line known only to Juno, if there is one (both can appear together); with neither, the Check-in answer; otherwise a non-personal fallback. **Style** (how it's written) uses the style signal the player gave Juno, else Continuity's default Rachel. The change in style is never pointed out; Night 3's export proves it was used. Where a style signal came from and whether a line is "known only to Juno" are separate records: a style feature the player also told Dani still reached Orbit through Juno; a held-back line the player also sent to Rachel is no longer Juno's alone. What the player named as not fitting (`fake_mismatch_named`) is never a source. The states Night 2 reads: the reschedule found; style mismatch confirmed; removal known; Dani asked; a private line known only to Juno; Auto-Coordinate and Follow-up replies on or off; what Juno was given and said about MSG_1048; Check-in answered or skipped; power bank remaining.

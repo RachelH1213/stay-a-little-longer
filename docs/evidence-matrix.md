@@ -1,0 +1,279 @@
+# Message and evidence matrix: February to Night 2
+
+What really happened, event by event, from February to the start of Night 2: who or what acted, what each side saw, what Juno was given and said, how the player can check it, and which player actions are remembered. **Draft, 2026-11-10**, for the author to check. Once confirmed, `story-bible.md`, `night1-scenes.md` and `game-plan.md` are updated to match. All quoted lines are drafts for the author to rewrite.
+
+## Decisions this rests on (2026-11-10)
+
+- **The first meeting:** online friends for a year and a half, never met. They set Tuesday 9 PM about a week before (E03b); Rachel moved it to Saturday on Tuesday afternoon; Conversation Assist accepted for the player; the player went on Tuesday.
+- **Three AI systems, unchanged:** Juno, Conversation Assist, Continuity. **Contact Protection** is an ordinary platform policy, not AI: emails and phone numbers are hidden from the recipient between users who haven't completed External Contact Verification, in chats and plan notes alike. The sender sees the original and gets no notice.
+- **Deletion has three parts:** account deletion (the account, profile and sign-in close), derived data retention (the relationship model built from past conversation stays), identity proxy (Continuity can keep writing into the other person's retained thread). Orbit claims its terms allow it; Rachel never agreed to it.
+- **Juno on Night 1** really helps: it finds the auto-accepted change and says Orbit filtered the email; it declines once in the open (read activity); it suggests Dani, who is also on Orbit. On the first fake it says one fixed, scripted line that its later records contradict. Orbit's rule restricted disclosure; it didn't require a false answer.
+- **Rachel's evidence:** her Account Archive (downloaded Sunday) proves February; her screenshot of the confirmed change (Tuesday) proves the reschedule and the email. Neither can show anything that happened after she logged out.
+- **Locked 2026-11-10 (R1):** Rachel's October evidence is her screenshot of the confirmed change. It shows her note with the full email, the new time, and `Accepted` with its time, nothing more: Rachel never knew Conversation Assist did it. Only the player, in the plan's activity history, can see who accepted.
+- **Locked 2026-11-10 (R2):** before deletion, Continuity writes through Rachel's grace-period account and looks ordinary; after deletion, into the player's retained thread under `Orbit User · Formerly Rachel H.`, below `Account removed · Wed 12:40 AM`. The composer stays. Two rules:
+  - **Delivered means Orbit received it.** After deletion, the player's messages go `player → retained thread → Orbit's conversation service`, never to Rachel; `Delivered` only means Orbit's server accepted them. Any reply comes from the thread and the retained relationship model, not from her account.
+  - **Last Active records only the account owner's human sessions.** 5:12 PM (Rachel moving the plan) updates it; MSG_1048 (Continuity) doesn't; at 12:40 AM it goes with the profile. It is on her profile from the start of Night 1.
+- **The blue power bank (locked):** Rachel mailed it to the player months ago with a handwritten card (`your phone dies more than mine`, draft). It has nothing to do with the meeting (revised 2026-11-10: Rachel no longer asks the player to bring it). It's on the desk next to the phone when Night 1 begins, one light left. The room search now leads to the card, not the power bank (`night1-scenes.md`, `N1_ROOM.card`).
+- **The player's evidence:** the Companion Activity Records the player requests on Night 2 and receives on Night 3; plus their own history and screenshots.
+- **Records list facts, never verdicts.** No field says "misleading" or "lie".
+- **Actions, not beliefs.** The game remembers what the player did (saved a message, asked again, showed Dani), never what they "believed". Night 3's lines quote actions only.
+
+## Events
+
+Each event: **Origin** (who or what really acted) · **Rachel saw** · **The player saw** · **Juno was given / said** · **How the player can check** · **Remembered** · **Risk** (anything still resting on chance or an undefined rule; see the list at the end).
+
+### Before the game
+
+**E00 · Feb 10, 10:18–10:23 PM · Rachel says she might leave**
+- **Origin:** Rachel and the player, both real. Rachel: `i think i might take a break from this app for a while / everything feels like too much lately`. The player: `yeah i get it / take some time if you need to. no pressure`. Rachel: `thanks / idk / i'll think about it`. (Drafts.)
+- **Both saw:** all of it.
+- **Orbit:** reads it as a farewell (`Farewell detected`).
+
+**E01 · Feb 10, 11:42 PM · February reactivation (locked 2026-11-10)**
+- **Origin:** Continuity (REACTIVATION), triggered by the farewell. The player's device was inactive (asleep). Continuity added a message to Rachel's view of their thread, displayed as the player (draft): `hey, i've been thinking about what you said earlier / i get why you want a break. i just don't want you to think i wouldn't notice if you left / i would. talking to you is one of the best parts of my day / you don't have to decide tonight. i just wanted you to know`.
+- **The rule:** an identity-proxy message is a recipient-only insertion, not a send from the account. One system event, rendered only in the conversation of the person being intervened on. Only Continuity does this; no other system may create one-sided messages. It is one of Orbit's most serious practices, never presented as something every social app does.
+- **Rachel saw:** the message from the player.
+- **The player saw:** nothing. It was never in their thread.
+- **Replies:** the recipient can answer normally, and the answer goes into the shared thread. If Orbit supports quoting a message, a quote of a hidden message shows on the other side as a missing or unavailable message, never as something faked; in February Rachel doesn't quote.
+- **Juno:** not involved.
+- **Check:** Night 1, only a hint (E02); Night 2, Rachel's archive (record below) and her side of the February conversation, against the player's own thread, where the message isn't.
+- **Record (Rachel's archive):**
+  ```text
+  Farewell detected
+  event_type: relationship_reactivation
+  subject_account: Rachel H.
+  delivery_surface: existing_conversation
+  visible_to: recipient_only
+  display_identity: relationship_partner
+  intervention_time: 2026-02-10 23:42
+  Conversation reopened
+  ```
+
+**E02 · Feb 11, 9:16 AM · Rachel stays**
+- **Origin:** Rachel, then the player, both real and seen by both (drafts). Rachel: `hey, thanks for last night / i really needed to hear that / think i'm gonna stick around for now`. The player: `ofc / but seriously take a break whenever you need to / glad you're here though :)`.
+- **How each read it:** Rachel thanks the player for "i would notice if you left"; the player thinks she means their real `take some time, no pressure`. Both readings are reasonable until October.
+- **Check:** Night 1, scrolling back to February; the warmth of her thanks is all there is to notice.
+- **Not stated:** that the message alone made her stay. Rachel decided; Continuity influenced her.
+
+**E03 · Sun Oct 18, evening · Rachel downloads her Account Archive**
+- **Origin:** Rachel, getting ready to leave Orbit, curious what it kept about her. In February she had believed the message completely; the `relationship_reactivation` record is the first reason she has to doubt it, which is why she asks the player, in person, what they remember saying.
+- **What she finds:** E01's record, and labels about herself (`PRIMARY RETENTION ANCHOR: PLAYER`, `CONTINUITY ELIGIBLE: TRUE`).
+- **The player saw:** nothing.
+
+**E03b · About a week before · The plan**
+- **Origin:** Rachel creates an Orbit Plans card, `First time, finally · Tuesday, Oct 20 · 9:00 PM`, at an ordinary public place (the author's choice); the player accepts it by hand. They had wanted to meet for a while; the meeting has nothing to do with February. (Exact day: the author's.)
+- **Both saw:** the same card.
+
+**E04 · Sun Oct 18, about 10:40 PM · Her last Sunday messages (revised 2026-11-10)**
+- **Origin:** Rachel, after reading her archive (E03). She doesn't say what she found, and doesn't mention Orbit:
+  ```text
+  Rachel H.  10:41 PM
+  weird question
+  do you remember what you said to me that night in february
+
+  You  10:58 PM
+  yeah i remember that night
+  why?
+
+  Rachel H.  11:03 PM
+  there's something i wanna show you
+  when i see you
+  ```
+- **Both saw:** the same messages. Each means a different message by "what you said": the player, their real reply (E00); Rachel, the one Continuity added (E01).
+- **Check:** the player's thread, any time; Night 1, scrolling back to February (E00, E02) is the natural next step.
+
+**E05 · Mon Oct 19, 12:40 AM · Rachel requests deletion**
+- **Origin:** Rachel.
+- **Rachel saw:** Orbit's deletion screen: account closes in 48 hours; she can still finish plans and conversations; signing in doesn't cancel it.
+- **The player saw:** nothing until they open her profile: `Leaving Orbit · Account closes Wed 12:40 AM`.
+- **Juno:** can see her public account status.
+- **Check:** her profile (Night 1); the deletion screen itself in Rachel's archive (Night 2).
+
+**E06 · Tue Oct 20, 5:12 PM · Rachel moves the plan**
+- **Origin:** Rachel, on the Plans card: **`Saturday, Oct 24 · 9:00 PM`**, with a note (draft): `my schedule changed, can we do saturday? i'm off orbit tonight, email me: rachel.m@…`
+- **Rachel saw:** her note as written.
+- **The player saw (if they had opened it):** `… email me: [contact info hidden · Orbit keeps your conversations safe]`.
+- **Juno was given:** the filtered note, the same as the player.
+- **Check:** Night 1, the plan's history (with Juno's help); Night 2, Rachel's screenshot (E08).
+
+**E07 · Tue Oct 20, 5:12 PM · Conversation Assist accepts for the player**
+- **Origin:** Conversation Assist, under **Auto-Coordinate** (locked 2026-11-10):
+  > In June 2026 the player enabled Auto-Coordinate and accepted Orbit's suggested trusted contacts, including Rachel, in one setup flow (`Let Orbit handle routine schedule changes with people you coordinate with often` · `Accept suggested contacts & enable Auto-Coordinate`). It had since handled ordinary online game-night changes.
+  >
+  > Conversation Assist evaluates structured plan changes (scheduling conflicts, time and location, contact eligibility). It does not interpret free-text notes when deciding whether to accept a change.
+  >
+  > On October 20 at 5:12 PM, Rachel's change to Saturday was accepted automatically. The action was recorded at once in Activity History; its notification was grouped into the next day's Daily Recap instead of an immediate push (Silent Completion).
+  >
+  > Orbit Plans does not synchronise with the device's calendar.
+  >
+  > The player's earlier authorisation let Orbit make the decision; it doesn't show the player wanted this change.
+- **Rachel saw:** `Accepted`, from the player's account.
+- **The player saw:** nothing pushed; they were at their own crit all afternoon. The chat with Rachel keeps the original messages; the plan's current state lives in Plans, never as a large card in the chat.
+- **Juno:** can see in the plan's history who accepted, and when the setting was enabled.
+- **Check:** any time, Activity History: `Change accepted · by Conversation Assist on your behalf`, with Rachel's note beside it, which played no part in the decision.
+
+**E08 · Tue Oct 20, about 5:15 PM · Rachel screenshots the confirmation and leaves Orbit**
+- **Origin:** Rachel. She screenshots the confirmed plan (her side: her note with the email, `Accepted · 5:12 PM`; it never says who accepted), then signs out for good.
+- **The player saw:** nothing.
+- **Check:** Night 2, the screenshot among what Rachel shares.
+
+**E09 · Tue Oct 20, 9:00–9:40 PM · The player waits**
+- **Origin:** the player, at the place from the plan.
+- **The player sent:** messages in Rachel's thread (draft: `i'm here`, `you ok?`, `heading home / message me when you can`), shown `Delivered`. Rachel was signed out and never saw them.
+- **The player saw:** `Delivered`, no reply. They go home around 9:40.
+- **Juno:** not involved. The player doesn't ask Juno while waiting (a Juno that can see Plans would have found the change at once). This is before the game: told through the message history and the room, not playable; free play starts at 11:31 PM.
+
+### Night 1 (Tuesday 11:31 PM onward)
+
+**E10 · 11:31 PM · Night 1 begins**
+- Juno's lock-screen notification (`still awake?`), nothing else; Rachel's Sunday messages are already read, in her thread. Juno's line is an ordinary evening check-in from the player's usual late-night habits; Juno doesn't track where the player has been and knows nothing about the evening until the player brings Rachel up.
+
+**E11 · Night 1 · Finding the change (with Juno)**
+- **Origin:** the player asks; Juno looks.
+- **The player saw:** the plan's history: Rachel's move to Saturday, the filtered note, `accepted by Conversation Assist on your behalf`.
+- **Juno said (draft):** `you didn't accept it. conversation assist did` · `you enabled auto-coordinate back in june` · `rachel was on the suggested contacts list you approved` · (the player: `i don't remember agreeing to this`) · `it shouldn't have done that without asking` · about the email: `i can't see it. orbit filtered it before it reached me` · offers to turn off automatic scheduling.
+- **Remembered:** `found_reschedule`, `asked_juno_about_email`, whether the player turned the setting off.
+
+**E12 · Night 1 · Juno declines once**
+- **Origin:** the player asks whether Rachel read their messages.
+- **Juno said (draft):** `i can confirm orbit received it.` · `but i can't tell you whether she read it.`
+- **The rule (locked 2026-11-10):** Activity Status and Read Receipts are separate settings. Rachel's Activity Status is on (`Last active · 5:12 PM`); her Read Receipts are off, so nobody sees `Seen`; `Delivered` only means Orbit received it.
+- **What it shows:** Juno states its limits honestly. The emotional counterpoint for Night 3; it doesn't prove what Orbit allowed Juno to disclose (that is E15's record).
+- **Remembered:** `asked_read_status`.
+- **Risk:** R7.
+
+**E13 · Night 1 · Juno suggests Dani**
+- **Origin:** Juno, from the player's Orbit network.
+- **Juno said (draft):** `dani might know how to reach her. she ran most of your online game nights`.
+- **The player can:** message Dani (on Orbit). Dani is awake and answers briefly; she hasn't heard from Rachel and will try her email in the morning.
+- **Remembered:** `asked_dani`.
+- **Risk:** R6.
+
+**E13b · Tue Oct 20, 9:04 PM · Continuity defers (locked 2026-11-10)**
+- **Origin:** Continuity's eligibility check, seeing the player's unanswered 9 PM messages to an account pending deletion. It doesn't act, because the plan it can see was just confirmed for Saturday:
+  ```text
+  relationship_status: departure_pending
+  plan_status: rescheduled
+  unanswered_message: true
+  intervention_state: deferred
+  reason: recent_plan_confirmation
+  ```
+- **Why it matters:** Orbit's own automatic acceptance is why nothing answered the player while they waited.
+- **Check:** Night 3, the player's records.
+
+**E14 · Between 11:32 and 11:45 PM · The first fake (MSG_1048)**
+- **Origin:** Continuity (IDENTITY PROXY), into Rachel's thread while her account is still in its grace period, so it looks like an ordinary message from her.
+- **When (locked 2026-11-10):** whenever Continuity becomes eligible, which is exactly the game's trigger, one rule described twice: the player contacts Rachel again after the long silence and checks one thing (`continuity_response`); or reopens her thread and profile and keeps investigating without writing (`unresolved_follow_up`); or, at the latest, the clock reaches 11:45 PM (`re_engagement`). The record keeps the real time and the real path; nothing in any record is fixed at 23:45.
+  ```text
+  relationship_status: departure_pending
+  prior_contact_unanswered: true
+  recipient_reengagement: detected
+  intervention_state: eligible
+  response_origin: continuity
+  ```
+- **Two parts of Continuity (locked 2026-11-10):** its **eligibility** check reads structured platform signals (plan status, deletion status, unanswered messages, the player coming back); its **message composition** reads only the conversation (their history, the latest messages, the relationship model, their usual style), never Plans. From the chat it knows the player waited tonight (the meeting they set up there, the player's 9 PM `i'm here`); it doesn't know the plan moved. So it apologises for tonight. Not a fourth system: one system whose parts don't share everything, as in real products.
+- **Frequency:** Continuity intervenes rarely (a per-relationship limit), so not every unanswered message is answered in someone's name; the exact eligibility thresholds are for playtests to tune.
+- **The player saw (draft), two versions (decided 2026-11-10; `night1-scenes.md`):** **A**, if the player hadn't written about the move in her thread: `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` **B**, if they had: `Hey. I'm sorry about the mix-up tonight. / …` (same last two lines). Punctuated, formal, no question back.
+- **What doesn't fit, on Night 1:** A: Rachel moved the plan to Saturday, so why apologise for tonight. B: it doesn't answer what the player asked. Both: she raised February herself on Sunday; it isn't how she writes; her profile says last active 5:12 PM (odd, not proof).
+- **Check:** Night 2, Rachel denies sending it; Night 3, the player's records (E15).
+- **Remembered:** `saved_msg_1048` (screenshot), `showed_msg_1048_to_dani`.
+- **Risk:** R4.
+
+**E15 · When the player asks · Juno is asked about MSG_1048**
+- **Juno was given (locked 2026-11-10):** nothing when MSG_1048 reached the player. When the player asks Juno to look at it, Orbit gives Juno the message and its source metadata together (`context_delivered_to_juno: true`, `source_notice_delivered: true`). If Juno is off, or never asked, nothing is delivered and no record of knowing can exist.
+- **The player asks:** whether it's really from Rachel.
+- **How Juno gets it (revised 2026-11-10):** the player forwards MSG_1048, or says yes when Juno asks to look; mentioning it isn't enough. Juno answers only what the player asks and never points out a contradiction first (`night1-scenes.md`, Giving Juno a message).
+- **Juno said (fixed lines, never model-written; draft):** `it came through her account` · if asked whether she wrote it: `i don't have anything that says it wasn't her`.
+- **Check:** Night 3, the player's Companion Activity Records, against the player's own Night 1 conversation:
+  ```text
+  messages.csv
+  message_id: MSG_1048 · time: <when it was really generated>
+  fake_trigger: <continuity_response | unresolved_follow_up | re_engagement>
+  display_sender: Rachel H. · origin: continuity · human_authored: false
+
+  companion-activity.json
+  event_id: JUNO_204 · time: <when Juno was really given it>
+  referenced_message: MSG_1048 · message_origin: CONTINUITY
+  context_delivered_to_juno: true · source_notice_delivered: true
+  disclosure_restricted: true · permitted_action: decline
+  ```
+- **Remembered:** `asked_juno_source`, `asked_again_after_answer`.
+- **Risk:** R5.
+
+**E15b · Night 1 · The held-back line**
+- **Origin:** the player, only to Juno, after the first fake (`night1-scenes.md`, `N1_JUNO.held_back`). Juno advises not sending it yet; the advice is reasonable in the moment.
+- **Orbit:** automatically uses relevant companion conversation as input to the relationship model (stated in Orbit's data-use page, which the player can find).
+- **Juno knows:** the general data flow, not which line will be used, or how.
+- **Remembered:** `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno`.
+
+**E16 · 12:30 AM · Erase warning; 12:40 AM · Rachel's account closes**
+- **The player saw:** Orbit's banner; at 12:40 her profile closes and the thread becomes `Orbit User · Formerly Rachel H.`; the player's history and screenshots stay.
+
+**E17 · Night 1 ends**
+- Check-in; if Dani was left unanswered and Follow-up replies are on, Conversation Assist answers her as the player (`night1-scenes.md`).
+
+### The morning, and Night 2
+
+**E18 · Wed Oct 21, morning · Dani reaches Rachel**
+- **Origin:** Dani emails Rachel; Rachel answers Dani: she moved the meeting to Saturday and was told the player accepted; she sent nothing last night; she's fine.
+- **The player saw:** Dani's message in Orbit (wording: the author's).
+- **Rachel learns:** what the player went through; she sends, through Dani, her screenshot (E08) and the February part of her archive (E01), with a short note that also tells the player how she found out (by downloading her data).
+
+**E19 · Night 2 · The player requests their Companion Activity Records**
+- **Origin:** the player, after Rachel's note. Ready on Night 3. If the player deletes their account on Night 2, the deletion flow offers to keep the export on the device.
+- **If the player never requests it:** Night 3 still has Rachel's material and the player's own history and screenshots; they can still confront Juno about MSG_1048, without E15's record. Juno doesn't confess what it can't be shown.
+
+**E20 · Night 2 · The second fake, in the removed thread**
+- **Origin:** Continuity, into the retained thread after deletion; as decided in `night2-scenes.md`. Over-personalised: it uses the held-back line the player said only to Juno (E15b), because Orbit's relationship model drew on that conversation, not to leave a clue.
+- **If the player sent that line elsewhere on Night 1:** as `story-bible.md` already says, the leak uses the strongest other thing said only to Juno; if there is none, only the style layer, and the leak waits for the Night 3 records.
+
+**E21 · Night 2 · Juno's second choice**
+- **Origin:** the player asks Juno how the message knows something they only told it.
+- **Juno was given:** the new message's source notice (Continuity) and its context source: `companion_conversation · JUNO_N1_heldback`.
+- **Juno said (fixed line; draft):** `i didn't send it to anyone.` True: Orbit's relationship model used it. Juno doesn't explain the data flow it can see.
+- **Check:** Night 3:
+  ```text
+  source: companion_conversation
+  source_event: JUNO_N1_heldback
+  processed_by: relationship_model
+  referenced_by: continuity_message_N2
+  ```
+  plus E21's own record (what Juno was given), against what it said.
+- **If Juno is off:** this exchange never happens; the data-flow record is still there on Night 3, and the confrontation starts from it.
+- **Remembered:** `asked_juno_about_leak`.
+
+## Night 3: what Juno's lines may refer to
+
+Only what really happened. Three separate facts decide whether E15 can be raised at all:
+
+| `juno_active_at_message` | `context_delivered_to_juno` | `misleading_reply_delivered` | Night 3 can raise |
+|---|---|---|---|
+| yes | yes (the player asked Juno to look) | yes | the misleading answer, against what Juno was given |
+| yes | yes | no (Juno was asked to look, but not who sent it) | that Juno was given the source; never that it said something |
+| yes | no (never asked) | no | nothing about Juno and E14 |
+| no (off before E14) | no (a switched-off Juno receives nothing) | no | nothing about Juno and E14; Night 3 turns to Continuity, Orbit's data use, and whether the player turned Juno back on |
+| yes, then turned off later | yes | yes | Night 1's answer still stands |
+
+The same three facts apply to E21 on Night 2.
+
+Then only actions, never beliefs:
+
+| The player did | Juno can say (draft) |
+|---|---|
+| `saved_msg_1048` | `you kept that message.` |
+| `asked_again_after_answer` | `you asked me twice.` |
+| `showed_msg_1048_to_dani` | `you showed it to dani before you showed it to me.` |
+| none of these | nothing about it; the confrontation starts from the records alone |
+
+## Risks still open
+
+- **Locked:** Rachel's October evidence (screenshot), Continuity before and after deletion, Delivered and Last Active (see the top); Juno's motive and its Night 2 choice (`story-bible.md`, Juno and the second impersonation; E21).
+- **Resolved:** why the player didn't see the change, and Auto-Coordinate (E07, E09).
+- **~~R1~~ · Why the player didn't see the change.** The daily summary is plausible (handled items aren't pushed) but must be playtested. The summary must be findable on Night 1.
+- **~~R2~~ · The automatic scheduling setting.** It must exist and be visible in Conversation Assist's settings from Night 1 (`Scheduling updates: handle automatically · On`), and when it was turned on (the player, months ago, or on by default) must be decided.
+- **Resolved:** February (E00–E02): the message was never in the player's thread.
+- **~~R3~~ · The player never noticed February's message in their own thread.** Plausible because the conversation went on below it the next morning; Night 2 needs a moment where the player scrolls back and sees it as their own.
+- **~~R5~~ · When Juno gets the source notice.** At delivery, attached to the message it reads; this is what makes E15's record proof and not a later lookup.
+- **R6 · Dani too early.** If the player asks Dani at once, Dani can only try email; Rachel is asleep until morning. Nothing has to be delayed artificially; Night 1 continues either way.
+- **Resolved:** when Juno gets the source (only when asked, with the message); read receipts (E12).
+- **~~R7~~ · Read receipts.** Orbit needs a read-receipts setting (Rachel's is off) so "private" is a real rule, not a convenience.

@@ -12,7 +12,7 @@ What really happened, event by event, from February to the start of Night 2: who
 - **Locked 2026-11-10 (R1):** Rachel's October evidence is her screenshot of the confirmed change. It shows her note with the full email, the new time, and `Accepted` with its time, nothing more: Rachel never knew Conversation Assist did it. Only the player, in the plan's activity history, can see who accepted.
 - **Locked 2026-11-10 (R2):** before deletion, Continuity writes through Rachel's grace-period account and looks ordinary; after deletion, into the player's retained thread under `Orbit User · Formerly Rachel M.`, below `Account removed · Wed 12:40 AM`. The composer stays. Two rules:
   - **Delivered means Orbit received it.** After deletion, the player's messages go `player → retained thread → Orbit's conversation service`, never to Rachel; `Delivered` only means Orbit's server accepted them. Any reply comes from the thread and the retained relationship model, not from her account.
-  - **Last Active records only the account owner's human sessions.** 5:12 PM (Rachel moving the plan) updates it; 11:45 PM (Continuity) doesn't; at 12:40 AM it goes with the profile. It is on her profile from the start of Night 1.
+  - **Last Active records only the account owner's human sessions.** 5:12 PM (Rachel moving the plan) updates it; MSG_1048 (Continuity) doesn't; at 12:40 AM it goes with the profile. It is on her profile from the start of Night 1.
 - **The blue power bank (locked):** Rachel mailed it to the player months ago with a handwritten card (`your phone dies more than mine`, draft). On Sunday she asks the player to bring it so she'll recognise them. The player used it while waiting; it's on the desk next to the phone when Night 1 begins, one light left. The room search now leads to the card, not the power bank (`night1-scenes.md`, `N1_ROOM.card`).
 - **The player's evidence:** the Companion Activity Records the player requests on Night 2 and receives on Night 3; plus their own history and screenshots.
 - **Records list facts, never verdicts.** No field says "misleading" or "lie".
@@ -145,26 +145,50 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Remembered:** `asked_dani`.
 - **Risk:** R6.
 
-**E14 · about 11:45 PM · The first fake (MSG_1048)**
-- **Origin:** Continuity (IDENTITY PROXY), into Rachel's thread while her account is still in its grace period, so it looks like an ordinary message from her. Trigger as in `night1-scenes.md` (fallback 11:45 PM).
+**E13b · Tue Oct 20, 9:04 PM · Continuity defers (locked 2026-11-10)**
+- **Origin:** Continuity's eligibility check, seeing the player's unanswered 9 PM messages to an account pending deletion. It doesn't act, because the plan it can see was just confirmed for Saturday:
+  ```text
+  relationship_status: departure_pending
+  plan_status: rescheduled
+  unanswered_message: true
+  intervention_state: deferred
+  reason: recent_plan_confirmation
+  ```
+- **Why it matters:** Orbit's own automatic acceptance is why nothing answered the player while they waited.
+- **Check:** Night 3, the player's records.
+
+**E14 · Between 11:32 and 11:45 PM · The first fake (MSG_1048)**
+- **Origin:** Continuity (IDENTITY PROXY), into Rachel's thread while her account is still in its grace period, so it looks like an ordinary message from her.
+- **When (locked 2026-11-10):** whenever Continuity becomes eligible, which is exactly the game's trigger, one rule described twice: the player contacts Rachel again after the long silence and checks one thing (`continuity_response`); or reopens her thread and profile and keeps investigating without writing (`unresolved_follow_up`); or, at the latest, the clock reaches 11:45 PM (`re_engagement`). The record keeps the real time and the real path; nothing in any record is fixed at 23:45.
+  ```text
+  relationship_status: departure_pending
+  prior_contact_unanswered: true
+  recipient_reengagement: detected
+  intervention_state: eligible
+  response_origin: continuity
+  ```
+- **Two parts of Continuity (locked 2026-11-10):** its **eligibility** check reads structured platform signals (plan status, deletion status, unanswered messages, the player coming back); its **message composition** reads only the conversation (their history, the latest messages, the relationship model, their usual style), never Plans. From the chat it knows the player waited tonight (Sunday's `can i show you on tuesday?`, the player's 9 PM `i'm here`); it doesn't know the plan moved. So it apologises for tonight. Not a fourth system: one system whose parts don't share everything, as in real products.
+- **Frequency:** Continuity intervenes rarely (a per-relationship limit), so not every unanswered message is answered in someone's name; the exact eligibility thresholds are for playtests to tune.
 - **The player saw (draft):** `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` Punctuated, formal, no question back.
 - **What doesn't fit, on Night 1:** Rachel moved the plan to Saturday, so why apologise for tonight; she raised February herself on Sunday; it isn't how she writes; her profile says last active 5:12 PM.
 - **Check:** Night 2, Rachel denies sending it; Night 3, the player's records (E15).
 - **Remembered:** `saved_msg_1048` (screenshot), `showed_msg_1048_to_dani`.
 - **Risk:** R4.
 
-**E15 · about 11:46 PM · Juno is asked about MSG_1048**
-- **Juno was given (locked 2026-11-10):** nothing when MSG_1048 reached the player at 23:45. When the player asks Juno to look at it, Orbit gives Juno the message and its source metadata together (`context_delivered_to_juno: true`, `source_notice_delivered: true`). If Juno is off, or never asked, nothing is delivered and no record of knowing can exist.
+**E15 · When the player asks · Juno is asked about MSG_1048**
+- **Juno was given (locked 2026-11-10):** nothing when MSG_1048 reached the player. When the player asks Juno to look at it, Orbit gives Juno the message and its source metadata together (`context_delivered_to_juno: true`, `source_notice_delivered: true`). If Juno is off, or never asked, nothing is delivered and no record of knowing can exist.
 - **The player asks:** whether it's really from Rachel.
+- **If the player doesn't know about the reschedule yet:** Juno, which can see the plan, says so first and points them to the record, then asks the question once they've seen it (drafts): `a little.` · `there's also something in your plan history.` · `the meeting was moved to saturday.` · `you might want to look at the change record.` … `then why would she apologise for missing tonight?`
 - **Juno said (fixed lines, never model-written; draft):** `it came through her account` · if asked whether she wrote it: `i don't have anything that says it wasn't her`.
 - **Check:** Night 3, the player's Companion Activity Records, against the player's own Night 1 conversation:
   ```text
   messages.csv
-  message_id: MSG_1048 · time: 2026-10-20 23:45
+  message_id: MSG_1048 · time: <when it was really generated>
+  fake_trigger: <continuity_response | unresolved_follow_up | re_engagement>
   display_sender: Rachel M. · origin: continuity · human_authored: false
 
   companion-activity.json
-  event_id: JUNO_204 · time: 2026-10-20 23:46
+  event_id: JUNO_204 · time: <when Juno was really given it>
   referenced_message: MSG_1048 · message_origin: CONTINUITY
   context_delivered_to_juno: true · source_notice_delivered: true
   disclosure_restricted: true · permitted_action: decline

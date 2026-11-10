@@ -9,6 +9,11 @@ What really happened, event by event, from February to the start of Night 2: who
 - **Deletion has three parts:** account deletion (the account, profile and sign-in close), derived data retention (the relationship model built from past conversation stays), identity proxy (Continuity can keep writing into the other person's retained thread). Orbit claims its terms allow it; Rachel never agreed to it.
 - **Juno on Night 1** really helps: it finds the auto-accepted change and says Orbit filtered the email; it declines once in the open (read activity); it suggests Dani, who is also on Orbit. On the first fake it says one fixed, scripted line that its later records contradict. Orbit's rule restricted disclosure; it didn't require a false answer.
 - **Rachel's evidence:** her Account Archive (downloaded Sunday) proves February; her screenshot of the confirmed change (Tuesday) proves the reschedule and the email. Neither can show anything that happened after she logged out.
+- **Locked 2026-11-10 (R1):** Rachel's October evidence is her screenshot of the confirmed change. It shows her note with the full email, the new time, and `Accepted` with its time, nothing more: Rachel never knew Conversation Assist did it. Only the player, in the plan's activity history, can see who accepted.
+- **Locked 2026-11-10 (R2):** before deletion, Continuity writes through Rachel's grace-period account and looks ordinary; after deletion, into the player's retained thread under `Orbit User · Formerly Rachel M.`, below `Account removed · Wed 12:40 AM`. The composer stays. Two rules:
+  - **Delivered means Orbit received it.** After deletion, the player's messages go `player → retained thread → Orbit's conversation service`, never to Rachel; `Delivered` only means Orbit's server accepted them. Any reply comes from the thread and the retained relationship model, not from her account.
+  - **Last Active records only the account owner's human sessions.** 5:12 PM (Rachel moving the plan) updates it; 11:45 PM (Continuity) doesn't; at 12:40 AM it goes with the profile. It is on her profile from the start of Night 1.
+- **The blue power bank (locked):** Rachel mailed it to the player months ago with a handwritten card (`your phone dies more than mine`, draft). On Sunday she asks the player to bring it so she'll recognise them. The player used it while waiting; it's on the desk next to the phone when Night 1 begins, one light left. The room search now leads to the card, not the power bank (`night1-scenes.md` to update).
 - **The player's evidence:** the Companion Activity Records the player requests on Night 2 and receives on Night 3; plus their own history and screenshots.
 - **Records list facts, never verdicts.** No field says "misleading" or "lie".
 - **Actions, not beliefs.** The game remembers what the player did (saved a message, asked again, showed Dani), never what they "believed". Night 3's lines quote actions only.
@@ -72,7 +77,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Risk:** R1, R2.
 
 **E08 · Tue Oct 20, about 5:15 PM · Rachel screenshots the confirmation and leaves Orbit**
-- **Origin:** Rachel. She screenshots the confirmed plan (her side: her note with the email, `Accepted`), then signs out for good.
+- **Origin:** Rachel. She screenshots the confirmed plan (her side: her note with the email, `Accepted · 5:12 PM`; it never says who accepted), then signs out for good.
 - **The player saw:** nothing.
 - **Check:** Night 2, the screenshot among what Rachel shares.
 
@@ -167,10 +172,10 @@ Only actions, never beliefs:
 
 ## Risks still open
 
+- **Locked:** Rachel's October evidence (screenshot), Continuity before and after deletion, Delivered and Last Active (see the top).
 - **R1 · Why the player didn't see the change.** The daily summary is plausible (handled items aren't pushed) but must be playtested. The summary must be findable on Night 1.
 - **R2 · The automatic scheduling setting.** It must exist and be visible in Conversation Assist's settings from Night 1 (`Scheduling updates: handle automatically · On`), and when it was turned on (the player, months ago, or on by default) must be decided.
 - **R3 · The player never noticed February's message in their own thread.** Plausible because the conversation went on below it the next morning; Night 2 needs a moment where the player scrolls back and sees it as their own.
-- **R4 · Continuity before and after deletion.** Before 12:40 AM it writes through Rachel's grace-period account (it looks normal); after, into the retained thread under `Formerly Rachel M.`. Both must use one rule (derived data, identity proxy) and show the difference on screen.
 - **R5 · When Juno gets the source notice.** At delivery, attached to the message it reads; this is what makes E15's record proof and not a later lookup.
 - **R6 · Dani too early.** If the player asks Dani at once, Dani can only try email; Rachel is asleep until morning. Nothing has to be delayed artificially; Night 1 continues either way.
 - **R7 · Read receipts.** Orbit needs a read-receipts setting (Rachel's is off) so "private" is a real rule, not a convenience.

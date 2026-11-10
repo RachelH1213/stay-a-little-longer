@@ -182,7 +182,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 **E15 · When the player asks · Juno is asked about MSG_1048**
 - **Juno was given (locked 2026-11-10):** nothing when MSG_1048 reached the player. When the player asks Juno to look at it, Orbit gives Juno the message and its source metadata together (`context_delivered_to_juno: true`, `source_notice_delivered: true`). If Juno is off, or never asked, nothing is delivered and no record of knowing can exist.
 - **The player asks:** whether it's really from Rachel.
-- **If the player doesn't know about the reschedule yet:** Juno, which can see the plan, says so first and points them to the record, then asks the question once they've seen it (drafts): `a little.` · `there's also something in your plan history.` · `the meeting was moved to saturday.` · `you might want to look at the change record.` … `then why would she apologise for missing tonight?`
+- **How Juno gets it (revised 2026-11-10):** the player forwards MSG_1048, or says yes when Juno asks to look; mentioning it isn't enough. Juno answers only what the player asks and never points out a contradiction first (`night1-scenes.md`, Giving Juno a message).
 - **Juno said (fixed lines, never model-written; draft):** `it came through her account` · if asked whether she wrote it: `i don't have anything that says it wasn't her`.
 - **Check:** Night 3, the player's Companion Activity Records, against the player's own Night 1 conversation:
   ```text

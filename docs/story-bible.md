@@ -268,7 +268,7 @@ What really happened, event by event: `docs/evidence-matrix.md`. Beats and trigg
 >
 > All of this depends on what the player actually did: a switched-off Juno receives nothing; a line also sent elsewhere isn't Juno's alone; with no such line, the evidence comes from style and from the later export.
 
-- **The second fake** confirms what the player taught it: it fixes most visibly the one style signal the player confirmed on Night 1 (asks back / no full stops / says what happened), and it answers the line the player held back and said only to Juno, using a distinctive word from it.
+- **The second fake** confirms what the player taught it, on two separate axes (`docs/night2-scenes.md`): its **style** uses the one style signal the player gave Juno on Night 1 (asks back / no full stops / says what happened), never pointed out; its **content** answers what the player wrote in Rachel's thread, if anything, and reuses the line the player held back and said only to Juno, using a distinctive word from it.
 - **If the player sent that line to Rachel anyway**, the leak uses the strongest other thing said only to Juno; if there is none, Night 2 uses only the style layer and the leak waits for the Night 3 export.
 - **The player sees Conversation Assist act:** in an open thread, `◌ Reply prepared by Orbit · Sending in 10s · Undo`. Not a reflex test: the countdown runs only while visible, pauses in the background, is longer with accessibility settings, and the story continues either way. Players who turned Follow-up replies off never see it.
 - **Rachel is safe.** Dani reaches her by email and, with her consent, gives the player a one-time private link: Rachel's note, her Tuesday screenshot, and the February part of her archive.

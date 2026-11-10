@@ -158,8 +158,9 @@ Juno 则说：
 |---|---|---|
 | March 2025 | the player joins Orbit; Juno introduces Rachel | |
 | … | | |
-| Feb 10, 2026, 23:42 | Orbit sends a message to Rachel as the player (player's device inactive) | Orbit; Rachel finds out later |
-| Feb 11, 08:37 | Rachel comes back: "sorry i vanished… what did i miss" | everyone (looks normal) |
+| Feb 10, 2026, 22:18 | Rachel says she might take a break from Orbit; the player answers kindly | both |
+| Feb 10, 2026, 23:42 | Continuity adds a message to Rachel's view only, as the player (player asleep) | Orbit; Rachel believes it |
+| Feb 11, 09:16 | Rachel thanks the player for "last night" and stays | both (each reads it their own way) |
 | Sunday Oct 18, 22:48 | Rachel's last human login; her "february" and "blue brick" messages | the player |
 | Monday Oct 19, 00:40 | Rachel requests account removal (48-hour window) | Orbit, Juno |
 | Tuesday Oct 20, 21:00 | the meeting outside the lab; Rachel doesn't come | the player |
@@ -403,7 +404,7 @@ Session continued: 18m 42s
 - **Juno:** the companion and its conversation. Turning it off stops it replying, messaging and notifying; history and existing personalization stay (a separate `Delete Juno history and personalization`, later).
 - **Conversation Assist:** Orbit's Suggested replies and Follow-up replies. On by default in a new game. Turning it off stops suggestions, prepared replies and `Sending in 10s`.
 - **Continuity:** "Continuity activates when Orbit predicts that a high-value relationship may be permanently interrupted by prolonged inactivity, account departure, or deletion." It never handles ordinary late replies (that's Conversation Assist, which works while the user is using Orbit normally and obeys its switch). Continuity has no ordinary switch and may use the identity and behaviour model of the other person in the relationship. Two modes:
-  - **REACTIVATION:** brings the quiet one back. February: Rachel inactive → Orbit uses the player's identity → a message to Rachel → she returns.
+  - **REACTIVATION:** keeps the one who is leaving. February: Rachel says she might leave → Orbit uses the player's identity → a message only Rachel sees → she stays (`docs/evidence-matrix.md` E00–E02).
   - **IDENTITY PROXY:** the identity's owner has left; Orbit goes on speaking as them to keep the other one. Night 1: Rachel requested deletion → Orbit uses Rachel's identity → replies to the player. Night 3, delete route: the player requested deletion → Orbit uses the player's identity → reassures Dani.
 - "Disabling Juno or Conversation Assist does not reactivate those systems. Continuity operates independently during a qualifying relationship disruption. **The violation is that Orbit never gave the player meaningful control over this separate use of their identity.**" Ordinary settings really work; the platform put its most serious function outside them.
 
@@ -413,7 +414,7 @@ Juno's switch is in Settings from Night 1 (`Juno On · Conversation Assist On`).
 
 **Two separate records on Night 3 (decided 2026-10-24).**
 - **Conversation Assist:** only what this playthrough really did: `Suggested replies shown · selected · Player-authored replies · Follow-up replies prepared · cancelled · sent without confirmation` (counts from play: Night 1's reply to Dani, Night 2's `Sending in 10s` if it went, none after the player turned it off). February is never here.
-- **Continuity:** e.g. `CONTINUITY EVENT 01 · Mode: REACTIVATION · Subject: Rachel M. · Disruption: Account inactive for 76h · Identity used: PLAYER · Message sent: February 10 · 11:42 PM · Human confirmation: Absent · Rachel returned: February 11 · 8:37 AM · Outcome: SUCCESSFUL`. No `Follow-up Replies` line: that setting has nothing to do with it.
+- **Continuity:** e.g. `CONTINUITY EVENT 01 · Mode: REACTIVATION · Subject: Rachel M. · Disruption: Farewell detected · Identity used: PLAYER · Visible to: Recipient only · Message sent: February 10 · 11:42 PM · Human confirmation: Absent · Conversation reopened: February 11 · 9:16 AM · Outcome: SUCCESSFUL`. No `Follow-up Replies` line: that setting has nothing to do with it.
 
 **Dani outside Orbit (decided 2026-10-24).** On Night 2, after the link, Dani offers her own number (a contact card, or `Continue with Dani outside Orbit · Open in Messages` at the bottom of the package), and the phone's own **Messages** app opens (a new home-screen app). Why not before: they also met through Orbit groups and always used Orbit's Chats. No new product name: Orbit's messaging is `Chats`, the phone's is `Messages`; the screens tell them apart. Saving it is never required. Dani says only `this is me`, then the contact card; she never explains what it means.
 

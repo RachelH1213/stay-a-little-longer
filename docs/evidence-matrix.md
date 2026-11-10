@@ -24,28 +24,39 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 
 ### Before the game
 
-**E01 · Feb 10, 11:42 PM · February reactivation**
-- **Origin:** Continuity (REACTIVATION). Rachel had gone quiet; the player's device was inactive. Continuity sent Rachel a message in their thread, displayed as the player.
-- **Rachel saw:** a message from the player. It mattered to her (wording: the author's).
-- **The player saw:** the same message in their own thread, as if they had sent it. They never noticed; the next morning Rachel came back and the conversation went on below it.
+**E00 · Feb 10, 10:18–10:23 PM · Rachel says she might leave**
+- **Origin:** Rachel and the player, both real. Rachel: `i think i might take a break from this app for a while / everything feels like too much lately`. The player: `yeah i get it / take some time if you need to. no pressure`. Rachel: `thanks / idk. i'll think about it`. (Drafts.)
+- **Both saw:** all of it.
+- **Orbit:** reads it as a farewell (`Farewell detected`).
+
+**E01 · Feb 10, 11:42 PM · February reactivation (locked 2026-11-10)**
+- **Origin:** Continuity (REACTIVATION), triggered by the farewell. The player's device was inactive (asleep). Continuity added a message to Rachel's view of their thread, displayed as the player (draft): `hey, i've been thinking about what you said earlier / i get why you want a break. i just don't want you to think i wouldn't notice if you left / i would. talking to you is one of the best parts of my day / you don't have to decide tonight. i just wanted you to know`.
+- **The rule:** an identity-proxy message is a recipient-only insertion, not a send from the account. One system event, rendered only in the conversation of the person being intervened on. Only Continuity does this; no other system may create one-sided messages. It is one of Orbit's most serious practices, never presented as something every social app does.
+- **Rachel saw:** the message from the player.
+- **The player saw:** nothing. It was never in their thread.
+- **Replies:** the recipient can answer normally, and the answer goes into the shared thread. If Orbit supports quoting a message, a quote of a hidden message shows on the other side as a missing or unavailable message, never as something faked; in February Rachel doesn't quote.
 - **Juno:** not involved.
-- **Check:** Night 2, Rachel's Account Archive (record below) against the player's own old thread and Dani (`weren't you asleep?`).
+- **Check:** Night 1, only a hint (E02); Night 2, Rachel's archive (record below) and her side of the February conversation, against the player's own thread, where the message isn't.
 - **Record (Rachel's archive):**
   ```text
+  Farewell detected
   event_type: relationship_reactivation
   subject_account: Rachel M.
   delivery_surface: existing_conversation
+  visible_to: recipient_only
   display_identity: relationship_partner
   intervention_time: 2026-02-10 23:42
+  Conversation reopened
   ```
-- **Risk:** R3.
 
-**E02 · Feb 11, 8:37 AM · Rachel comes back**
-- **Origin:** Rachel. "sorry i vanished… what did i miss" (draft).
-- **Both saw:** an ordinary return.
+**E02 · Feb 11, 9:16 AM · Rachel stays**
+- **Origin:** Rachel, then the player, both real and seen by both (drafts). Rachel: `hey, thanks for last night / i really needed to hear that / think i'm gonna stick around for now`. The player: `ofc / but seriously take a break whenever you need to / glad you're here though :)`.
+- **How each read it:** Rachel thanks the player for "i would notice if you left"; the player thinks she means their real `take some time, no pressure`. Both readings are reasonable until October.
+- **Check:** Night 1, scrolling back to February; the warmth of her thanks is all there is to notice.
+- **Not stated:** that the message alone made her stay. Rachel decided; Continuity influenced her.
 
 **E03 · Sun Oct 18, evening · Rachel downloads her Account Archive**
-- **Origin:** Rachel, curious what Orbit kept about her.
+- **Origin:** Rachel, getting ready to leave Orbit, curious what it kept about her. In February she had believed the message completely; the `relationship_reactivation` record is the first reason she has to doubt it, which is why she asks the player, in person, what they remember saying.
 - **What she finds:** E01's record, and labels about herself (`PRIMARY RETENTION ANCHOR: PLAYER`, `CONTINUITY ELIGIBLE: TRUE`).
 - **The player saw:** nothing.
 
@@ -217,7 +228,8 @@ Then only actions, never beliefs:
 - **Resolved:** why the player didn't see the change, and Auto-Coordinate (E07, E09).
 - **~~R1~~ · Why the player didn't see the change.** The daily summary is plausible (handled items aren't pushed) but must be playtested. The summary must be findable on Night 1.
 - **~~R2~~ · The automatic scheduling setting.** It must exist and be visible in Conversation Assist's settings from Night 1 (`Scheduling updates: handle automatically · On`), and when it was turned on (the player, months ago, or on by default) must be decided.
-- **R3 · The player never noticed February's message in their own thread.** Plausible because the conversation went on below it the next morning; Night 2 needs a moment where the player scrolls back and sees it as their own.
+- **Resolved:** February (E00–E02): the message was never in the player's thread.
+- **~~R3~~ · The player never noticed February's message in their own thread.** Plausible because the conversation went on below it the next morning; Night 2 needs a moment where the player scrolls back and sees it as their own.
 - **R5 · When Juno gets the source notice.** At delivery, attached to the message it reads; this is what makes E15's record proof and not a later lookup.
 - **R6 · Dani too early.** If the player asks Dani at once, Dani can only try email; Rachel is asleep until morning. Nothing has to be delayed artificially; Night 1 continues either way.
 - **R7 · Read receipts.** Orbit needs a read-receipts setting (Rachel's is off) so "private" is a real rule, not a convenience.

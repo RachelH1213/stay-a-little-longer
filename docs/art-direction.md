@@ -1,6 +1,6 @@
 # Art direction
 
-**Status (2026-11-09): a trial, not yet decided.** The author is testing a dark pixel-art look for the room. If the test (§9) works, this becomes the direction for the vertical slice and the full game; if it doesn't, the fallback is a photo collage of the author's own room (§10). Everything here is the author's to change.
+**Status (2026-11-10): decided.** Pixel art is the direction for the room and the full game. The author has made the avatars for the three characters and the base UI pages; they set the look, and later work builds on them or refines them. Message text stays in a clear typeface (§7). Everything here is the author's to change.
 
 This replaces landing §10's "visual TBD" for the room, the phone and the paper layer. It doesn't change what the player can do, only how it looks.
 

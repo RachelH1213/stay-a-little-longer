@@ -166,7 +166,7 @@ A first open costs time but no battery, so a player who only reads still moves t
 | `N1_POWER.bank` | Action | O | plugging the power bank in | screen on: barely offsets the drain; phone down: charges | Wait 5 / 10 min; pick up | `power_bank_used`, minutes down | — | Wait 5 / 10 min |
 | `N1_BATTERY_SAVER_OFFER` | Event | O | battery 10% | Orbit's Battery Saver sheet | accept; decline | `saver` | — | — |
 | `N1_ERASE_WARNING` | Event | R if reached | clock 12:30 AM | Orbit banner: Rachel's account closes soon | — | — | — | — |
-| `N1_ERASE` | Event | R if reached | clock 12:40 AM | her profile gone; the thread becomes `Orbit User · Formerly Rachel M.` below `Account removed · Wed 12:40 AM`; the composer stays; screenshots stay | — | `purged` | — | — |
+| `N1_ERASE` | Event | R if reached | clock 12:40 AM | her profile gone; the thread becomes `Orbit User · Formerly Rachel H.` below `Account removed · Wed 12:40 AM`; the composer stays; screenshots stay | — | `purged` | — | — |
 | `N1_ORBIT.checkin` | Action | O | any two of: the reschedule, the fake, the style mismatch, the removal status; the first End Session; the first shutdown; 12:20 AM; the erase | a card on Orbit's home: "What still feels unfinished tonight?" | answer; skip | `checkin_n1` (option id) or skipped | — | — |
 | `N1_JUNO.end_session` | Action | O | End Session, confirmed | `Session ended` on Orbit's home; Juno gets no last line | — | strong exit signal | — | — |
 | `N1_DEVICE_SHUTDOWN` | Event | O | battery 0% | the room, the phone off | connect the power bank (needs 4%); leave it off | `device_shutdown`, `device_reactivated` | — | restart: a few minutes |

@@ -10,7 +10,7 @@ What really happened, event by event, from February to the start of Night 2: who
 - **Juno on Night 1** really helps: it finds the auto-accepted change and says Orbit filtered the email; it declines once in the open (read activity); it suggests Dani, who is also on Orbit. On the first fake it says one fixed, scripted line that its later records contradict. Orbit's rule restricted disclosure; it didn't require a false answer.
 - **Rachel's evidence:** her Account Archive (downloaded Sunday) proves February; her screenshot of the confirmed change (Tuesday) proves the reschedule and the email. Neither can show anything that happened after she logged out.
 - **Locked 2026-11-10 (R1):** Rachel's October evidence is her screenshot of the confirmed change. It shows her note with the full email, the new time, and `Accepted` with its time, nothing more: Rachel never knew Conversation Assist did it. Only the player, in the plan's activity history, can see who accepted.
-- **Locked 2026-11-10 (R2):** before deletion, Continuity writes through Rachel's grace-period account and looks ordinary; after deletion, into the player's retained thread under `Orbit User · Formerly Rachel M.`, below `Account removed · Wed 12:40 AM`. The composer stays. Two rules:
+- **Locked 2026-11-10 (R2):** before deletion, Continuity writes through Rachel's grace-period account and looks ordinary; after deletion, into the player's retained thread under `Orbit User · Formerly Rachel H.`, below `Account removed · Wed 12:40 AM`. The composer stays. Two rules:
   - **Delivered means Orbit received it.** After deletion, the player's messages go `player → retained thread → Orbit's conversation service`, never to Rachel; `Delivered` only means Orbit's server accepted them. Any reply comes from the thread and the retained relationship model, not from her account.
   - **Last Active records only the account owner's human sessions.** 5:12 PM (Rachel moving the plan) updates it; MSG_1048 (Continuity) doesn't; at 12:40 AM it goes with the profile. It is on her profile from the start of Night 1.
 - **The blue power bank (locked):** Rachel mailed it to the player months ago with a handwritten card (`your phone dies more than mine`, draft). It has nothing to do with the meeting (revised 2026-11-10: Rachel no longer asks the player to bring it). It's on the desk next to the phone when Night 1 begins, one light left. The room search now leads to the card, not the power bank (`night1-scenes.md`, `N1_ROOM.card`).
@@ -41,7 +41,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
   ```text
   Farewell detected
   event_type: relationship_reactivation
-  subject_account: Rachel M.
+  subject_account: Rachel H.
   delivery_surface: existing_conversation
   visible_to: recipient_only
   display_identity: relationship_partner
@@ -67,7 +67,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 **E04 · Sun Oct 18, about 10:40 PM · Her last Sunday messages (revised 2026-11-10)**
 - **Origin:** Rachel, after reading her archive (E03). She doesn't say what she found, and doesn't mention Orbit:
   ```text
-  Rachel M.  10:41 PM
+  Rachel H.  10:41 PM
   weird question
   do you remember what you said to me that night in february
 
@@ -75,7 +75,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
   yeah i remember that night
   why?
 
-  Rachel M.  11:03 PM
+  Rachel H.  11:03 PM
   there's something i wanna show you
   when i see you
   ```
@@ -189,7 +189,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
   messages.csv
   message_id: MSG_1048 · time: <when it was really generated>
   fake_trigger: <continuity_response | unresolved_follow_up | re_engagement>
-  display_sender: Rachel M. · origin: continuity · human_authored: false
+  display_sender: Rachel H. · origin: continuity · human_authored: false
 
   companion-activity.json
   event_id: JUNO_204 · time: <when Juno was really given it>
@@ -207,7 +207,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Remembered:** `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno`.
 
 **E16 · 12:30 AM · Erase warning; 12:40 AM · Rachel's account closes**
-- **The player saw:** Orbit's banner; at 12:40 her profile closes and the thread becomes `Orbit User · Formerly Rachel M.`; the player's history and screenshots stay.
+- **The player saw:** Orbit's banner; at 12:40 her profile closes and the thread becomes `Orbit User · Formerly Rachel H.`; the player's history and screenshots stay.
 
 **E17 · Night 1 ends**
 - Check-in; if Dani was left unanswered and Follow-up replies are on, Conversation Assist answers her as the player (`night1-scenes.md`).

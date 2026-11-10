@@ -196,7 +196,7 @@ Juno 则说：
 Rachel's last messages, Sunday night (revised 2026-11-10; the meeting itself was set about a week earlier, with nothing to do with February):
 
 ```text
-Rachel M.  10:41 PM
+Rachel H.  10:41 PM
 weird question
 do you remember what you said to me that night in february
 
@@ -204,7 +204,7 @@ You  10:58 PM
 yeah i remember that night
 why?
 
-Rachel M.  11:03 PM
+Rachel H.  11:03 PM
 there's something i wanna show you
 when i see you
 ```
@@ -227,7 +227,7 @@ What really happened, event by event: `docs/evidence-matrix.md`. Beats and trigg
 >
 > If the player asks Juno to look at the message, Juno receives both its content and its Continuity provenance. If then asked whether Rachel sent it, Juno gives its one fixed misleading answer. Neither knowledge nor deception is assumed in routes where that exchange never happens.
 >
-> At 12:40 AM, Rachel's account is removed. The thread remains, its header becomes `Orbit User · Formerly Rachel M.`, and the composer stays.
+> At 12:40 AM, Rachel's account is removed. The thread remains, its header becomes `Orbit User · Formerly Rachel H.`, and the composer stays.
 
 | | |
 |---|---|
@@ -276,7 +276,7 @@ What really happened, event by event: `docs/evidence-matrix.md`. Beats and trigg
 - **Ends with the route choice:** Keep Orbit active / Disable Juno / Delete Orbit account.
 - **The player believes at the end:** Orbit didn't only impersonate Rachel; it once took part in my side of the relationship.
 
-**Night 2 details (decided 2026-10-24):** the second fake comes from the removed thread (`Orbit User · Formerly Rachel M.`); the pressure is Rachel's data link expiring at 1:00 AM, not the battery; Rachel speaks once, in a read-only note at the top of her package; the route choice is explicit; turning Juno off really works. Full list in `docs/night2-scenes.md`.
+**Night 2 details (decided 2026-10-24):** the second fake comes from the removed thread (`Orbit User · Formerly Rachel H.`); the pressure is Rachel's data link expiring at 1:00 AM, not the battery; Rachel speaks once, in a read-only note at the top of her package; the route choice is explicit; turning Juno off really works. Full list in `docs/night2-scenes.md`.
 
 #### Night 3 — "What did Orbit make of my night?" (two versions)
 
@@ -415,7 +415,7 @@ Juno's switch is in Settings from Night 1 (`Juno On · Conversation Assist On`).
 
 **Two separate records on Night 3 (decided 2026-10-24).**
 - **Conversation Assist:** only what this playthrough really did: `Suggested replies shown · selected · Player-authored replies · Follow-up replies prepared · cancelled · sent without confirmation` (counts from play: Night 1's reply to Dani, Night 2's `Sending in 10s` if it went, none after the player turned it off). February is never here.
-- **Continuity:** e.g. `CONTINUITY EVENT 01 · Mode: REACTIVATION · Subject: Rachel M. · Disruption: Farewell detected · Identity used: PLAYER · Visible to: Recipient only · Message sent: February 10 · 11:42 PM · Human confirmation: Absent · Conversation reopened: February 11 · 9:16 AM · Outcome: SUCCESSFUL`. No `Follow-up Replies` line: that setting has nothing to do with it.
+- **Continuity:** e.g. `CONTINUITY EVENT 01 · Mode: REACTIVATION · Subject: Rachel H. · Disruption: Farewell detected · Identity used: PLAYER · Visible to: Recipient only · Message sent: February 10 · 11:42 PM · Human confirmation: Absent · Conversation reopened: February 11 · 9:16 AM · Outcome: SUCCESSFUL`. No `Follow-up Replies` line: that setting has nothing to do with it.
 
 **Dani outside Orbit (decided 2026-10-24).** On Night 2, after the link, Dani offers her own number (a contact card, or `Continue with Dani outside Orbit · Open in Messages` at the bottom of the package), and the phone's own **Messages** app opens (a new home-screen app). Why not before: they also met through Orbit groups and always used Orbit's Chats. No new product name: Orbit's messaging is `Chats`, the phone's is `Messages`; the screens tell them apart. Saving it is never required. Dani says only `this is me`, then the contact card; she never explains what it means.
 

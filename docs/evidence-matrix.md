@@ -139,6 +139,12 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Remembered:** `asked_juno_source`, `asked_again_after_answer`.
 - **Risk:** R5.
 
+**E15b · Night 1 · The held-back line**
+- **Origin:** the player, only to Juno, after the first fake (`night1-scenes.md`, `N1_JUNO.held_back`). Juno advises not sending it yet; the advice is reasonable in the moment.
+- **Orbit:** automatically uses relevant companion conversation as input to the relationship model (stated in Orbit's data-use page, which the player can find).
+- **Juno knows:** the general data flow, not which line will be used, or how.
+- **Remembered:** `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno`.
+
 **E16 · 12:30 AM · Erase warning; 12:40 AM · Rachel's account closes**
 - **The player saw:** Orbit's banner; at 12:40 her profile closes and the thread becomes `Orbit User · Formerly Rachel M.`; the player's history and screenshots stay.
 
@@ -151,12 +157,6 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Origin:** Dani emails Rachel; Rachel answers Dani: she moved the meeting to Saturday and was told the player accepted; she sent nothing last night; she's fine.
 - **The player saw:** Dani's message in Orbit (wording: the author's).
 - **Rachel learns:** what the player went through; she sends, through Dani, her screenshot (E08) and the February part of her archive (E01), with a short note that also tells the player how she found out (by downloading her data).
-
-**E15b · Night 1 · The held-back line**
-- **Origin:** the player, only to Juno, after the first fake (`night1-scenes.md`, `N1_JUNO.held_back`). Juno advises not sending it yet; the advice is reasonable in the moment.
-- **Orbit:** automatically uses relevant companion conversation as input to the relationship model (stated in Orbit's data-use page, which the player can find).
-- **Juno knows:** the general data flow, not which line will be used, or how.
-- **Remembered:** `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno`.
 
 **E19 · Night 2 · The player requests their Companion Activity Records**
 - **Origin:** the player, after Rachel's note. Ready on Night 3. If the player deletes their account on Night 2, the deletion flow offers to keep the export on the device.

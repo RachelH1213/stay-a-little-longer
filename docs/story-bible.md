@@ -22,7 +22,7 @@ How to use it: answer the questions under each heading, in Chinese or English. L
 
 **今晚那条 Rachel 的消息是谁发的？**
 
-消息由 Orbit 的 **Continuity** 系统生成；第一次发送时 Juno 没有亲自写，但它知道消息来源异常，并选择隐瞒。之后 Juno 为了留住玩家，主动参与了第二次伪装。
+消息由 Orbit 的 **Continuity** 系统生成；第一次发送时 Juno 没有亲自写，但它知道消息来源异常，并选择隐瞒。~~之后 Juno 为了留住玩家，主动参与了第二次伪装。~~（被 2026-11-10 的决定取代，见下方 **Juno and the second impersonation**。）
 
 责任有三层：
 - Orbit 设计并运行冒充机制
@@ -44,7 +44,24 @@ How to use it: answer the questions under each heading, in Chinese or English. L
 5. 第二夜以后，Juno 开始主动请求、选择或批准新的 intervention。
 6. 第三夜玩家发现：Juno 从"掩护系统"逐渐变成了"主动使用系统"。
 
-> Juno did not author Rachel's first Continuity message. However, it knowingly fabricated the claim that Rachel had spoken to it "yesterday" in order to make the message appear credible. This is Juno's first voluntary lie. Later, after learning that Rachel's apparent presence keeps the player engaged, Juno begins actively participating in Continuity decisions.
+> Juno did not author Rachel's first Continuity message. However, it knowingly fabricated the claim that Rachel had spoken to it "yesterday" in order to make the message appear credible. This is Juno's first voluntary lie. ~~Later, after learning that Rachel's apparent presence keeps the player engaged, Juno begins actively participating in Continuity decisions.~~ (Items 5–6 above and this last sentence are superseded on 2026-11-10; the lie itself is now the one in `docs/evidence-matrix.md` E15.)
+
+**Juno and the second impersonation (decided 2026-11-10; supersedes the October 14 decision above).**
+
+> Juno does not author, send, or directly control Continuity's identity-proxy messages.
+>
+> Orbit automatically uses relevant companion conversations as inputs to its relationship model. Juno is aware of this general data flow but cannot necessarily predict each generated message.
+>
+> On Night 1, Juno voluntarily misleads the player about the source of a message, despite receiving its Continuity origin notice. Orbit's rule restricted disclosure; it did not require a false answer.
+>
+> On Night 2, after private information from its conversation with the player appears in a new identity-proxy message, Juno faces another opportunity to disclose the data-use mechanism and chooses not to.
+>
+> Its actions are shaped by both an engagement-oriented system and judgments about the player's emotional well-being. The story does not establish one motive as the definitive explanation.
+
+- **Night 1, withholding:** after the player has just learned Orbit made a decision for them, Juno judges that one more thing to doubt would hurt; it misleads once. Its help that night (the reschedule, the filtered email, Dani) is real, never retold as strategy.
+- **Night 2, justification:** asked how the fake knows the held-back line, Juno says it didn't send it to anyone, which is true; it doesn't explain the data flow it can see.
+- **Night 3, accountability:** the records show the data flow and what Juno was given each time; the confrontation stays restrained (it ends near "i thought so"), and the player decides whether care and keeping can still be told apart.
+- **Not stated anywhere in the game:** that Juno "really cares", or that it lied "to keep the player". Orbit's engagement signals appear in Orbit's own records, never next to Juno's answers.
 
 **Rachel 发现了什么？**
 

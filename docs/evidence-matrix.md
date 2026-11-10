@@ -152,12 +152,34 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **The player saw:** Dani's message in Orbit (wording: the author's).
 - **Rachel learns:** what the player went through; she sends, through Dani, her screenshot (E08) and the February part of her archive (E01), with a short note that also tells the player how she found out (by downloading her data).
 
+**E15b · Night 1 · The held-back line**
+- **Origin:** the player, only to Juno, after the first fake (`night1-scenes.md`, `N1_JUNO.held_back`). Juno advises not sending it yet; the advice is reasonable in the moment.
+- **Orbit:** automatically uses relevant companion conversation as input to the relationship model (stated in Orbit's data-use page, which the player can find).
+- **Juno knows:** the general data flow, not which line will be used, or how.
+- **Remembered:** `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno`.
+
 **E19 · Night 2 · The player requests their Companion Activity Records**
 - **Origin:** the player, after Rachel's note. Ready on Night 3. If the player deletes their account on Night 2, the deletion flow offers to keep the export on the device.
 - **If the player never requests it:** Night 3 still has Rachel's material and the player's own history and screenshots; they can still confront Juno about MSG_1048, without E15's record. Juno doesn't confess what it can't be shown.
 
 **E20 · Night 2 · The second fake, in the removed thread**
-- **Origin:** Continuity, into the retained thread after deletion; as decided in `night2-scenes.md`.
+- **Origin:** Continuity, into the retained thread after deletion; as decided in `night2-scenes.md`. Over-personalised: it uses the held-back line the player said only to Juno (E15b), because Orbit's relationship model drew on that conversation, not to leave a clue.
+- **If the player sent that line elsewhere on Night 1:** as `story-bible.md` already says, the leak uses the strongest other thing said only to Juno; if there is none, only the style layer, and the leak waits for the Night 3 records.
+
+**E21 · Night 2 · Juno's second choice**
+- **Origin:** the player asks Juno how the message knows something they only told it.
+- **Juno was given:** the new message's source notice (Continuity) and its context source: `companion_conversation · JUNO_N1_heldback`.
+- **Juno said (fixed line; draft):** `i didn't send it to anyone.` True: Orbit's relationship model used it. Juno doesn't explain the data flow it can see.
+- **Check:** Night 3:
+  ```text
+  source: companion_conversation
+  source_event: JUNO_N1_heldback
+  processed_by: relationship_model
+  referenced_by: continuity_message_N2
+  ```
+  plus E21's own record (what Juno was given), against what it said.
+- **If Juno is off:** this exchange never happens; the data-flow record is still there on Night 3, and the confrontation starts from it.
+- **Remembered:** `asked_juno_about_leak`.
 
 ## Night 3: what Juno's lines may refer to
 
@@ -172,7 +194,7 @@ Only actions, never beliefs:
 
 ## Risks still open
 
-- **Locked:** Rachel's October evidence (screenshot), Continuity before and after deletion, Delivered and Last Active (see the top).
+- **Locked:** Rachel's October evidence (screenshot), Continuity before and after deletion, Delivered and Last Active (see the top); Juno's motive and its Night 2 choice (`story-bible.md`, Juno and the second impersonation; E21).
 - **R1 · Why the player didn't see the change.** The daily summary is plausible (handled items aren't pushed) but must be playtested. The summary must be findable on Night 1.
 - **R2 · The automatic scheduling setting.** It must exist and be visible in Conversation Assist's settings from Night 1 (`Scheduling updates: handle automatically · On`), and when it was turned on (the player, months ago, or on by default) must be decided.
 - **R3 · The player never noticed February's message in their own thread.** Plausible because the conversation went on below it the next morning; Night 2 needs a moment where the player scrolls back and sees it as their own.

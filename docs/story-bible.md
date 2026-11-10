@@ -161,8 +161,9 @@ Juno 则说：
 | Feb 10, 2026, 22:18 | Rachel says she might take a break from Orbit; the player answers kindly | both |
 | Feb 10, 2026, 23:42 | Continuity adds a message to Rachel's view only, as the player (player asleep) | Orbit; Rachel believes it |
 | Feb 11, 09:16 | Rachel thanks the player for "last night" and stays | both (each reads it their own way) |
-| Sunday Oct 18, 22:48 | Rachel's last human login; her "february" and "blue brick" messages | the player |
+| Sunday Oct 18, evening | Rachel downloads her data; her "february" and "blue brick" messages | the player |
 | Monday Oct 19, 00:40 | Rachel requests account removal (48-hour window) | Orbit, Juno |
+| Tuesday Oct 20, 17:12 | Rachel moves the meeting to Saturday (her last human activity); Conversation Assist accepts for the player; she leaves Orbit | Rachel (sees it accepted) |
 | Tuesday Oct 20, 21:00 | the first meeting (a public place, TBD); Rachel thinks it's Saturday and doesn't come | the player |
 | Tuesday Oct 20, 23:31 | Night 1 begins | |
 | Wednesday Oct 21, 00:40 | her account is erased for good | |

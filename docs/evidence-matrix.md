@@ -69,12 +69,20 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Check:** Night 1, the plan's history (with Juno's help); Night 2, Rachel's screenshot (E08).
 
 **E07 · Tue Oct 20, 5:12 PM · Conversation Assist accepts for the player**
-- **Origin:** Conversation Assist, under the player's `Scheduling updates: handle automatically` setting.
-- **Rachel saw:** `Change accepted` from the player's account.
-- **The player saw:** no push notification. Handled items go to Orbit's daily summary (`Orbit handled 1 scheduling update for you`), which the player didn't open; they were at their own crit all afternoon.
-- **Juno:** can see in the plan's history that the acceptance came from Conversation Assist, and says so on Night 1.
-- **Check:** Night 1, the plan's history: `Change accepted · by Conversation Assist on your behalf`.
-- **Risk:** R1, R2.
+- **Origin:** Conversation Assist, under **Auto-Coordinate** (locked 2026-11-10):
+  > In June 2026 the player enabled Auto-Coordinate and accepted Orbit's suggested trusted contacts, including Rachel, in one setup flow (`Let Orbit handle routine schedule changes with people you coordinate with often` · `Accept suggested contacts & enable Auto-Coordinate`). It had since handled ordinary online game-night changes.
+  >
+  > Conversation Assist evaluates structured plan changes (scheduling conflicts, time and location, contact eligibility). It does not interpret free-text notes when deciding whether to accept a change.
+  >
+  > On October 20 at 5:12 PM, Rachel's change to Saturday was accepted automatically. The action was recorded at once in Activity History; its notification was grouped into the next day's Daily Recap instead of an immediate push (Silent Completion).
+  >
+  > Orbit Plans does not synchronise with the device's calendar.
+  >
+  > The player's earlier authorisation let Orbit make the decision; it doesn't show the player wanted this change.
+- **Rachel saw:** `Accepted`, from the player's account.
+- **The player saw:** nothing pushed; they were at their own crit all afternoon. The chat with Rachel keeps the original messages; the plan's current state lives in Plans, never as a large card in the chat.
+- **Juno:** can see in the plan's history who accepted, and when the setting was enabled.
+- **Check:** any time, Activity History: `Change accepted · by Conversation Assist on your behalf`, with Rachel's note beside it, which played no part in the decision.
 
 **E08 · Tue Oct 20, about 5:15 PM · Rachel screenshots the confirmation and leaves Orbit**
 - **Origin:** Rachel. She screenshots the confirmed plan (her side: her note with the email, `Accepted · 5:12 PM`; it never says who accepted), then signs out for good.
@@ -85,17 +93,17 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Origin:** the player, at the place from Sunday's messages, with the blue power bank.
 - **The player sent:** messages in Rachel's thread (draft: `i'm here`, `blue brick in hand`, `everything ok?`), shown `Delivered`. Rachel was signed out and never saw them.
 - **The player saw:** `Delivered`, no reply. They go home around 9:40.
-- **Juno:** may have chatted with the player while they waited (the author's call).
+- **Juno:** not involved. The player doesn't ask Juno while waiting (a Juno that can see Plans would have found the change at once). This is before the game: told through the message history and the room, not playable; free play starts at 11:31 PM.
 
 ### Night 1 (Tuesday 11:31 PM onward)
 
 **E10 · 11:31 PM · Night 1 begins**
-- Juno's lock-screen notification (`still awake?`), Rachel's Sunday messages below.
+- Juno's lock-screen notification (`still awake?`), Rachel's Sunday messages below. Juno's line is an ordinary evening check-in from the player's usual late-night habits; Juno doesn't track where the player has been and knows nothing about the evening until the player brings Rachel up.
 
 **E11 · Night 1 · Finding the change (with Juno)**
 - **Origin:** the player asks; Juno looks.
 - **The player saw:** the plan's history: Rachel's move to Saturday, the filtered note, `accepted by Conversation Assist on your behalf`.
-- **Juno said (draft):** `you didn't accept it. conversation assist did` · `it shouldn't have done that without asking` · about the email: `i can't see it. orbit filtered it before it reached me` · offers to turn off automatic scheduling.
+- **Juno said (draft):** `you didn't accept it. conversation assist did` · `you enabled auto-coordinate back in june` · `rachel was on the suggested contacts list you approved` · (the player: `i don't remember agreeing to this`) · `it shouldn't have done that without asking` · about the email: `i can't see it. orbit filtered it before it reached me` · offers to turn off automatic scheduling.
 - **Remembered:** `found_reschedule`, `asked_juno_about_email`, whether the player turned the setting off.
 
 **E12 · Night 1 · Juno declines once**
@@ -183,7 +191,18 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 
 ## Night 3: what Juno's lines may refer to
 
-Only actions, never beliefs:
+Only what really happened. Three separate facts decide whether E15 can be raised at all:
+
+| `juno_active_at_message` | `source_notice_delivered` | `misleading_reply_delivered` | Night 3 can raise |
+|---|---|---|---|
+| yes | yes | yes | the misleading answer, against what Juno was given |
+| yes | yes | no (the player never asked) | that Juno knew; never that it said something |
+| no (turned off before E14) | no (a switched-off Juno receives nothing new) | no | nothing about Juno and E14; Night 3 turns to Continuity, Orbit's data use, and whether the player turned Juno back on |
+| yes, then turned off later | yes | yes | Night 1's answer still stands |
+
+The same three facts apply to E21 on Night 2.
+
+Then only actions, never beliefs:
 
 | The player did | Juno can say (draft) |
 |---|---|
@@ -195,8 +214,9 @@ Only actions, never beliefs:
 ## Risks still open
 
 - **Locked:** Rachel's October evidence (screenshot), Continuity before and after deletion, Delivered and Last Active (see the top); Juno's motive and its Night 2 choice (`story-bible.md`, Juno and the second impersonation; E21).
-- **R1 · Why the player didn't see the change.** The daily summary is plausible (handled items aren't pushed) but must be playtested. The summary must be findable on Night 1.
-- **R2 · The automatic scheduling setting.** It must exist and be visible in Conversation Assist's settings from Night 1 (`Scheduling updates: handle automatically · On`), and when it was turned on (the player, months ago, or on by default) must be decided.
+- **Resolved:** why the player didn't see the change, and Auto-Coordinate (E07, E09).
+- **~~R1~~ · Why the player didn't see the change.** The daily summary is plausible (handled items aren't pushed) but must be playtested. The summary must be findable on Night 1.
+- **~~R2~~ · The automatic scheduling setting.** It must exist and be visible in Conversation Assist's settings from Night 1 (`Scheduling updates: handle automatically · On`), and when it was turned on (the player, months ago, or on by default) must be decided.
 - **R3 · The player never noticed February's message in their own thread.** Plausible because the conversation went on below it the next morning; Night 2 needs a moment where the player scrolls back and sees it as their own.
 - **R5 · When Juno gets the source notice.** At delivery, attached to the message it reads; this is what makes E15's record proof and not a later lookup.
 - **R6 · Dani too early.** If the player asks Dani at once, Dani can only try email; Rachel is asleep until morning. Nothing has to be delayed artificially; Night 1 continues either way.

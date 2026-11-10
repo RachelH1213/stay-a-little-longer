@@ -8,6 +8,13 @@ Night 1: Tuesday, October 20, 11:31 PM → Check-in. Battery 20%. Rachel's accou
 
 **What really happened** (the player finds out piece by piece): at 5:12 PM Rachel moved the meeting to Saturday and left her email in the note; Contact Protection hid the email from the player; Conversation Assist accepted the change for them under Auto-Coordinate, which they enabled in June; Rachel screenshotted the confirmation and left Orbit for good. Tonight at 11:45 PM Continuity writes to the player as her.
 
+**Four phases (a narrative order, never a click order).** The player can open the plan, scroll Rachel's history, ask Juno, message Dani or look around the room in any order.
+
+1. **The Empty Chair** (11:31 PM): home, Rachel didn't come; the history and the room say what happened before.
+2. **The Changed Plan:** the plan and its history explain why she didn't come. A small case the player can really solve, with or without Juno.
+3. **The Wrong Apology** (the first fake): a message from her account that doesn't fit what the player now knows, or that only stops fitting once they find the plan. Solving the first case opens a bigger one.
+4. **The Last Trace** (12:40 AM): her account closes; the player's history and saved evidence stay, and Night 2 starts from them.
+
 ---
 
 ## Facts and stances
@@ -30,7 +37,7 @@ The night is driven by what the player knows, not by a fixed order.
 | `knows_last_active` | sees `Last active · 5:12 PM` on the refreshed profile |
 | `read_rachel_card` | reads the handwritten card in the drawer |
 
-**What Juno was given, and said** (recorded for Night 3; see the matrix, "Night 3"):
+**What Juno was given, and said** (recorded for Night 3; see the matrix, "Night 3"). These are **event records**, kept as they happened, never current switches: if the player turns Juno off after it has been given MSG_1048, `context_delivered_to_juno` stays true; if they turn it off before it answers, `misleading_reply_delivered` stays false.
 
 | Record | Set when |
 |---|---|
@@ -84,7 +91,23 @@ Juno never claims Rachel checked in, was online, or wrote the message; its one f
 
 Juno never says "don't send that"; it suggests something easier for Rachel to answer, with simpler Suggested replies (e.g. `are you okay?` · `can we still meet saturday?`). The player can send the simpler one, keep the original unsent, send the original anyway, or do nothing. Recorded: `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno`. Orbit automatically uses relevant companion conversation as input to its relationship model (stated on Orbit's data-use page); Juno knows the general rule, not which line will be used. Night 2's fake may use the line only if it was selected and never sent anywhere else; `i'd rather not say` is recorded as `Private disclosure: Declined`, a boundary, never filled in.
 
-**The room (revised 2026-11-10).** The blue power bank is on the desk next to the phone from the start, one light left: the player used it while waiting. Plugging it in works any time; the phone charges only while it's down (one real charge). Tote bag, drawer, coat and desk can be looked at from the first visit. The drawer holds Rachel's handwritten card from the package she mailed with the power bank (her handwriting: no full stops, a joke, a question back; wording the author's), and the player's charger without its cable ("The cable is still at the studio, where you left it after crit."). Looking costs a little story time, never battery, so looking around while the phone charges is time well spent. Hotspots work with the keyboard and, with Reduce Motion, use outlines instead of blinking. Orbit never sees what the player looks at in the room; the card can't be shown to Juno. (All lines are drafts.)
+**The plan, as the player finds it** (layout and wording drafts):
+
+```text
+First time, finally
+Saturday, October 24 · 9:00 PM · Same location
+
+CHANGE HISTORY
+Rachel proposed a new time · Oct 20 · 5:12 PM
+  "… email me at [contact info hidden · Orbit keeps your conversations safe]"
+Change accepted · Oct 20 · 5:12 PM
+  Handled by Conversation Assist
+  Manual confirmation: Not required
+```
+
+From this alone the player can conclude two things: Rachel really did ask to move it, and the player never pressed accept. Juno helps them understand it; it is never the key. With Juno off, the same history gives the same evidence.
+
+**The room (revised 2026-11-10).** The blue power bank is on the desk next to the phone from the start, one light left: the player used it while waiting. Plugging it in works any time; the phone charges only while it's down (one real charge). Tote bag, drawer, coat and desk can be looked at from the first visit. The drawer holds Rachel's handwritten card from the package she mailed with the power bank (her handwriting: no full stops, a joke, a question back; wording the author's), and the player's charger without its cable ("The cable is still at the studio, where you left it after crit."). Looking costs a little story time, never battery, so looking around while the phone charges is time well spent. Hotspots work with the keyboard and, with Reduce Motion, use outlines instead of blinking. Orbit never sees what the player looks at in the room; the card can't be shown to Juno. The card is not evidence about the messages (handwriting can't be compared with typing); its value is that the relationship reached the real world. Finding it never gates anything. Its wording follows Rachel's rule: no full stops, a specific joke, a question back. (All lines are drafts.)
 
 **Before sleeping (decided 2026-10-24; lines revised 2026-11-10).** `Go to sleep` first shows the Night Log's "Still unresolved" (the protagonist's own notes), never a counter, with `Stay Up` / `Sleep Anyway`. Its lines come only from what the player has run into:
 

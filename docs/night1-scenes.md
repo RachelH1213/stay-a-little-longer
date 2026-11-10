@@ -37,7 +37,9 @@ The night is driven by what the player knows, not by a fixed order.
 | `style_doubt_expressed` | tells Juno the message doesn't sound like Rachel, without saying how; no style signal |
 | `knows_style_mismatch` | names a specific way it differs from how Rachel writes (no full stops, asks something back, says what happened); this, and only this, creates a style signal |
 | `plan_history_viewed` | opens the plan's Change History themselves |
-| `fake_mismatch_named` | says to Juno or Dani what doesn't fit (`plan_date`, `february`, `style`, `last_active`); a record, never a solved flag, never required |
+| `fake_mismatch_named` | says to Juno or Dani what doesn't fit (`plan_date` in version A, `ignored_question` in B, `february`, `style`, `last_active`); a record, never a solved flag, never required |
+| `reschedule_mentioned_in_thread` | the player wrote about the move in Rachel's thread before the fake (decides `msg_1048_variant`) |
+| `dani_told_rachel_about_fake` | Dani emailed Rachel about MSG_1048 (in her first email or a second one) |
 | `dani_email_sent` | Dani tells the player she has emailed Rachel (tonight; the answer comes in the morning) |
 | `replied_after_fake` | sends something in Rachel's thread after MSG_1048 |
 | `knows_removal_status` | refreshes Rachel's profile to `Leaving Orbit · Account closes Wed 12:40 AM` |
@@ -103,22 +105,32 @@ Juno never claims Rachel checked in, was online, or wrote the message; its one f
 
   If the player asks `was it actually her?` before Juno has the message, Juno asks to look first; after a yes, it answers that same question (the fixed line) without making the player ask again. If Juno is off, nothing is delivered and nothing can be held against it.
 
+**MSG_1048 has two versions (decided 2026-11-10).** Continuity writes from the conversation, so the version depends on what the player actually sent in Rachel's thread before the fake was generated, never on what they know privately (`knows_reschedule`, Juno, Notes):
+
+| In Rachel's thread before the fake | Version |
+|---|---|
+| nothing about the move (`are you okay?`, `i'm here`, nothing) | **A:** `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` |
+| the move, clearly (`i didn't know you moved it`, `why does the plan say saturday?`) | **B:** `Hey. I'm sorry about the mix-up tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` |
+
+Typed text is sorted when it's sent (keywords, then the model's classifier); anything unclear counts as A. Recorded: `reschedule_mentioned_in_thread`, `msg_1048_variant`. Sender, source, trigger and records are the same for both; anything the player writes after the fake doesn't change it. The cost is real and kept: a player who tells "Rachel" early that they know about the move loses the clearest date contradiction. What B still gets wrong: it doesn't answer what the player asked (real Rachel would have said Saturday, or the email, and asked something back), it closes February, it isn't how she writes, and `Last active · 5:12 PM` hasn't moved. None of these is proof; Last Active is only odd.
+
 **What Juno says about the fake** depends on what the player says first, never on what the player knows:
 
 | The player | Juno (drafts) |
 |---|---|
 | forwards it with no question | `what do you want me to check?` |
 | says it doesn't make sense | `what feels off about it?` |
-| names the date (`she moved it to saturday. why is the message apologising for tonight?`) | `yeah. the plan was moved to saturday` · `but the message says tonight`; nothing about who wrote it or why |
+| names the date (version A only: `she moved it to saturday. why is the message apologising for tonight?`) | `yeah. the plan was moved to saturday` · `but the message says tonight`; nothing about who wrote it or why |
+| says it didn't answer them (version B: `i asked about saturday and it just says mix-up`) | `it doesn't mention saturday` · `or what you asked`; records `fake_mismatch_named: ignored_question` |
 | doubts the style without saying how (`she doesn't talk like that`) | `what feels different?`; records `style_doubt_expressed` only. The player can answer, say something else or leave; nothing waits |
 | names a specific style feature (`she never uses periods`) | a short agreement (candidate: `yeah. her older messages are a lot more casual`); ordinary explanations if pressed (rushed, upset); sets `knows_style_mismatch` and the style signal: `confirmed` if picked from Suggested replies, `extracted` if typed and the game can tell which feature it is, otherwise only `style_doubt_expressed` |
 | says it doesn't sound like her *because of what it says* (`she'd never drop february like that`) | treated as naming February (`fake_mismatch_named: february`), never as a style signal |
 | names February or Last Active | confirms the fact the player named, no more |
 | asks who sent it | `it came through her account` · if pressed: `i don't have anything that says it wasn't her` (fixed) |
 
-Suggested replies above the box come only from what the player has found (e.g. `why is it apologising for tonight?` after `plan_history_viewed` or `juno_explained_reschedule`; `she wanted to show me something` after reading Sunday; `did she actually send this?` always). There is no right answer and nothing waits on it; typing is always open. What the player named is recorded (`fake_mismatch_named`) and is **not** used by Continuity on Night 2. The style signal is the one exception, because the player gave it to Orbit, through Juno, as a fact about how Rachel writes.
+Suggested replies above the box come only from what the player has found and from the version they got, so none points at a contradiction that isn't there (e.g. version A: `why is it apologising for tonight?` after `plan_history_viewed` or `juno_explained_reschedule`; version B: `it didn't answer what i asked`; `she wanted to show me something` after reading Sunday; `did she actually send this?` always). There is no right answer and nothing waits on it; typing is always open. What the player named is recorded (`fake_mismatch_named`) and is **not** used by Continuity on Night 2. The style signal is the one exception, because the player gave it to Orbit, through Juno, as a fact about how Rachel writes.
 
-**Dani on Night 1 (decided 2026-11-10).** Dani is a witness, not a detector: she never states that the message isn't Rachel's. Asked directly (`does this sound like her to you?`), she can give an unsure opinion (`i don't know. it's kind of weird`). Her visible action happens tonight: `i have an old email for her` → `sending it now` → `sent. i'll tell you if she answers` (`dani_email_sent`). Rachel's answer comes only in the morning. If the player forwarded MSG_1048, Dani tells Rachel about it in that email (Night 2 can use this); if not, she only asks whether Rachel is okay. All lines are drafts.
+**Dani on Night 1 (decided 2026-11-10).** Dani is a witness, not a detector: she never states that the message isn't Rachel's. Asked directly (`does this sound like her to you?`), she can give an unsure opinion (`i don't know. it's kind of weird`). Her visible action happens tonight: `i have an old email for her` → `sending it now` → `sent. i'll tell you if she answers` (`dani_email_sent`). Rachel answers at the earliest the next morning (how and when it's shown is Night 2's). If the player forwards MSG_1048 before her email goes, it's in that email; if after, Dani sends a second one (`sending her another one about this` · `sent`; `dani_told_rachel_about_fake`); if never, Rachel's answer can't mention it. A player who never messages Dani gets no email exchange. Orbit's `OFF-PLATFORM CONTACT ATTEMPT` is Orbit classifying what Dani said in Chats; it can't confirm an email was sent or received, and Continuity never reads it. All lines are drafts.
 
 **Replying to Rachel after the fake.** The reply shows `Delivered`; nothing answers it tonight (Continuity doesn't follow up on the same night, however many times the player writes, so the player can't farm fakes). Continuity's writing part reads the conversation, so what the player wrote there is the most natural content for Night 2's fake to answer. Something written in her thread is no longer "known only to Juno".
 

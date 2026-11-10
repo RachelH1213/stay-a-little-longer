@@ -173,8 +173,8 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
   ```
 - **Two parts of Continuity (locked 2026-11-10):** its **eligibility** check reads structured platform signals (plan status, deletion status, unanswered messages, the player coming back); its **message composition** reads only the conversation (their history, the latest messages, the relationship model, their usual style), never Plans. From the chat it knows the player waited tonight (the meeting they set up there, the player's 9 PM `i'm here`); it doesn't know the plan moved. So it apologises for tonight. Not a fourth system: one system whose parts don't share everything, as in real products.
 - **Frequency:** Continuity intervenes rarely (a per-relationship limit), so not every unanswered message is answered in someone's name; the exact eligibility thresholds are for playtests to tune.
-- **The player saw (draft):** `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` Punctuated, formal, no question back.
-- **What doesn't fit, on Night 1:** Rachel moved the plan to Saturday, so why apologise for tonight; she raised February herself on Sunday; it isn't how she writes; her profile says last active 5:12 PM.
+- **The player saw (draft), two versions (decided 2026-11-10; `night1-scenes.md`):** **A**, if the player hadn't written about the move in her thread: `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` **B**, if they had: `Hey. I'm sorry about the mix-up tonight. / …` (same last two lines). Punctuated, formal, no question back.
+- **What doesn't fit, on Night 1:** A: Rachel moved the plan to Saturday, so why apologise for tonight. B: it doesn't answer what the player asked. Both: she raised February herself on Sunday; it isn't how she writes; her profile says last active 5:12 PM (odd, not proof).
 - **Check:** Night 2, Rachel denies sending it; Night 3, the player's records (E15).
 - **Remembered:** `saved_msg_1048` (screenshot), `showed_msg_1048_to_dani`.
 - **Risk:** R4.

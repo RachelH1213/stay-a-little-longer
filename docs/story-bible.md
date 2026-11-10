@@ -236,7 +236,7 @@ What really happened, event by event: `docs/evidence-matrix.md`. Beats and trigg
 | **Why tonight** | Her account is leaving Orbit; it closes at 12:40 AM. |
 | **Why not reach her elsewhere** | They have only ever talked on Orbit; the email she left was hidden; Dani can only email her, and Rachel is asleep. |
 | **Phases** | The Empty Chair → The Changed Plan → The Wrong Apology → The Last Trace (a narrative order, never a click order). |
-| **The first fake** | MSG_1048 (draft): `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` Punctuated, formal, no question back. |
+| **The first fake** | MSG_1048 (draft): `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` Punctuated, formal, no question back. If the player already wrote about the move in her thread, the first line is `Hey. I'm sorry about the mix-up tonight.` (`night1-scenes.md`). |
 | **What the player can do** | Talk to Juno (Suggested replies or typing); Rachel's thread, the plan and its history, her profile; Dani; Photos; Notes; the room (the card in the drawer, the power bank); Settings (Juno, Conversation Assist, Auto-Coordinate). |
 | **End** | Orbit's Check-in: "What still feels unfinished tonight?" (§6). The night ends by going to sleep in the room or the phone dying (How a night ends, §6). |
 | **Carries over** | Check-in answer; style signals the player confirmed; what the player said only to Juno; what Juno was given and said; Conversation Assist and Auto-Coordinate on or off; whether Orbit replied to Dani; whether the player asked Dani. |

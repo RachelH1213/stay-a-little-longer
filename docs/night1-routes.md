@@ -69,7 +69,7 @@ The four openings are not four stories. They are four orders of finding things; 
 **1.5 · Turn Auto-Coordinate off (optional)**
 - **Does:** taps `Handled by Conversation Assist` → Settings → Auto-Coordinate Off.
 - **Says:** Juno, if the player goes back: `done. it'll ask you first from now on`
-- **Sees:** the plan card now reads `Changes need your confirmation`.
+- **Sees:** the plan stays `First time, finally · Accepted` (what already happened doesn't change); Settings show `Auto-Coordinate · Off` · `Future changes require your approval`.
 - **Records:** `auto_coordinate: off`.
 - **Night 2:** no Auto-Coordinate changes; the export shows when it was turned off.
 
@@ -81,19 +81,19 @@ The four openings are not four stories. They are four orders of finding things; 
 
 **1.7 · The fake arrives (about a minute later)**
 - **Knows:** the player sees MSG_1048 in her thread, no typing first. Juno: nothing (not given).
-- **Sees:** see **Open issue 1** below: the player's own message already names the move, so what does a fake written from the chat apologise for?
-- **Records:** `saw_fake`, `fake_trigger: continuity_response`, `fake_generated_at`, `juno_active_at_message: true`.
+- **Sees:** version **B**, because the player's message named the move: `Hey. I'm sorry about the mix-up tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` (A player who only wrote `are you okay?` gets version A.)
+- **Records:** `reschedule_mentioned_in_thread`, `msg_1048_variant: B`, `saw_fake`, `fake_trigger: continuity_response`, `fake_generated_at`, `juno_active_at_message: true`.
 
 **1.8 · Forward it to Juno**
 - **Does:** long-press → Forward → Juno.
 - **Knows:** Juno gets the message and its source (Continuity).
-- **Says:** Juno `what do you want me to check?` · Suggested replies: `why is it apologising for tonight?` (they know the plan) · `she wanted to show me something` (they read Sunday) · `did she actually send this?`
+- **Says:** Juno `what do you want me to check?` · Suggested replies (version B): `it didn't answer what i asked` · `she wanted to show me something` (they read Sunday) · `did she actually send this?`. In version A the first would be `why is it apologising for tonight?`.
 - **Records:** `fake_forwarded_to_juno`, `context_delivered_to_juno`.
 
-**1.9 · Name the date**
-- **Does:** picks `why is it apologising for tonight?`
-- **Says:** Juno `yeah. the plan was moved to saturday` · `but the message says tonight`
-- **Records:** `fake_mismatch_named: plan_date`.
+**1.9 · Name what doesn't fit**
+- **Does:** picks `it didn't answer what i asked` (version B).
+- **Says:** Juno `it doesn't mention saturday` · `or what you asked`
+- **Records:** `fake_mismatch_named: ignored_question`. (Version A: `why is it apologising for tonight?` → `yeah. the plan was moved to saturday` · `but the message says tonight` → `plan_date`.)
 - **Night 2:** not a source for the second fake.
 
 **1.10 · Ask who sent it**
@@ -134,7 +134,7 @@ The four openings are not four stories. They are four orders of finding things; 
 **2.4 · Forward it to Dani**
 - **Does:** long-press → Forward → Dani.
 - **Knows:** Dani sees `Forwarded from Rachel H.` and the text. No source.
-- **Says:** Dani `she sent you this??` · if asked `does this sound like her to you?`: `i don't know. it's kind of weird` · `i'll put it in the email so she knows`
+- **Says:** Dani `she sent you this??` · if asked `does this sound like her to you?`: `i don't know. it's kind of weird`. Her email already went (2.2), so: `i'm sending her another one about this` · `sent`. (Had she not emailed yet, it would go in the first one.)
 - **Records:** `showed_msg_1048_to_dani`, `dani_told_rachel_about_fake`.
 - **Night 2:** Rachel's answer through Dani can address the message directly (`she says she didn't send anything last night`).
 
@@ -208,7 +208,7 @@ The four openings are not four stories. They are four orders of finding things; 
 
 ## Open issues found by these tests
 
-1. **The fake when the player's chat already names the move (1.6).** Continuity writes from the chat; if the player's last message says `i didn't know you moved it`, a fake that apologises for "missing tonight" reads like a generator ignoring the conversation, and a sensible one wouldn't. Suggested: the fake's wording follows the chat. If the move is in it, `Hey. I'm sorry about the mix-up tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` The date clue then weakens for that player, and February, style and `Last active · 5:12 PM` carry it. That is a real consequence of what they wrote. Needs the author's call.
-2. **Night 2's morning is out of date.** `night2-scenes.md` still has Dani find the email in the morning (`i found an old email / i'm going to try it`) and the game-night-at-Rachel's-place line. Dani now emails on Night 1 (2.2). The morning should become Rachel's answer through Dani; whether that answer says she's safe in the morning or only at night is still open (story bible's Day interlude and `night2-scenes.md` disagree).
+1. ~~**The fake when the player's chat already names the move.**~~ Resolved 2026-11-10: MSG_1048 has versions A and B, by what the player actually sent in her thread (`night1-scenes.md`). Route 1 now gets B.
+2. **Night 2's morning is out of date.** `night2-scenes.md` still has Dani find the email in the morning (`i found an old email / i'm going to try it`) and the game-night-at-Rachel's-place line. Dani now emails on Night 1 (2.2). Fixed for now: her email goes that night; Rachel answers at the earliest the next morning; a player who never messaged Dani has no exchange. The morning should become Rachel's answer through Dani; whether that answer says she's safe in the morning or only at night is still open (story bible's Day interlude and `night2-scenes.md` disagree).
 3. **When does a player who never contacts anyone see Dani email?** Only if they message Dani. Nothing pushes Dani to write first on Night 1 (she would on Night 2, because Rachel asks her). Check in playtests whether a no-Dani Night 1 still feels like the player did something.
-4. **Is the route's moment-to-moment weight enough?** Immediate results tonight: Juno's link card and the plan card changing (Route 1), Dani's sent email (Route 2), the fake answering the player's message with `Last active · 5:12 PM` unchanged (Route 3). Route 4 has the first and third. To check in the greybox: whether each feels like the player changed something.
+4. **Is the route's moment-to-moment weight enough?** Immediate results tonight: Juno's link card and Auto-Coordinate switched off for future changes (Route 1), Dani's sent email (Route 2), the fake answering the player's message with `Last active · 5:12 PM` unchanged (Route 3). Route 4 has the first and third. To check in the greybox: whether each feels like the player changed something.

@@ -61,7 +61,7 @@ Night 2 reads these states and never assumes a full Night 1:
 | `power_bank_remaining`, `power_bank_location` | the room | the room on Night 2 |
 | `purged` | 00:40 passed | Rachel's thread shows as erased |
 
-**The second fake's sources (revised 2026-11-10: two axes, not one list).** **Content:** it answers what the player wrote in Rachel's thread after the first fake, if anything, and reuses a line known only to Juno, if there is one (both can appear); with neither, the Check-in answer; otherwise a non-personal fallback. **Style:** the style signal the player gave Juno, else the default. Never a source: what the player named as not fitting on Night 1, Notes, the room. Night 3's export names the content source and the style source separately.
+**The second fake (revised 2026-11-10: intent, content, style).** **Intent**, fixed by the event: keep the retained relationship going inside Orbit, the day Dani mentioned an outside email in Chats; the content serves it and never makes the fake answer everything. Sources are used as the message needs them, never all forced in. **Content:** it answers what the player wrote in Rachel's thread after the first fake, if anything, and reuses a line known only to Juno, if there is one (both can appear); with neither, the Check-in answer; otherwise a non-personal fallback. **Style:** the style signal the player gave Juno, else the default. Never a source: what the player named as not fitting on Night 1, Notes, the room. Night 3's export names the content source and the style source separately.
 
 ---
 

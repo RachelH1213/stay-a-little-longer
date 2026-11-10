@@ -90,7 +90,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Check:** her profile (Night 1); the deletion screen itself in Rachel's archive (Night 2).
 
 **E06 · Tue Oct 20, 5:12 PM · Rachel moves the plan**
-- **Origin:** Rachel, on the Plans card: **`Saturday, Oct 24 · 9:00 PM`**, with a note (draft): `my schedule changed, can we do saturday? i'm off orbit tonight, email me: rachel.m@…`
+- **Origin:** Rachel, on the Plans card: **`Saturday, Oct 24 · 9:00 PM`**, with a note (draft): `my schedule changed, can we do saturday? email me if that works: rachel.h@…` (revised 2026-11-10: the note no longer says she's leaving Orbit; the player learns that only from her refreshed profile)
 - **Rachel saw:** her note as written.
 - **The player saw (if they had opened it):** `… email me: [contact info hidden · Orbit keeps your conversations safe]`.
 - **Juno was given:** the filtered note, the same as the player.

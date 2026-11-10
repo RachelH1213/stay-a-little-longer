@@ -154,7 +154,7 @@ Saturday, October 24 · 9:00 PM · Same location
 
 CHANGE HISTORY
 Rachel proposed a new time · Oct 20 · 5:12 PM
-  "… email me at [contact info hidden · Orbit keeps your conversations safe]"
+  "my schedule changed, can we do saturday? email me if that works: [contact info hidden · Orbit keeps your conversations safe]"
 Change accepted · Oct 20 · 5:12 PM
   Handled by Conversation Assist
   Manual confirmation: Not required

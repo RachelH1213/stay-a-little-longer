@@ -188,7 +188,7 @@ Juno 则说：
 
 - The player and Rachel met through Orbit (Juno introduced them, March 2025) and have only ever talked there: online friends for a year and a half, **never met in person**. They and Dani played online game nights together; Dani is the only mutual friend who knows Rachel outside Orbit (she has Rachel's email).
 - Months ago Rachel mailed the player a blue power bank with a handwritten card; the September cat photos came through an Orbit shared album.
-- About a week before Night 1 (the exact day: the author's), Rachel set up their first meeting in Orbit Plans, `First time, finally · Tuesday, Oct 20 · 9:00 PM`, at a public place (the author's); the player accepted it by hand. It had nothing to do with February.
+- On Tuesday, October 13, a week before Night 1, Rachel set up their first meeting in Orbit Plans, `First time, finally · Tuesday, Oct 20 · 9:00 PM`, at a public place (the author's); the player accepted it by hand. It had nothing to do with February.
 - They have never exchanged phone numbers or addresses. Contact Protection hides emails and numbers between users who haven't verified an outside contact.
 
 #### The hook (decided)

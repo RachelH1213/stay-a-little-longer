@@ -60,7 +60,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **What she finds:** E01's record, and labels about herself (`PRIMARY RETENTION ANCHOR: PLAYER`, `CONTINUITY ELIGIBLE: TRUE`).
 - **The player saw:** nothing.
 
-**E03b · About a week before · The plan**
+**E03b · Tuesday, Oct 13 · The plan**
 - **Origin:** Rachel creates an Orbit Plans card, `First time, finally · Tuesday, Oct 20 · 9:00 PM`, at an ordinary public place (the author's choice); the player accepts it by hand. They had wanted to meet for a while; the meeting has nothing to do with February. (Exact day: the author's.)
 - **Both saw:** the same card.
 

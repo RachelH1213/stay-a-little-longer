@@ -1,6 +1,6 @@
 # Orbit information architecture v2.1
 
-Approved for wireframing 2026-11-12. This covers the layout of the app and how it behaves; it is not the final visual design. **Unity keeps the current navigation until the cohort playtest on November 19**; this is built after it, once the wireframes are approved.
+Approved 2026-11-12. This covers the layout of the app and how it behaves; the visuals follow the existing build.
 
 Principle: Orbit has to work like an ordinary social app first, and be a system the player can investigate second.
 
@@ -84,9 +84,6 @@ Continuity has no switch in Me. That isn't a missing setting: Orbit never gave t
 - **Night 2, Orbit reports selectively:** the recap says Conversation Assist handled a plan update, without saying how.
 - **Night 3, the records:** who acted, with what permission, and where each message came from.
 
-## Order of work
+## Building it
 
-1. Until November 19: the main navigation stays as it is; only bugs that block testing are fixed.
-2. November 19: cohort playtest. Note how players find the plan and whether they use the Plans tab. The result describes the old layout, not this one.
-3. After the test: wireframes in the existing Figma file (Activity feed, recap, plans list, plan details, change history, Rachel's profile with Shared Plans).
-4. Once the wireframes are approved: change Night1Greybox, keep one plan object, add the October 13 and October 19 events to the data, and retest routes A and B and Juno's permissions.
+Build it in Night1Greybox with one plan object, add the October 13 events to the data, and retest routes A and B and Juno's permissions. The Monday recap only uses facts that are in the October 19 history.

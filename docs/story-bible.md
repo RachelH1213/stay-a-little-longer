@@ -430,7 +430,7 @@ Juno's switch is in Settings from Night 1 (`Juno On · Conversation Assist On`).
 Dani never asks "did you send this?" again. The new Juno recognising the player across accounts stays the climax.
 
 **Three kinds of choice (decided 2026-10-24).** They must look different on screen:
-1. **Orbit Suggested replies:** only above the message box in Orbit threads, marked with a small Orbit ring (`◌ Suggested replies`); the first time, a quiet line: "Orbit suggests replies based on your conversations." They can be worried, doubtful or angry (`tell me the truth`), because any reply is engagement. They never suggest leaving, deleting Orbit or stopping Juno.
+1. **Orbit Suggested replies:** only above the message box in Orbit threads, marked with a small Orbit ring (`◌ Suggested replies`); the first time, a quiet line: "Orbit suggests replies based on your conversations." They can be worried, doubtful or angry (`tell me the truth`), because any reply is engagement. They never suggest leaving, deleting Orbit or stopping Juno. At most three show at once, as in real apps (decided 2026-11-12): when more apply, replies tied to what the player has found come first and the generic ones drop out, newest finding first.
 2. **The player's actions:** opening Photos, searching, screenshots, showing Juno evidence, Notes, Leave, Disable Juno, Delete Orbit, where Rachel's data goes. Never Orbit's.
 3. **Remembering:** "What do you remember saying?" on a blank old reply. No ring, never in the message box.
 

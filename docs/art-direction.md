@@ -61,6 +61,24 @@ The visual system stays the one decided on 2026-10-13: phone, humans, Orbit.
 - **Screens** follow the existing UI (Juno's thread, the lock screen) until the author's Figma style frames replace it (§11).
 - **Text** uses one readable typeface (Inter for now) everywhere on the phone. No pixel fonts for anything a clue might be in.
 
+### Orbit UI design system v1.0 (fixed 280 × 512, approved 2026-11-12)
+
+For Orbit's screens on the phone only; not the room, the title screen or other scenes. Sizes are in the 280 × 512 layout units. Final readability is checked in Unity's Game View at the real scale, and no text goes below 10 units.
+
+| Use | Size / weight |
+|---|---|
+| Page heading (Activity, Plans) | 16 / semibold |
+| Plan title | 14 / semibold |
+| Primary list text | 12 / medium |
+| Secondary text, dates | 11 / regular |
+| Small labels (WHEN, STATUS, date group headers), uppercase, dimmer | 10 / medium |
+| Bottom tab labels; the selected tab clearly brighter | 10 / medium |
+
+- **Spacing:** 4 / 6 / 8 / 12 / 16 only. Page side margins 14, card padding 12. Top bar 32, tab bar 36 plus the home indicator. Touch targets at least 28 tall.
+- **Message text** keeps its own size; this scale doesn't change it.
+- **Weights:** semibold and medium only if the font asset has them; never faked by overdrawing or scaling.
+- **Shared components:** page heading, section label, list item (primary and secondary line), field row (label and value), chevron row. New screens use these rather than their own sizes.
+
 ## 8. Paper and documents
 
 - **Notes and the Night Log** look like the player's real notebook: lined or grid paper, handwriting, the player's screenshots as polaroids taped in, sticky notes, a few crossings-out.

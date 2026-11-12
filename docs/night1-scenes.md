@@ -151,7 +151,7 @@ Juno never says "don't send that"; it suggests something easier for Rachel to an
 
 ```text
 First time, finally
-Sat, Oct 24 · 9:00 PM · Same location
+Sat, Oct 24 · 9:00 PM
 
 CHANGE HISTORY
 Rachel proposed a new time · Oct 20 · 5:12 PM

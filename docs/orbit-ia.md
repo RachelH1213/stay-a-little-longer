@@ -10,7 +10,7 @@ Three tabs, the only top-level navigation:
 
 - **Chats:** conversations (Juno, Rachel H., Dani). From a chat: the contact's profile, and on it `Shared Plans`.
 - **Activity:** the feed (Daily Recaps, plan invitations). A small `Plans` entry at the top right opens the plans list → plan details → change history.
-- **Me:** profile, and Settings: Privacy & Data (Contact Protection), Juno, Conversation Assist, Auto-Coordinate.
+- **Me:** Settings: Privacy & Data (Contact Protection) and Auto-Coordinate. No Profile for now (the PoC has no player name or picture). Juno and Conversation Assist switches are added only when turning them off works as `story-bible.md` describes ("Three systems, never one"); until then they aren't shown, not even as status rows.
 
 Removed: the Plans tab; a separate Activity History or Past Recaps page (older items are further down the feed); Saved Messages and a general Share / Save. Giving a specific message to Juno (forward, or yes to Juno's request) stays: it isn't a sharing feature, it is the action that sets `context_delivered_to_juno` (`night1-scenes.md`, "Giving Juno a message").
 
@@ -27,11 +27,6 @@ Removed: the Plans tab; a separate Activity History or Past Recaps page (older i
 ```text
 Activity                                   Plans
 
-OCT 20 · TODAY
-Your Monday recap
-Your activity summary for Oct 19 is ready.
-View recap
-
 OCT 13
 Rachel H. invited you to a plan
 First time, finally
@@ -42,7 +37,7 @@ View plan
 - **No notice about the reschedule tonight.** Conversation Assist accepted it without telling the player; the change reaches Activity only in the next day's recap (Night 2): `Conversation Assist handled 1 plan update for you.` Friendly and true, and it leaves out who had permission to do what; Night 3's records show that.
 - **October 13 (Tuesday), Rachel's invitation:** she created `First time, finally` for Tue, Oct 20 · 9:00 PM and invited the player, who accepted it by hand. `View plan` opens the same plan object in its current state, never a copy of the October 13 version.
 - **Two acceptances, two events.** Oct 13: accepted by the player. Oct 20: accepted by Conversation Assist. The event log records them as different events with different actors, not only the interface.
-- **Monday recap (draft):**
+- **Monday recap: not in Night 1 for now (decided 2026-11-12).** October 19 has no messages in the history, and a recap of an empty day would read oddly. Activity tonight holds only the October 13 invitation, and a near-empty feed is fine. Draft kept for when October 19 has history:
 
   ```text
   Your Monday recap
@@ -60,9 +55,9 @@ View plan
 ## Plans
 
 - **Plans list:** `First time, finally · Sat, Oct 24 · 9:00 PM · Rachel H. · You · Accepted`.
-- **Plan details:** title, people, current date, time, place and status.
+- **Plan details:** `First time, finally`, `With Rachel H.`; WHEN `Sat, Oct 24 · 9:00 PM`; STATUS `Accepted`; a `Change history` chevron row. No location row until the place is decided (it is the author's, still open).
 - **Change history:** unchanged from the current build (`night1-scenes.md`, "The plan, as the player finds it"): `Rachel proposed a new time · Oct 20 · 5:12 PM`, From / To, Rachel's note word for word with `[contact info hidden]` (tappable, Contact Protection), `Change accepted`, `Handled by Conversation Assist`, `Manual confirmation: Not required`. Nothing shortened or rewritten.
-- **Ways in:** Activity → Plans; Rachel's chat → her profile → Shared Plans; Juno's plan card when the player asks for help. All three open the same plan object.
+- **Ways in:** Activity → Plans; Rachel's chat → her profile → Shared Plans; Juno's plan card (`night1-routes.md` 1.3: after Juno's lines about the change, a `First time, finally · Change history` card). All of them open the same plan object.
 
 ## Behaviour rules
 

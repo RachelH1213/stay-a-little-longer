@@ -114,7 +114,7 @@ Continue
 ### 4.5 Tonight's conversation
 
 - Opens on the latest message, never on the history.
-- The player's first reply offers (draft): `crit went badly` / `someone didn't show up` / `couldn't sleep` / `rather not talk about it`. Typing is also possible.
+- The player's first reply offers (draft): `crit went badly` / `someone didn't show up` / `rather not talk about it`. Typing is also possible. (`couldn't sleep` was dropped 2026-11-12, when Suggested replies were capped at three: it repeats `still awake?`. `rather not talk about it` stays, because it is the one way to give Juno nothing, and Juno remembers that too.)
 - Juno answers that reply in one line, and the reply becomes Juno's first memory of tonight (it later appears in Juno's profile under "Juno remembers"). The player is never told a memory was made.
 - Juno's opening lines respond only to this reply. They never use `join_reason`.
 

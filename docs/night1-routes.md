@@ -180,7 +180,7 @@ The four openings are not four stories. They are four orders of finding things; 
 - **Records:** `juno_switch_events[]: off @ 11:3x`.
 
 **4.2 · Find the change by hand**
-- **Does:** Rachel's thread → plan tag → Change History → `Handled by Conversation Assist` → Settings → Auto-Coordinate.
+- **Does:** Plans tab (or Rachel's chat info → Shared plans) → the plan → Change History → `Handled by Conversation Assist` → Settings → Auto-Coordinate.
 - **Records:** `plan_history_viewed`, `knows_reschedule`, `knows_auto_accepted`, `knows_email_hidden`. Never `juno_explained_reschedule`.
 
 **4.3 · Profile, Dani, the fake** — as Routes 2 and 3.

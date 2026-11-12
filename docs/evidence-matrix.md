@@ -90,7 +90,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Check:** her profile (Night 1); the deletion screen itself in Rachel's archive (Night 2).
 
 **E06 · Tue Oct 20, 5:12 PM · Rachel moves the plan**
-- **Origin:** Rachel, on the Plans card: **`Saturday, Oct 24 · 9:00 PM`**, with a note (draft): `my schedule changed, can we do saturday? i'm off orbit tonight, email me: rachel.m@…`
+- **Origin:** Rachel, on the Plans card: **`Saturday, Oct 24 · 9:00 PM`**, with a note (draft): `my schedule changed, can we do saturday? email me if that works: rachel.h@…` (revised 2026-11-10: the note no longer says she's leaving Orbit; the player learns that only from her refreshed profile)
 - **Rachel saw:** her note as written.
 - **The player saw (if they had opened it):** `… email me: [contact info hidden · Orbit keeps your conversations safe]`.
 - **Juno was given:** the filtered note, the same as the player.
@@ -102,7 +102,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
   >
   > Conversation Assist evaluates structured plan changes (scheduling conflicts, time and location, contact eligibility). It does not interpret free-text notes when deciding whether to accept a change.
   >
-  > On October 20 at 5:12 PM, Rachel's change to Saturday was accepted automatically. The action was recorded at once in Activity History; its notification was grouped into the next day's Daily Recap instead of an immediate push (Silent Completion).
+  > On October 20 at 5:12 PM, Rachel's change to Saturday was accepted automatically. The action was recorded at once in Change history; its notification was grouped into the next day's Daily Recap instead of an immediate push (Silent Completion).
   >
   > Orbit Plans does not synchronise with the device's calendar.
   >
@@ -110,7 +110,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Rachel saw:** `Accepted`, from the player's account.
 - **The player saw:** nothing pushed; they were at their own crit all afternoon. The chat with Rachel keeps the original messages; the plan's current state lives in Plans, never as a large card in the chat.
 - **Juno:** can see in the plan's history who accepted, and when the setting was enabled.
-- **Check:** any time, Activity History: `Change accepted · by Conversation Assist on your behalf`, with Rachel's note beside it, which played no part in the decision.
+- **Check:** any time, Change history: `Change accepted · Handled by Conversation Assist · Manual confirmation: Not required`, with Rachel's note beside it, which played no part in the decision.
 
 **E08 · Tue Oct 20, about 5:15 PM · Rachel screenshots the confirmation and leaves Orbit**
 - **Origin:** Rachel. She screenshots the confirmed plan (her side: her note with the email, `Accepted · 5:12 PM`; it never says who accepted), then signs out for good.
@@ -130,7 +130,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 
 **E11 · Night 1 · Finding the change (with Juno)**
 - **Origin:** the player asks; Juno looks.
-- **The player saw:** the plan's history: Rachel's move to Saturday, the filtered note, `accepted by Conversation Assist on your behalf`.
+- **The player saw:** the plan's history: Rachel's move to Saturday, the filtered note, `Change accepted · Handled by Conversation Assist`.
 - **Juno said (draft):** `you didn't accept it. conversation assist did` · `you enabled auto-coordinate back in june` · `rachel was on the suggested contacts list you approved` · (the player: `i don't remember agreeing to this`) · `it shouldn't have done that without asking` · about the email: `i can't see it. orbit filtered it before it reached me` · offers to turn off automatic scheduling.
 - **Remembered:** `found_reschedule`, `asked_juno_about_email`, whether the player turned the setting off.
 

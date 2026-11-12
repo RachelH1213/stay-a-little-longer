@@ -1,6 +1,6 @@
 # Art direction
 
-**Status (2026-11-09): a trial, not yet decided.** The author is testing a dark pixel-art look for the room. If the test (§9) works, this becomes the direction for the vertical slice and the full game; if it doesn't, the fallback is a photo collage of the author's own room (§10). Everything here is the author's to change.
+**Status (2026-11-10): decided.** Pixel art is the direction for the room and the full game. The author has made the avatars for the three characters and the base UI pages; they set the look, and later work builds on them or refines them. Message text stays in a clear typeface (§7). Everything here is the author's to change.
 
 This replaces landing §10's "visual TBD" for the room, the phone and the paper layer. It doesn't change what the player can do, only how it looks.
 
@@ -48,6 +48,8 @@ The visual system stays the one decided on 2026-10-13: phone, humans, Orbit.
 
 - **View:** first person from the chair (story-bible §6, "How the game looks"), now drawn instead of modelled.
 - **Canvas:** 640 × 360 pixels, shown at whole-number scales only (×3 at 1080p, ×4 at 1440p, ×6 at 4K); letterboxed in between, never blurred.
+- **Window (decided 2026-11-12):** the game starts fullscreen at the display's own resolution, so a normal screen lands on ×3 or more and the phone's interface is 420 pixels wide or wider. 1280 × 720 in a window is the smallest supported size (×2, interface 280 wide): suggested replies wrap to a second line and dates use the short form there, so nothing is cut off. Only below ×2 does the game fall back to a smoothed scale.
+- **Phone frame and icons:** the phone frame (160 × 280), the 44 px avatars and Orbit's logo follow the same whole-number rule. The logo needs a small version of about 48 px drawn for the interface; the 96 px one doesn't scale cleanly.
 - **States to draw:** holding the phone (the screen area left empty); phone down, looking at the desk and room; phone lit up on the desk. Later: the phone dead, the power bank found, morning.
 - **Layers:** each drawn on its own layer so light and a little parallax can work: back wall and window; desk; lamp; objects on the desk; the player's hands and phone; foreground. Names: `room_<state>_<layer>.png`, e.g. `room_holding_desk.png`.
 - **Things in the room:** the desk, the lamp, the window at night, a chair edge, the tote bag from game night, a drawer, a coat, a mug. The room tells who the player is (a design student after crit) without words.

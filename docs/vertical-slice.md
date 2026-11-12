@@ -20,7 +20,7 @@ From the title screen to the end of the held-back line, about 10–15 minutes:
 2. The room, at the desk, 11:31 PM. The phone on the desk lights up with Juno's notification (`still awake?`), nothing else. The player picks it up (lock screen, Tuesday 20 October).
 3. Juno's opening: the first reply, Juno's answer.
 4. Rachel's thread: the player's own 9 PM messages (`Delivered`), her Sunday messages, a year of history; a new message to her shows `Delivered`.
-5. The plan: the tag at the top of her thread → Saturday, Change History, the hidden email, `Handled by Conversation Assist` → Settings (Auto-Coordinate). Found alone or with Juno's help.
+5. The plan: the Plans tab or her chat info (Shared plans) → Saturday, Change History, the hidden email, `Handled by Conversation Assist` → Settings (Auto-Coordinate). Found alone or with Juno's help.
 6. Her profile: the cached version, the refresh that replaces it with `Unavailable`, `Leaving Orbit · Account closes Wed 12:40 AM` and the countdown, `Last active · 5:12 PM`.
 7. Dani: she hasn't heard from Rachel; she emails her tonight.
 8. The first fake arrives (the one eligibility rule), version A or B by what the player wrote in Rachel's thread.

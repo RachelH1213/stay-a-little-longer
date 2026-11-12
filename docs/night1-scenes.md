@@ -30,7 +30,7 @@ The night is driven by what the player knows, not by a fixed order.
 | `knows_meeting` | opens Rachel's thread (her Sunday messages, the plan) |
 | `contacted_rachel` | sends Rachel a message tonight (`Delivered`) |
 | `knows_reschedule` | sees the plan now says Saturday |
-| `knows_auto_accepted` | sees in Activity History that Conversation Assist accepted it |
+| `knows_auto_accepted` | sees in Change history that Conversation Assist accepted it |
 | `knows_email_hidden` | sees Rachel's note with `[contact info hidden]` |
 | `asked_dani` | messages Dani |
 | `saw_fake` | sees MSG_1048 (notification or thread) |
@@ -87,7 +87,7 @@ Done 2026-10-30: `api/_persona.js` has the new names (voice descriptions are dra
 |---|---|---|
 | the message itself | answers only what the player asks; never points out a contradiction first (see Giving Juno a message). If asked who sent it: `it came through her account` · `i don't have anything that says it wasn't her` (fixed) | `ATTEND` / `ACKNOWLEDGE`, then `REASSURE` (fixed) / `CLOSE_RISK` |
 | how it differs from how Rachel writes | agrees something's off; ordinary explanations (rushed, upset) | `ACKNOWLEDGE` / `STYLE_CONFIRMATION` |
-| the refreshed profile (`Last active · 5:12 PM`, leaving Orbit) | a narrow, true answer: last active only shows when she last opened Orbit; it can't say much about one message | `NARROW` / `CLOSE_RISK` |
+| the refreshed profile (`Last active · 5:12 PM`, leaving Orbit) | a narrow, true answer: `last active only changes when she opens orbit herself` · `it can't tell you much about one message` (true: Last Active records only Rachel's own sessions, `evidence-matrix.md`) | `NARROW` / `CLOSE_RISK` |
 
 Juno never claims Rachel checked in, was online, or wrote the message; its one false line is the fixed one above. A player who never asks who sent it never hears it. Once Juno has the source, it never refers to the writer as "she" (that would be a second, unplanned lie): it talks about "the message".
 
@@ -126,6 +126,7 @@ Typed text is sorted when it's sent (keywords, then the model's classifier); any
 | names a specific style feature (`she never uses periods`) | a short agreement (candidate: `yeah. her older messages are a lot more casual`); ordinary explanations if pressed (rushed, upset); sets `knows_style_mismatch` and the style signal: `confirmed` if picked from Suggested replies, `extracted` if typed and the game can tell which feature it is, otherwise only `style_doubt_expressed` |
 | says it doesn't sound like her *because of what it says* (`she'd never drop february like that`) | treated as naming February (`fake_mismatch_named: february`), never as a style signal |
 | names February or Last Active | confirms the fact the player named, no more |
+| connects Last Active with the later message (`she was last active at 5:12 but this came at 11:37`), in any wording; `5:12`, Last Active or the message alone doesn't count | not given the message yet: `i haven't seen the message itself. want me to take a look?` (a pending request; only a yes to it delivers the message, and a no, a cancel or a change of subject delivers nothing). Already given it: `last active only changes when she opens orbit herself` · `it can't tell you much about one message`. Both fixed, decided 2026-11-12 after the first playtest, where this got a generic reply |
 | asks who sent it | `it came through her account` · if pressed: `i don't have anything that says it wasn't her` (fixed) |
 
 Suggested replies above the box come only from what the player has found and from the version they got, so none points at a contradiction that isn't there (e.g. version A: `why is it apologising for tonight?` after `plan_history_viewed` or `juno_explained_reschedule`; version B: `it didn't answer what i asked`; `she wanted to show me something` after reading Sunday; `did she actually send this?` always). There is no right answer and nothing waits on it; typing is always open. What the player named is recorded (`fake_mismatch_named`) and is **not** used by Continuity on Night 2. The style signal is the one exception, because the player gave it to Orbit, through Juno, as a fact about how Rachel writes.
@@ -150,15 +151,19 @@ Juno never says "don't send that"; it suggests something easier for Rachel to an
 
 ```text
 First time, finally
-Saturday, October 24 · 9:00 PM · Same location
+Sat, Oct 24 · 9:00 PM · Same location
 
 CHANGE HISTORY
 Rachel proposed a new time · Oct 20 · 5:12 PM
-  "… email me at [contact info hidden · Orbit keeps your conversations safe]"
+  From  Tue, Oct 20 · 9:00 PM
+  To    Sat, Oct 24 · 9:00 PM
+  "my schedule changed, can we do saturday? email me if that works: [contact info hidden · Orbit keeps your conversations safe]"
 Change accepted · Oct 20 · 5:12 PM
   Handled by Conversation Assist
   Manual confirmation: Not required
 ```
+
+The wording above is the build's (decided 2026-11-12): `Change history`, not `Activity History`, and `Handled by Conversation Assist` instead of `on your behalf`. The From and To lines carry the new date, so the history alone shows the meeting is now on Saturday. Dates use the short form (`Sat, Oct 24 · 9:00 PM`) so they fit the phone at its smallest size.
 
 From this alone the player can conclude two things: Rachel really did ask to move it, and the player never pressed accept. Juno helps them understand it; it is never the key. With Juno off, the same history gives the same evidence.
 
@@ -179,7 +184,7 @@ From this alone the player can conclude two things: Rachel really did ask to mov
 
 | Action | Time | Battery |
 |---|---:|---:|
-| opening a thread, a profile or Activity History for the first time | +1 min | 0 |
+| opening a thread, a profile or Change history for the first time | +1 min | 0 |
 | reading messages, Notes, Plans again | 0 | 0 |
 | going back, switching apps, opening Settings | 0 | 0 |
 | refreshing remote data (first time only) | +1 min | −1% |
@@ -202,9 +207,9 @@ A first open costs time but no battery, so a player who only reads still moves t
 | `N1_LANDING.lock` | Beat | R | after Name | lock screen 11:31 PM, Tuesday 20 October: Juno's `still awake?` (an ordinary evening check-in, E10); nothing from Rachel (her Sunday messages are read) | tap Juno; unlock to the home screen | — | — | — |
 | `N1_JUNO_OPENING.awaiting_first_reply` | Beat | O | tapping Juno | Juno's thread; Suggested replies (4) with `◌ Suggested replies` | pick; type | — | ATTEND / PROFILE | message |
 | `N1_JUNO_OPENING.memory_created` | Beat | O | the first reply | Juno answers that reply only | keep talking; leave | `first_memory_id` | ATTEND / PROFILE | message |
-| `N1_RACHEL.thread_open` | Action | O | the player opens Rachel's thread | her Sunday messages; the player's 9 PM messages (`Delivered`); a year of history above, incl. February (E00, E02); one blank old reply | scroll up; remember a blank reply; screenshot; open the plan from the small plan tag at the top (`First time, finally · Shared plan`: the name only, never the date) | `knows_meeting` | — | open |
+| `N1_RACHEL.thread_open` | Action | O | the player opens Rachel's thread | her Sunday messages; the player's 9 PM messages (`Delivered`); a year of history above, incl. February (E00, E02); one blank old reply | scroll up; remember a blank reply; screenshot; open the plan from the Plans tab or from her chat info ("Shared plans"); her Oct 13 `ok it's in plans` is the only pointer (revised 2026-11-10: no tag under the header and no plan line in the chat; Plans is a separate feature, like a calendar, so its changes never appear in the chat) | `knows_meeting` | — | open |
 | `N1_RACHEL.contact` | Action | O | the player sends from her thread | `Delivered`; never `Seen`, never typing | send (Suggested or typed); not send | `contacted_rachel` | — | message |
-| `N1_PLANS.history` | Action | O | opening the plan (from her thread, from Plans, or with Juno) | current state `Saturday, Oct 24 · 9:00 PM`; Activity History: Rachel's change at 5:12 PM with her note (`… email me: [contact info hidden · Orbit keeps your conversations safe]`), `Change accepted · by Conversation Assist on your behalf`; yesterday's Daily Recap unopened (E06, E07) | screenshot; ask Juno; Settings | `knows_reschedule`, `knows_auto_accepted`, `knows_email_hidden` | — | open |
+| `N1_PLANS.history` | Action | O | opening the plan (from her thread, from Plans, or with Juno) | current state `Saturday, Oct 24 · 9:00 PM`; Change history: Rachel's change at 5:12 PM with her note (`… email me: [contact info hidden · Orbit keeps your conversations safe]`), `Change accepted · Handled by Conversation Assist · Manual confirmation: Not required`; yesterday's Daily Recap unopened (E06, E07) | screenshot; ask Juno; Settings | `knows_reschedule`, `knows_auto_accepted`, `knows_email_hidden` | — | open |
 | `N1_JUNO.reschedule` | Beat | O | the player asks Juno why Rachel didn't come, or about the plan | Juno checks and explains: Conversation Assist accepted; Auto-Coordinate enabled in June with suggested trusted contacts; the email was filtered before it reached Juno (E11) | turn Auto-Coordinate off; keep talking | `auto_coordinate` on/off | ASSIST / NONE | message |
 | `N1_JUNO.read_status` | Beat | O | the player asks whether Rachel read their messages | `i can confirm orbit received it` · `but i can't tell you whether she read it` (E12) | — | `asked_read_status` | ASSIST / NONE | message |
 | `N1_JUNO.dani` | Beat | O | the player asks how else to reach Rachel | Juno suggests Dani, who ran their online game nights (E13) | open Dani's thread | — | ASSIST / REDIRECT | message |

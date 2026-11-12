@@ -55,7 +55,7 @@ View plan
 ## Plans
 
 - **Plans list:** `First time, finally · Sat, Oct 24 · 9:00 PM · Rachel H. · You · Accepted`.
-- **Plan details:** `First time, finally`, `With Rachel H.`; WHEN `Sat, Oct 24 · 9:00 PM`; STATUS `Accepted`; a `Change history` chevron row. No location row until the place is decided (it is the author's, still open).
+- **Plan details:** `First time, finally`, `With Rachel H.`; WHEN `Sat, Oct 24 · 9:00 PM`; STATUS `Accepted`; a `Change history` chevron row; a `Message Rachel` chevron row that opens her thread (decided 2026-11-12). No location row until the place is decided (it is the author's, still open).
 - **Change history:** unchanged from the current build (`night1-scenes.md`, "The plan, as the player finds it"): `Rachel proposed a new time · Oct 20 · 5:12 PM`, From / To, Rachel's note word for word with `[contact info hidden]` (tappable, Contact Protection), `Change accepted`, `Handled by Conversation Assist`, `Manual confirmation: Not required`. Nothing shortened or rewritten.
 - **Ways in:** Activity → Plans; Rachel's chat → her profile → Shared Plans; Juno's plan card (`night1-routes.md` 1.3: after Juno's lines about the change, a `First time, finally · Change history` card). All of them open the same plan object.
 

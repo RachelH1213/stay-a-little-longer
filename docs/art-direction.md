@@ -59,7 +59,7 @@ The visual system stays the one decided on 2026-10-13: phone, humans, Orbit.
 
 - **The phone's body** is pixel art like the room; **its screen is not.** The screen shows the game's UI at full resolution, crisp, in the Orbit layer's style. The contrast is the point: the one high-resolution thing in a hand-drawn room.
 - **Screens** follow the existing UI (Juno's thread, the lock screen) until the author's Figma style frames replace it (§11).
-- **Text** uses one readable typeface (Inter for now) everywhere on the phone. No pixel fonts for anything a clue might be in.
+- **Text, hybrid (decided 2026-11-12):** the pixel font VT323 only for interface chrome (the `orbit` wordmark, page and section headings, uppercase labels, date dividers, counts, back labels, `INFO`, `AI COMPANION`, tab labels, the status bar). Inter for anything a clue could be in: message bubbles, chat previews, names, list text, plan fields, change history entries, Rachel's note, the Contact Protection sheet. VT323 is used at a size whose pixel grid lands on whole screen pixels at every supported scale.
 
 ### Orbit UI design system v1.0 (fixed 280 × 512, approved 2026-11-12)
 

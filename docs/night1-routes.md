@@ -56,7 +56,7 @@ The four openings are not four stories. They are four orders of finding things; 
 **1.3 · Let Juno check the plan**
 - **Does:** `yes`.
 - **Knows:** Juno reads the plan and its history: moved to Saturday at 5:12 PM by Rachel; accepted by Conversation Assist; Auto-Coordinate on since June; the note's email filtered (Juno sees the same filtered note).
-- **Says:** Juno `it got moved to saturday. at 5:12` · `conversation assist accepted it for you` · `you turned on auto-coordinate in june. she was on the contacts list it suggested` · `she left a note. part of it is hidden from me too` + a link card `First time, finally · Change History`.
+- **Says:** Juno `she changed the plan at 5:12 this afternoon` · `it says saturday now` · `conversation assist accepted it for you` · `you turned on auto-coordinate in june. she was on the contacts list it suggested` · `she left a note. part of it is hidden from me too` + a link card `First time, finally · Change History`.
 - **Sees:** the link card. The facts aren't set by Juno saying them.
 - **Records:** `juno_explained_reschedule`.
 

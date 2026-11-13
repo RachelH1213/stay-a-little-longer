@@ -266,7 +266,28 @@ Notes for the Night Log (Notes) are written as facts are set, timed by when the 
 - **Showing a screenshot:** Photos → open it → `Share` → Juno or Dani. The same rule as Forward; the composer has no attach button.
 - **Battery Saver** (Orbit's, offered once at 10%, also a switch in Me → Settings): `Battery Saver` / `Keep Orbit running longer. Notes, Photos and Screenshot pause while it's on.` `[Turn On] [Not Now]`. On: actions inside Orbit cost half the battery; Notes, Photos and Screenshot are paused (they say so when opened).
 - **12:30 AM warning:** an Orbit banner, `Rachel H.'s account closes at 12:40 AM`; tapping it opens her profile.
-- **Dani** is in Chats from the start, with a few older messages from their game nights and one ordinary exchange, the last a few weeks old (lines to be written; drafts).
+- **Dani** is in Chats from the start. Her thread before tonight (decided 2026-11-13; Dani may use a full stop, so punctuation alone never marks a fake; her email isn't mentioned until tonight):
+
+  ```text
+  Fri, Aug 14 · 8:52 PM
+  Dani: game night moved to 10 tonight, rachel's stuck at work
+  Dani: she says she'll be there "spiritually" until then
+  You: lol ok
+  You: same server?
+  Dani: same server. bring snacks you can't share
+
+  Fri, Sep 4 · 11:40 PM
+  Dani: gg tonight
+  Dani: rachel carried us again and will not shut up about it
+  You: she earned it honestly
+  Dani: don't encourage her
+
+  Sun, Sep 27 · 2:15 PM
+  Dani: are we still doing game nights or did everyone get busy
+  You: i think everyone got busy
+  You: crit season
+  Dani: ok. ping me when you're alive again
+  ```
 - **Me → Settings switches, each one working when turned off:** `Juno` (as in Juno's switch below); `Conversation Assist`, with `Auto-Coordinate` and `Follow-up replies` under it. Follow-up replies off: no reply is sent to Dani when the night ends (`dani_auto_reply: off`). Conversation Assist off turns both off.
 
 ## Juno's switch (decided 2026-10-24; revised 2026-11-10)

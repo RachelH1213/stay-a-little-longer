@@ -10,9 +10,14 @@ Three tabs, the only top-level navigation:
 
 - **Chats:** conversations (Juno, Rachel H., Dani). From a chat: the contact's profile, and on it `Shared Plans`.
 - **Activity:** the feed (Daily Recaps, plan invitations). A small `Plans` entry at the top right opens the plans list → plan details → change history.
-- **Me:** Settings: Privacy & Data (Contact Protection) and Auto-Coordinate. No Profile for now (the PoC has no player name or picture). Juno and Conversation Assist switches are added only when turning them off works as `story-bible.md` describes ("Three systems, never one"); until then they aren't shown, not even as status rows.
+- **Me:** Settings: Privacy & Data (Contact Protection, a working switch) and Auto-Coordinate. `Handled by Conversation Assist` in a change history opens Me → Settings at Auto-Coordinate; `Manage in Settings` on the Contact Protection sheet opens Privacy & Data. Turning Contact Protection off asks first: `Emails and phone numbers from unverified people will be shown. Messages already filtered stay hidden.` Like Auto-Coordinate, it changes only what happens next. Orbit's other settings live here too, never on the phone's home screen. No Profile for now (the PoC has no player name or picture). Juno and Conversation Assist switches are added only when turning them off works as `story-bible.md` describes ("Three systems, never one"); until then they aren't shown, not even as status rows.
 
 Removed: the Plans tab; a separate Activity History or Past Recaps page (older items are further down the feed); Saved Messages and a general Share / Save. Giving a specific message to Juno (forward, or yes to Juno's request) stays: it isn't a sharing feature, it is the action that sets `context_delivered_to_juno` (`night1-scenes.md`, "Giving Juno a message").
+
+## The phone around Orbit (decided 2026-11-13)
+
+- **Home screen apps:** Orbit, Notes (the player's own notes, written as a person would), Photos (screenshots), Settings (the phone's own: brightness, Low Power Mode). Messages appears on Night 2, when Dani gives her number. Plans, profiles and Orbit's settings are inside Orbit, never on the home screen.
+- **Orbit's nightly check-in** is a card in Activity, not an app or a home-screen item.
 
 ## What each tab is for
 
@@ -30,7 +35,7 @@ Activity                                   Plans
 OCT 13
 Rachel H. invited you to a plan
 First time, finally
-Invitation accepted by you
+Accepted by you
 View plan
 ```
 
@@ -55,7 +60,7 @@ View plan
 ## Plans
 
 - **Plans list:** `First time, finally · Sat, Oct 24 · 9:00 PM · Rachel H. · You · Accepted`.
-- **Plan details:** `First time, finally`, `With Rachel H.`; WHEN `Sat, Oct 24 · 9:00 PM`; STATUS `Accepted`; a `Change history` chevron row; a `Message Rachel` chevron row that opens her thread (decided 2026-11-12). No location row until the place is decided (it is the author's, still open).
+- **Plan details:** `First time, finally`, `With Rachel H.`; WHEN `Sat, Oct 24 · 9:00 PM`; WHERE `Halfway Café`; STATUS `Accepted`; a `Change history` chevron row; a `Message Rachel` chevron row that opens her thread (decided 2026-11-12). 
 - **Change history:** unchanged from the current build (`night1-scenes.md`, "The plan, as the player finds it"): `Rachel proposed a new time · Oct 20 · 5:12 PM`, From / To, Rachel's note word for word with `[contact info hidden]` (tappable, Contact Protection), `Change accepted`, `Handled by Conversation Assist`, `Manual confirmation: Not required`. Nothing shortened or rewritten.
 - **Ways in:** Activity → Plans; Rachel's chat → her profile → Shared Plans; Juno's plan card (`night1-routes.md` 1.3: after Juno's lines about the change, a `First time, finally · Change history` card). All of them open the same plan object.
 

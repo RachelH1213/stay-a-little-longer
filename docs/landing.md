@@ -115,8 +115,9 @@ BACK        STEP 02 / 02        CONTINUE
 
 ### 4.4 Lock screen
 
-- 23:31.
-- Juno: `still awake?` This line does not depend on any choice.
+- 11:31 PM, `Tuesday, October 20` (`Wednesday, October 21` after midnight).
+- Juno: `still awake?` This line does not depend on any choice. The lock screen shows unread notifications only, so it goes once Juno's thread is read.
+- Opens with a swipe up (`Swipe up to open`) or a tap on the home bar.
 - Nothing from Rachel: the player read and answered her Sunday messages, and messaged her again at 9 PM, so there is no unread notification to show (revised 2026-11-10). Her thread opens on the player's own 9 PM messages (`Delivered`); her Sunday messages are just above them (`docs/story-bible.md` §4, The hook). The meeting was Tuesday 9 PM, two and a half hours before the night starts.
 - Tapping Juno's notification opens Juno's thread.
 

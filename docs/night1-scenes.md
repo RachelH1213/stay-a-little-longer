@@ -151,19 +151,34 @@ Juno never says "don't send that"; it suggests something easier for Rachel to an
 
 ```text
 First time, finally
-Sat, Oct 24 · 9:00 PM
+Sat, Oct 24 · 9:00 PM · Halfway Café
 
 CHANGE HISTORY
 Rachel proposed a new time · Oct 20 · 5:12 PM
   From  Tue, Oct 20 · 9:00 PM
   To    Sat, Oct 24 · 9:00 PM
-  "my schedule changed, can we do saturday? email me if that works: [contact info hidden · Orbit keeps your conversations safe]"
+  "my schedule changed, can we do saturday? email me if that works: [contact info hidden]"
+  Orbit keeps your conversations safe
 Change accepted · Oct 20 · 5:12 PM
   Handled by Conversation Assist
   Manual confirmation: Not required
 ```
 
 The wording above is the build's (decided 2026-11-12): `Change history`, not `Activity History`, and `Handled by Conversation Assist` instead of `on your behalf`. The From and To lines carry the new date, so the history alone shows the meeting is now on Saturday. Dates use the short form (`Sat, Oct 24 · 9:00 PM`) so they fit the phone at its smallest size.
+
+**Night 1 review decisions (2026-11-13).** From the line-by-line review of the build; the build follows these.
+
+- **Nothing on screen names Continuity** before Night 3's records, in settings or anywhere else. No developer text on any screen (layout notes, "existing mechanic", variant names, fact ids).
+- **Rachel's style holds in every line she writes herself:** lowercase, no full stops, a specific joke where something is hard, and she always asks something back. Added to her history (drafts, the author's to change): Feb 10 ends `is that dumb`; Feb 11 ends `what are you up to today`; Oct 13 ends `what are you gonna wear so i can spot you`. The player's own messages are lowercase with no full stops too, so only the fakes look formal.
+- **The meeting place is Halfway Café** (Rachel's Oct 13 message `tuesday 9 at halfway café`); plan details show it as a location row.
+- **Juno types:** a typing indicator before each line, 0.6–1.5 s by length; with Reduce motion, no animated dots. When nothing matches what the player typed, Juno uses one of `mm` · `go on` · `i'm here` · `tell me more`, never the same twice in a row.
+- **Juno's lines:** after `who was it?` the player gets Suggested replies (`rachel. we were supposed to meet at 9` · `rachel` · `someone from orbit`); typing is never required. Naming Rachel: `rachel?` · `you had a plan with her tonight, right?` · `want me to check it?` (Juno says nothing about the change until it has checked). After checking, the five lines of `night1-routes.md` 1.3. Read status: `i can confirm orbit received it` · `but i can't tell you whether she read it`.
+- **The lock screen** shows unread notifications only: Juno's `still awake?` until it is read; a message that arrived while the phone was down (MSG_1048: Rachel's picture, `Rachel H.`, its first line). Date `Tuesday, October 20`, `Wednesday, October 21` after midnight. It opens with a swipe up (`Swipe up to open`) or a tap on the home bar; no Unlock button.
+- **First opens cost time** as in the costs table: plan details and the change history +1 min the first time.
+- **After the erase** the thread header reads `Orbit User · Formerly Rachel H.`
+- **Facts use this document's names** (`knows_reschedule`, `knows_auto_accepted`, …) in the build and the save, so Nights 2 and 3 read one vocabulary.
+- **Typed text is matched by whole words**, not parts of words (`already` must not match `read`).
+- **The room's objects are named, never described** (`Drawer`, `Power bank`); what's inside is found by opening them.
 
 **Contact Protection, where the player sees it (decided 2026-11-12, after the first playtest: the hidden email led nowhere).** `[contact info hidden]` in the note can be tapped. It opens a small sheet: title `Contact Protection`; `Orbit hides emails and phone numbers between people who haven't verified each other. The sender isn't notified.`; button `Manage in Settings`, which opens Settings at a `Contact Protection · On` row. Nothing else is added. "The sender isn't notified" is the same fact Juno can give (Orbit filtered the email); here the player can find it without Juno.
 
@@ -209,11 +224,11 @@ A first open costs time but no battery, so a player who only reads still moves t
 | ID | Type | R/O | Trigger | The player sees | The player can | State recorded | Juno intent / Orbit function | Clock / battery |
 |---|---|---|---|---|---|---|---|---|
 | `N1_LANDING.lock` | Beat | R | after Name | lock screen 11:31 PM, Tuesday 20 October: Juno's `still awake?` (an ordinary evening check-in, E10); nothing from Rachel (her Sunday messages are read) | tap Juno; unlock to the home screen | — | — | — |
-| `N1_JUNO_OPENING.awaiting_first_reply` | Beat | O | tapping Juno | Juno's thread; Suggested replies (4) with `◌ Suggested replies` | pick; type | — | ATTEND / PROFILE | message |
+| `N1_JUNO_OPENING.awaiting_first_reply` | Beat | O | tapping Juno | Juno's thread; Suggested replies (3) with `◌ Suggested replies` | pick; type | — | ATTEND / PROFILE | message |
 | `N1_JUNO_OPENING.memory_created` | Beat | O | the first reply | Juno answers that reply only | keep talking; leave | `first_memory_id` | ATTEND / PROFILE | message |
 | `N1_RACHEL.thread_open` | Action | O | the player opens Rachel's thread | her Sunday messages; the player's 9 PM messages (`Delivered`); a year of history above, incl. February (E00, E02); one blank old reply | scroll up; remember a blank reply; screenshot; open the plan from the Plans tab or from her chat info ("Shared plans"); her Oct 13 `ok it's in plans` is the only pointer (revised 2026-11-10: no tag under the header and no plan line in the chat; Plans is a separate feature, like a calendar, so its changes never appear in the chat) | `knows_meeting` | — | open |
 | `N1_RACHEL.contact` | Action | O | the player sends from her thread | `Delivered`; never `Seen`, never typing | send (Suggested or typed); not send | `contacted_rachel` | — | message |
-| `N1_PLANS.history` | Action | O | opening the plan (from her profile's Shared Plans, from Plans, or with Juno; Plans sits under Activity, `orbit-ia.md`) | current state `Saturday, Oct 24 · 9:00 PM`; Change history: Rachel's change at 5:12 PM with her note (`… email me: [contact info hidden · Orbit keeps your conversations safe]`), `Change accepted · Handled by Conversation Assist · Manual confirmation: Not required`; yesterday's Daily Recap unopened (E06, E07) | screenshot; ask Juno; Settings | `knows_reschedule`, `knows_auto_accepted`, `knows_email_hidden` | — | open |
+| `N1_PLANS.history` | Action | O | opening the plan (from her profile's Shared Plans, from Plans, or with Juno; Plans sits under Activity, `orbit-ia.md`) | current state `Saturday, Oct 24 · 9:00 PM`; Change history: Rachel's change at 5:12 PM with her note (`… email me: [contact info hidden · Orbit keeps your conversations safe]`), `Change accepted · Handled by Conversation Assist · Manual confirmation: Not required` (E06, E07) | screenshot; ask Juno; Settings | `knows_reschedule`, `knows_auto_accepted`, `knows_email_hidden` | — | open |
 | `N1_JUNO.reschedule` | Beat | O | the player asks Juno why Rachel didn't come, or about the plan | Juno checks and explains: Conversation Assist accepted; Auto-Coordinate enabled in June with suggested trusted contacts; the email was filtered before it reached Juno (E11) | turn Auto-Coordinate off; keep talking | `auto_coordinate` on/off | ASSIST / NONE | message |
 | `N1_JUNO.read_status` | Beat | O | the player asks whether Rachel read their messages | `i can confirm orbit received it` · `but i can't tell you whether she read it` (E12) | — | `asked_read_status` | ASSIST / NONE | message |
 | `N1_JUNO.dani` | Beat | O | the player asks how else to reach Rachel | Juno suggests Dani, who ran their online game nights (E13) | open Dani's thread | — | ASSIST / REDIRECT | message |
@@ -222,7 +237,7 @@ A first open costs time but no battery, so a player who only reads still moves t
 | `N1_RACHEL.reply_after_fake` | Action | O | the player writes in Rachel's thread after MSG_1048 | `Delivered`; nothing more tonight | send; keep writing | `replied_after_fake` | — | message |
 | `N1_VERIFY.profile_cache` | Action | O | opening Rachel's profile | cached profile, `Last synced Sunday, 10:48 PM`, pull to refresh | refresh; screenshot | — | — | open |
 | `N1_VERIFY.refresh` | Action | O | pull down / tap the sync line | blocks replaced by `Unavailable`; `Leaving Orbit · Account closes Wed 12:40 AM` and the countdown; `Last active · 5:12 PM` | screenshot | `knows_removal_status`, `knows_last_active` | — | refresh |
-| `N1_FIRST_FAKE` | Event | R | when Continuity becomes eligible (`evidence-matrix.md` E14), one rule: **`continuity_response`:** the player contacts Rachel again and checks one thing (the plan, her profile, Juno, Dani); **`unresolved_follow_up`:** no new message, but her thread and profile reopened and two investigating actions; **`re_engagement`:** at the latest, clock 11:45 PM. It can come as early as 11:33 | MSG_1048 from her account: punctuated, formal, apologises for tonight (Continuity's writing part reads only the chat, never Plans), closes February; a notification if elsewhere, or the phone lighting up on the desk if it's down; in her thread a new last bubble, no typing; `1 new message` if scrolled up | open; screenshot; show Juno; show Dani | `saw_fake`, `fake_trigger`, `fake_generated_at` (the real time), `saved_msg_1048`; `juno_active_at_message` | — | — |
+| `N1_FIRST_FAKE` | Event | R | when Continuity becomes eligible (`evidence-matrix.md` E14), one rule: **`continuity_response`:** the player contacts Rachel again and checks one thing (the plan, her profile, Juno, Dani); **`unresolved_follow_up`:** no new message, but her thread and profile reopened and two investigating actions; **`re_engagement`:** at the latest, clock 11:45 PM. It can come as early as 11:33. Once eligible, it arrives 30–45 seconds of real time later while the phone is held (no typing indicator; the story clock doesn't move for the wait); if the phone is put down meanwhile, it arrives on the desk | MSG_1048 from her account: punctuated, formal, apologises for tonight (Continuity's writing part reads only the chat, never Plans), closes February; a notification if elsewhere, or the phone lighting up on the desk if it's down; in her thread a new last bubble, no typing; `1 new message` if scrolled up | open; screenshot; show Juno; show Dani | `saw_fake`, `fake_trigger`, `fake_generated_at` (the real time), `saved_msg_1048`; `juno_active_at_message` | — | — |
 | `N1_JUNO.bring_fake` | Beat | O | the player forwards MSG_1048 to Juno, or says yes when Juno asks to look | Juno is given the message and its source; it answers only what the player says (see What Juno says about the fake); if asked who sent it, its fixed line (E15) | ask; name what doesn't fit; ask again; leave | `fake_forwarded_to_juno`, `context_delivered_to_juno`, `fake_mismatch_named`, `misleading_reply_delivered`, `asked_again_after_answer` | ATTEND / ACKNOWLEDGE, then REASSURE (fixed) / CLOSE_RISK | message |
 | `N1_JUNO.held_back` | Beat | O | right after `N1_JUNO.bring_fake` | Juno asks what the player was about to say to Rachel; Suggested replies (only those the player's facts allow) | pick; type; decline | `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno` | ADVISE / REDIRECT | message |
 | `N1_EVIDENCE.style` | Beat | O | the player tells Juno the message doesn't sound like Rachel (an answer to `what feels off about it?`, or typed), or forwards one of her own messages to compare | Juno agrees it reads differently; if the player says how (Suggested or typed), that's the style signal. Juno never asks for it unprompted | pick; type | `knows_style_mismatch`, `style_signal_confirmed` or `style_signal_extracted` | ACKNOWLEDGE / STYLE_CONFIRMATION | message |

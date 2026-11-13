@@ -47,7 +47,7 @@ The four openings are not four stories. They are four orders of finding things; 
 - **Night 2:** nothing yet.
 
 **1.2 · Name Rachel**
-- **Does:** picks `rachel. we were supposed to meet at 9` (or types it).
+- **Does:** picks `rachel, we were supposed to meet at 9` (or types it).
 - **Knows:** Juno now may talk about Rachel. It can look at Plans; it hasn't yet.
 - **Says:** Juno `rachel?` · `you had a plan with her tonight, right?` · `want me to check it?` (an offer to help, not a hint about the fake, which hasn't happened yet)
 - **Sees:** —

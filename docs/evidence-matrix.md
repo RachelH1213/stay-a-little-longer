@@ -78,6 +78,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
   Rachel H.  11:03 PM
   there's something i wanna show you
   when i see you
+  still on for tuesday right
   ```
 - **Both saw:** the same messages. Each means a different message by "what you said": the player, their real reply (E00); Rachel, the one Continuity added (E01).
 - **Check:** the player's thread, any time; Night 1, scrolling back to February (E00, E02) is the natural next step.

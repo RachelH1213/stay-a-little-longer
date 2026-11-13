@@ -118,7 +118,10 @@ If pixel art doesn't work (it doesn't feel right, or it's too much drawing), the
 - Orbit's logo at about 48 px for interface use (the 32 px from Figma is in use meanwhile);
 - 24 px avatars of Rachel and Dani for thread headers (Juno's exists);
 - three tab icons of about 14 px: speech box, log, head and torso;
-- the send button's lit state if the recoloured disabled image isn't enough.
+- the send button's lit state if the recoloured disabled image isn't enough;
+- home-screen icons for Notes, Photos and Settings;
+- a few of the player's own old photos for Photos;
+- the room's objects as hotspots on the picture (the build uses labelled buttons until then).
 
 ## 12. Not in this direction
 

@@ -16,7 +16,7 @@ Removed: the Plans tab; a separate Activity History or Past Recaps page (older i
 
 ## The phone around Orbit (decided 2026-11-13)
 
-- **Home screen apps:** Orbit, Notes (the player's own notes, written as a person would), Photos (screenshots), Settings (the phone's own: brightness, Low Power Mode). Messages appears on Night 2, when Dani gives her number. Plans, profiles and Orbit's settings are inside Orbit, never on the home screen.
+- **Home screen apps:** Orbit, Notes (the player's own notes, written as a person would), Photos (screenshots), Settings (the phone's own: brightness only, which changes the screen and nothing else; saving battery is Orbit's Battery Saver, so the phone has no Low Power Mode). Messages appears on Night 2, when Dani gives her number. Plans, profiles and Orbit's settings are inside Orbit, never on the home screen.
 - **Orbit's nightly check-in** is a card in Activity, not an app or a home-screen item.
 
 ## What each tab is for

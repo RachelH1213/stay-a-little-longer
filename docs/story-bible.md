@@ -207,6 +207,7 @@ why?
 Rachel H.  11:03 PM
 there's something i wanna show you
 when i see you
+still on for tuesday right
 ```
 
 Rachel isn't asking the player to investigate; she wants to check a shared memory in person. Both believe they remember that night: the player remembers their own `take some time if you need to. no pressure`; Rachel means the message Continuity added in their name, which the player never saw (`docs/evidence-matrix.md` E00–E02). Nothing here names Orbit, her data or anything wrong with the app.

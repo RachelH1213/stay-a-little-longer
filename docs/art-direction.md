@@ -112,6 +112,14 @@ If pixel art doesn't work (it doesn't feel right, or it's too much drawing), the
 | key images (title, ending), painted over the author's own drawings or photos | rendering screenshots from fixed views to compare with the author's references |
 | all final judgement on the look | nothing about the look is decided here |
 
+### Art still to make (the author's, 2026-11-12)
+
+- the room at 640 × 360 in its states (holding the phone, phone down, phone lit on the desk; later: dead, morning) and its objects (desk, lamp, window, tote bag, drawer with Rachel's card, coat, power bank);
+- Orbit's logo at about 48 px for interface use (the 32 px from Figma is in use meanwhile);
+- 24 px avatars of Rachel and Dani for thread headers (Juno's exists);
+- three tab icons of about 14 px: speech box, log, head and torso;
+- the send button's lit state if the recoloured disabled image isn't enough.
+
 ## 12. Not in this direction
 
 - Horror imagery: machine heads, ghosts, gore, jump scares.

@@ -30,7 +30,7 @@ Everything after the lock screen happens inside the phone, as ordinary interacti
 | 1 | Title screen | outside the fiction |
 | 2 | Before You Begin: content note, data notice, quick settings | outside the fiction |
 | 3 | What should Juno call you? (skippable) | outside the fiction |
-| 4 | Lock screen, 23:31: Juno's new notification + Rachel's older Sunday notification | the phone |
+| 4 | Lock screen, 11:31 PM: Juno's notification only (§4.4) | the phone |
 | 5 | Tapping Juno opens tonight's latest message directly | the phone |
 | 6 | The player's first reply to Juno creates tonight's first memory | the phone |
 | 7 | Night 1 begins; the battery is taught the first time something costs battery | the phone |
@@ -83,26 +83,32 @@ Without one: `New Game · Settings · Credits`.
 
 Plain product layer: simple, honest, not styled as Orbit.
 
-- **Content note** (draft): emotionally pressuring dialogue, simulated account deletion, the use of personal information inside a fictional social platform.
-- **Data notice**: the short version below, with a link to "How your data is used".
-- **Quick settings**: Text size, Reduce motion, Sound.
-- `Begin`.
+Look and layout (decided 2026-11-12): the Figma design `ART 06.0 / BEFORE YOU BEGIN`, with `BACK` / `CONTINUE` and `STEP 01 / 02`.
+
+- **Content note:** `A fictional story involving a missing friend, online relationships, and an AI companion. Some scenes may feel unsettling. You can end a session at any time.`
+- **Data notice:** the current-build sentence in §6 until Juno's model lines and saving are in; then the release version with a link to "How your data is used".
+- **Quick settings:** Text size (Standard / Large / Extra Large), Reduce motion, Sound (volume slider). Text size applies on this screen too; the layout reflows instead of leaving larger text out.
 
 The playtest build replaces the data notice with the research consent (§5).
 
 ### 4.3 Name
 
-Look (decided 2026-11-12): the Figma design `ART 07.0 / ENTER YOUR NAME` (title "ENTER YOUR NAME", the four input states), with a secondary `I'd rather not say` button under the field; Continue works with a name typed or after choosing to skip. Saving and Continue on the title screen come in a separate pass (`save-system.md`).
+Look (decided 2026-11-12): the Figma design `ART 07.0 / ENTER YOUR NAME` (title "ENTER YOUR NAME", the four input states), with a secondary `I'd rather not say` button under the field; Continue works with a name typed or after choosing to skip.
 
 
 ```
-What should Juno call you?
+ENTER YOUR NAME
 
-[ Name ]
+What should Juno call you?
+NAME
+[ Type your name ]
+This name will be used within the story.
 I'd rather not say
 
-Continue
+BACK        STEP 02 / 02        CONTINUE
 ```
+
+- After `I'd rather not say`: the button shows as selected, the field clears, the helper line reads `Juno won't use a name.`, Continue is active; typing again undoes the skip. Pressing Continue with an empty field and no skip shows the Invalid state.
 
 - Skipping is a real option. Every line that uses `{name}` has a version without it; Juno never falls back on "you", "friend" or a default name.
 - The name is stored only in the local save. It is replaced with `[PLAYER_NAME]` everywhere in the context sent to the model, including Juno's earlier lines that contain it (save-system §12).

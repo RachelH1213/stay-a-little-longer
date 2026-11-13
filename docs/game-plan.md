@@ -210,6 +210,21 @@ Details and numbers: `story-bible.md` §6, `night1-scenes.md` (costs, facts, sta
 | 7 | **Polish and playtests** | sound, motion, accessibility; rounds of playtests and fixes |
 | 8 | **Thesis show** | a stable Mac build for the exhibition and the thesis documentation |
 
+### Night 1 to final quality (agreed 2026-11-13)
+
+Everything built so far is treated as the final game, not a proof of concept. In order:
+
+1. Move the Unity work off `poc-wrong-apology`: merge it into `main`, continue on `develop`.
+2. Finish the current screens: the composer, the send button's states, Rachel's profile, the Contact Protection sheet, the Figma details adopted.
+3. Saving, per `save-system.md` §14: autosave, Continue, New Game confirmation, resume, deleting local data.
+4. Title screen: Settings, Credits; text size on every screen.
+5. Night 1's systems: time and battery costs and the first-cost tip, Battery Saver, shutdown, the power bank, the room's interactions (placeholder art until the author's room is ready).
+6. Night 1's story: refreshing Rachel's profile, forwarding to Juno and Juno's full stance, Juno asking what the player meant to say, Dani, Juno's profile and the optional past, the end of the night.
+7. Juno's model lines through the existing server, the release data notice, separate playtest and release builds.
+8. The author's art, in parallel with 3–6.
+
+Alongside all of it, a full review: every line, every function's placement and every entry point is checked against the final standard before it is built or kept.
+
 ### What still has to be designed
 
 - the Night 3 scene table, and the last screen of three endings;

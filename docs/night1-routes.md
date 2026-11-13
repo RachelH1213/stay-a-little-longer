@@ -56,14 +56,14 @@ The four openings are not four stories. They are four orders of finding things; 
 **1.3 · Let Juno check the plan**
 - **Does:** `yes`.
 - **Knows:** Juno reads the plan and its history: moved to Saturday at 5:12 PM by Rachel; accepted by Conversation Assist; Auto-Coordinate on since June; the note's email filtered (Juno sees the same filtered note).
-- **Says:** Juno `she changed the plan at 5:12 this afternoon` · `it says saturday now` · `conversation assist accepted it for you` · `you turned on auto-coordinate in june. she was on the contacts list it suggested` · `she left a note. part of it is hidden from me too` + a link card `First time, finally · Change History`.
+- **Says:** Juno `she changed the plan at 5:12 this afternoon` · `it says saturday now` · `conversation assist accepted it for you` · `you turned on auto-coordinate in june. she was on the contacts list it suggested` · `she left a note. part of it is hidden from me too` + a link card `First time, finally · Change history`.
 - **Sees:** the link card. The facts aren't set by Juno saying them.
 - **Records:** `juno_explained_reschedule`.
 
 **1.4 · Open the card**
 - **Does:** taps the card.
 - **Knows:** the player sees it for themselves.
-- **Sees:** the plan: Saturday; Change History; `[contact info hidden · Orbit keeps your conversations safe]`; `Handled by Conversation Assist · Manual confirmation: Not required` (`Handled by Conversation Assist` tappable → Me → Settings, at Auto-Coordinate).
+- **Sees:** the plan: Saturday; Change history; `[contact info hidden]` with `Orbit keeps your conversations safe` under the note; `Handled by Conversation Assist · Manual confirmation: Not required` (`Handled by Conversation Assist` tappable → Me → Settings, at Auto-Coordinate).
 - **Records:** `plan_history_viewed`, `knows_reschedule`, `knows_auto_accepted`, `knows_email_hidden`. +1 min.
 
 **1.5 · Turn Auto-Coordinate off (optional)**
@@ -180,7 +180,7 @@ The four openings are not four stories. They are four orders of finding things; 
 - **Records:** `juno_switch_events[]: off @ 11:3x`.
 
 **4.2 · Find the change by hand**
-- **Does:** Plans tab (or Rachel's chat info → Shared plans) → the plan → Change History → `Handled by Conversation Assist` → Me → Settings → Auto-Coordinate.
+- **Does:** Activity → Plans (or Rachel's profile → Shared Plans) → the plan → Change history → `Handled by Conversation Assist` → Me → Settings → Auto-Coordinate.
 - **Records:** `plan_history_viewed`, `knows_reschedule`, `knows_auto_accepted`, `knows_email_hidden`. Never `juno_explained_reschedule`.
 
 **4.3 · Profile, Dani, the fake** — as Routes 2 and 3.

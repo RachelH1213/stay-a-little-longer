@@ -36,7 +36,7 @@ The night is driven by what the player knows, not by a fixed order.
 | `saw_fake` | sees MSG_1048 (notification or thread) |
 | `style_doubt_expressed` | tells Juno the message doesn't sound like Rachel, without saying how; no style signal |
 | `knows_style_mismatch` | names a specific way it differs from how Rachel writes (no full stops, asks something back, says what happened); this, and only this, creates a style signal |
-| `plan_history_viewed` | opens the plan's Change History themselves |
+| `plan_history_viewed` | opens the plan's Change history themselves |
 | `fake_mismatch_named` | says to Juno or Dani what doesn't fit (`plan_date` in version A, `ignored_question` in B, `february`, `style`, `last_active`); a record, never a solved flag, never required |
 | `reschedule_mentioned_in_thread` | the player wrote about the move in Rachel's thread before the fake (decides `msg_1048_variant`) |
 | `dani_told_rachel_about_fake` | Dani emailed Rachel about MSG_1048 (in her first email or a second one) |

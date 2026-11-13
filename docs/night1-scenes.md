@@ -259,6 +259,16 @@ Notes for the Night Log (Notes) are written as facts are set, timed by when the 
 
 ---
 
+## Night 1 systems (decided 2026-11-13)
+
+- **End Session** sits at the right of Juno's thread header as a small `End`, always visible (leaving is a mechanic); tapping Juno's name opens its profile. Confirmation: `End this session with Juno? You can return at any time.` `[End Session] [Keep Talking]` (`story-bible.md`, End Session).
+- **Screenshots:** pull down from the top of the phone for a quick panel with brightness and `Screenshot`. A screenshot keeps the screen as it looked and goes to Photos; the first one tonight costs +1 min.
+- **Showing a screenshot:** Photos → open it → `Share` → Juno or Dani. The same rule as Forward; the composer has no attach button.
+- **Battery Saver** (Orbit's, offered once at 10%, also a switch in Me → Settings): `Battery Saver` / `Keep Orbit running longer. Notes, Photos and Screenshot pause while it's on.` `[Turn On] [Not Now]`. On: actions inside Orbit cost half the battery; Notes, Photos and Screenshot are paused (they say so when opened).
+- **12:30 AM warning:** an Orbit banner, `Rachel H.'s account closes at 12:40 AM`; tapping it opens her profile.
+- **Dani** is in Chats from the start, with a few older messages from their game nights and one ordinary exchange, the last a few weeks old (lines to be written; drafts).
+- **Me → Settings switches, each one working when turned off:** `Juno` (as in Juno's switch below); `Conversation Assist`, with `Auto-Coordinate` and `Follow-up replies` under it. Follow-up replies off: no reply is sent to Dani when the night ends (`dani_auto_reply: off`). Conversation Assist off turns both off.
+
 ## Juno's switch (decided 2026-10-24; revised 2026-11-10)
 
 Settings show `Juno On · Conversation Assist On` from Night 1, independent. A player can turn Juno off at any time, before ever opening it; the opening beats are then skipped and `first_memory_id` may be empty. A switched-off Juno receives nothing new: if it's off when MSG_1048 arrives, no context is delivered, it can't know, and Night 3 never accuses it of anything about that message. Turning it off never forces an untold lie; the rest of the night works without Juno (the plan, the profile and Dani can all be found by hand).

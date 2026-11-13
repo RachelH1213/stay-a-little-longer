@@ -10,7 +10,7 @@ Three tabs, the only top-level navigation:
 
 - **Chats:** conversations (Juno, Rachel H., Dani). From a chat: the contact's profile, and on it `Shared Plans`.
 - **Activity:** the feed (Daily Recaps, plan invitations). A small `Plans` entry at the top right opens the plans list → plan details → change history.
-- **Me:** Settings: Privacy & Data (Contact Protection, a working switch) and Auto-Coordinate. `Handled by Conversation Assist` in a change history opens Me → Settings at Auto-Coordinate; `Manage in Settings` on the Contact Protection sheet opens Privacy & Data. Turning Contact Protection off asks first: `Emails and phone numbers from unverified people will be shown. Messages already filtered stay hidden.` Like Auto-Coordinate, it changes only what happens next. Orbit's other settings live here too, never on the phone's home screen. No Profile for now (the PoC has no player name or picture). Juno and Conversation Assist switches are added only when turning them off works as `story-bible.md` describes ("Three systems, never one"); until then they aren't shown, not even as status rows.
+- **Me:** Settings: Privacy & Data (Contact Protection, a working switch) and Auto-Coordinate. `Handled by Conversation Assist` in a change history opens Me → Settings at Auto-Coordinate; `Manage in Settings` on the Contact Protection sheet opens Privacy & Data. Turning Contact Protection off asks first: `Emails and phone numbers from unverified people will be shown. Messages already filtered stay hidden.` Like Auto-Coordinate, it changes only what happens next. Orbit's other settings live here too, never on the phone's home screen. No Profile for now (the PoC has no player name or picture). Switches (decided 2026-11-13): `Juno`; `Conversation Assist` with `Auto-Coordinate` and `Follow-up replies` under it; `Battery Saver`. Each works when turned off (`night1-scenes.md`, Night 1 systems). Continuity has none.
 
 Removed: the Plans tab; a separate Activity History or Past Recaps page (older items are further down the feed); Saved Messages and a general Share / Save. Giving a specific message to Juno (forward, or yes to Juno's request) stays: it isn't a sharing feature, it is the action that sets `context_delivered_to_juno` (`night1-scenes.md`, "Giving Juno a message").
 
@@ -18,6 +18,8 @@ Removed: the Plans tab; a separate Activity History or Past Recaps page (older i
 
 - **Home screen apps:** Orbit, Notes (the player's own notes, written as a person would), Photos (screenshots), Settings (the phone's own: brightness only, which changes the screen and nothing else; saving battery is Orbit's Battery Saver, so the phone has no Low Power Mode). Messages appears on Night 2, when Dani gives her number. Plans, profiles and Orbit's settings are inside Orbit, never on the home screen.
 - **Orbit's nightly check-in** is a card in Activity, not an app or a home-screen item.
+- **Pulling down from the top** opens the phone's quick panel: brightness and `Screenshot`.
+- **Juno's thread header:** Juno's name (opens its profile) and `End` at the right (End Session).
 
 ## What each tab is for
 

@@ -200,6 +200,49 @@ From this alone the player can conclude two things: Rachel really did ask to mov
 | Dani emailed Rachel | `Dani emailed Rachel. She'll tell me if she answers.` |
 | messaged Dani, no email yet | `I told Dani. She hasn't heard from Rachel either.` |
 
+**Notes and the Night Log (decided 2026-11-15).** Notes is the player's own app: written as a person would, in sentences (unlike their lowercase chats), never verdicts (`Juno lied`, `it wasn't her`) before proof. Screenshots stay in Photos. Orbit never sees Notes.
+
+The list, newest first:
+
+```text
+Tuesday night                  Tue, Oct 20
+crit                           Mon, Oct 19
+first time, finally            Tue, Oct 13
+```
+
+The two older notes (character only, never evidence):
+
+```text
+crit
+10am
+print boards by 8
+don't apologise for the type
+```
+
+```text
+first time, finally
+tues 9, halfway café
+what do i even wear
+```
+
+`Tuesday night` is there from the start. Each line after the first appears when the player finds it, under the clock time they found it:
+
+| When | Line (draft) |
+|---|---|
+| from the start, 11:31 PM | `Home. She never came.` |
+| `knows_reschedule` + `knows_auto_accepted` | `The plan says Saturday now. She moved it at 5:12. Orbit said yes for me.` |
+| `knows_email_hidden` | `She left her email in the note. Orbit hid it.` |
+| `knows_removal_status` | `Her profile says she's leaving Orbit. Last active 5:12 PM.` |
+| `saw_fake` | `A message came from her account at 11:37.` |
+| `style_doubt_expressed` | `It doesn't sound like her.`; once the player names how, rewritten as that (e.g. `She never uses full stops.`) |
+| `fake_mismatch_named: plan_date` (A) | `It's sorry about tonight. The plan says Saturday.` |
+| `fake_mismatch_named: ignored_question` (B) | `It didn't answer what I asked.` |
+| Juno's fixed line heard | `Juno says nothing shows it wasn't her.` |
+| `dani_email_sent` | `Dani emailed Rachel.` |
+| `purged` | `Her account is gone. 12:40 AM.` |
+
+Then `Still unresolved`, with the lines of the table below; a player who saw the fake and never asked Juno about it also gets `A message came from her account. I didn't ask Juno about it.`
+
 **Costs (decided 2026-10-24).** Reading is free; only a new action toward the outside world or a person moves the clock. Repeating something already done costs nothing.
 
 | Action | Time | Battery |

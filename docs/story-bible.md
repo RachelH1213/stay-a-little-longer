@@ -506,7 +506,7 @@ A typed observation reads `NEW STYLE SIGNAL EXTRACTED · Source: Player-authored
 **Check-in timing (decided 2026-10-24).** A card on Orbit's home (`NIGHTLY CHECK-IN · 1 question · optional`), never a full-screen popup, once any of these holds: two key findings (any two of the reschedule, the fake, the style mismatch, the removal status); the first End Session; the phone's first shutdown; 00:20 (12:20 AM); the erase. `Go to sleep` reminds once (`You have an unanswered Orbit Check-in. [Answer] [Skip and sleep]`); Skip really skips. Night 3 shows `Self-reported retention anchor available` or `unavailable`; if unavailable, Orbit's own guess appears clearly marked as one (`Inferred anchor: Unfinished responsibility toward Rachel · Confidence: 61%`).
 
 
-**Notes:** stays the player's own: confirmed facts, screenshots, the Night Log, open questions. No Case or Compare view.
+**Notes:** stays the player's own: older notes, the Night Log (confirmed facts, then Still unresolved). Screenshots are in Photos. No Case or Compare view. Wording: `night1-scenes.md`, Notes and the Night Log.
 
 **Ethics (testing and release):**
 - A consent page before tests.

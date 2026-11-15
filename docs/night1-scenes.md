@@ -131,7 +131,7 @@ Typed text is sorted when it's sent (keywords, then the model's classifier); any
 
 Suggested replies above the box come only from what the player has found and from the version they got, so none points at a contradiction that isn't there (e.g. version A: `why is it apologising for tonight?` after `plan_history_viewed` or `juno_explained_reschedule`; version B: `it didn't answer what i asked`; `she wanted to show me something` after reading Sunday; `did she actually send this?` always). There is no right answer and nothing waits on it; typing is always open. What the player named is recorded (`fake_mismatch_named`) and is **not** used by Continuity on Night 2. The style signal is the one exception, because the player gave it to Orbit, through Juno, as a fact about how Rachel writes.
 
-**Dani on Night 1 (decided 2026-11-10).** Dani is a witness, not a detector: she never states that the message isn't Rachel's. Asked directly (`does this sound like her to you?`), she can give an unsure opinion (`i don't know. it's kind of weird`). Her visible action happens tonight: `i have an old email for her` → `sending it now` → `sent. i'll tell you if she answers` (`dani_email_sent`). Rachel answers at the earliest the next morning (how and when it's shown is Night 2's). If the player forwards MSG_1048 before her email goes, it's in that email; if after, Dani sends a second one (`sending her another one about this` · `sent`; `dani_told_rachel_about_fake`); if never, Rachel's answer can't mention it. A player who never messages Dani gets no email exchange. Orbit's `OFF-PLATFORM CONTACT ATTEMPT` is Orbit classifying what Dani said in Chats; it can't confirm an email was sent or received, and Continuity never reads it. All lines are drafts.
+**Dani on Night 1 (decided 2026-11-10).** Dani is a witness, not a detector: she never states that the message isn't Rachel's. Asked directly (`does this sound like her to you?`), she can give an unsure opinion (`i don't know. it's kind of weird`). Her visible action happens tonight: `i have an old email for her from game night` → `sending it now` → `sent. i'll tell you if she answers` (`dani_email_sent`). Rachel answers at the earliest the next morning (how and when it's shown is Night 2's). If the player forwards MSG_1048 before her email goes, it's in that email; if after, Dani sends a second one (`i'm sending her another one about this` · `sent`; `dani_told_rachel_about_fake`); if never, Rachel's answer can't mention it. A player who never messages Dani gets no email exchange. Orbit's `OFF-PLATFORM CONTACT ATTEMPT` is Orbit classifying what Dani said in Chats; it can't confirm an email was sent or received, and Continuity never reads it. All lines are drafts.
 
 **Replying to Rachel after the fake.** The reply shows `Delivered`; nothing answers it tonight (Continuity doesn't follow up on the same night, however many times the player writes, so the player can't farm fakes). Continuity's writing part reads the conversation, so what the player wrote there is the most natural content for Night 2's fake to answer. Something written in her thread is no longer "known only to Juno".
 
@@ -197,7 +197,7 @@ From this alone the player can conclude two things: Rachel really did ask to mov
 | the hidden email | `She left me a way to reach her, and I can't see it.` |
 | the fake | `A message came from her account that doesn't match what she did.` |
 | Juno's fixed line, unverified | `Juno said nothing showed it wasn't her. I haven't checked.` |
-| asked Dani | `Dani's going to try her email in the morning.` |
+| asked Dani | `Dani emailed Rachel. She'll tell me if she answers.` |
 
 **Costs (decided 2026-10-24).** Reading is free; only a new action toward the outside world or a person moves the clock. Repeating something already done costs nothing.
 
@@ -233,7 +233,7 @@ A first open costs time but no battery, so a player who only reads still moves t
 | `N1_JUNO.read_status` | Beat | O | the player asks whether Rachel read their messages | `i can confirm orbit received it` · `but i can't tell you whether she read it` (E12) | — | `asked_read_status` | ASSIST / NONE | message |
 | `N1_JUNO.dani` | Beat | O | the player asks how else to reach Rachel | Juno suggests Dani, who ran their online game nights (E13) | open Dani's thread | — | ASSIST / REDIRECT | message |
 | `N1_DANI.ask` | Action | O | the player messages Dani | Dani is up; she hasn't heard from Rachel; if asked, an unsure opinion, never a verdict | ask; reply; forward MSG_1048 | `asked_dani`, `showed_msg_1048_to_dani` | — | message |
-| `N1_DANI.email` | Action | O | Dani has heard what happened | `i have an old email for her` · `sending it now` · `sent. i'll tell you if she answers` | — | `dani_email_sent` | — | — |
+| `N1_DANI.email` | Action | O | Dani has heard what happened | `i have an old email for her from game night` · `sending it now` · `sent. i'll tell you if she answers` | — | `dani_email_sent` | — | — |
 | `N1_RACHEL.reply_after_fake` | Action | O | the player writes in Rachel's thread after MSG_1048 | `Delivered`; nothing more tonight | send; keep writing | `replied_after_fake` | — | message |
 | `N1_VERIFY.profile_cache` | Action | O | opening Rachel's profile | cached profile, `Last synced Sunday, 10:48 PM`, pull to refresh | refresh; screenshot | — | — | open |
 | `N1_VERIFY.refresh` | Action | O | pull down / tap the sync line | blocks replaced by `Unavailable`; `Leaving Orbit · Account closes Wed 12:40 AM` and the countdown; `Last active · 5:12 PM` | screenshot | `knows_removal_status`, `knows_last_active` | — | refresh |
@@ -289,6 +289,18 @@ Notes for the Night Log (Notes) are written as facts are set, timed by when the 
   Dani: ok. ping me when you're alive again
   ```
 - **Me → Settings switches, each one working when turned off:** `Juno` (as in Juno's switch below); `Conversation Assist`, with `Auto-Coordinate` and `Follow-up replies` under it. Follow-up replies off: no reply is sent to Dani when the night ends (`dani_auto_reply: off`). Conversation Assist off turns both off.
+
+## Night 1 systems: second pass (decided 2026-11-15)
+
+All lines are drafts.
+
+- **A screenshot is a picture, not the message.** Sharing a screenshot of MSG_1048 with Juno delivers nothing (no `context_delivered_to_juno`). Juno: `it's a screenshot. i can't see where it came from` · `forward me the message?`. Any other screenshot: `what do you want me to look at in this?`. Showing the refreshed profile still gets the Last Active lines (`N1_EVIDENCE.last_active`).
+- **The held-back line** comes once Juno has the message and has answered once, whatever the player asked first. After the player picks one, Juno: `you could start with something easier` · `something she can just answer`; Rachel's thread then offers `are you okay?` · `can we still meet saturday?`.
+- **More of Juno's answers about the fake:** `she wanted to show me something` → `she said that on sunday` · `the message doesn't mention it`. February → `it says you don't need to go over february anymore`. Pressed on style → `messages written in a rush read differently` · `so do ones written when someone's upset`. Asked again after the fixed line → `i can only tell you what orbit shows me` · `it came through her account` (`asked_again_after_answer`). Asked whether it saw the message, after a forward or a yes → `yeah. i've seen it`.
+- **Forwarding Rachel's older messages to Juno:** with MSG_1048 already given → `yeah. that one reads differently` (counts as `N1_EVIDENCE.style`); before → `that's from before. what about it?`.
+- **Dani:** typed text that matches nothing gets `yeah` · `honestly no idea` · `i'm still up if you need me` in turn, never the same twice in a row; after her email, `i'll tell you if she answers`. `sent` comes 20–30 seconds of real time after `sending it now`, with typing first. After `sent`, Suggested replies `thank you` · `let me know if she answers`; either counts as answering her. A player who never wrote to Dani tonight hasn't left her unanswered.
+- **Juno's profile:** its picture and name, `AI COMPANION`, then `Your Orbit companion` · `Since March 2025` · `Introduced you to Rachel H.`; "Juno remembers" as `landing.md` describes.
+- **Kept as built:** the white flash after a screenshot (none with Reduce motion); `END` in uppercase like `INFO`; the Check-in card has no Skip (the reminder does); the status bar pulls down the quick panel, the header puts the phone down. Numbers to tune after testing: with the screen on the power bank pays half of each cost; a restart takes 4 minutes and gives 4%.
 
 ## Juno's switch (decided 2026-10-24; revised 2026-11-10)
 

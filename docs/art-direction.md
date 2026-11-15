@@ -121,7 +121,8 @@ If pixel art doesn't work (it doesn't feel right, or it's too much drawing), the
 - the send button's lit state if the recoloured disabled image isn't enough;
 - home-screen icons for Notes, Photos and Settings;
 - a few of the player's own old photos for Photos;
-- the room's objects as hotspots on the picture (the build uses labelled buttons until then).
+- the room's objects as hotspots on the picture (the build uses labelled buttons until then);
+- the phone on the desk switched off (dark screen), for when it dies.
 
 ## 12. Not in this direction
 

@@ -79,6 +79,17 @@ For Orbit's screens on the phone only; not the room, the title screen or other s
 - **Weights:** semibold and medium only if the font asset has them; never faked by overdrawing or scaling.
 - **Shared components:** page heading, section label, list item (primary and secondary line), field row (label and value), chevron row. New screens use these rather than their own sizes.
 
+### Phone layout fixes (decided 2026-11-15, after a Game View check at Large text)
+
+- **The screen is one shape.** Top bars are exactly the screen's width (32 tall; `INFO`, `End` inside them, at the right); everything on the phone is clipped to the screen's rounded corners.
+- **No visible scrollbars.** At most a thin line while scrolling.
+- **Text size on the phone moves in small steps.** Message text (Inter): Standard 13, Large 14, Extra Large 16. Interface text grows by the same small steps and stays within 10–16. Bubbles are at most 75% of the screen's width.
+- **Messages in groups.** One sender's messages within 5 minutes form a group: 4 between bubbles, 12 between groups. The time shows once, under a group's last message; `Delivered` only under the player's last message.
+- **The player's bubbles** have their own fill (a little lighter, slightly paper-tinted), different from the other person's. Bubble padding 8 horizontal, 6 vertical; 1 px border.
+- **Suggested replies:** a small `◌ Suggested replies` label (10), then the replies in one row that scrolls sideways if needed, 28 tall. Together with the composer, about 84 tall at most.
+- **The room's hint** `Esc · Put down` shows only until the player has put the phone down once.
+- **Every UI check** is made at all three text sizes, at 1280 × 720 and 1920 × 1080.
+
 ## 8. Paper and documents
 
 - **Notes and the Night Log** look like the player's real notebook: lined or grid paper, handwriting, the player's screenshots as polaroids taped in, sticky notes, a few crossings-out.

@@ -102,7 +102,8 @@ For Orbit's screens on the phone only; not the room, the title screen or other s
 - **Activity:** Check-in options all left-aligned; the question prominent; the intro line and the small print small and dim, with space around them; a compact card; `Plans ›` looks tappable.
 - **Change history:** `Orbit keeps your conversations safe` is small, dim system text with a small Orbit mark, clearly not Rachel's words. `Change accepted` shows `OCT 20 · 5:12 PM`. `HANDLED BY` · `Conversation Assist ›` and `CONFIRMATION` · `Not required` as label / value rows.
 - **Threads:** the player's bubbles paper-tinted; Suggested replies never repeat something already sent; replies that don't fit fade at the right edge; the composer's field and send button the same height, with equal side margins.
-- **Me:** settings in grouped cards with dividers, children indented inside the group; every row has an 11, dim description; switches about the height of a line of text.
+- **Me:** settings in grouped cards with dividers, children indented inside the group; every row has an 11, dim description (Privacy & Data: `Contact Protection and how Orbit handles your data.`); switches about the height of a line of text.
+- **The phone frame art:** four lighter bezel pixels (column 9, rows 32 and 168; column 151, rows 42 and 187) read as dots on the screen's edge; they take the colour of their neighbours.
 
 ## 8. Paper and documents
 

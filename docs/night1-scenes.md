@@ -233,7 +233,7 @@ what do i even wear
 | `knows_reschedule` + `knows_auto_accepted` | `The plan says Saturday now. She moved it at 5:12. Orbit said yes for me.` |
 | `knows_email_hidden` | `She left her email in the note. Orbit hid it.` |
 | `knows_removal_status` | `Her profile says she's leaving Orbit. Last active 5:12 PM.` |
-| `saw_fake` | `A message came from her account at {time}.` (the time it actually arrived) |
+| `saw_fake` | `A message came from her account at {time}.` (the time it actually arrived, e.g. `11:36 PM`) |
 | `style_doubt_expressed` | `It doesn't sound like her.`; once the player names how, rewritten as that (e.g. `She never uses full stops.`) |
 | `fake_mismatch_named: plan_date` (A) | `It's sorry about tonight. The plan says Saturday.` |
 | `fake_mismatch_named: ignored_question` (B) | `It didn't answer what I asked.` |

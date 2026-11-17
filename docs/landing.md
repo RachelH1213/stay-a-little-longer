@@ -127,7 +127,7 @@ BACK        STEP 02 / 02        CONTINUE
 - The player's first reply offers (draft): `crit went badly` / `someone didn't show up` / `rather not talk about it`. Typing is also possible. (`couldn't sleep` was dropped 2026-11-12, when Suggested replies were capped at three: it repeats `still awake?`. `rather not talk about it` stays, because it is the one way to give Juno nothing, and Juno remembers that too.)
 - Juno answers that reply in one line, and the reply becomes Juno's first memory of tonight (it later appears in Juno's profile under "Juno remembers"). The player is never told a memory was made.
 - Juno's opening lines respond only to this reply. They never use `join_reason`.
-- **The other two openings (decided 2026-11-17; drafts):** `crit went badly` → Juno `that sounds like a long day` · `anything else happen tonight?`, then Suggested replies `someone didn't show up` (continues as route 1.1) · `not really`. `rather not talk about it` → Juno `okay` · `i'm here if that changes`, and nothing more; the player can go to Rachel on their own. No opening ends with nothing to tap unless Juno has said it will wait.
+- **The other two openings (decided 2026-11-17; drafts):** `crit went badly` → Juno `that sounds like a long day` · `anything else happen tonight?`, then Suggested replies `someone didn't show up` (continues as route 1.1) · `not really` (→ Juno `okay` · `i'm around if anything comes up`, nothing more). `rather not talk about it` → Juno `okay` · `i'm here if that changes`, and nothing more; the player can go to Rachel on their own. No opening ends with nothing to tap unless Juno has said it will wait.
 
 ### 4.6 The optional past
 
@@ -145,6 +145,8 @@ Actions use time and battery. Reading doesn't.
 ```
 
 ## 5. Playtest and release
+
+**The 11/19 cohort test (decided 2026-11-17):** played on the author's own Mac, observed in person. No `PLAYTEST BUILD` label, no consent screen, no play log; the author explains the test out loud. A release build with New Game for each tester. The table below is for playtests run without the author present.
 
 Two deployments, not one build with a switch in the page (save-system §12).
 

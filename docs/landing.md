@@ -146,7 +146,7 @@ Actions use time and battery. Reading doesn't.
 
 ## 5. Playtest and release
 
-**The 11/19 cohort test (decided 2026-11-17):** played on the author's own Mac, observed in person. No `PLAYTEST BUILD` label, no consent screen, no play log; the author explains the test out loud. A release build with New Game for each tester. The table below is for playtests run without the author present.
+**The 11/19 cohort test (decided 2026-11-17):** played on the author's own Mac, observed in person. No `PLAYTEST BUILD` label, no consent screen, no play log; the author explains the test out loud. Played in the Unity editor (no build), reset with Delete local data before each tester. The table below is for playtests run without the author present.
 
 Two deployments, not one build with a switch in the page (save-system §12).
 

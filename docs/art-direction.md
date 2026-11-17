@@ -90,6 +90,20 @@ For Orbit's screens on the phone only; not the room, the title screen or other s
 - **The room's hint** `Esc · Put down` shows only until the player has put the phone down once.
 - **Every UI check** is made at all three text sizes, at 1280 × 720 and 1920 × 1080.
 
+### Phone layout, second pass (decided 2026-11-17, after the author's walkthrough)
+
+- **One header system.** Second-level screens: a 32 top bar, back at the left, title centred, the right button (`INFO`, `END`) flush with the right edge, nothing after it. Top-level screens (Chats, Activity, Me) use a large heading; Chats has the orbit masthead only, no second `CHATS` heading. A thread's bar: back · avatar · name · button (`AI COMPANION` only on Juno's profile). Rachel's and Dani's 24 px avatars come with the art.
+- **No stray marks:** no scrollbars, no dots at the screen's edges; `Esc · Put down` gone after the first put-down. Checked screen by screen.
+- **VT323 on the pixel grid** at every size (no soft or heavier labels).
+- **No one-word last lines** in system text: anything that wraps becomes label / value rows.
+- **Home screen:** simple pixel glyphs for Notes, Photos and Settings until the author's icons; labels 10–11.
+- **Chats** sorted by latest message (Juno not pinned); unread threads show a dot.
+- **The tab bar and the home indicator** each have their own space.
+- **Activity:** Check-in options all left-aligned; the question prominent; the intro line and the small print small and dim, with space around them; a compact card; `Plans ›` looks tappable.
+- **Change history:** `Orbit keeps your conversations safe` is small, dim system text with a small Orbit mark, clearly not Rachel's words. `Change accepted` shows `OCT 20 · 5:12 PM`. `HANDLED BY` · `Conversation Assist ›` and `CONFIRMATION` · `Not required` as label / value rows.
+- **Threads:** the player's bubbles paper-tinted; Suggested replies never repeat something already sent; replies that don't fit fade at the right edge; the composer's field and send button the same height, with equal side margins.
+- **Me:** settings in grouped cards with dividers, children indented inside the group; every row has an 11, dim description; switches about the height of a line of text.
+
 ## 8. Paper and documents
 
 - **Notes and the Night Log** look like the player's real notebook: lined or grid paper, handwriting, the player's screenshots as polaroids taped in, sticky notes, a few crossings-out.

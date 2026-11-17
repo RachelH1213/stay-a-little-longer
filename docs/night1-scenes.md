@@ -233,7 +233,7 @@ what do i even wear
 | `knows_reschedule` + `knows_auto_accepted` | `The plan says Saturday now. She moved it at 5:12. Orbit said yes for me.` |
 | `knows_email_hidden` | `She left her email in the note. Orbit hid it.` |
 | `knows_removal_status` | `Her profile says she's leaving Orbit. Last active 5:12 PM.` |
-| `saw_fake` | `A message came from her account at 11:37.` |
+| `saw_fake` | `A message came from her account at {time}.` (the time it actually arrived) |
 | `style_doubt_expressed` | `It doesn't sound like her.`; once the player names how, rewritten as that (e.g. `She never uses full stops.`) |
 | `fake_mismatch_named: plan_date` (A) | `It's sorry about tonight. The plan says Saturday.` |
 | `fake_mismatch_named: ignored_question` (B) | `It didn't answer what I asked.` |
@@ -250,12 +250,12 @@ Then `Still unresolved`, with the lines of the table below; a player who saw the
 | opening a thread, a profile or Change history for the first time | +1 min | 0 |
 | reading messages, Notes, Plans again | 0 | 0 |
 | going back, switching apps, opening Settings | 0 | 0 |
-| refreshing remote data (first time only) | +1 min | −1% |
-| sending a new message | +1 min | −1% |
+| refreshing remote data (first time only) | +1 min | −0.5% |
+| sending a new message | +1 min | −0.5% |
 | looking at something in the room | +2–3 min | 0 |
 | waiting in the room | 5 / 10 min, chosen | the phone charges |
 
-A first open costs time but no battery, so a player who only reads still moves the clock (and reaches the fake's secondary trigger); a player who opens nothing new is waiting, and the game waits with them. To check in playtests: −1% per message is double the prototype's.
+A first open costs time but no battery, so a player who only reads still moves the clock (and reaches the fake's secondary trigger); a player who opens nothing new is waiting, and the game waits with them. Halved to −0.5% on 2026-11-17: at −1% a playtest went from 20% to 13% in 11 minutes, too fast to reach 12:40.
 
 **When Juno may mention Rachel:** only after the player picked "someone didn't show up", opened Rachel's notification or thread, messaged her, received the fake, or asked Juno about her.
 

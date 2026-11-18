@@ -52,7 +52,7 @@ The visual system stays the one decided on 2026-10-13: phone, humans, Orbit.
 - **Phone frame and icons:** the phone frame (160 × 280), the 44 px avatars and Orbit's logo follow the same whole-number rule. The logo needs a small version of about 48 px drawn for the interface; the 96 px one doesn't scale cleanly.
 - **States to draw:** holding the phone (the screen area left empty); phone down, looking at the desk and room; phone lit up on the desk. Later: the phone dead, the power bank found, morning.
 - **Layers:** each drawn on its own layer so light and a little parallax can work: back wall and window; desk; lamp; objects on the desk; the player's hands and phone; foreground. Names: `room_<state>_<layer>.png`, e.g. `room_holding_desk.png`.
-- **Things in the room:** the desk, the lamp, the window at night, a chair edge, the tote bag from game night, a drawer, a coat, a mug. The room tells who the player is (a design student after crit) without words.
+- **Things in the room:** the desk, the lamp, the window at night, a chair edge, the tote bag Rachel's package came in (`xoxo` printed on it), a radio, an alarm clock, books, a notebook and crit papers. (Revised 2026-11-20 to match the final art: no drawer.) The room tells who the player is (a design student after crit) without words.
 - **Light:** drawn flat and darker than final; the game adds the lamp and the screen glow as real 2D lights, so the screen's light visibly changes the room when a notification arrives.
 
 ## 7. The phone and its screens
@@ -106,6 +106,49 @@ For Orbit's screens on the phone only; not the room, the title screen or other s
 - **Threads:** the player's bubbles paper-tinted; Suggested replies never repeat something already sent; replies that don't fit fade at the right edge; the composer's field and send button the same height, with equal side margins.
 - **Me:** settings in grouped cards with dividers, children indented inside the group; every row has an 11, dim description (Privacy & Data: `Contact Protection and how Orbit handles your data.`); switches about the height of a line of text.
 - **The phone frame art:** four lighter bezel pixels (column 9, rows 32 and 168; column 151, rows 42 and 187) read as dots on the screen's edge; they take the colour of their neighbours.
+
+### The room at the desk (decided 2026-11-20)
+
+The final art is four 640 × 360 layers (`01_back` wall and window, `02_mid` the desk's objects, `03_phone`, `04_front` the desk's edge), each unlit and lit (the lit ones carry the phone's painted red glow). Whole-number scale only.
+
+**Holding the phone, the room is peripheral: seen, never touched.** Nothing around the phone is a button or a readout; what's there changes on its own and draws the eye up. To touch the room, the player puts the phone down (Esc, or moving the pointer onto the room and clicking an object). Orbit never sees any of it.
+
+What shows around the held phone: the books and the cabinet's edge (left), both sides of the window, the lamp, the notebook and the poster (right). The tote bag, radio, clock and power bank are behind the phone: only the phone's own clock is visible while holding it, the real one only when it's down.
+
+**Objects** (hotspots on the art; hover shows pixel corner marks and the object's name only, in VT323; never an action or a key):
+
+| Object | Click |
+|---|---|
+| Phone | picks it up |
+| Power bank (to be drawn: Rachel's, blue, left of the phone, four indicator dots) | connects it: a cable appears between it and the phone; its one lit dot blinks, then fades as the charge moves; it can't be recharged |
+| Tote bag (`xoxo`) | Rachel's card, read in place (+2 min the first time) |
+| Lamp | on / off (free). Off, the room is darker and the phone's red carries it |
+
+**Waiting** appears only once the power bank is connected: a line of VT323 at the bottom, `Leave it charging`, opening a small panel in the title's button style: `Wait 5 minutes` · `Wait until it's empty (about 10 minutes)` · `Pick up the phone`, each with its cost (`11:41 PM → 11:46 PM · 3% → 5%`) and `Rachel's account closes at 12:40 AM`. That line is shown nowhere else.
+
+**Other room controls** use the title screen's style (Silkscreen labels, the menu button art), never the phone's: `Go to sleep` bottom right once allowed; the dead phone's choices in the lower third, without a frame.
+
+**Light.**
+- Phone lit on the desk: the lit layers over the unlit ones; arriving messages add a red swell (built).
+- Phone held: a faint red glow over the lower half of the room, following the screen's brightness.
+- The lamp: a warm pool on the desk while on.
+
+**The night moves on its own** (story time; none of it points at anything): a car's light sweeps across the blinds around 11:50 and 12:15; across the street, lit windows go dark one by one from midnight (12:05, 12:20, 12:35); after 12:30 the streetlamp flickers now and then. The erase at 12:40 changes nothing in the room.
+
+**Clock:** its hands follow story time (minute hand in 5-minute steps).
+
+**Narrowing:** after ten story minutes holding the phone without putting it down, the room darkens slowly toward a vignette (at most about a quarter darker, over twenty minutes). Putting the phone down resets it at once. Never mentioned anywhere.
+
+**Status bar:** a pixel battery icon beside the percentage; a bolt while charging.
+
+**Art still to make for the room** (each a 640 × 360 transparent PNG, only its own pixels, so it stacks without coordinates):
+- the blue power bank, with 0–4 dots lit (five states), and the cable (connected);
+- the lamp's bulb lit and unlit, and its warm pool (or Unity's light);
+- the lit windows across the street (one layer, each window separable);
+- the streetlamp lit and dim;
+- the clock's minute hand in 12 positions and hour hand at 11, 12 and 1;
+- the tote bag: `xoxo` worn and broken by the creases; its side face with the same grain, darker; the lit bag brighter near the phone and fading upward;
+- the status bar's battery icon and bolt (in `phone-screens.md` sizes).
 
 ## 8. Paper and documents
 

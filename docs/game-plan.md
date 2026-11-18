@@ -103,7 +103,7 @@ Tuesday, October 20, 11:31 PM, battery 20%. The failed meeting has already happe
 - The fake is generated when one shared eligibility rule is met (11:45 PM at the latest); its time and trigger are recorded from the actual playthrough.
 - Juno's part is conditional: it receives a message's source only when the player asks it to look while it's on; later evidence reflects only what it really received and said.
 - **The held-back line:** Juno asks what the player was going to say to Rachel and advises keeping it for her; what the player says only to Juno can come back on Night 2.
-- **The room:** the blue power bank Rachel once mailed the player is on the desk, nearly empty; Rachel's handwritten card is in the drawer. Neither gates the investigation.
+- **The room:** the blue power bank Rachel once mailed the player is on the desk, nearly empty; Rachel's handwritten card is in the tote bag her package came in. Neither gates the investigation.
 - **Ends** when the player goes to sleep or the phone dies. If Dani was left unanswered, Orbit answers her as the player.
 
 ### Day interlude

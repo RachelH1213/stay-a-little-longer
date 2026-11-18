@@ -148,6 +148,26 @@ Actions use time and battery. Reading doesn't.
 
 **Name.** The game is `Stay a Little Longer` (window title, the Mac app, the menu bar), by the author (company name in Unity: the author's name). The version (`v0.1`) sits small in a corner of the title screen. No Unity splash screen. Changing the name moves the save and the PlayerPrefs; existing saves and settings are carried over on first launch.
 
+**Credits** (from the title; draft, the author fills the brackets):
+
+```text
+Stay a Little Longer
+
+A game by Rachel (Xinyue) Huang
+
+Senior Thesis, BFA Design & Technology
+Parsons School of Design, 2026–27
+
+Advisor  [name]
+Thanks  [classmates, playtesters]
+
+Fonts: VT323 by Peter Hull, Silkscreen by Jason Kottke, Inter by Rasmus Andersson,
+under the SIL Open Font License
+Made with Unity
+```
+
+The company name in Unity stays `Rachel Huang`; the credits use `Rachel (Xinyue) Huang`.
+
 **Pause.** Holding the phone, Esc puts it down (as now). In the room, Esc opens the pause menu over the dimmed room, in the title screen's style: `Resume` · `Settings` · `Quit to Title` · `Quit Game`. Esc again, or Resume, closes it. Quitting saves first, as every exit does; no confirmation is needed. While the menu is open nothing moves: no story time, no real-time waits, no typing.
 
 **Focus.** When the game window loses focus (another app, minimised, the Mac asleep), every real-time wait stops where it is (MSG_1048's 30–45 seconds, Dani's `sent`, typing indicators, banners' time on screen) and carries on when the window comes back. Story time never moves with real time anyway.

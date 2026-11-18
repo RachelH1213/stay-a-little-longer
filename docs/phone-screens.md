@@ -42,7 +42,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - **Status bar** 20 tall: the clock at the left, battery at the right (Label), 24 from the side edges so they clear the screen's rounded corners. **It has no background of its own**: it takes the colour of whatever is directly under it (paper over the Chats masthead and thread bars, bg elsewhere), and its text takes that surface's text colour (ink on paper).
 - **Top bar** 32 tall, the full width of the screen. Back (`‹` + Label of the previous screen; the `‹` is the same Label, on the same baseline) at the left, 16 from the edge; the title centred; the right button (`INFO`, `END`, `SHARE`) a plain Label 16 from the right edge, with no box and no divider, mirroring Back. Everything in the bar is centred vertically.
 - **Tab bar** 36 tall (nav), then the **home indicator area** 20 tall (an indicator 72 × 3, centred). They never overlap. Tab labels are Label; the selected tab is a paper plate with ink text.
-- **Field rows** (label / value): the label sits on the first line of its value, never lower. When a value doesn't fit beside its label at the current text size, the label goes above the value instead of the value wrapping.
+- **Field rows** (label / value): the label sits on the first line of its value, never lower. When a value doesn't fit beside its label at the current text size, the label goes above the value instead of the value wrapping. If one row in a card or entry stacks, every field row in it stacks, so a group never mixes the two layouts.
 - **Rows:** at least 28 tall (touch target), 12 padding left and right, a 1 px line between rows inside a card, a `›` at the right when the row opens something.
 - **Switches:** 28 × 16.
 - **Sheets:** they rise from the bottom over a darkened screen; 16 padding. Every sheet has a title (Strong), then its text (Body) if any, then its buttons (32 tall, full width, Strong, 8 apart), and always ends with a way out: `Cancel`, or `Close` on a sheet that only informs. Action lists (Forward, Share, the long-press menu) are rows with a `Cancel` button under them. The long-press menu's title is the message's sender and time (`Rachel H. · 11:37 PM`), and its action is a row `Forward ›`, so it never reads as a second title. The destructive button is outlined in alert. Tapping the darkened screen closes a sheet like Cancel.
@@ -132,7 +132,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Notes' look as the player's own notebook (art-direction §8) waits for the author's art; until then it uses these styles on bg.
 
 ### Photos
-- `PHOTOS` (Heading). Grid: 3 columns, 2 apart, square thumbnails edge to edge, each cropped from the top of its screenshot (so the bar and the name show) with a 1 px line border.
+- `PHOTOS` (Heading), 12 above the grid. Grid: 3 columns, 2 apart, square thumbnails edge to edge, each cropped from the top of its screenshot (so the bar and the name show) with a 1 px line border.
 - A photo: top bar `‹ PHOTOS`, right button `SHARE`; the screenshot inset 16 from the sides with a 1 px line border, so it never reads as the live screen, scaled down until its caption fits on the screen; under it its time and source (Secondary, e.g. `Tue 11:38 PM · Orbit`). Share opens the Share sheet.
 - Empty: `No Photos` (Secondary), centred.
 

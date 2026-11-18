@@ -144,6 +144,20 @@ Actions use time and battery. Reading doesn't.
 20% → 19%   11:36 PM → 11:39 PM
 ```
 
+## 4.8 The game around the nights (decided 2026-11-20)
+
+**Name.** The game is `Stay a Little Longer` (window title, the Mac app, the menu bar), by the author (company name in Unity: the author's name). The version (`v0.1`) sits small in a corner of the title screen. No Unity splash screen. Changing the name moves the save and the PlayerPrefs; existing saves and settings are carried over on first launch.
+
+**Pause.** Holding the phone, Esc puts it down (as now). In the room, Esc opens the pause menu over the dimmed room, in the title screen's style: `Resume` · `Settings` · `Quit to Title` · `Quit Game`. Esc again, or Resume, closes it. Quitting saves first, as every exit does; no confirmation is needed. While the menu is open nothing moves: no story time, no real-time waits, no typing.
+
+**Focus.** When the game window loses focus (another app, minimised, the Mac asleep), every real-time wait stops where it is (MSG_1048's 30–45 seconds, Dani's `sent`, typing indicators, banners' time on screen) and carries on when the window comes back. Story time never moves with real time anyway.
+
+**Settings** (the title's and the pause menu's are the same screen): Text size, Reduce motion, Sound (one slider until there is sound to split), Display (`Fullscreen` / `Windowed`), and on the title only, Delete all local data.
+
+**A night begins and ends with a card.** After Name (or Continue into a night), the screen is black for a moment, then `Tuesday, October 20` and `11:31 PM` (VT323, centred) for about two seconds, then the room fades in. When the night ends (Sleep Anyway, or the phone left dead), the room fades to black, then `Wednesday, October 21`; then the title. Until Night 2 exists, Continue on the title is shown but disabled, with `Night 2 isn't here yet.` under it. With Reduce motion the fades are cuts and the cards stay the same time.
+
+**Transitions and feedback.** Title → night and night → title fade through black (0.5 s). Picking up and putting down the phone slide it in and out (0.25 s). Every tappable thing on the phone and in the room has a hover state (a brighter border or text) and a pressed state (one step darker), and the pointer becomes a hand over it. With Reduce motion: no slides, fades become cuts, hover and pressed states stay.
+
 ## 5. Playtest and release
 
 **The 11/19 cohort test (decided 2026-11-17):** played on the author's own Mac, observed in person. No `PLAYTEST BUILD` label, no consent screen, no play log; the author explains the test out loud. Played in the Unity editor (no build), reset with Delete local data before each tester. The table below is for playtests run without the author present.

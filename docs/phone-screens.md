@@ -48,7 +48,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - **Sheets:** they rise from the bottom over a darkened screen; 16 padding. Every sheet has a title (Strong), then its text (Body) if any, then its buttons (32 tall, full width, Strong, 8 apart), and always ends with a way out: `Cancel`, or `Close` on a sheet that only informs. Action lists (Forward, Share, the long-press menu) are rows with a `Cancel` button under them. The long-press menu's title is the message's sender and time (`Rachel · 11:37 PM`), and its action is a row `Forward ›`, so it never reads as a second title. The destructive button is outlined in alert. Tapping the darkened screen closes a sheet like Cancel.
 - **Back labels:** a thread always goes back to `‹ CHATS`, however it was opened (Chats, a banner, a notification, a plan). A profile goes back to `‹ CHAT`. Every other screen names the screen it returns to. Never a bare `‹`.
 - **Names (decided 2026-11-20):** Rachel is `Rachel` everywhere: rows, bars, notifications, plans, sheets, records. Never `Rachel H.`
-- **Avatars:** every avatar is a square portrait on its own background inside a 1 px line frame, at every size (Chats, thread bars, sheets, profiles). Juno too: its head and shoulders on a square, never the free-standing full-body sprite.
+- **Avatars (revised 2026-11-20: larger, and always sharp):** every avatar is a square portrait on its own background inside a 1 px line frame. Slots: Chats 44, thread bars 32, sheet rows 32, profiles 80. The art is drawn at the largest whole-number pixel scale that fits its slot, choosing whichever of the author's versions (44 px, 36 px) fills it best, centred; never a fractional scale. Juno uses its head and shoulders, never the free-standing full-body sprite.
 - The phone shows no scrollbars and nothing outside the screen's rounded corners.
 
 ## 4. Screen by screen
@@ -71,11 +71,11 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 
 ### Chats
 - Masthead: paper, 40 tall: the logo (24) and `orbit` (Heading, ink). Nothing under it but the list: no `CHATS` heading.
-- Rows, sorted by latest message: avatar 36, name (Strong) with `AI` (Label) for Juno, time (Label) at the right, preview (Secondary, one line, ellipsis). Unread: a paper dot of 6 at the right of the preview, the preview in text colour.
+- Rows, sorted by latest message: avatar 44, name (Strong) with `AI` (Label) for Juno, time (Label) at the right, preview (Secondary, one line, ellipsis). Unread: a paper dot of 6 at the right of the preview, the preview in text colour.
 - Tab bar.
 
 ### A thread (Juno, Rachel, Dani)
-- Bar (paper): Back at the left, the button at the right: `INFO` for Rachel, `END` for Juno, none for Dani (she has no profile), both as in §3. In the middle, centred on the screen: the avatar, 20 × 20, the same head-and-shoulders image as in Chats inside the same 1 px ink frame (never the full-body sprite, nothing sticking out of the frame), 6 apart from the name (Strong, ink). Avatar and name together open the profile.
+- Bar (paper): Back at the left, the button at the right: `INFO` for Rachel, `END` for Juno, none for Dani (she has no profile), both as in §3. In the middle, centred on the screen: the avatar (slot 32; a thread's bar is 40 tall instead of 32 to hold it), the same head-and-shoulders image as in Chats inside the same 1 px ink frame (never the full-body sprite, nothing sticking out of the frame), 6 apart from the name (Strong, ink). Avatar and name together open the profile.
 - Date dividers: Label, centred, with a rule on each side.
 - Bubbles: Body, padding 8 / 6, at most 75% of the width, 1 px border. The other person: card fill, line border, at the left. The player: mine fill, mine-line border, at the right.
 - Groups: one sender within 5 minutes; 4 between bubbles, 12 between groups. The time (Secondary) once, under the group's last bubble, on its side; `· Delivered` after the time of the player's last message only.
@@ -83,11 +83,11 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Juno while switched off: the bar keeps Back and the name but no `END`.
 - Suggested replies: `◌ Suggested replies` (Secondary), 4 above a single row of chips: Body, 28 tall, 12 padding, 1 px line border, 8 apart, scrolling sideways, when they don't fit, a 40-wide fade at the right edge, from transparent to the background colour at full strength, so the cut-off reply plainly continues off screen (decided 2026-11-20: the 16 fade read as a hard cut). Never something already sent.
 - Composer: 8 padding top and bottom, 16 at the sides: the field (28 tall, Body, placeholder in dim) and the send button (28 × 28), 8 apart.
-- Long-press menu and the forward sheet: sheets (§3); the forward sheet lists Juno and Dani as rows with avatar 24 and name (Strong).
+- Long-press menu and the forward sheet: sheets (§3); the forward sheet lists Juno and Dani as rows with avatar 32 and name (Strong).
 
 ### Profiles (Rachel, Juno)
 - Top bar `‹ CHAT`, for Rachel and Juno alike.
-- Avatar 64, centred; name (Strong), centred; one line under it (Secondary): Rachel `Last synced Sunday, 10:48 PM`, and under it `Pull down to refresh` (one line each; tapping the line or pulling the page down refreshes it; there is no Refresh button, so nothing points at it), after refresh `Last active · 5:12 PM`; Juno `AI COMPANION` (Label).
+- Avatar 80, centred; name (Strong), centred; one line under it (Secondary): Rachel `Last synced Sunday, 10:48 PM`, and under it `Pull down to refresh` (one line each; tapping the line or pulling the page down refreshes it; there is no Refresh button, so nothing points at it), after refresh `Last active · 5:12 PM`; Juno `AI COMPANION` (Label).
 - Sections as cards with a Label header: Rachel `SHARED PLANS`; Juno `ABOUT` (its three lines, Body) and `JUNO REMEMBERS` (Body, time in Secondary).
 - Rachel's refreshed blocks read `Unavailable` (Secondary). Under the Last active line, in alert, centred, one line each: `Leaving Orbit` and `Account closes Wed 12:40 AM` (Body), then the countdown in story time, `1 hr 1 min left` (Secondary, alert), which moves with the clock.
 

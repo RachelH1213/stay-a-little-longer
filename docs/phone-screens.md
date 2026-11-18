@@ -39,8 +39,8 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 ## 3. Spacing and fixed parts
 
 - Spacing is only 4 / 8 / 12 / 16. Page side margin 16. Card padding 12, space between cards 8, between sections 16.
-- **Status bar** 20 tall: the clock at the left, battery at the right (Label). **It has no background of its own**: it takes the colour of whatever is directly under it (paper over the Chats masthead and thread bars, bg elsewhere), and its text takes that surface's text colour (ink on paper).
-- **Top bar** 32 tall, the full width of the screen. Back (`‹` + Label of the previous screen) at the left, at the side margin; the title centred; the right button's box ends at the screen's right edge.
+- **Status bar** 20 tall: the clock at the left, battery at the right (Label), 24 from the side edges so they clear the screen's rounded corners. **It has no background of its own**: it takes the colour of whatever is directly under it (paper over the Chats masthead and thread bars, bg elsewhere), and its text takes that surface's text colour (ink on paper).
+- **Top bar** 32 tall, the full width of the screen. Back (`‹` + Label of the previous screen; the `‹` is the same Label, on the same baseline) at the left, 16 from the edge; the title centred; the right button (`INFO`, `END`, `SHARE`) a plain Label 16 from the right edge, with no box and no divider, mirroring Back. Everything in the bar is centred vertically.
 - **Tab bar** 36 tall (nav), then the **home indicator area** 20 tall (an indicator 72 × 3, centred). They never overlap. Tab labels are Label; the selected tab is a paper plate with ink text.
 - **Rows:** at least 28 tall (touch target), 12 padding left and right, a 1 px line between rows inside a card, a `›` at the right when the row opens something.
 - **Switches:** 28 × 16.
@@ -69,7 +69,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Tab bar.
 
 ### A thread (Juno, Rachel, Dani)
-- Bar (paper): `‹` + Label of the previous screen, avatar 24, name (Strong, ink); right button `INFO` (Rachel, Dani) or `END` (Juno), a Label in a box flush with the right edge.
+- Bar (paper): Back at the left, the button (`INFO` for Rachel and Dani, `END` for Juno) at the right, both as in §3. In the middle, centred on the screen: the avatar, 20 × 20, the same head-and-shoulders image as in Chats inside the same 1 px ink frame (never the full-body sprite, nothing sticking out of the frame), 6 apart from the name (Strong, ink). Avatar and name together open the profile.
 - Date dividers: Label, centred, with a rule on each side.
 - Bubbles: Body, padding 8 / 6, at most 75% of the width, 1 px border. The other person: card fill, line border, at the left. The player: mine fill, mine-line border, at the right.
 - Groups: one sender within 5 minutes; 4 between bubbles, 12 between groups. The time (Secondary) once, under the group's last bubble, on its side; `· Delivered` after the time of the player's last message only.

@@ -8,7 +8,7 @@ Principle: Orbit has to work like an ordinary social app first, and be a system 
 
 Three tabs, the only top-level navigation:
 
-- **Chats:** conversations (Juno, Rachel H., Dani). From a chat: the contact's profile, and on it `Shared Plans`.
+- **Chats:** conversations (Juno, Rachel, Dani). From a chat: the contact's profile, and on it `Shared Plans`.
 - **Activity:** the feed (Daily Recaps, plan invitations). A small `Plans` entry at the top right opens the plans list → plan details → change history.
 - **Me:** Settings: Privacy & Data (Contact Protection, a working switch) and Auto-Coordinate. `Handled by Conversation Assist` in a change history opens Me → Settings at Auto-Coordinate; `Manage in Settings` on the Contact Protection sheet opens Privacy & Data. Turning Contact Protection off asks first: `Emails and phone numbers from unverified people will be shown. Messages already filtered stay hidden.` Like Auto-Coordinate, it changes only what happens next. Orbit's other settings live here too, never on the phone's home screen. No Profile for now (the PoC has no player name or picture). Switches (decided 2026-11-13): `Juno`; `Conversation Assist` with `Auto-Coordinate` and `Follow-up replies` under it; `Battery Saver`. Each works when turned off (`night1-scenes.md`, Night 1 systems). Continuity has none.
 
@@ -34,7 +34,7 @@ Removed: the Plans tab; a separate Activity History or Past Recaps page (older i
 Activity                                   Plans
 
 OCT 13
-Rachel H. invited you to a plan
+Rachel invited you to a plan
 First time, finally
 Accepted by you
 View plan
@@ -49,7 +49,7 @@ View plan
   Your Monday recap
   MONDAY, OCTOBER 19
   Your day on Orbit
-  You had 2 conversations: Rachel H. and Juno.
+  You had 2 conversations: Rachel and Juno.
   Juno checked in once.
   You used 1 suggested reply.
   A little summary of your day, made by Orbit.
@@ -60,8 +60,8 @@ View plan
 
 ## Plans
 
-- **Plans list:** `First time, finally · Sat, Oct 24 · 9:00 PM · Rachel H. · You · Accepted`.
-- **Plan details:** `First time, finally`, `With Rachel H.`; WHEN `Sat, Oct 24 · 9:00 PM`; WHERE `Halfway Café`; STATUS `Accepted`; a `Change history` chevron row; a `Message Rachel` chevron row that opens her thread (decided 2026-11-12). 
+- **Plans list:** `First time, finally · Sat, Oct 24 · 9:00 PM · Rachel · You · Accepted`.
+- **Plan details:** `First time, finally`, `With Rachel`; WHEN `Sat, Oct 24 · 9:00 PM`; WHERE `Halfway Café`; STATUS `Accepted`; a `Change history` chevron row; a `Message Rachel` chevron row that opens her thread (decided 2026-11-12). 
 - **Change history:** unchanged from the current build (`night1-scenes.md`, "The plan, as the player finds it"): `Rachel proposed a new time · Oct 20 · 5:12 PM`, From / To, Rachel's note word for word with `[contact info hidden]` (tappable, Contact Protection), `Change accepted`, `Handled by Conversation Assist`, `Manual confirmation: Not required`. Nothing shortened or rewritten.
 - **Ways in:** Activity → Plans; Rachel's chat → her profile → Shared Plans; Juno's plan card (`night1-routes.md` 1.3: after Juno's lines about the change, a `First time, finally · Change history` card). All of them open the same plan object.
 

@@ -45,8 +45,9 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - **Field rows** (label / value): the label sits on the first line of its value, never lower. When a value doesn't fit beside its label at the current text size, the label goes above the value instead of the value wrapping. If one row in a card or entry stacks, every field row in it stacks, so a group never mixes the two layouts.
 - **Rows:** at least 28 tall (touch target), 12 padding left and right, a 1 px line between rows inside a card, a `›` at the right when the row opens something.
 - **Switches:** 28 × 16.
-- **Sheets:** they rise from the bottom over a darkened screen; 16 padding. Every sheet has a title (Strong), then its text (Body) if any, then its buttons (32 tall, full width, Strong, 8 apart), and always ends with a way out: `Cancel`, or `Close` on a sheet that only informs. Action lists (Forward, Share, the long-press menu) are rows with a `Cancel` button under them. The long-press menu's title is the message's sender and time (`Rachel H. · 11:37 PM`), and its action is a row `Forward ›`, so it never reads as a second title. The destructive button is outlined in alert. Tapping the darkened screen closes a sheet like Cancel.
+- **Sheets:** they rise from the bottom over a darkened screen; 16 padding. Every sheet has a title (Strong), then its text (Body) if any, then its buttons (32 tall, full width, Strong, 8 apart), and always ends with a way out: `Cancel`, or `Close` on a sheet that only informs. Action lists (Forward, Share, the long-press menu) are rows with a `Cancel` button under them. The long-press menu's title is the message's sender and time (`Rachel · 11:37 PM`), and its action is a row `Forward ›`, so it never reads as a second title. The destructive button is outlined in alert. Tapping the darkened screen closes a sheet like Cancel.
 - **Back labels:** a thread always goes back to `‹ CHATS`, however it was opened (Chats, a banner, a notification, a plan). A profile goes back to `‹ CHAT`. Every other screen names the screen it returns to. Never a bare `‹`.
+- **Names (decided 2026-11-20):** Rachel is `Rachel` everywhere: rows, bars, notifications, plans, sheets, records. Never `Rachel H.`
 - **Avatars:** every avatar is a square portrait on its own background inside a 1 px line frame, at every size (Chats, thread bars, sheets, profiles). Juno too: its head and shoulders on a square, never the free-standing full-body sprite.
 - The phone shows no scrollbars and nothing outside the screen's rounded corners.
 
@@ -80,7 +81,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Groups: one sender within 5 minutes; 4 between bubbles, 12 between groups. The time (Secondary) once, under the group's last bubble, on its side; `· Delivered` after the time of the player's last message only.
 - Typing: a bubble with three dots (still with Reduce motion).
 - Juno while switched off: the bar keeps Back and the name but no `END`.
-- Suggested replies: `◌ Suggested replies` (Secondary), 4 above a single row of chips: Body, 28 tall, 12 padding, 1 px line border, 8 apart, scrolling sideways, a 16 fade at the right edge when they don't fit, from the background colour at full strength at the edge, clearly visible. Never something already sent.
+- Suggested replies: `◌ Suggested replies` (Secondary), 4 above a single row of chips: Body, 28 tall, 12 padding, 1 px line border, 8 apart, scrolling sideways, when they don't fit, a 40-wide fade at the right edge, from transparent to the background colour at full strength, so the cut-off reply plainly continues off screen (decided 2026-11-20: the 16 fade read as a hard cut). Never something already sent.
 - Composer: 8 padding top and bottom, 16 at the sides: the field (28 tall, Body, placeholder in dim) and the send button (28 × 28), 8 apart.
 - Long-press menu and the forward sheet: sheets (§3); the forward sheet lists Juno and Dani as rows with avatar 24 and name (Strong).
 
@@ -93,16 +94,16 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 ### Activity
 - `ACTIVITY` (Heading) at the left; `PLANS ›` (Label, plain, no box and no divider) at the right on the same baseline.
 - Date groups (Label, `OCT 13`), 16 above, 8 below.
-- The invitation, a card that opens the plan: `Rachel H. invited you to a plan` (Strong), `First time, finally` (Body), `Accepted by you` (Secondary), `›` at the right.
+- The invitation, a card that opens the plan: `Rachel invited you to a plan` (Strong), `First time, finally` (Body), `Accepted by you` (Secondary), `›` at the right.
 - Nothing else on Night 1. No Check-in.
 
 ### Plans
 - Top bar `‹ ACTIVITY`, `PLANS`.
-- A row per plan: title (Strong), `Sat, Oct 24 · 9:00 PM · Rachel H.` (Secondary), `ACCEPTED` (Label) at the right, `›`.
+- A row per plan: title (Strong), `Sat, Oct 24 · 9:00 PM · Rachel` (Secondary), `ACCEPTED` (Label) at the right, `›`.
 
 ### Plan details
 - Top bar `‹` + where it came from, `PLAN`.
-- Card: title (Strong), `With Rachel H.` (Secondary), then field rows: Label column 64 wide (`WHEN`, `WHERE`, `STATUS`), value (Body).
+- Card: title (Strong), `With Rachel` (Secondary), then field rows: Label column 64 wide (`WHEN`, `WHERE`, `STATUS`), value (Body).
 - Then one card with two rows: `Change history ›`, `Message Rachel ›` (Body).
 
 ### Change history

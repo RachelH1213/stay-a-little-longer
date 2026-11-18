@@ -133,7 +133,7 @@ The four openings are not four stories. They are four orders of finding things; 
 
 **2.4 · Forward it to Dani**
 - **Does:** long-press → Forward → Dani.
-- **Knows:** Dani sees `Forwarded from Rachel H.` and the text. No source.
+- **Knows:** Dani sees `Forwarded from Rachel` and the text. No source.
 - **Says:** Dani `she sent you this??` · if asked `does this sound like her to you?`: `i don't know. it's kind of weird`. Her email already went (2.2), so: `i'm sending her another one about this` · `sent`. (Had she not emailed yet, it would go in the first one.)
 - **Records:** `showed_msg_1048_to_dani`, `dani_told_rachel_about_fake`.
 - **Night 2:** Rachel's answer through Dani can address the message directly (`she says she didn't send anything last night`).

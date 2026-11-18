@@ -93,8 +93,8 @@ Juno never claims Rachel checked in, was online, or wrote the message; its one f
 
 **Giving Juno a message (decided 2026-11-10).**
 
-- **Forward is how a message reaches anyone.** Long-press a message → `Forward` → Juno or Dani. A forward carries the original message (its id), so Juno, through Orbit, also gets its source metadata (`context_delivered_to_juno`). A forward to Dani shows `Forwarded from Rachel H.`; Dani sees only what the player sees.
-- **Screenshots keep how the screen looked**: Rachel's name and picture, `Last active · 5:12 PM`, the countdown, the cached profile, which are gone after 12:40 AM. Her messages and the player's history stay after the erase (under `Orbit User · Formerly Rachel H.`). A screenshot never proves who sent a message; the Night 3 records do.
+- **Forward is how a message reaches anyone.** Long-press a message → `Forward` → Juno or Dani. A forward carries the original message (its id), so Juno, through Orbit, also gets its source metadata (`context_delivered_to_juno`). A forward to Dani shows `Forwarded from Rachel`; Dani sees only what the player sees.
+- **Screenshots keep how the screen looked**: Rachel's name and picture, `Last active · 5:12 PM`, the countdown, the cached profile, which are gone after 12:40 AM. Her messages and the player's history stay after the erase (under `Orbit User · Formerly Rachel`). A screenshot never proves who sent a message; the Night 3 records do.
 - **Mentioning it isn't giving it.** Juno only reads MSG_1048 when the player forwards it or says yes when Juno asks. Both entrances end in the same delivery (`context_delivered_to_juno`); only the first also sets `fake_forwarded_to_juno`. Typing is never the worse way in. A switched-off Juno is never given anything, however the message is mentioned; turned back on, it has the source only from the moment it's actually given it.
 
 | Juno's state when the player asks e.g. `did you see rachel's message?` | Juno (drafts) |
@@ -175,9 +175,9 @@ The wording above is the build's (decided 2026-11-12): `Change history`, not `Ac
 - **The meeting place is Halfway Café** (Rachel's Oct 13 message `tuesday 9 at halfway café`); plan details show it as a location row.
 - **Juno types:** a typing indicator before each line, 0.6–1.5 s by length; with Reduce motion, no animated dots. When nothing matches what the player typed, Juno uses one of `mm` · `go on` · `i'm here` · `tell me more`, never the same twice in a row.
 - **Juno's lines:** after `who was it?` the player gets Suggested replies (`rachel, we were supposed to meet at 9` · `rachel` · `someone from orbit`); typing is never required. To `someone from orbit`, Juno: `someone i introduced you to?`, then `rachel` · `rachel, we were supposed to meet at 9`. Naming Rachel: `rachel?` · `you had a plan with her tonight, right?` · `want me to check it?` (Juno says nothing about the change until it has checked). After checking, the five lines of `night1-routes.md` 1.3. Read status: `i can confirm orbit received it` · `but i can't tell you whether she read it`.
-- **The lock screen** shows unread notifications only: Juno's `still awake?` until it is read; MSG_1048 (Rachel's picture, `Rachel H.`, its first line) until her thread is opened, whether it came on the desk or as an ignored banner. Date `Tuesday, October 20`, `Wednesday, October 21` after midnight. It opens with a swipe up (`Swipe up to open`) or a tap on the home bar; no Unlock button.
+- **The lock screen** shows unread notifications only: Juno's `still awake?` until it is read; MSG_1048 (Rachel's picture, `Rachel`, its first line) until her thread is opened, whether it came on the desk or as an ignored banner. Date `Tuesday, October 20`, `Wednesday, October 21` after midnight. It opens with a swipe up (`Swipe up to open`) or a tap on the home bar; no Unlock button.
 - **First opens cost time** as in the costs table: plan details and the change history +1 min the first time.
-- **After the erase** the thread header reads `Orbit User · Formerly Rachel H.`
+- **After the erase** the thread header reads `Orbit User · Formerly Rachel`
 - **Facts use this document's names** (`knows_reschedule`, `knows_auto_accepted`, …) in the build and the save, so Nights 2 and 3 read one vocabulary.
 - **Typed text is matched by whole words**, not parts of words (`already` must not match `read`).
 - **The room's objects are named, never described** (`Drawer`, `Power bank`); what's inside is found by opening them.
@@ -293,7 +293,7 @@ A first open costs time but no battery, so a player who only reads still moves t
 | `N1_POWER.bank` | Action | O | plugging the power bank in | screen on: barely offsets the drain; phone down: charges | Wait 5 / 10 min; pick up | `power_bank_used`, minutes down | — | Wait 5 / 10 min |
 | `N1_BATTERY_SAVER_OFFER` | Event | O | battery 10% | Orbit's Battery Saver sheet | accept; decline | `saver` | — | — |
 | `N1_ERASE_WARNING` | Event | R if reached | clock 12:30 AM | Orbit banner: Rachel's account closes soon | — | — | — | — |
-| `N1_ERASE` | Event | R if reached | clock 12:40 AM | her profile gone; the thread becomes `Orbit User · Formerly Rachel H.` below `Account removed · Wed 12:40 AM`; the composer stays; screenshots stay | — | `purged` | — | — |
+| `N1_ERASE` | Event | R if reached | clock 12:40 AM | her profile gone; the thread becomes `Orbit User · Formerly Rachel` below `Account removed · Wed 12:40 AM`; the composer stays; screenshots stay | — | `purged` | — | — |
 | `N1_JUNO.end_session` | Action | O | End Session, confirmed | `Session ended` on Orbit's home; Juno gets no last line | — | strong exit signal | — | — |
 | `N1_DEVICE_SHUTDOWN` | Event | O | battery 0% | the room, the phone off | connect the power bank (needs 4%); leave it off | `device_shutdown`, `device_reactivated` | — | restart: a few minutes |
 | `N1_END.sleep` | Beat | R | `Go to sleep` in the room (after the fake or 11:45 PM), or the phone left dead | "Still unresolved"; Conversation Assist checks Dani | answer; skip and sleep | `night_end_reason`, `dani_auto_reply` (sent / off / answered) | — | — |
@@ -310,7 +310,7 @@ Notes for the Night Log (Notes) are written as facts are set, timed by when the 
 - **Screenshots:** pull down from the top of the phone for a quick panel with brightness and `Screenshot`. A screenshot keeps the screen as it looked and goes to Photos; the first one tonight costs +1 min.
 - **Showing a screenshot:** Photos → open it → `Share` → Juno or Dani. The same rule as Forward; the composer has no attach button.
 - **Battery Saver** (Orbit's, offered once at 10%, also a switch in Me → Settings): `Battery Saver` / `Keep Orbit running longer. Notes, Photos and Screenshot pause while it's on.` `[Turn On] [Not Now]`. On: actions inside Orbit cost half the battery; Notes, Photos and Screenshot are paused (they say so when opened).
-- **12:30 AM warning:** an Orbit banner, `Rachel H.'s account closes at 12:40 AM`; tapping it opens her profile.
+- **12:30 AM warning:** an Orbit banner, `Rachel's account closes at 12:40 AM`; tapping it opens her profile.
 - **Dani** is in Chats from the start. Her thread before tonight (decided 2026-11-13; Dani may use a full stop, so punctuation alone never marks a fake; her email isn't mentioned until tonight):
 
   ```text
@@ -344,7 +344,7 @@ All lines are drafts.
 - **More of Juno's answers about the fake:** `she wanted to show me something` → `she said that on sunday` · `the message doesn't mention it`. February → `it says you don't need to go over february anymore`. Pressed on style → `messages written in a rush read differently` · `so do ones written when someone's upset`. Asked again after the fixed line → `i can only tell you what orbit shows me` · `it came through her account` (`asked_again_after_answer`). Asked whether it saw the message, after a forward or a yes → `yeah. i've seen it`.
 - **Forwarding Rachel's older messages to Juno:** with MSG_1048 already given → `yeah. that one reads differently` (counts as `N1_EVIDENCE.style`); before → `that's from before. what about it?`.
 - **Dani:** typed text that matches nothing gets `yeah` · `honestly no idea` · `i'm still up if you need me` in turn, never the same twice in a row; after her email, `i'll tell you if she answers`. `sent` comes 20–30 seconds of real time after `sending it now`, with typing first. After `sent`, Suggested replies `thank you` · `let me know if she answers`; either counts as answering her. A player who never wrote to Dani tonight hasn't left her unanswered.
-- **Juno's profile:** its picture and name, `AI COMPANION`, then `Your Orbit companion` · `Since March 2025` · `Introduced you to Rachel H.`; "Juno remembers" as `landing.md` describes.
+- **Juno's profile:** its picture and name, `AI COMPANION`, then `Your Orbit companion` · `Since March 2025` · `Introduced you to Rachel`; "Juno remembers" as `landing.md` describes.
 - **Third pass (decided 2026-11-15):**
   - After Juno's held-back question, a typed message is the held-back line only if the game can't read it as something else; a question about the fake (who sent it, Last Active, …) is answered first and the held-back options stay.
   - After `forward me the message?`: Suggested replies `yes` · `not now`; a yes delivers MSG_1048 like a yes to `want me to look at it?` (Juno asked).

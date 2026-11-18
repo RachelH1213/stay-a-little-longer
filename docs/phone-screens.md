@@ -60,6 +60,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 
 ### Home screen
 - App grid: icons 44 × 44, 4 per row, 24 apart, 16 from the side edges, starting 24 under the status bar. Label under each icon (Secondary, centred, 4 below the icon).
+- Icons are the author's art, drawn as whole rounded tiles (decided 2026-11-19): Orbit is the approved Saturn tile, Notes, Photos and Settings are ART 08.6 (`assets/art/phone-home-icons/png/*_44x44_ART08_6_FinePixel.png`). The UI draws no box, border or background behind them; at whole-number scale only, Point filtering.
 
 ### Quick panel (pulled down from the status bar)
 - A card under the status bar, 8 from the side edges: brightness (Label `BRIGHTNESS` and a slider), then the `SCREENSHOT` tile: 44 × 44 with a pixel glyph of a phone screen with corner marks, and the Label under it. Paused by Battery Saver, the tile is dimmed and says so when tapped.

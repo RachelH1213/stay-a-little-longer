@@ -42,9 +42,10 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - **Status bar** 20 tall: the clock at the left, battery at the right (Label), 24 from the side edges so they clear the screen's rounded corners. **It has no background of its own**: it takes the colour of whatever is directly under it (paper over the Chats masthead and thread bars, bg elsewhere), and its text takes that surface's text colour (ink on paper).
 - **Top bar** 32 tall, the full width of the screen. Back (`‹` + Label of the previous screen; the `‹` is the same Label, on the same baseline) at the left, 16 from the edge; the title centred; the right button (`INFO`, `END`, `SHARE`) a plain Label 16 from the right edge, with no box and no divider, mirroring Back. Everything in the bar is centred vertically.
 - **Tab bar** 36 tall (nav), then the **home indicator area** 20 tall (an indicator 72 × 3, centred). They never overlap. Tab labels are Label; the selected tab is a paper plate with ink text.
+- **Field rows** (label / value): the label sits on the first line of its value, never lower. When a value doesn't fit beside its label at the current text size, the label goes above the value instead of the value wrapping.
 - **Rows:** at least 28 tall (touch target), 12 padding left and right, a 1 px line between rows inside a card, a `›` at the right when the row opens something.
 - **Switches:** 28 × 16.
-- **Sheets:** they rise from the bottom over a darkened screen; 16 padding. Every sheet has a title (Strong), then its text (Body) if any, then its buttons (32 tall, full width, Strong, 8 apart), and always ends with a way out: `Cancel`, or `Close` on a sheet that only informs. Action lists (Forward, Share, the long-press menu) are rows with a `Cancel` button under them. The destructive button is outlined in alert. Tapping the darkened screen closes a sheet like Cancel.
+- **Sheets:** they rise from the bottom over a darkened screen; 16 padding. Every sheet has a title (Strong), then its text (Body) if any, then its buttons (32 tall, full width, Strong, 8 apart), and always ends with a way out: `Cancel`, or `Close` on a sheet that only informs. Action lists (Forward, Share, the long-press menu) are rows with a `Cancel` button under them. The long-press menu's title is the message's sender and time (`Rachel H. · 11:37 PM`), and its action is a row `Forward ›`, so it never reads as a second title. The destructive button is outlined in alert. Tapping the darkened screen closes a sheet like Cancel.
 - **Back labels:** a thread always goes back to `‹ CHATS`, however it was opened (Chats, a banner, a notification, a plan). A profile goes back to `‹ CHAT`. Every other screen names the screen it returns to. Never a bare `‹`.
 - **Avatars:** every avatar is a square portrait on its own background inside a 1 px line frame, at every size (Chats, thread bars, sheets, profiles). Juno too: its head and shoulders on a square, never the free-standing full-body sprite.
 - The phone shows no scrollbars and nothing outside the screen's rounded corners.
@@ -78,15 +79,15 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Groups: one sender within 5 minutes; 4 between bubbles, 12 between groups. The time (Secondary) once, under the group's last bubble, on its side; `· Delivered` after the time of the player's last message only.
 - Typing: a bubble with three dots (still with Reduce motion).
 - Juno while switched off: the bar keeps Back and the name but no `END`.
-- Suggested replies: `◌ Suggested replies` (Secondary), 4 above a single row of chips: Body, 28 tall, 12 padding, 1 px line border, 8 apart, scrolling sideways, a 16 fade at the right edge when they don't fit. Never something already sent.
+- Suggested replies: `◌ Suggested replies` (Secondary), 4 above a single row of chips: Body, 28 tall, 12 padding, 1 px line border, 8 apart, scrolling sideways, a 16 fade at the right edge when they don't fit, from the background colour at full strength at the edge, clearly visible. Never something already sent.
 - Composer: 8 padding top and bottom, 16 at the sides: the field (28 tall, Body, placeholder in dim) and the send button (28 × 28), 8 apart.
 - Long-press menu and the forward sheet: sheets (§3); the forward sheet lists Juno and Dani as rows with avatar 24 and name (Strong).
 
 ### Profiles (Rachel, Juno)
 - Top bar `‹ CHAT`, for Rachel and Juno alike.
-- Avatar 64, centred; name (Strong), centred; one line under it (Secondary): Rachel `Last synced Sunday, 10:48 PM · Pull down to refresh` (tapping the line or pulling the page down refreshes it; there is no Refresh button, so nothing points at it), after refresh `Last active · 5:12 PM`; Juno `AI COMPANION` (Label).
+- Avatar 64, centred; name (Strong), centred; one line under it (Secondary): Rachel `Last synced Sunday, 10:48 PM`, and under it `Pull down to refresh` (one line each; tapping the line or pulling the page down refreshes it; there is no Refresh button, so nothing points at it), after refresh `Last active · 5:12 PM`; Juno `AI COMPANION` (Label).
 - Sections as cards with a Label header: Rachel `SHARED PLANS`; Juno `ABOUT` (its three lines, Body) and `JUNO REMEMBERS` (Body, time in Secondary).
-- Rachel's refreshed blocks read `Unavailable` (Secondary). Under the Last active line, in alert, centred: `Leaving Orbit · Account closes Wed 12:40 AM` (Body), and under it the countdown in story time, `1 hr 1 min left` (Secondary, alert), which moves with the clock.
+- Rachel's refreshed blocks read `Unavailable` (Secondary). Under the Last active line, in alert, centred, one line each: `Leaving Orbit` and `Account closes Wed 12:40 AM` (Body), then the countdown in story time, `1 hr 1 min left` (Secondary, alert), which moves with the clock.
 
 ### Activity
 - `ACTIVITY` (Heading) at the left; `PLANS ›` (Label, plain, no box and no divider) at the right on the same baseline.
@@ -125,17 +126,17 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 
 ### Notes
 - `NOTES` (Heading). A row per note: title (Strong), date and first line (Secondary). Newest first.
-- A note: top bar `‹ NOTES`; title (Strong); lines (Body); in `Tuesday night`, each time (Label) above its lines, 12 between entries; `Still unresolved` (Strong) 16 above its lines.
+- A note: top bar `‹ NOTES`; title (Strong); lines (Body); in `Tuesday night`, each time (Label) above its lines, 12 between entries; `Still unresolved` (Strong) 16 above its lines, 8 between them.
 - Paused by Battery Saver: one centred line (Secondary).
 - Notes' look as the player's own notebook (art-direction §8) waits for the author's art; until then it uses these styles on bg.
 
 ### Photos
 - `PHOTOS` (Heading). Grid: 3 columns, 2 apart, square thumbnails edge to edge, each cropped from the top of its screenshot (so the bar and the name show) with a 1 px line border.
-- A photo: top bar `‹ PHOTOS`, right button `SHARE`; the screenshot inset 16 from the sides with a 1 px line border, so it never reads as the live screen; under it its time and source (Secondary, e.g. `Tue 11:38 PM · Orbit`). Share opens the Share sheet.
+- A photo: top bar `‹ PHOTOS`, right button `SHARE`; the screenshot inset 16 from the sides with a 1 px line border, so it never reads as the live screen, scaled down until its caption fits on the screen; under it its time and source (Secondary, e.g. `Tue 11:38 PM · Orbit`). Share opens the Share sheet.
 - Empty: `No Photos` (Secondary), centred.
 
 ### Settings (the phone's)
 - `SETTINGS` (Heading). One card: `Brightness` (Body) and a slider.
 
 ### Sheets and offers
-- End Session (`End this session?`), turning Juno off, Contact Protection, turning Contact Protection off (`Turn off Contact Protection?`), Battery Saver's offer: all sheets as in §3, with their decided text. (Delete all local data is on the title screen, not the phone.)
+- End Session (title `End this session with Juno?`, text `You can return at any time.`), turning Juno off, Contact Protection, turning Contact Protection off (`Turn off Contact Protection?`), Battery Saver's offer: all sheets as in §3, with their decided text. (Delete all local data is on the title screen, not the phone.)

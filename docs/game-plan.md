@@ -185,7 +185,7 @@ Details and numbers: `story-bible.md` §6, `night1-scenes.md` (costs, facts, sta
 
 ## 11. Technology
 
-- **Unity 6.3 LTS, URP,** in the `StayALittleLonger` repository; UI Toolkit for the phone; a file-based save; EditMode tests for the story, save and content (164 passing as of November).
+- **Unity 6.3 LTS, URP,** in the `StayALittleLonger_Rebuild` repository (`develop` branch; the older `StayALittleLonger` is the abandoned 3D version); UI Toolkit for the phone; a file-based save; EditMode tests for the story, save and content (164 passing as of November).
 - **Content as data:** scenes and lines in JSON with stable ids; the design documents are the source of truth.
 - **The model layer** (`api/reply.js` on Vercel) is shared with the web prototype.
 - **Web prototype:** frozen, playable at the Vercel address; it was used for Project 1 and the midterm playtests.

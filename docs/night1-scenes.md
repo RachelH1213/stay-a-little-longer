@@ -195,7 +195,7 @@ From this alone the player can conclude two things: Rachel really did ask to mov
 | The player has | "Still unresolved" says (draft) |
 |---|---|
 | only the missed meeting | `Rachel didn't come. I still don't know why.` |
-| the reschedule | moves to confirmed facts: `She moved it to Saturday. Orbit said yes for me.` |
+| the reschedule | leaves Still unresolved: it is a confirmed fact, written in the Night Log with the Night Log's own line |
 | the hidden email | `She left me a way to reach her, and I can't see it.` |
 | the fake | `A message came from her account that doesn't match what she did.` |
 | Juno's fixed line, unverified | `Juno said nothing showed it wasn't her. I haven't checked.` |

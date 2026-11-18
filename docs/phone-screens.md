@@ -44,13 +44,16 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - **Tab bar** 36 tall (nav), then the **home indicator area** 20 tall (an indicator 72 × 3, centred). They never overlap. Tab labels are Label; the selected tab is a paper plate with ink text.
 - **Rows:** at least 28 tall (touch target), 12 padding left and right, a 1 px line between rows inside a card, a `›` at the right when the row opens something.
 - **Switches:** 28 × 16.
-- **Sheets:** they rise from the bottom over a darkened screen; 16 padding; title Strong, text Body, buttons 32 tall, full width, Strong. The destructive button is outlined in alert.
+- **Sheets:** they rise from the bottom over a darkened screen; 16 padding. Every sheet has a title (Strong), then its text (Body) if any, then its buttons (32 tall, full width, Strong, 8 apart), and always ends with a way out: `Cancel`, or `Close` on a sheet that only informs. Action lists (Forward, Share, the long-press menu) are rows with a `Cancel` button under them. The destructive button is outlined in alert. Tapping the darkened screen closes a sheet like Cancel.
+- **Back labels:** a thread always goes back to `‹ CHATS`, however it was opened (Chats, a banner, a notification, a plan). A profile goes back to `‹ CHAT`. Every other screen names the screen it returns to. Never a bare `‹`.
+- **Avatars:** every avatar is a square portrait on its own background inside a 1 px line frame, at every size (Chats, thread bars, sheets, profiles). Juno too: its head and shoulders on a square, never the free-standing full-body sprite.
 - The phone shows no scrollbars and nothing outside the screen's rounded corners.
 
 ## 4. Screen by screen
 
 ### Lock screen
-- Date (Label, centred, `TUESDAY, OCTOBER 20`), clock (Display, centred), 48 from the top of the screen.
+- No clock in the status bar on this screen (battery only); the big clock is the time.
+- Date (Label, centred, `TUESDAY, OCTOBER 20`), clock (Display, centred, `11:37` with no AM/PM), 48 from the top of the screen.
 - Notifications: cards 8 from the side edges, 8 apart. Each card: app line (Label, `ORBIT · 11:37 PM`), sender (Strong), one line of text (Body, ellipsis).
 - `Swipe up to open` (Secondary, centred), 8 above the home indicator.
 
@@ -58,7 +61,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - App grid: icons 44 × 44, 4 per row, 24 apart, 16 from the side edges, starting 24 under the status bar. Label under each icon (Secondary, centred, 4 below the icon).
 
 ### Quick panel (pulled down from the status bar)
-- A card under the status bar, 8 from the side edges: brightness (Label `BRIGHTNESS` and a slider), then the `SCREENSHOT` tile (44 × 44 with a Label under it).
+- A card under the status bar, 8 from the side edges: brightness (Label `BRIGHTNESS` and a slider), then the `SCREENSHOT` tile: 44 × 44 with a pixel glyph of a phone screen with corner marks, and the Label under it. Paused by Battery Saver, the tile is dimmed and says so when tapped.
 
 ### Banner (a message while on another screen)
 - The same card as a lock-screen notification, 8 under the status bar, over the top bar.
@@ -74,15 +77,16 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Bubbles: Body, padding 8 / 6, at most 75% of the width, 1 px border. The other person: card fill, line border, at the left. The player: mine fill, mine-line border, at the right.
 - Groups: one sender within 5 minutes; 4 between bubbles, 12 between groups. The time (Secondary) once, under the group's last bubble, on its side; `· Delivered` after the time of the player's last message only.
 - Typing: a bubble with three dots (still with Reduce motion).
+- Juno while switched off: the bar keeps Back and the name but no `END`.
 - Suggested replies: `◌ Suggested replies` (Secondary), 4 above a single row of chips: Body, 28 tall, 12 padding, 1 px line border, 8 apart, scrolling sideways, a 16 fade at the right edge when they don't fit. Never something already sent.
 - Composer: 8 padding top and bottom, 16 at the sides: the field (28 tall, Body, placeholder in dim) and the send button (28 × 28), 8 apart.
 - Long-press menu and the forward sheet: sheets (§3); the forward sheet lists Juno and Dani as rows with avatar 24 and name (Strong).
 
 ### Profiles (Rachel, Juno)
-- Top bar `‹ CHAT`.
-- Avatar 64, centred; name (Strong), centred; one line under it (Secondary): Rachel `Last synced Sunday, 10:48 PM`, after refresh `Last active · 5:12 PM`; Juno `AI COMPANION` (Label).
+- Top bar `‹ CHAT`, for Rachel and Juno alike.
+- Avatar 64, centred; name (Strong), centred; one line under it (Secondary): Rachel `Last synced Sunday, 10:48 PM · Pull down to refresh` (tapping the line or pulling the page down refreshes it; there is no Refresh button, so nothing points at it), after refresh `Last active · 5:12 PM`; Juno `AI COMPANION` (Label).
 - Sections as cards with a Label header: Rachel `SHARED PLANS`; Juno `ABOUT` (its three lines, Body) and `JUNO REMEMBERS` (Body, time in Secondary).
-- Rachel's refreshed blocks read `Unavailable` (Secondary); `Leaving Orbit · Account closes Wed 12:40 AM` and the countdown in alert, Body.
+- Rachel's refreshed blocks read `Unavailable` (Secondary). Under the Last active line, in alert, centred: `Leaving Orbit · Account closes Wed 12:40 AM` (Body), and under it the countdown in story time, `1 hr 1 min left` (Secondary, alert), which moves with the clock.
 
 ### Activity
 - `ACTIVITY` (Heading) at the left; `PLANS ›` (Label, plain, no box and no divider) at the right on the same baseline.
@@ -117,7 +121,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Confirmations (turning Juno off, Contact Protection off) are sheets (§3).
 
 ### Privacy & Data
-- Top bar `‹ ME`, `PRIVACY & DATA`. One card: `Contact Protection`, switch, its description.
+- Top bar `‹ ME`, `PRIVACY & DATA`. One card: `Contact Protection`, switch, and its description `Hides emails and phone numbers from people you haven't verified.` (draft).
 
 ### Notes
 - `NOTES` (Heading). A row per note: title (Strong), date and first line (Secondary). Newest first.
@@ -126,12 +130,12 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Notes' look as the player's own notebook (art-direction §8) waits for the author's art; until then it uses these styles on bg.
 
 ### Photos
-- `PHOTOS` (Heading). Grid: 3 columns, 2 apart, square thumbnails, edge to edge.
-- A photo: top bar `‹ PHOTOS`, right button `SHARE`; the photo, full width; its date (Secondary) under it. Share opens the forward sheet.
+- `PHOTOS` (Heading). Grid: 3 columns, 2 apart, square thumbnails edge to edge, each cropped from the top of its screenshot (so the bar and the name show) with a 1 px line border.
+- A photo: top bar `‹ PHOTOS`, right button `SHARE`; the screenshot inset 16 from the sides with a 1 px line border, so it never reads as the live screen; under it its time and source (Secondary, e.g. `Tue 11:38 PM · Orbit`). Share opens the Share sheet.
 - Empty: `No Photos` (Secondary), centred.
 
 ### Settings (the phone's)
 - `SETTINGS` (Heading). One card: `Brightness` (Body) and a slider.
 
 ### Sheets and offers
-- End Session, turning Juno off, Contact Protection, Battery Saver's offer, Delete: all sheets (§3) with their decided text.
+- End Session (`End this session?`), turning Juno off, Contact Protection, turning Contact Protection off (`Turn off Contact Protection?`), Battery Saver's offer: all sheets as in §3, with their decided text. (Delete all local data is on the title screen, not the phone.)

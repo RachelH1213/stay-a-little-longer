@@ -104,7 +104,7 @@ Tuesday, October 20, 11:31 PM, battery 20%. The failed meeting has already happe
 - Juno's part is conditional: it receives a message's source only when the player asks it to look while it's on; later evidence reflects only what it really received and said.
 - **The held-back line:** Juno asks what the player was going to say to Rachel and advises keeping it for her; what the player says only to Juno can come back on Night 2.
 - **The room:** the blue power bank Rachel once mailed the player is on the desk, nearly empty; Rachel's handwritten card is in the drawer. Neither gates the investigation.
-- **Ends** when the player goes to sleep or the phone dies. Orbit asks a Check-in question; if Dani was left unanswered, Orbit answers her as the player.
+- **Ends** when the player goes to sleep or the phone dies. If Dani was left unanswered, Orbit answers her as the player.
 
 ### Day interlude
 
@@ -121,7 +121,7 @@ Short, not playable. Dani reaches Rachel by email; the answer arrives in the mor
 
 ### Night 3: What did Orbit make of my night? (two versions)
 
-- **Inside** (kept Orbit or turned Juno off): the player's own data export: how many replies Orbit suggested and they used, their Check-in answers turned into "retention anchors", the interventions their real behaviour triggered. The confrontation with Juno.
+- **Inside** (kept Orbit or turned Juno off): the player's own data export: how many replies Orbit suggested and they used, the "retention anchors" Orbit inferred from what they did, the interventions their real behaviour triggered. The confrontation with Juno.
 - **Outside** (deleted the account): a new account, and a new Juno that recognises them from the old one (`CROSS-ACCOUNT PROFILE MATCH`); the old account may have spoken to Dani after they left.
 - Both lead to the last talk with Juno and the final choice.
 
@@ -147,7 +147,7 @@ No best ending. Each shows how Orbit reclassifies the player afterwards, and end
 | **The room** | put the phone down, look around (Rachel's card), plug in the power bank, wait for it to charge | the one place Orbit can't see |
 | **End Session / Juno off / delete** | real controls that really work | the controls given aren't the ones that matter |
 | **Conversation Assist** | Follow-up replies sent for the player; a 10-second countdown | Orbit speaking for you, with a default of yes |
-| **Check-in** | one question a night, optional | the player's answers become Orbit's data |
+| **Inferred anchors** | Orbit never asks | what the player did becomes Orbit's data |
 | **Notes and Night Log** | the player's own record, only what they confirmed | the human record against Orbit's |
 | **The export** | Night 3's records, built from what this player actually did and when (never recalculated or fixed in advance) | how the night looked from Orbit's side |
 | **Auto-Coordinate** | Conversation Assist accepts routine plan changes from trusted contacts, without asking, under a setting the player turned on in June | consent to a rule isn't consent to each decision |
@@ -170,7 +170,7 @@ Details and numbers: `story-bible.md` §6, `night1-scenes.md` (costs, facts, sta
 ## 9. Interface
 
 - **Before the story:** title screen, Before You Begin (content note, data notice or playtest consent, quick settings), Name. `landing.md`.
-- **On the phone:** lock screen, home screen, Orbit (Chats, threads, profiles, Settings, Check-in), Photos, Notes, later Messages and a Browser for Rachel's share.
+- **On the phone:** lock screen, home screen, Orbit (Chats, threads, profiles, Activity, Plans, Me), Photos, Notes, later Messages and a Browser for Rachel's share.
 - **In the room:** a few things to look at, Put Down / Pick Up, Wait, Go to sleep.
 - **Settings:** text size, Reduce Motion, sound; Juno and Conversation Assist switches inside Orbit.
 - **Accessibility:** no reflex tests; timers only while visible and longer with accessibility settings; keyboard and outline alternatives for hotspots; Reduce Motion everywhere.
@@ -178,7 +178,7 @@ Details and numbers: `story-bible.md` §6, `night1-scenes.md` (costs, facts, sta
 ## 10. Saving and data
 
 - One story in progress, saved automatically at every beat; Continue returns to the same place; Replay from Final Choice after an ending.
-- The player's name stays on the device. Check-in answers are saved as option ids.
+- The player's name stays on the device.
 - **Playtest build:** consent first; states what is logged, for how long, who sees it, how to withdraw.
 - **Release build:** no play log; local story only.
 - Details: `save-system.md`.
@@ -203,7 +203,7 @@ Details and numbers: `story-bible.md` §6, `night1-scenes.md` (costs, facts, sta
 |---|---|---|
 | 1 | **Art test** | the pixel-art room test is judged (`art-direction.md` §9) |
 | 2 | **Vertical slice** | Night 1's first 10–15 minutes at final quality (`vertical-slice.md`) |
-| 3 | **Night 1 complete** | the whole night playable, including the room, the power bank, the erase and Check-in |
+| 3 | **Night 1 complete** | the whole night playable, including the room, the power bank, and the erase |
 | 4 | **Night 2 complete** | the second fake, Conversation Assist, Rachel's share, the route choice |
 | 5 | **Night 3 and endings** | both versions, the export, the last talk, four endings |
 | 6 | **Content complete** | every line final; no `[TBD]` |
@@ -231,7 +231,7 @@ Alongside all of it, a full review: every line, every function's placement and e
 - the evidence list (8–10 core pieces);
 - the day interludes;
 - the classification table for typing;
-- Juno's last attempt to keep the player, re-keyed to the Check-in answers;
+- Juno's last attempt to keep the player, keyed to Orbit's inferred anchor;
 - sound;
 - the visual direction, after the art test;
 - nearly all final lines.
@@ -239,7 +239,7 @@ Alongside all of it, a full review: every line, every function's placement and e
 ## 13. Playtesting and research
 
 - **Questions to answer:** do players notice the fake doesn't sound like Rachel; when do they start to doubt Juno; do they read its care as care, retention, or both, before and after Night 3; do they feel free to leave.
-- **What to record:** choices (Suggested reply or typed, Check-in answers, exits, the route choice, the ending); short interviews after play.
+- **What to record:** choices (Suggested reply or typed, exits, the route choice, the ending); short interviews after play.
 - **Rounds:** the vertical slice; Night 1 complete; the whole game.
 - **Consent:** every playtest runs on the playtest build with the consent page; no names, no raw typed text unless the consent says so.
 

@@ -34,7 +34,7 @@ The visual system stays the one decided on 2026-10-13: phone, humans, Orbit.
 |---|---|---|
 | **Room / phone hardware** | the desk, lamp, window, objects, the player's hands, the phone's body | pixel art, dark grey-green, lit by the lamp and the screen |
 | **Humans** | Rachel's messages and old photos, Dani, the player's Notes and Night Log, Rachel's private share (Night 2) | warm off-white paper, handwriting, tape, polaroids, a little red |
-| **Orbit** | Juno, Suggested replies, Conversation Assist, Continuity, Check-in, Orbit's records (Night 3) | clean, crisp, smooth gradients, deep blue-violet, the orbit ring; the only thing that glows |
+| **Orbit** | Juno, Suggested replies, Conversation Assist, Continuity, Orbit's records (Night 3) | clean, crisp, smooth gradients, deep blue-violet, the orbit ring; the only thing that glows |
 
 ## 5. Colour
 
@@ -60,6 +60,8 @@ The visual system stays the one decided on 2026-10-13: phone, humans, Orbit.
 - **The phone's body** is pixel art like the room; **its screen is not.** The screen shows the game's UI at full resolution, crisp, in the Orbit layer's style. The contrast is the point: the one high-resolution thing in a hand-drawn room.
 - **Screens** follow the existing UI (Juno's thread, the lock screen) until the author's Figma style frames replace it (§11).
 - **Text, hybrid (decided 2026-11-12):** the pixel font VT323 only for interface chrome (the `orbit` wordmark, page and section headings, uppercase labels, date dividers, counts, back labels, `INFO`, `AI COMPANION`, tab labels, the status bar). Inter for anything a clue could be in: message bubbles, chat previews, names, list text, plan fields, change history entries, Rachel's note, the Contact Protection sheet. VT323 is used at a size whose pixel grid lands on whole screen pixels at every supported scale.
+
+**Superseded 2026-11-18 by `docs/phone-screens.md`**, the one source for every phone screen (text styles, colours, spacing, each screen element by element). Where anything below differs, `phone-screens.md` wins.
 
 ### Orbit UI design system v1.0 (fixed 280 × 512, approved 2026-11-12)
 
@@ -99,7 +101,7 @@ For Orbit's screens on the phone only; not the room, the title screen or other s
 - **Home screen:** simple pixel glyphs for Notes, Photos and Settings until the author's icons; labels 10–11.
 - **Chats** sorted by latest message (Juno not pinned); unread threads show a dot.
 - **The tab bar and the home indicator** each have their own space.
-- **Activity:** Check-in options all left-aligned; the question prominent; the intro line and the small print small and dim, with space around them; a compact card; `Plans ›` looks tappable.
+- **Activity:** see `phone-screens.md`.
 - **Change history:** `Orbit keeps your conversations safe` is small, dim system text with a small Orbit mark, clearly not Rachel's words. `Change accepted` shows `OCT 20 · 5:12 PM`. `HANDLED BY` · `Conversation Assist ›` and `CONFIRMATION` · `Not required` as label / value rows.
 - **Threads:** the player's bubbles paper-tinted; Suggested replies never repeat something already sent; replies that don't fit fade at the right edge; the composer's field and send button the same height, with equal side margins.
 - **Me:** settings in grouped cards with dividers, children indented inside the group; every row has an 11, dim description (Privacy & Data: `Contact Protection and how Orbit handles your data.`); switches about the height of a line of text.

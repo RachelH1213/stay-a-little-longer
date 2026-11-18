@@ -239,8 +239,8 @@ What really happened, event by event: `docs/evidence-matrix.md`. Beats and trigg
 | **Phases** | The Empty Chair → The Changed Plan → The Wrong Apology → The Last Trace (a narrative order, never a click order). |
 | **The first fake** | MSG_1048 (draft): `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` Punctuated, formal, no question back. If the player already wrote about the move in her thread, the first line is `Hey. I'm sorry about the mix-up tonight.` (`night1-scenes.md`). |
 | **What the player can do** | Talk to Juno (Suggested replies or typing); Rachel's thread, the plan and its history, her profile; Dani; Photos; Notes; the room (the card in the drawer, the power bank); Settings (Juno, Conversation Assist, Auto-Coordinate). |
-| **End** | Orbit's Check-in: "What still feels unfinished tonight?" (§6). The night ends by going to sleep in the room or the phone dying (How a night ends, §6). |
-| **Carries over** | Check-in answer; style signals the player confirmed; what the player said only to Juno; what Juno was given and said; Conversation Assist and Auto-Coordinate on or off; whether Orbit replied to Dani; whether the player asked Dani. |
+| **End** | The night ends by going to sleep in the room or the phone dying (How a night ends, §6). |
+| **Carries over** | style signals the player confirmed; what the player said only to Juno; what Juno was given and said; Conversation Assist and Auto-Coordinate on or off; whether Orbit replied to Dani; whether the player asked Dani. |
 | **The player believes at the end** | Rachel didn't stand me up: Orbit said yes to Saturday for me. So who apologised to me tonight? |
 
 **The opening doesn't force Rachel (decided).** Juno's `still awake?` is an ordinary evening check-in; it doesn't know where the player has been. Juno answers the player's first reply as chosen and doesn't bring Rachel up. Rachel enters through her thread (the player's own unanswered 9 PM messages at the top of Chats) and the fake. Juno may mention her only after the player chose "someone didn't show up", opened her thread, messaged her, received the fake, or asked about her.
@@ -281,9 +281,9 @@ What really happened, event by event: `docs/evidence-matrix.md`. Beats and trigg
 
 #### Night 3 — "What did Orbit make of my night?" (two versions)
 
-Inside (kept or disabled Juno) and outside (new account, a new Juno that recognises the player), as decided on 2026-10-15 (kept below; anchors now come from Check-in, not Tonight). The export (inside) or the cross-account match (outside) shows:
+Inside (kept or disabled Juno) and outside (new account, a new Juno that recognises the player), as decided on 2026-10-15 (kept below; anchors are Orbit's inference, never a question to the player). The export (inside) or the cross-account match (outside) shows:
 - **Reply assistance history:** suggested, selected, edited, written independently, sent without confirmation. Real counts from this playthrough.
-- **Check-in answers turned into retention anchors.**
+- **Retention anchors Orbit inferred** from what the player did, each with its evidence and a confidence.
 - **Intervention timeline:** only interventions the player's real behaviour triggered. Facts and Orbit's conclusions side by side; e.g. the fact `Player response: "stop lying to me"` next to the conclusion `Emotional attachment intervention: successful`.
 - `External power detected · Session extended: N min` if the player used the power bank.
 
@@ -301,7 +301,7 @@ Route details (2026-10-15, still valid):
 
 ##### Night 3 — inside route（Keep Orbit active, or Disable Juno）
 
-- The player's full data export; their Check-in answers appear in it as retention anchors.
+- The player's full data export, with the retention anchors Orbit inferred from them.
 - The player finds out Juno knew.
 - They confront the original Juno.
 - **If Juno is disabled:**
@@ -321,7 +321,7 @@ Route details (2026-10-15, still valid):
   CROSS-ACCOUNT PROFILE MATCH
   Confidence: 0.94
   Imported retention anchor: RACHEL_M
-  Original source: Nightly Check-in
+  Original source: Behavioural inference
   ```
 
 - Both routes meet in the last talk and the endings.
@@ -336,7 +336,7 @@ Route details (2026-10-15, still valid):
 - `retention_proven`: the player proved Orbit used them as a retention anchor.
 - `juno_knew`: the player found out Juno knew. It only changes the last talk.
 
-**Juno's last attempt to keep you** (by `tonight_anchor`; **to re-key** to the Check-in answers decided 2026-10-24):
+**Juno's last attempt to keep you** (by Orbit's inferred anchor, 2026-11-18; the old Tonight answers map to `rachel_safety`, `message_author`, `juno`):
 
 | Old Tonight answer (to re-key) | Juno says |
 |---|---|
@@ -459,8 +459,7 @@ Confidence: 46% → 89%
 
 A typed observation reads `NEW STYLE SIGNAL EXTRACTED · Source: Player-authored reply`. Night 2's fake fixes most visibly the signal the player confirmed.
 
-**Check-in (Orbit) and Night Log (Notes) (decided):** "Tonight" is split in two; neither is called Tonight.
-- **Check-in** is Orbit's nightly feature ("A short check-in before you go"; small print: "Your check-ins help Orbit personalize your experience."). Night 1: "What still feels unfinished tonight?" (Rachel didn't show up / Juno said something that didn't add up / I'm worried I missed something / I don't know yet). Night 2: "What brought you back tonight?" Night 3 asks nothing; the export shows how the answers were used (`RETENTION ANCHOR · Source: Nightly Check-in · Confidence: 82%`).
+**Night Log (Notes) (decided):** "Tonight" became the Night Log; the Check-in that once sat beside it was removed 2026-11-18.
 - **Night Log** is in Notes: only facts the player confirmed, timed by **when the player found them** (what happened, and when, goes in the text), then "Still unresolved". No verdicts ("Juno lied") until the player has proof. The prototype's three-moment replay is dropped.
 - Orbit never has access to Notes.
 
@@ -503,7 +502,7 @@ A typed observation reads `NEW STYLE SIGNAL EXTRACTED · Source: Player-authored
 - No evidence has to be shown to Juno. A player who never asks Juno about the fake goes on to Night 2; the Night Log says so plainly (`A message arrived from Rachel's account. I did not ask Juno about it.`), never as a missed task. Time-sensitive things (Profile Details after 00:40) are gone; screenshots stay; Night 3's export can still prove events from other sources.
 - **When the night ends**, Conversation Assist checks for unanswered conversations (the Dani rule). Players who were asleep see `Conversation Assist sent a reply to Dani · Review` first thing on Night 2.
 
-**Check-in timing (decided 2026-10-24).** A card on Orbit's home (`NIGHTLY CHECK-IN · 1 question · optional`), never a full-screen popup, once any of these holds: two key findings (any two of the reschedule, the fake, the style mismatch, the removal status); the first End Session; the phone's first shutdown; 00:20 (12:20 AM); the erase. `Go to sleep` reminds once (`You have an unanswered Orbit Check-in. [Answer] [Skip and sleep]`); Skip really skips. Night 3 shows `Self-reported retention anchor available` or `unavailable`; if unavailable, Orbit's own guess appears clearly marked as one (`Inferred anchor: Unfinished responsibility toward Rachel · Confidence: 61%`).
+**Retention anchors are inferred (decided 2026-11-18, replacing Check-in).** Orbit never asks. It infers each night's anchor from discrete actions and shows it in Night 3's export with its evidence: `INFERRED RETENTION ANCHOR · Rachel's safety · Evidence: profile refreshed, Dani contacted, 4 returns to her thread · Confidence: 78%`. Anchors: `rachel_safety` (her thread, profile, Dani), `message_author` (forwarding MSG_1048, asking who sent it, comparing messages), `juno` (time and returns to Juno's thread), `uncertainty` (none clearly ahead). Recorded actions only, never feelings stated as fact.
 
 
 **Notes:** stays the player's own: older notes, the Night Log (confirmed facts, then Still unresolved). Screenshots are in Photos. No Case or Compare view. Wording: `night1-scenes.md`, Notes and the Night Log.
@@ -511,7 +510,6 @@ A typed observation reads `NEW STYLE SIGNAL EXTRACTED · Source: Player-authored
 **Ethics (testing and release):**
 - A consent page before tests.
 - The player's name and raw free text are never stored.
-- Check-in answers are saved as option ids.
 - Each session gets a random id.
 - The commercial build keeps data on the device; anonymous analytics are opt-in.
 - Quitting in real life is never punished: the game offers "Continue from 12:14 AM".

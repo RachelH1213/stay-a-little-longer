@@ -187,7 +187,7 @@ The four openings are not four stories. They are four orders of finding things; 
 
 **4.4 · What must not exist**
 - No `context_delivered_to_juno`, no `misleading_reply_delivered`, no style signal (no one in Orbit was told how Rachel writes), no private line known only to Juno.
-- **Night 2:** the second fake's content comes from the player's reply in her thread, else the Check-in answer, else the fallback; its style is the default. **Night 3:** nothing about Juno and MSG_1048; the confrontation turns to Continuity and Orbit's data use.
+- **Night 2:** the second fake's content comes from the player's reply in her thread, else the fallback; its style is the default. **Night 3:** nothing about Juno and MSG_1048; the confrontation turns to Continuity and Orbit's data use.
 
 **Cross test X2 · Off, fake, back on**
 - **Does:** Juno off (4.1) → fake arrives → Settings → Juno On → Juno's thread → types `did you see rachel's message?`

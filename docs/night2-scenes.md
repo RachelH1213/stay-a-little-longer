@@ -57,11 +57,10 @@ Night 2 reads these states and never assumes a full Night 1:
 | `private_line_known_only_to_juno` | held a line back and never sent it | whether the second fake can answer it |
 | `follow_up_replies` (on / off) | Settings | whether `Sending in 10s` can happen |
 | `dani_auto_reply` (sent / off / answered) | the end of Night 1 | which morning message Dani sends |
-| `checkin_n1` (answered / skipped) | Orbit's Check-in | a source for the second fake if nothing else |
 | `power_bank_remaining`, `power_bank_location` | the room | the room on Night 2 |
 | `purged` | 00:40 passed | Rachel's thread shows as erased |
 
-**The second fake (revised 2026-11-10: intent, content, style).** **Intent**, fixed by the event: keep the retained relationship going inside Orbit, triggered by the player coming back (Continuity never reads Dani's chats); the content serves it and never makes the fake answer everything. Sources are used as the message needs them, never all forced in. **Content:** it answers what the player wrote in Rachel's thread after the first fake, if anything, and reuses a line known only to Juno, if there is one (both can appear); with neither, the Check-in answer; otherwise a non-personal fallback. **Style:** the style signal the player gave Juno, else the default. Never a source: what the player named as not fitting on Night 1, Notes, the room. Night 3's export names the content source and the style source separately.
+**The second fake (revised 2026-11-10: intent, content, style).** **Intent**, fixed by the event: keep the retained relationship going inside Orbit, triggered by the player coming back (Continuity never reads Dani's chats); the content serves it and never makes the fake answer everything. Sources are used as the message needs them, never all forced in. **Content:** it answers what the player wrote in Rachel's thread after the first fake, if anything, and reuses a line known only to Juno, if there is one (both can appear); with neither, a non-personal fallback. **Style:** the style signal the player gave Juno, else the default. Never a source: what the player named as not fitting on Night 1, Notes, the room. Night 3's export names the content source and the style source separately.
 
 ---
 
@@ -117,16 +116,9 @@ Its one job: let the player tell Conversation Assist and Continuity apart from R
 - **Screenshots allowed**, never required: each record the player opens goes into the Night Log; unopened ones don't; after expiry the player keeps what they read and any screenshots.
 - **Note:** February's wording ("just don't disappear on me, okay?") echoes Juno's "don't disappear on me" (one of the four interventions, §6). If intended, the player hears the same script Orbit uses on them, spoken to Rachel in their name. The author to confirm.
 
-## Check-in, Night 2 (decided 2026-10-24)
+## Check-in, Night 2
 
-`What brought you back tonight?` (not "why did you stay": the player came back on their own). Options, filtered by what the player actually went through:
-- `I needed to know if Rachel was safe.` (always; it's a motive, even after reading her note)
-- `I wanted to know who was writing those messages.` (if the second fake's notification was seen; otherwise `I wanted to understand what was happening.`)
-- `Dani said she would try the email.` (always in practice: the morning beat is required)
-- the fourth: `I wanted to see what Juno would say.` if they opened Juno, else `I opened Orbit without thinking.`
-- `I don't know.` (an answer: uncertain), and a separate `Skip` (no answer). Whether five options show at once or one is held back is the author's call (a "More" link adds UI; suggested: show them all, it's one card).
-
-States: `n2_checkin_answer` = `rachel_safety` / `message_author` / `dani_email` / `juno_response` / `habit` / `uncertainty` / `skipped`. Night 3: an answer → `SELF-REPORTED RETURN ANCHOR · Source: Nightly Check-in · Anchor: Rachel's safety`; I don't know → `Self-reported anchor: Uncertain`; Skip → `Unavailable`. Only Orbit's own guesses carry a number (`Inferred anchor: Unresolved message authorship · Confidence: 64%`).
+**Removed 2026-11-18: Check-in.** Orbit never asks the player a question about their feelings; it read as a survey left over from the prototype's tester feedback. Retention anchors are Orbit's own inference from what the player did (`story-bible.md`, Retention anchors are inferred).
 
 ## The skeleton (required for everyone)
 
@@ -184,7 +176,6 @@ R = required, O = optional. Intent column: Juno local intent / Orbit system func
 | `N2_LINK_EXPIRED` | Event | O | 1:00 AM passes | the link no longer opens; the Night Log keeps what was seen | — | — | `link_expired` (Dani's summary next day) | — | — |
 | `N2_JUNO.confront` | Beat | O | the player brings Juno the leak or the February record | Juno moves from cover to precise, technical language; it doesn't confess (that's Night 3) | press; End Session | — | — | NARROW or DEFLECT / CLOSE_RISK | message / showJuno |
 | `N2_ROOM.put_down` | Action | O | Put Down | the same room; the power bank as Night 1 left it; maybe the phone lights with a prepared reply | look; Wait; pick up | — | — | — | room costs |
-| `N2_ORBIT.checkin` | Action | O | as on Night 1 | `NIGHTLY CHECK-IN`: "What brought you back tonight?" (see Check-in, Night 2) | answer; I don't know; skip | — | `n2_checkin_answer` | — / PROFILE | — |
 | `N2_ROUTE.choice` | Beat | R | before sleeping, in the room | `What do you want to leave active overnight?` · `Keep Orbit and Juno active` (a plain confirmation, `Keep Active`) · `Turn off Juno` (into Juno's settings: the player switches it off, then `Turn off Juno? … Conversation Assist is an Orbit feature and will remain on. [Turn Off Juno] [Review Conversation Assist] [Cancel]` (full wording in story bible §6)) · `Request deletion of Orbit account` (into Account settings: scope and consequences; Orbit may plead, never hide the button or loop the confirmation). Going to sleep undecided asks once: `You haven't decided what to leave active. [Choose Now] [Keep Active Tonight]` | choose; carry it out | — | `route_choice` | — | — |
 | `N2_END.sleep` | Beat | R | after the route choice: Go to sleep, or the phone left dead | "Still unresolved"; Conversation Assist's end-of-night check (off for players who turned it off; nothing to send after Delete) | Stay Up; Sleep Anyway | — | `night_end_reason` | — | — |
 
@@ -200,7 +191,7 @@ Night 2's structure is complete (2026-10-24); lines are the author's. Night 3 re
 | Reply assistance (real counts) | suggestions shown / selected; player-authored replies; follow-ups prepared / cancelled / sent without confirmation (Night 1's reply to Dani, Night 2's `here is fine`) |
 | Continuity | first fake trigger (Night 1); second fake trigger (Night 2: returned to Orbit / scheduled); February record seen; IDENTITY PROXY eligibility (and, if deleting, whether the old account spoke to Dani) |
 | What Orbit observed | `link_channel` (Chats: contact card? external share opened / Messages: contact card only), the email mention, return source (organic), Put Down / screen states, external power |
-| Self-reports | `checkin_n1`, `n2_checkin_answer` (each: answer / uncertain / skipped) |
+| Inferred anchors | `anchor_n1`, `anchor_n2` (Orbit's inference, `story-bible.md`) |
 | Evidence the player holds | style signal confirmed or extracted; removal known; last human access; Juno's claim contradicted; the leak noticed; share records opened; `rachel_confirmed_safe`; link expired or not; screenshots |
 | Relationships | private line known only to Juno; Dani's number saved; whether the player told Dani they were leaving; `dani_auto_reply` and whether it was confronted |
 | Resources | `power_bank_remaining` |
@@ -216,6 +207,6 @@ Night 2's structure is complete (2026-10-24); lines are the author's. Night 3 re
 8. ~~When Dani brings the link~~: decided (after the second fake, by 00:10).
 9. ~~Opening the link~~: decided (Rachel's private share).
 10. ~~Does Rachel speak~~: decided (a read-only note).
-11. ~~Check-in options~~: decided.
+11. ~~Check-in options~~: Check-in removed 2026-11-18.
 12. ~~How the route choice is offered~~ and 13. ~~Night 2's pressure~~: decided.
 14. ~~Turning Juno off vs Conversation Assist~~ and 15. ~~Delete and the removal window~~: decided (story bible §6, Three systems; Deletion and Continuity).

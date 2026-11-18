@@ -211,7 +211,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **The player saw:** Orbit's banner; at 12:40 her profile closes and the thread becomes `Orbit User · Formerly Rachel H.`; the player's history and screenshots stay.
 
 **E17 · Night 1 ends**
-- Check-in; if Dani was left unanswered and Follow-up replies are on, Conversation Assist answers her as the player (`night1-scenes.md`).
+- If Dani was left unanswered and Follow-up replies are on, Conversation Assist answers her as the player (`night1-scenes.md`).
 
 ### The morning, and Night 2
 

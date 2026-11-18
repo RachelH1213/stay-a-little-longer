@@ -56,7 +56,7 @@ Revised 2026-10-25 (the Unity session found that one resume point and the first 
   player_name,                        // local only
   first_memory_id, join_reason,       // either may be null
   recalled_replies: { blank_reply_content_id → option_content_id },   // "What do you remember saying?" on an old reply
-  checkin_n1, n2_checkin_answer,      // option ids; "uncertain" and "skipped" are distinct
+  anchor_n1, anchor_n2,               // Orbit's inferred anchors (no Check-in)
   style_feedback: { style, quote },   // quote is local only
   ending_selected,
 
@@ -198,7 +198,7 @@ The game resumes on a main screen only:
 room · lock_screen · home · orbit_chats · juno_thread · rachel_thread · dani_thread · notes (incl. the Night Log) · photos · messages · browser (Rachel's share) · data_export
 ```
 
-Orbit's Check-in is a card, never a resume point. (Updated 2026-10-24: "Tonight" was split into Check-in and Night Log.)
+(Check-in removed 2026-11-18; "Tonight" is the Night Log in Notes.)
 
 Never restored: an open drawer or bag in the room, photo detail, the screenshot tray, screenshot mode, tutorial tips, toasts, typing dots, confirmation dialogs, settings scroll. What they changed stays (an opened photo stays in `photos_opened`); only the overlay itself is gone.
 

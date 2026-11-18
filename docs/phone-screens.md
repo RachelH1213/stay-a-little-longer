@@ -69,7 +69,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Tab bar.
 
 ### A thread (Juno, Rachel, Dani)
-- Bar (paper): Back at the left, the button (`INFO` for Rachel and Dani, `END` for Juno) at the right, both as in §3. In the middle, centred on the screen: the avatar, 20 × 20, the same head-and-shoulders image as in Chats inside the same 1 px ink frame (never the full-body sprite, nothing sticking out of the frame), 6 apart from the name (Strong, ink). Avatar and name together open the profile.
+- Bar (paper): Back at the left, the button at the right: `INFO` for Rachel, `END` for Juno, none for Dani (she has no profile), both as in §3. In the middle, centred on the screen: the avatar, 20 × 20, the same head-and-shoulders image as in Chats inside the same 1 px ink frame (never the full-body sprite, nothing sticking out of the frame), 6 apart from the name (Strong, ink). Avatar and name together open the profile.
 - Date dividers: Label, centred, with a rule on each side.
 - Bubbles: Body, padding 8 / 6, at most 75% of the width, 1 px border. The other person: card fill, line border, at the left. The player: mine fill, mine-line border, at the right.
 - Groups: one sender within 5 minutes; 4 between bubbles, 12 between groups. The time (Secondary) once, under the group's last bubble, on its side; `· Delivered` after the time of the player's last message only.

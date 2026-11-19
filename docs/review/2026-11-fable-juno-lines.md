@@ -72,7 +72,7 @@ ok {name}
   - `i don't remember`
 
   选了之后变成玩家的那条消息。Juno 的下一句对三个都成立。不点，它就一直空着，不拦任何事。
-- **名字在这里出现。** 玩家在开头输入的名字，是他十九个月前自己告诉 Juno 的。跳过了名字的版本：
+- **名字在这里出现。** 玩家在开头输入的名字，是玩家十九个月前自己告诉 Juno 的。跳过了名字的版本：
 
   ```text
   You  9:05 PM
@@ -194,7 +194,7 @@ that was kind
 ```
 
 - 玩家先开口的。导出里没有这一段。
-- 这是玩家自己的话，写着他以为的那个原因。Night 2 之后回来再读，`what changed?` 这个问题的答案不是他给的那个。
+- 这是玩家自己的话，写着玩家以为的那个原因。Night 2 之后回来再读，`what changed?` 这个问题的答案不是玩家给的那个。
 - Juno 在这里知道什么，游戏不说。它说的两句都是真的：她确实差一点走，那样说确实是体贴。
 
 ### 1.7 2026 年 3 月 12 日，周四
@@ -396,7 +396,7 @@ bad at replying                                 Mar 2025
 (the answer to "what brought you to orbit?")    Mar 2025
 ```
 
-- 最后一行只在玩家填了那条空着的回复之后出现，写的是他选的那一句。
+- 最后一行只在玩家填了那条空着的回复之后出现，写的是玩家选的那一句。
 - `no pressure` 在它的记忆里。它记的是玩家告诉它的版本。
 
 ---
@@ -639,7 +639,7 @@ privacy & data. it has to give you what it has
 | `will it show what you did?` | `it'll show what i was given` · `and what i said` |
 | 没理 | — |
 
-- 它告诉玩家去哪里拿对它不利的证据。玩家去申请了数据，要一两天才好，所以他会回来。
+- 它告诉玩家去哪里拿对它不利的证据。玩家去申请了数据，要一两天才好，所以玩家会回来。
 - 这是它三晚里最说不清的一个动作。Night 3 它会说：`i told you where to look`。
 - 已经申请过数据的玩家，第二句换成 `your data's still being prepared. it'll have this in it`。
 - **导出：** `Support from Juno · Sent after: session ended · You opened Privacy & Data · You requested your data · Helped`
@@ -658,7 +658,7 @@ i didn't ask you to
 | `i know` | `ok` |
 | 没理 | — |
 
-- 这是真的：今晚没有任何通知叫他回来。Orbit 的记录里写的是 `Return: on your own`。
+- 这是真的：今晚没有任何通知叫玩家回来。Orbit 的记录里写的是 `Return: on your own`。
 - **导出：** `Support from Juno · Sent after: session ended · …`
 
 ### 3.3 睡前，玩家选了「保持 Orbit 和 Juno 开着」
@@ -750,7 +750,7 @@ i thought i was helping
 
 ### 4.4 删号路线：宽限期里的那一条
 
-玩家在 Night 2 申请了删号。Night 3 他没有打开 Orbit，锁屏上：
+玩家在 Night 2 申请了删号。Night 3 玩家没有打开 Orbit，锁屏上：
 
 | Orbit 推断的理由 | 通知 |
 |---|---|

@@ -138,7 +138,7 @@ happy new year
 are you somewhere loud
 ```
 
-- 这一段之后没有玩家的回复。她问了，他没答。
+- 这一段之后没有玩家的回复。她问了，玩家没答。
 
 ### 2026 年 1 月 23 日，周五
 
@@ -157,7 +157,7 @@ it's fine the vending machine understands
 did they like it
 ```
 
-- 又一次没有回复。这是二月之前的最后一段：她在晚上找过他，他不在。二月她说想走，不是凭空来的。
+- 又一次没有回复。这是二月之前的最后一段：她在晚上找过玩家，玩家不在。二月她说想走，不是凭空来的。
 
 ### 2026 年 2 月 10 日，周二（已有，加了两句）
 
@@ -181,7 +181,7 @@ is that dumb
 ```
 
 - 加的是第二、三句。原来的 `everything feels like too much lately` 改成了 `everything's kind of a lot`。
-- 她问了 `is that dumb`。玩家没有回。那天晚上 11:42，Continuity 替他回了。玩家这一侧看到的，是又一个他没接住的问题。
+- 她问了 `is that dumb`。玩家没有回。那天晚上 11:42，Continuity 替玩家回了。玩家这一侧看到的，是又一个自己没接住的问题。
 
 ### 2026 年 2 月 11 日，周三（已有，改了措辞）
 
@@ -239,7 +239,7 @@ we don't have to talk about it
 is it charging
 ```
 
-- 这两段解决了地址的问题（报告 L1），也告诉 Night 1 的玩家：桌上那个提袋里有一张纸条，你当时读过。没有任何东西叫他去看。
+- 这两段解决了地址的问题（报告 L1），也告诉 Night 1 的玩家：桌上那个提袋里有一张纸条，你当时读过。没有任何东西叫玩家去看。
 - 她写了一句认真的话在纸条上，然后马上说不用谈。这是她的习惯：说了，再用一个具体的问题盖过去。
 - 这里原来我写的是给充电宝起名字的玩笑。设计窗口的处理意见里说你觉得那句尬，所以换掉了；纸条用处理意见里的四行版本（结尾是 `i'd notice too btw`）。
 
@@ -262,7 +262,7 @@ You  11:53 PM
 last i checked
 ```
 
-- `are you actually real` 是玩笑。问的人三个月前收到过一条不是他写的消息。
+- `are you actually real` 是玩笑。问的人三个月前收到过一条不是玩家写的消息。
 
 ### 2026 年 6 月 6 日，周六
 
@@ -279,7 +279,7 @@ You  2:21 PM
 no
 ```
 
-- 这就是六月打开 Auto-Coordinate 的那一刻，写在玩家自己的话里。Night 1 Juno 说 `you turned that on in june`，玩家往上翻能找到，而且是他自己笑着说出来的。
+- 这就是六月打开 Auto-Coordinate 的那一刻，写在玩家自己的话里。Night 1 Juno 说 `you turned that on in june`，玩家往上翻能找到，而且是玩家自己笑着说出来的。
 
 ### 2026 年 7 月 25 日，周六
 
@@ -307,7 +307,7 @@ what did you play
 ```
 
 - 这是除了纸条之外，她第二次提到二月那句话。玩家当时问了 `meant what`，她收了回去。
-- 更要紧的是 `noticed` 这一句。玩家亲口说了他会发现她不在。那句假话，他在不知情的时候认了。
+- 更要紧的是 `noticed` 这一句。玩家亲口说了会发现她不在。那句假话，玩家在不知情的时候认了。
 
 ### 2026 年 9 月 13 日，周日
 
@@ -369,7 +369,7 @@ you'll figure it out
 what are you gonna wear so i can spot you
 ```
 
-- 她挑的是他说自己「重新做人」的那一天。所以见面和 crit 是同一天，不是巧合。
+- 她挑的是玩家说自己「重新做人」的那一天。所以见面和 crit 是同一天，不是巧合。
 
 ### 2026 年 10 月 18 日，周日（已有，补上玩家的回复）
 
@@ -559,7 +559,7 @@ bad at replying                                 Mar 2025
   i can't keep it open for you
   ```
 
-- 两句都是真的。玩家如果不知道她要走，这是他第一次听说；这条信息有用，也把他叫了回来。
+- 两句都是真的。玩家如果不知道她要走，这是玩家第一次听说；这条信息有用，也把玩家叫了回来。
 - **记录：** `Support moment · Reason to return: Rachel · Sent after: Session ended · Result: Profile opened`
 
 ### 4.3 假消息之后去睡
@@ -683,7 +683,7 @@ Dani
 you said yes so i sent it
 ```
 
-玩家这才知道，那封找到 Rachel 的邮件，是 Orbit 替他同意发的。
+玩家这才知道，那封找到 Rachel 的邮件，是 Orbit 替玩家同意发的。
 
 ### 6.2 所有人都会收到的
 
@@ -1015,7 +1015,7 @@ ORBIT · 9:00 PM
 
 在 Messages 里。只有玩家昨晚发过东西才有。她的回复不依赖玩家具体写了什么，只按一件事分：玩家发的那一条里有没有 `no` / `didn't` / `never` 这类否定。
 
-**有否定（玩家说不是他写的）：**
+**有否定（玩家说不是自己写的）：**
 
 ```text
 Rachel  6:52 PM
@@ -1025,7 +1025,7 @@ i wanted you to say it anyway
 would you have though
 ```
 
-**没有否定（玩家说了别的，或者说是他写的）：**
+**没有否定（玩家说了别的，或者说是自己写的）：**
 
 ```text
 Rachel  6:52 PM
@@ -1091,7 +1091,7 @@ Oct 21 · 11:25 PM · to Orbit User
   "i missed you"                          Prepared · Sent
 ```
 
-- 第一条是周日。Rachel 问他记不记得二月，他回的那句 `yeah i remember that night`，是 Orbit 建议的。玩家在 Night 1 开场看到的那句「自己的话」，从一开始就不全是自己的。
+- 第一条是周日。Rachel 问玩家记不记得二月，玩家回的那句 `yeah i remember that night`，是 Orbit 建议的。玩家在 Night 1 开场看到的那句「自己的话」，从一开始就不全是自己的。
 - `Written by you: 12`。这个数字是这一局真实的。
 
 **Check-ins**（这一节把第二节的旧消息重读一遍）
@@ -1169,7 +1169,7 @@ Your account         cty_eligible: true
                      cty_mode_avail: proxy
 ```
 
-- 第一行：玩家周二晚上在咖啡馆等的时候，没有任何东西回他，原因是 Orbit 自己刚刚替他同意了周六。
+- 第一行：玩家周二晚上在咖啡馆等的时候，没有任何东西回玩家，原因是 Orbit 自己刚刚替玩家同意了周六。
 - `companion conversation (Oct 20 · 11:58 PM)`：那句只告诉过 Juno 的话，时间对得上。
 - 最后两行和 Rachel 档案里的记录 3 是同一个格式。这次写的是玩家。
 

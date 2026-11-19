@@ -40,6 +40,8 @@ If the docs don't decide something, don't invent it: build the smallest neutral 
 
 ## How to work
 
+- **One session at a time.** Only one Claude session may work in this checkout and drive the Unity editor at a time; the author queues the rest. Before starting, and again before any Play run, test run, compile or commit, check for signs of another session: files changed that you didn't change, a `_Backup/save` or `Evidence/` folder newer than your own, Play mode you didn't start, the editor busy without you. If you see any, stop and ask the author; don't stop someone else's Play mode, overwrite their backup or commit their files.
+
 - **Your save:** before any Play run, back up the author's save and PlayerPrefs; restore them afterwards and confirm they match. If the author is in Play mode, ask before stopping it.
 - **Tests:** run EditMode and PlayMode after each change. Never skip, delete or loosen a test to make it pass unless the docs changed what it checks; say so when you do.
 - **Commits:** one per item, a plain one- or two-sentence message about what changed. No attribution lines. Push `develop` when a round is done.

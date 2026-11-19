@@ -159,7 +159,14 @@ Orbit's reply at the end of the night follows Dani's last line, in Orbit's punct
 
 Orbit's own setting, claiming only what an app can do: `Battery Saver` · `Orbit uses less power. Screenshots of Orbit are paused.` Notes and Photos work as normal. Its other effects (Juno costs less) stay. Replaces `Notes, Photos and Screenshot pause while it's on.`
 
-### 2.11 The danger note (done 2026-11-19)
+### 2.11 Four interaction rules (from the Unity audit, decided 2026-11-19)
+
+1. **Picking the phone up:** always the lock screen first (Juno's attempts arrive there); swiping up returns to the page the phone was put down on, with any typed text. Esc closes an open sheet before it puts the phone down. (`story-bible.md` §6)
+2. **Back:** always the previous page, labelled with its name; the path is saved. (`phone-screens.md` §3)
+3. **The first cost:** shown in the status bar (clock and battery highlighted as they change), never as a text tip in the phone; Before You Begin says it once. (`landing.md` §4.2, §4.7)
+4. **16:10 and other shapes:** the room fills the screen at a whole-number scale, cropped at the edges; the phone and every control stay inside a 512 × 320 safe area. (`art-direction.md`)
+
+### 2.12 The danger note (done 2026-11-19)
 
 Any composer (Juno, Rachel, Dani). See `rebuild-CLAUDE.md`.
 

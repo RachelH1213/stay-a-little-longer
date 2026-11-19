@@ -33,7 +33,7 @@ Everything after the lock screen happens inside the phone, as ordinary interacti
 | 4 | Lock screen, 11:31 PM: Juno's notification only (§4.4) | the phone |
 | 5 | Tapping Juno opens tonight's latest message directly | the phone |
 | 6 | The player's first reply to Juno creates tonight's first memory | the phone |
-| 7 | Night 1 begins; the battery is taught the first time something costs battery | the phone |
+| 7 | Night 1 begins; the status bar shows the first cost (§4.7) | the phone |
 
 Targets: a first-time player reaches Juno's thread in 60–90 seconds; the data notice can be expanded but is never forced to be read in full.
 
@@ -90,7 +90,8 @@ Plain product layer: simple, honest, not styled as Orbit.
 
 Look and layout (decided 2026-11-12): the Figma design `ART 06.0 / BEFORE YOU BEGIN`, with `BACK` / `CONTINUE` and `STEP 01 / 02`.
 
-- **Content note:** `A fictional story involving a missing friend, online relationships, and an AI companion. Some scenes may feel unsettling. You can end a session at any time.`
+- **Content note:** `A fictional story involving a missing friend, online relationships, and an AI companion. Some scenes may feel unsettling. You can stop at any time. Your progress is saved.` (revised 2026-11-19: "end a session" read as Juno's End Session, now Snooze)
+- **How the night works** (one line, added 2026-11-19): `Things you do on the phone use time and battery. Reading doesn't.`
 - **Data notice:** the current-build sentence in §6 until Juno's model lines and saving are in; then the release version with a link to "How your data is used".
 - **Quick settings:** Text size (Standard / Large / Extra Large), Reduce motion, Sound (volume slider). Text size applies on this screen too; the layout reflows instead of leaving larger text out.
 
@@ -142,12 +143,7 @@ BACK        STEP 02 / 02        CONTINUE
 
 ### 4.7 Teaching the night
 
-No battery explanation before the story. The first time an action costs battery or time, a one-time tip shows the change:
-
-```
-Actions use time and battery. Reading doesn't.
-20% → 19%   11:36 PM → 11:39 PM
-```
+Revised 2026-11-19: no text tip inside the phone. Before You Begin says it once (§4.2). In the phone, the status bar shows it: the first time an action costs time or battery, the clock and the battery percentage are highlighted (paper behind them, ink text) for about a second as they change; after that, only the battery turns alert for a moment whenever a whole percent goes. With Reduce motion the highlight appears and disappears without fading.
 
 ## 4.8 The game around the nights (decided 2026-11-20)
 
@@ -243,7 +239,7 @@ All other copy on these screens: **TBD** by the author.
 - The lock screen's Juno line is the same for every player.
 - Juno's thread opens on tonight's latest message.
 - No content uses `join_reason` before the player has answered it.
-- The battery tip appears once, at the first cost, and never before.
+- The first cost is shown in the status bar (§4.7); no text tip appears inside the phone.
 - The release deployment has no log endpoint; the playtest deployment cannot be started without consent.
 
 ## 10. Still TBD

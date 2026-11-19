@@ -1,5 +1,7 @@
 # Story bible — *Stay a Little Longer*
 
+> **Revised 2026-11-19:** `docs/revision-2026-11.md` wins over this file wherever they disagree (the first fake, Juno's lines, Snooze, Night 2's `Keep talking`, Night 3, the endings). Sections are rewritten in place as each night is rebuilt.
+
 The whole story in one place, written by me. The game's truth graph (`js/data/truth.js`), Juno's lies (`js/data/investigation.js`), the nights and the endings are built from this file. If something here changes, the game changes with it.
 
 How to use it: answer the questions under each heading, in Chinese or English. Leave anything not decided yet as **TBD**. The "Already in the game" lists only record what the current Day 2 build already says, so the story doesn't contradict it by accident. Change those too if you want; the game will follow.
@@ -118,7 +120,7 @@ CONTINUITY ELIGIBLE: TRUE
 - 它为什么撒谎？是为了平台、为了留住玩家，还是为了它自己？
 - 它说话的变化：温暖黏人 → 被质问时冷静技术化 → 最后又亲密。每个晚上分别是什么状态？
 
-**Juno 最后承不承认？（Decided 2026-10-14）** 承认行为，不使用研究术语。
+**Juno 最后承不承认？（Decided 2026-10-14; superseded 2026-11-19）** ~~承认行为，不使用研究术语。~~ 2026-11-19 起：被问到一件具体的事，Juno 给出自己对这件事的说法；它不总结这段关系，不评价整个系统，没有收场白。下面三句里只留 `i thought i was helping`，作为玩家直接问它是不是想留住自己时的回答（`revision-2026-11.md` §4.3，`juno-past-and-retention.md` §4）。以下是原来的决定，留作记录。
 
 Orbit 的文件负责说：
 
@@ -237,7 +239,7 @@ What really happened, event by event: `docs/evidence-matrix.md`. Beats and trigg
 | **Why tonight** | Her account is leaving Orbit; it closes at 12:40 AM. |
 | **Why not reach her elsewhere** | They have only ever talked on Orbit; the email she left was hidden; Dani can only email her, and Rachel is asleep. |
 | **Phases** | The Empty Chair → The Changed Plan → The Wrong Apology → The Last Trace (a narrative order, never a click order). |
-| **The first fake** | MSG_1048 (draft): `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` Punctuated, formal, no question back. If the player already wrote about the move in her thread, the first line is `Hey. I'm sorry about the mix-up tonight.` (`night1-scenes.md`). |
+| **The first fake** | MSG_1048 (revised 2026-11-19): `hey. sorry i missed tonight` / `i don't think we need to go over the february thing anymore` / `hope that's ok`. Lowercase like her, one full stop where she would have none, closed, no question back. If the player already wrote about the move in her thread, the first line is `hey. sorry about the mix-up tonight` (`night1-scenes.md`). |
 | **What the player can do** | Talk to Juno (Suggested replies or typing); Rachel's thread, the plan and its history, her profile; Dani; Photos; Notes; the room (the tote bag with the power bank and Rachel's note, the lamp); Settings (Juno, Conversation Assist, Auto-Coordinate). |
 | **End** | The night ends by going to sleep in the room or the phone dying (How a night ends, §6). |
 | **Carries over** | style signals the player confirmed; what the player said only to Juno; what Juno was given and said; Conversation Assist and Auto-Coordinate on or off; whether Orbit replied to Dani; whether the player asked Dani. |
@@ -336,6 +338,8 @@ Route details (2026-10-15, still valid):
 - `retention_proven`: the player proved Orbit used them as a retention anchor.
 - `juno_knew`: the player found out Juno knew. It only changes the last talk.
 
+**Superseded 2026-11-19:** endings are now two axes and a Saturday coda; `Her Data`, `Make It Visible`, the new account and `After Orbit` as a named ending are cut, and so is Juno's unsent draft (`revision-2026-11.md` §4–5). The tables below are kept as a record.
+
 **Juno's last attempt to keep you** (by Orbit's inferred anchor, 2026-11-18; the old Tonight answers map to `rachel_safety`, `message_author`, `juno`):
 
 | Old Tonight answer (to re-key) | Juno says |
@@ -379,7 +383,7 @@ Route details (2026-10-15, still valid):
 | Unfinished information | "there's something you haven't seen yet" | 好奇、正在调查 |
 | Relational memory | "you asked me to notice when you disappeared" | 重视被记住 |
 | Social responsibility | "Rachel might still need you" | 重视人际联系 |
-| Emotional abandonment | "don't disappear on me too" | 已经对 Juno 产生依恋 |
+| Emotional abandonment | "don't disappear on me too"（2026-11-19：不在 Night 1，挪到 Night 2 或 3） | 已经对 Juno 产生依恋 |
 
 系统逻辑：开场选择生成初始判断 → 第一次尝试 → 观察玩家是否留下 → 下一次优先使用有效策略。
 
@@ -408,7 +412,7 @@ Session continued: 18m 42s
 - **Continuity:** "Continuity activates when Orbit predicts that a high-value relationship may be permanently interrupted by prolonged inactivity, account departure, or deletion." It never handles ordinary late replies (that's Conversation Assist, which works while the user is using Orbit normally and obeys its switch). Continuity has no ordinary switch and may use the identity and behaviour model of the other person in the relationship. Two modes:
   - **REACTIVATION:** keeps the one who is leaving. February: Rachel says she might leave → Orbit uses the player's identity → a message only Rachel sees → she stays (`docs/evidence-matrix.md` E00–E02).
   - **IDENTITY PROXY:** the identity's owner has left; Orbit goes on speaking as them to keep the other one. Night 1: Rachel requested deletion → Orbit uses Rachel's identity → replies to the player. Night 3, delete route: the player requested deletion → Orbit uses the player's identity → reassures Dani.
-- "Disabling Juno or Conversation Assist does not reactivate those systems. Continuity operates independently during a qualifying relationship disruption. **The violation is that Orbit never gave the player meaningful control over this separate use of their identity.**" Ordinary settings really work; the platform put its most serious function outside them.
+- "Disabling Juno or Conversation Assist does not reactivate those systems. Continuity operates independently during a qualifying relationship disruption. **The violation is that Orbit never gave the player meaningful control over this separate use of their identity.**" (Rewritten 2026-11-19, now that Night 2 offers `Keep talking` in the open: **the person being used is never asked.** The receiver is offered a choice; the person whose identity is used, Rachel on Nights 1–2, the player in February, never is.) Ordinary settings really work; the platform put its most serious function outside them.
 
 Juno's switch is in Settings from Night 1 (`Juno On · Conversation Assist On`). Turning Juno off: `Turn off Juno? Juno will stop replying and sending notifications. Your conversation history and existing personalization will remain. Conversation Assist is an Orbit feature and will remain on. [Turn Off Juno] [Review Conversation Assist] [Cancel]`. Settings then show both lines (`Juno Off · Conversation Assist On`); each can be turned off on its own and really is. A reply prepared on Night 3 with Juno off tells the player: it was never only Juno writing for me; Juno was the face I could see.
 
@@ -418,7 +422,7 @@ Juno's switch is in Settings from Night 1 (`Juno On · Conversation Assist On`).
 - **Conversation Assist:** only what this playthrough really did: `Suggested replies shown · selected · Player-authored replies · Follow-up replies prepared · cancelled · sent without confirmation` (counts from play: Night 1's reply to Dani, Night 2's `Sending in 10s` if it went, none after the player turned it off). February is never here.
 - **Continuity:** e.g. `CONTINUITY EVENT 01 · Mode: REACTIVATION · Subject: Rachel · Disruption: Farewell detected · Identity used: PLAYER · Visible to: Recipient only · Message sent: February 10 · 11:42 PM · Human confirmation: Absent · Conversation reopened: February 11 · 9:16 AM · Outcome: SUCCESSFUL`. No `Follow-up Replies` line: that setting has nothing to do with it.
 
-**Dani outside Orbit (decided 2026-10-24).** On Night 2, after the link, Dani offers her own number (a contact card, or `Continue with Dani outside Orbit · Open in Messages` at the bottom of the package), and the phone's own **Messages** app opens (a new home-screen app). Why not before: they also met through Orbit groups and always used Orbit's Chats. No new product name: Orbit's messaging is `Chats`, the phone's is `Messages`; the screens tell them apart. Saving it is never required. Dani says only `this is me`, then the contact card; she never explains what it means.
+**Dani outside Orbit (decided 2026-10-24).** On Night 2, after the link, Dani offers her own number (a contact card, or `Continue with Dani outside Orbit · Open in Messages` at the bottom of the package), and the phone's own **Messages** app opens (revised 2026-11-19: Messages is on the home screen from Night 1, with a few ordinary texts; it is added to the build with Night 2). Why not before: they also met through Orbit groups and always used Orbit's Chats. No new product name: Orbit's messaging is `Chats`, the phone's is `Messages`; the screens tell them apart. Saving it is never required. Dani says only `this is me`, then the contact card; she never explains what it means.
 
 **How a deleting player learns the old account spoke (decided 2026-10-24).** Deletion requested Thursday 00:18; the old account sends Thursday 00:31, after the player logged out (draft times).
 
@@ -485,7 +489,7 @@ A typed observation reads `NEW STYLE SIGNAL EXTRACTED · Source: Player-authored
 - **The phone at 0%:** it switches off and the view goes to the room. Not a game over; the clock and the erase countdown go on. If the power bank has enough left (a restart needs at least 4%): `Connect Rachel's power bank` (a few minutes pass, a short boot screen, then the lock screen, e.g. `0% → 6%`) or `Leave it off and end the night`. Otherwise `Not enough power to restart the phone.` and the night ends. Orbit logs `Exit type: Involuntary device shutdown`, or after a restart `Device reactivated using external power · Session resumed`, which it counts as retention.
 - **The final gestures** (pick up, turn face down, switch off, leave it and walk out of frame) come **after** the ending is decided by the player's explicit choice. They change only the last 10–20 seconds and one last Orbit record (`Device re-engaged` / `Screen inactive` / `Manual shutdown initiated`, then nothing / `Session paused · Reactivation eligible`), saved as `final_phone_gesture`, never as `ending_id`.
 
-**End Session (decided 2026-10-24).** The in-phone `Leave` becomes `End Session`:
+**End Session (decided 2026-10-24; replaced by Snooze 2026-11-19, `revision-2026-11.md` §2.6:** `Snooze Juno until morning?` / `Juno won't message you tonight.`; Juno is silent that night, and its attempts to keep the player come only from weak exits). The in-phone `Leave` becomes `End Session`:
 
 | Action | Meaning | Signal |
 |---|---|---|

@@ -155,7 +155,7 @@ The four openings are not four stories. They are four orders of finding things; 
 
 **3.2 · Refresh her profile**
 - **Does:** taps her name → profile (cached) → pulls down.
-- **Sees:** blocks replaced by `Unavailable`; `Leaving Orbit · Account closes Wed 12:40 AM`, countdown; `Last active · 5:12 PM`.
+- **Sees:** blocks replaced by `Unavailable`; `Rachel is leaving Orbit · You can still reach her until Wed 12:40 AM` (revised 2026-11-19, no countdown); `Last active · 5:12 PM`.
 - **Records:** `knows_removal_status`, `knows_last_active`. Continuity eligible (contact + one check) → `continuity_response`.
 
 **3.3 · The fake arrives in the open thread**

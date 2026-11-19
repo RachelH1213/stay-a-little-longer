@@ -1,5 +1,7 @@
 # Message and evidence matrix: February to Night 2
 
+> **Revised 2026-11-19:** `docs/revision-2026-11.md` §1 changes the truth in a few places (why Rachel moved the meeting, June, the February text, the first fake's text, Dani's email, the address, Sunday's reply, crit); the edits below carry them. Rachel's thread text: `docs/rachel-history.md`.
+
 What really happened, event by event, from February to the start of Night 2: who or what acted, what each side saw, what Juno was given and said, how the player can check it, and which player actions are remembered. **Draft, 2026-11-10**, for the author to check. Once confirmed, `story-bible.md`, `night1-scenes.md` and `game-plan.md` are updated to match. All quoted lines are drafts for the author to rewrite.
 
 ## Decisions this rests on (2026-11-10)
@@ -30,7 +32,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Orbit:** reads it as a farewell (`Farewell detected`).
 
 **E01 · Feb 10, 11:42 PM · February reactivation (locked 2026-11-10)**
-- **Origin:** Continuity (REACTIVATION), triggered by the farewell. The player's device was inactive (asleep). Continuity added a message to Rachel's view of their thread, displayed as the player (draft): `hey, i've been thinking about what you said earlier / i get why you want a break. i just don't want you to think i wouldn't notice if you left / i would. talking to you is one of the best parts of my day / you don't have to decide tonight. i just wanted you to know`.
+- **Origin:** Continuity (REACTIVATION), triggered by the farewell. The player's device was inactive (asleep). Continuity added a message to Rachel's view of their thread, displayed as the player (revised 2026-11-19, one version everywhere): `hey / you don't have to explain / i just don't want you to think i wouldn't notice if you left / i would / stay a little longer?`. The only place the title appears.
 - **The rule:** an identity-proxy message is a recipient-only insertion, not a send from the account. One system event, rendered only in the conversation of the person being intervened on. Only Continuity does this; no other system may create one-sided messages. It is one of Orbit's most serious practices, never presented as something every social app does.
 - **Rachel saw:** the message from the player.
 - **The player saw:** nothing. It was never in their thread.
@@ -109,6 +111,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Check:** her profile (Night 1); the deletion screen itself in Rachel's archive (Night 2).
 
 **E06 · Tue Oct 20, 5:12 PM · Rachel moves the plan**
+- **Why (decided 2026-11-19):** she wanted their first meeting to come after her account closed, with nothing of Orbit in it; and she didn't trust an instant `Accepted`, so she asked for an email. The email never came (Contact Protection hid the address): on Tuesday night the player waited at the café, and Rachel waited for the player's email. She says so once, on Night 2.
 - **Origin:** Rachel, on the Plans card: **`Saturday, Oct 24 · 9:00 PM`**, with a note (draft): `my schedule changed, can we do saturday? email me if that works: rachel.h@…` (revised 2026-11-10: the note no longer says she's leaving Orbit; the player learns that only from her refreshed profile)
 - **Rachel saw:** her note as written.
 - **The player saw (if they had opened it):** `… email me: [contact info hidden]`, then `Orbit keeps your conversations safe` on its own line.
@@ -117,7 +120,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 
 **E07 · Tue Oct 20, 5:12 PM · Conversation Assist accepts for the player**
 - **Origin:** Conversation Assist, under **Auto-Coordinate** (locked 2026-11-10):
-  > In June 2026 the player enabled Auto-Coordinate and accepted Orbit's suggested trusted contacts, including Rachel, in one setup flow (`Let Orbit handle routine schedule changes with people you coordinate with often` · `Accept suggested contacts & enable Auto-Coordinate`). It had since handled ordinary online game-night changes.
+  > In June 2026, after game night moved a third time that month, Juno suggested Auto-Coordinate and opened it; the player said `sure` (decided 2026-11-19, `juno-past-and-retention.md` 1.8). The player enabled Auto-Coordinate and accepted Orbit's suggested trusted contacts, including Rachel, in one setup flow (`Let Orbit handle routine schedule changes with people you coordinate with often` · `Accept suggested contacts & enable Auto-Coordinate`). It had since handled ordinary online game-night changes.
   >
   > Conversation Assist evaluates structured plan changes (scheduling conflicts, time and location, contact eligibility). It does not interpret free-text notes when deciding whether to accept a change.
   >
@@ -192,7 +195,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
   ```
 - **Two parts of Continuity (locked 2026-11-10):** its **eligibility** check reads structured platform signals (plan status, deletion status, unanswered messages, the player coming back); its **message composition** reads only the conversation (their history, the latest messages, the relationship model, their usual style), never Plans. From the chat it knows the player waited tonight (the meeting they set up there, the player's 9 PM `i'm here`); it doesn't know the plan moved. So it apologises for tonight. Not a fourth system: one system whose parts don't share everything, as in real products.
 - **Frequency:** Continuity intervenes rarely (a per-relationship limit), so not every unanswered message is answered in someone's name; the exact eligibility thresholds are for playtests to tune.
-- **The player saw (draft), two versions (decided 2026-11-10; `night1-scenes.md`):** **A**, if the player hadn't written about the move in her thread: `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` **B**, if they had: `Hey. I'm sorry about the mix-up tonight. / …` (same last two lines). Punctuated, formal, no question back.
+- **The player saw, two versions (revised 2026-11-19; `night1-scenes.md`):** **A**, if the player hadn't written about the move in her thread: `hey. sorry i missed tonight` / `i don't think we need to go over the february thing anymore` / `hope that's ok`. **B**, if they had: `hey. sorry about the mix-up tonight` / … (same last two lines). Lowercase, one full stop where she'd have none, closed, no question back.
 - **What doesn't fit, on Night 1:** A: Rachel moved the plan to Saturday, so why apologise for tonight. B: it doesn't answer what the player asked. Both: she raised February herself on Sunday; it isn't how she writes; her profile says last active 5:12 PM (odd, not proof).
 - **Check:** Night 2, Rachel denies sending it; Night 3, the player's records (E15).
 - **Remembered:** `saved_msg_1048` (screenshot), `showed_msg_1048_to_dani`.
@@ -234,7 +237,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 ### The morning, and Night 2
 
 **E18 · Wed Oct 21, morning · Dani reaches Rachel**
-- **Origin:** Dani emails Rachel; Rachel answers Dani: she moved the meeting to Saturday and was told the player accepted; she sent nothing last night; she's fine.
+- **Origin:** Dani emails Rachel (the address is on a payment receipt from when Rachel paid her share of a game pack, L3); Rachel answers Dani: she moved the meeting to Saturday and was told the player accepted; she sent nothing last night; she's fine. The player learns it in the morning, with a screenshot of Rachel's email (`revision-2026-11.md` §3.1).
 - **The player saw:** Dani's message in Orbit (wording: the author's).
 - **Rachel learns:** what the player went through; she sends, through Dani, her screenshot (E08) and the February part of her archive (E01), with a short note that also tells the player how she found out (by downloading her data).
 

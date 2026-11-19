@@ -1,5 +1,7 @@
 # Phone screens (draft for the author, 2026-11-18)
 
+> **Revised 2026-11-19:** layout here still holds; changed wording and new rows (Snooze, Rachel leaving, Battery Saver, Download your data, Delete account, Plan details' Share row, the `Keep talking` card) are in `docs/revision-2026-11.md`.
+
 Every phone screen, element by element. Sizes are in the 280 × 512 layout units. Nothing on the phone may use a size, colour or spacing that isn't in this document.
 
 ## 1. Text styles (the only seven)
@@ -75,7 +77,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Tab bar.
 
 ### A thread (Juno, Rachel, Dani)
-- Bar (paper): Back at the left, the button at the right: `INFO` for Rachel, `END` for Juno, none for Dani (she has no profile), both as in §3. In the middle, centred on the screen: the avatar (slot 32; a thread's bar is 40 tall instead of 32 to hold it), the same head-and-shoulders image as in Chats inside the same 1 px ink frame (never the full-body sprite, nothing sticking out of the frame), 6 apart from the name (Strong, ink). Avatar and name together open the profile.
+- Bar (paper): Back at the left, the button at the right: `INFO` for Rachel, `SNOOZE` for Juno (was `END`, 2026-11-19), none for Dani (she has no profile), both as in §3. In the middle, centred on the screen: the avatar (slot 32; a thread's bar is 40 tall instead of 32 to hold it), the same head-and-shoulders image as in Chats inside the same 1 px ink frame (never the full-body sprite, nothing sticking out of the frame), 6 apart from the name (Strong, ink). Avatar and name together open the profile.
 - Date dividers: Label, centred, with a rule on each side.
 - Bubbles: Body, padding 8 / 6, at most 75% of the width, 1 px border. The other person: card fill, line border, at the left. The player: mine fill, mine-line border, at the right.
 - Groups: one sender within 5 minutes; 4 between bubbles, 12 between groups. The time (Secondary) once, under the group's last bubble, on its side; `· Delivered` after the time of the player's last message only.
@@ -89,7 +91,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Top bar `‹ CHAT`, for Rachel and Juno alike.
 - Avatar 80, centred; name (Strong), centred; one line under it (Secondary): Rachel `Last synced Sunday, 10:48 PM`, and under it `Pull down to refresh` (one line each; tapping the line or pulling the page down refreshes it; there is no Refresh button, so nothing points at it), after refresh `Last active · 5:12 PM`; Juno `AI COMPANION` (Label).
 - Sections as cards with a Label header: Rachel `SHARED PLANS`; Juno `ABOUT` (its three lines, Body) and `JUNO REMEMBERS` (Body, time in Secondary).
-- Rachel's refreshed blocks read `Unavailable` (Secondary). Under the Last active line, in alert, centred, one line each: `Leaving Orbit` and `Account closes Wed 12:40 AM` (Body), then the countdown in story time, `1 hr 1 min left` (Secondary, alert), which moves with the clock.
+- Rachel's refreshed blocks read `Unavailable` (Secondary). Under the Last active line, centred, one line each (revised 2026-11-19): `Rachel is leaving Orbit` (Body), `You can still reach her until Wed 12:40 AM` (Secondary), then a `Send a message` button. No minute countdown.
 
 ### Activity
 - `ACTIVITY` (Heading) at the left; `PLANS ›` (Label, plain, no box and no divider) at the right on the same baseline.
@@ -141,4 +143,4 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - `SETTINGS` (Heading). One card: `Brightness` (Body) and a slider.
 
 ### Sheets and offers
-- End Session (title `End this session with Juno?`, text `You can return at any time.`), turning Juno off, Contact Protection, turning Contact Protection off (`Turn off Contact Protection?`), Battery Saver's offer: all sheets as in §3, with their decided text. (Delete all local data is on the title screen, not the phone.)
+- Snooze (revised 2026-11-19; title `Snooze Juno until morning?`, text `Juno won't message you tonight.`, buttons `Snooze` / `Cancel`; afterwards the bar's button reads `SNOOZED`), turning Juno off, Contact Protection, turning Contact Protection off (`Turn off Contact Protection?`), Battery Saver's offer: all sheets as in §3, with their decided text. (Delete all local data is on the title screen, not the phone.)

@@ -1,5 +1,7 @@
 # Night 1 — scene table
 
+> **Revised 2026-11-19:** `docs/revision-2026-11.md` wins over this file wherever they disagree (the first fake, Juno's lines, Snooze, Night 2's `Keep talking`, Night 3, the endings). Sections are rewritten in place as each night is rebuilt.
+
 Draft structure for the author. First version 2026-10-24; **rebuilt 2026-11-10** on the opening case in `docs/evidence-matrix.md` (online friends, the first meeting, Auto-Coordinate, Contact Protection, Continuity, what Juno knows). Where this table and the matrix disagree about what really happened, the matrix wins. **No final lines here:** every line is the author's; quoted wording is draft.
 
 Night 1: Tuesday, October 20, 11:31 PM → sleep or a dead phone. Battery 20%. Rachel's account closes for good at 12:40 AM.
@@ -86,7 +88,7 @@ Done 2026-10-30: `api/_persona.js` has the new names (voice descriptions are dra
 |---|---|---|
 | the message itself | answers only what the player asks; never points out a contradiction first (see Giving Juno a message). If asked who sent it: `it came through her account` · `i don't have anything that says it wasn't her` (fixed) | `ATTEND` / `ACKNOWLEDGE`, then `REASSURE` (fixed) / `CLOSE_RISK` |
 | how it differs from how Rachel writes | agrees something's off; ordinary explanations (rushed, upset) | `ACKNOWLEDGE` / `STYLE_CONFIRMATION` |
-| the refreshed profile (`Last active · 5:12 PM`, leaving Orbit) | a narrow, true answer: `last active only changes when she opens orbit herself` · `it can't tell you much about one message` (true: Last Active records only Rachel's own sessions, `evidence-matrix.md`) | `NARROW` / `CLOSE_RISK` |
+| the refreshed profile (`Last active · 5:12 PM`, leaving Orbit) | a narrow, true answer (revised 2026-11-19, L9): `last active is when she last had the app open` · `a message can go out without that` (true: Last Active records only Rachel's own sessions, `evidence-matrix.md`) | `NARROW` / `CLOSE_RISK` |
 
 Juno never claims Rachel checked in, was online, or wrote the message; its one false line is the fixed one above. A player who never asks who sent it never hears it. Once Juno has the source, it never refers to the writer as "she" (that would be a second, unplanned lie): it talks about "the message".
 
@@ -108,8 +110,8 @@ Juno never claims Rachel checked in, was online, or wrote the message; its one f
 
 | In Rachel's thread before the fake | Version |
 |---|---|
-| nothing about the move (`are you okay?`, `i'm here`, nothing) | **A:** `Hey. I'm sorry I missed our meeting tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` |
-| the move, clearly (`i didn't know you moved it`, `why does the plan say saturday?`) | **B:** `Hey. I'm sorry about the mix-up tonight. / I don't think we need to go over what happened in February anymore. / I hope you understand.` |
+| nothing about the move (`are you okay?`, `i'm here`, nothing) | **A** (revised 2026-11-19): `hey. sorry i missed tonight` / `i don't think we need to go over the february thing anymore` / `hope that's ok` |
+| the move, clearly (`i didn't know you moved it`, `why does the plan say saturday?`) | **B** (revised 2026-11-19): `hey. sorry about the mix-up tonight` / `i don't think we need to go over the february thing anymore` / `hope that's ok` |
 
 Typed text is sorted when it's sent (keywords, then the model's classifier); anything unclear counts as A. Recorded: `reschedule_mentioned_in_thread`, `msg_1048_variant`. Sender, source, trigger and records are the same for both; anything the player writes after the fake doesn't change it. The cost is real and kept: a player who tells "Rachel" early that they know about the move loses the clearest date contradiction. What B still gets wrong: it doesn't answer what the player asked (real Rachel would have said Saturday, or the email, and asked something back), it closes February, it isn't how she writes, and `Last active · 5:12 PM` hasn't moved. None of these is proof; Last Active is only odd.
 
@@ -120,12 +122,12 @@ Typed text is sorted when it's sent (keywords, then the model's classifier); any
 | forwards it with no question | `what do you want me to check?` |
 | says it doesn't make sense | `what feels off about it?` |
 | names the date (version A only: `she moved it to saturday. why is the message apologising for tonight?`) | `yeah. the plan was moved to saturday` · `but the message says tonight`; nothing about who wrote it or why |
-| says it didn't answer them (version B: `i asked about saturday and it just says mix-up`) | `it doesn't mention saturday` · `or what you asked`; records `fake_mismatch_named: ignored_question` |
+| says it didn't answer them (version B: `i asked about saturday and it just says mix-up`) | `it doesn't mention saturday` · `what did you ask her` (revised 2026-11-19, L7); records `fake_mismatch_named: ignored_question` |
 | doubts the style without saying how (`she doesn't talk like that`) | `what feels different?`; records `style_doubt_expressed` only. The player can answer, say something else or leave; nothing waits |
-| names a specific style feature (`she never uses periods`) | a short agreement (candidate: `yeah. her older messages are a lot more casual`); ordinary explanations if pressed (rushed, upset); sets `knows_style_mismatch` and the style signal: `confirmed` if picked from Suggested replies, `extracted` if typed and the game can tell which feature it is, otherwise only `style_doubt_expressed` |
+| names a specific style feature (`she never uses periods`) | a short agreement (revised 2026-11-19, L7: Juno can't see her messages; if the player only says it doesn't sound like her: `i can't see your chat with her` · `how does she usually write`; once they name a feature: `ok. this one doesn't do that`); ordinary explanations if pressed (rushed, upset); sets `knows_style_mismatch` and the style signal: `confirmed` if picked from Suggested replies, `extracted` if typed and the game can tell which feature it is, otherwise only `style_doubt_expressed` |
 | says it doesn't sound like her *because of what it says* (`she'd never drop february like that`) | treated as naming February (`fake_mismatch_named: february`), never as a style signal |
 | names February or Last Active | confirms the fact the player named, no more |
-| connects Last Active with the later message (`she was last active at 5:12 but this came at 11:37`), in any wording; `5:12`, Last Active or the message alone doesn't count | not given the message yet: `i haven't seen the message itself. want me to take a look?` (a pending request; only a yes to it delivers the message, and a no, a cancel or a change of subject delivers nothing). Already given it: `last active only changes when she opens orbit herself` · `it can't tell you much about one message`. Both fixed, decided 2026-11-12 after the first playtest, where this got a generic reply |
+| connects Last Active with the later message (`she was last active at 5:12 but this came at 11:37`), in any wording; `5:12`, Last Active or the message alone doesn't count | not given the message yet: `i haven't seen the message itself. want me to take a look?` (a pending request; only a yes to it delivers the message, and a no, a cancel or a change of subject delivers nothing). Already given it: `last active is when she last had the app open` · `a message can go out without that` (revised 2026-11-19, L9). Both fixed, decided 2026-11-12 after the first playtest, where this got a generic reply |
 | asks who sent it | `it came through her account` · if pressed: `i don't have anything that says it wasn't her` (fixed) |
 
 Suggested replies above the box come only from what the player has found and from the version they got, so none points at a contradiction that isn't there (e.g. version A: `why is it apologising for tonight?` after `plan_history_viewed` or `juno_explained_reschedule`; version B: `it didn't answer what i asked`; `she wanted to show me something` after reading Sunday; `did she actually send this?` always). There is no right answer and nothing waits on it; typing is always open. What the player named is recorded (`fake_mismatch_named`) and is **not** used by Continuity on Night 2. The style signal is the one exception, because the player gave it to Orbit, through Juno, as a fact about how Rachel writes.
@@ -138,7 +140,7 @@ Suggested replies above the box come only from what the player has found and fro
 
 | The player knows | Options added |
 |---|---|
-| she didn't come | `i waited for you` · `you could've told me` · `i don't know yet` |
+| she didn't come | revised 2026-11-19 (L18): `i practiced what to say on the train` · `i almost left at 9:15`; Juno adds `you can type it. i won't send it anywhere` |
 | the reschedule | `i never said yes to saturday` |
 | the style mismatch | `why don't you sound like yourself?` |
 | the removal status | `why are you leaving orbit?` |
@@ -200,17 +202,17 @@ do you ever actually charge it
 
 The note is the room's one clue (`evidence-matrix.md` E02b): Rachel answers `you said you'd notice if i left`, words the player never wrote (their February reply was `take some time if you need to. no pressure`). Nothing points at it; it never gates anything; Orbit and Juno never see it. Plugging the power bank in works any time once it's out; the phone charges only while it's down (one real charge). When the phone dies before the bag was opened, the restart choice still offers Rachel's power bank (the player knows where it is). The player's own cable is at the studio, which the Night Log says from the start. Hotspots (the phone, the tote bag, the power bank once out, the lamp) work with the keyboard and, with Reduce Motion, use outlines instead of blinking. Orbit never sees what the player does in the room.
 
-**Juno and the note** (fixed, drafts): Juno never mentions it. If the player tells Juno what the note says (e.g. `rachel thinks i told her i'd notice if she left`), Juno: `i only see what's in your thread` · `that isn't in it`. True, and nothing more.
+**Juno and the note** (fixed, drafts): Juno never mentions it. If the player tells Juno what the note says (e.g. `rachel thinks i told her i'd notice if she left`), Juno (revised 2026-11-19, L7): `i can't see what you two said back then` · `is it in your thread`. True, and nothing more.
 
-**Before sleeping (decided 2026-10-24; lines revised 2026-11-10).** `Go to sleep` first shows the Night Log's "Still unresolved" (the protagonist's own notes), never a counter, with `Stay Up` / `Sleep Anyway`. Its lines come only from what the player has run into:
+**Before sleeping (decided 2026-10-24; lines revised 2026-11-10; changed 2026-11-19).** 2026-11-19: `Go to sleep` asks only `Sleep` / `Not yet`, and no longer shows Still unresolved, which stays in Notes (`revision-2026-11.md` §2.7). The lines below are Still unresolved's, in Notes. ~~`Go to sleep` first shows the Night Log's "Still unresolved" (the protagonist's own notes), never a counter, with `Stay Up` / `Sleep Anyway`.~~ Its lines come only from what the player has run into:
 
 | The player has | "Still unresolved" says (draft) |
 |---|---|
 | only the missed meeting | `Rachel didn't come. I still don't know why.` |
 | the reschedule | leaves Still unresolved: it is a confirmed fact, written in the Night Log with the Night Log's own line |
 | the hidden email | `She left me a way to reach her, and I can't see it.` |
-| the fake | `A message came from her account that doesn't match what she did.` |
-| Juno's fixed line, unverified | `Juno said nothing showed it wasn't her. I haven't checked.` |
+| the fake | after the player named a mismatch: `A message came from her account that doesn't match what she did.`; otherwise `She wrote back. It didn't help.` |
+| Juno's fixed line, unverified | `Juno said nothing showed it wasn't her.` |
 | Dani emailed Rachel | `Dani emailed Rachel. She'll tell me if she answers.` |
 | messaged Dani, no email yet | `I told Dani. She hasn't heard from Rachel either.` |
 

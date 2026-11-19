@@ -1,5 +1,7 @@
 # Night 2 — scene table
 
+> **Revised 2026-11-19:** the morning (Rachel is fine), the second fake (`Keep talking`, one exchange), the share without expiry, Messages and answering Rachel, and Juno pointing to Privacy & Data are decided in `docs/revision-2026-11.md` §3, which wins over this file. This table is rewritten from it at the grey-box; what §3 doesn't change still stands.
+
 Draft structure for the author, 2026-10-24. Built from `docs/story-bible.md` §4 and §6 and `docs/night1-scenes.md`. **No lines here**; every line is the author's. Costs follow the table in `docs/night1-scenes.md`. Items marked **(open)** need the author's decision before this table can be locked; they are collected at the end.
 
 Night 2: Wednesday. The day interlude, then the night. It ends with the route choice.

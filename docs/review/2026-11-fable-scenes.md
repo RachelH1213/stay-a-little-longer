@@ -232,14 +232,16 @@ did you read the note
 
 You  5:51 PM
 yes
-i'm not naming a power bank
 
 Rachel  5:51 PM
-coward
-what would you name it though
+ok good
+we don't have to talk about it
+is it charging
 ```
 
 - 这两段解决了地址的问题（报告 L1），也告诉 Night 1 的玩家：桌上那个提袋里有一张纸条，你当时读过。没有任何东西叫他去看。
+- 她写了一句认真的话在纸条上，然后马上说不用谈。这是她的习惯：说了，再用一个具体的问题盖过去。
+- 这里原来我写的是给充电宝起名字的玩笑。设计窗口的处理意见里说你觉得那句尬，所以换掉了；纸条用处理意见里的四行版本（结尾是 `i'd notice too btw`）。
 
 ### 2026 年 5 月 15 日，周五
 

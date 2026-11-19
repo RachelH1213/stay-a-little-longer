@@ -178,7 +178,7 @@ Made with Unity
 © 2026 Rachel Huang
 ```
 
-- Only sections with names; playtesters are not listed (the author's call). Whether to add a line on AI tools (Claude, Midjourney) is still the author's to decide.
+- Only sections with names; playtesters are not listed, and there is no line on AI tools (both the author's call, 2026-11-21). The tools used are described in the thesis documentation instead.
 - **Where:** from the title menu now. After the final ending (once Night 3 exists), the same credits roll slowly over black. Never after Night 1's end card (it isn't an ending), and never before the story.
 
 The company name in Unity stays `Rachel Huang`; the credits use `Rachel (Xinyue) Huang`.

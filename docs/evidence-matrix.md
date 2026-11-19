@@ -150,7 +150,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 **E10 · 11:31 PM · Night 1 begins**
 - Juno's lock-screen notification (`still awake?`), nothing else; Rachel's Sunday messages are already read, in her thread. Juno's line is an ordinary evening check-in from the player's usual late-night habits; Juno doesn't track where the player has been and knows nothing about the evening until the player brings Rachel up.
 
-**E11 · Night 1 · Finding the change (with Juno)**
+**E11 · Night 1 · Finding the change (with Juno)** (revised 2026-11-19: Juno reads the record first and says the rest only when asked, layer by layer, `docs/night1-layers.md`; the facts below stand, the lines are replaced)
 - **Origin:** the player asks; Juno looks.
 - **The player saw:** the plan's history: Rachel's move to Saturday, the filtered note, `Change accepted · Handled by Conversation Assist`.
 - **Juno said (draft):** `you didn't accept it. conversation assist did` · `you enabled auto-coordinate back in june` · `rachel was on the suggested contacts list you approved` · (the player: `i don't remember agreeing to this`) · `it shouldn't have done that without asking` · about the email: `i can't see it. orbit filtered it before it reached me` · offers to turn off automatic scheduling.
@@ -183,7 +183,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **Why it matters:** Orbit's own automatic acceptance is why nothing answered the player while they waited.
 - **Check:** Night 3, the player's records.
 
-**E14 · Between 11:32 and 11:45 PM · The first fake (MSG_1048)**
+**E14 · Between 11:32 and 11:55 PM · The first fake (MSG_1048)** (revised 2026-11-19: eligible once the player has seen the plan's History and then written in her thread or refreshed her profile and stayed in her thread; at the latest 11:55, `docs/night1-layers.md` layer 9)
 - **Origin:** Continuity (IDENTITY PROXY), into Rachel's thread while her account is still in its grace period, so it looks like an ordinary message from her.
 - **When (locked 2026-11-10):** whenever Continuity becomes eligible, which is exactly the game's trigger, one rule described twice: the player contacts Rachel again after the long silence and checks one thing (`continuity_response`); or reopens her thread and profile and keeps investigating without writing (`unresolved_follow_up`); or, at the latest, the clock reaches 11:45 PM (`re_engagement`). The record keeps the real time and the real path; nothing in any record is fixed at 23:45.
   ```text

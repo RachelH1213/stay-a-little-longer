@@ -109,6 +109,8 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Then one card with two rows: `Change history ›`, `Message Rachel ›` (Body).
 
 ### Change history
+
+> Revised 2026-11-19: now `History` (from Oct 13), every row with `›`, two `You accepted` rows, the second with the Orbit ring; the sheets and the Contact Protection change are in `docs/night1-layers.md` layers 3, 5, 7. Layout rules below still apply.
 - Top bar `‹ PLAN`, `CHANGE HISTORY`.
 - Timeline: a 1 px line at 16 from the left, a 6 × 6 paper node per entry, entries 12 to its right, 8 apart.
 - Entry 1: `OCT 20 · 5:12 PM` (Label); `Rachel proposed a new time` (Strong); field rows `FROM` / `TO` (Label column 48) with Body values; `NOTE` (Label), then her note (Body, in quotes) with `[contact info hidden]` underlined; under it, 8 apart, the Orbit mark (8) and `Orbit keeps your conversations safe` (Secondary).
@@ -116,6 +118,8 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Contact Protection sheet (§3): `Contact Protection` (Strong), the text (Body), `Manage in Settings` (button).
 
 ### Me
+
+> Revised 2026-11-19: Me becomes the player's profile; Settings sit behind a gear in seven categories. Every page, word for word: `docs/night1-layers.md` appendix A. Cards, rows and switches follow the rules below.
 - `ME` (Heading); `SETTINGS` (Label), 16 below.
 - Cards, 8 apart:
   1. `Privacy & Data ›`, with its description.

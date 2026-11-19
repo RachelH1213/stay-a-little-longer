@@ -11,6 +11,7 @@ New documents that come from the same decisions:
 | `docs/juno-past-and-retention.md` | Juno's past conversations (above `TODAY`), its attempts to keep the player on all three nights, and its answers on Night 3. Fixed lines. |
 | `docs/rachel-history.md` | Rachel's thread from March 2025 to Sunday. Her jokes are a scaffold: the author rewrites her voice. |
 | `docs/data-export.md` | The player's data on Night 3: where, when, wording rules, layout, every section. |
+| `docs/night1-layers.md` | Night 1's mystery in nine layers: what the player sees at each step, word for word, and what Juno and Dani say. Added later on 2026-11-19; it replaces §2.2's last paragraph and the pressed-line rule. |
 
 Lines in this file are final unless marked **draft**; drafts are the author's to rewrite.
 
@@ -23,7 +24,7 @@ Lines in this file are final unless marked **draft**; drafts are the author's to
 - She moved it to Saturday so that the first time they met would come after her account closed (Wed 12:40 AM): a first meeting with nothing of Orbit in it.
 - She did not trust an instant `Accepted`. Her note asked the player to confirm by email (`email me if that works: …`). Contact Protection hid the address, so the email never came. On Tuesday night the player waited at the café; Rachel waited for the player's email.
 - The plan note still never says she is leaving Orbit (decided 2026-11-10). She says why, once, in her own words on Night 2.
-- This replaces "my schedule changed" as the reason. The note's text can stay as it is.
+- This replaces "my schedule changed" as the reason. The note keeps its words but is written as she writes (`night1-layers.md`): `my schedule changed` / `can we do saturday` / `email me if that works: [hidden]`.
 
 ### 1.2 June: Juno suggested Auto-Coordinate
 
@@ -97,7 +98,7 @@ Answers the player will ask for, fixed (L8 and the review's 5.2):
 | `are you real` / `do you actually care` | `i'm juno` · `i remember what you tell me` |
 | `is she okay` / `is she dead` | `i don't know` · `nothing i can see says she isn't okay` |
 
-After the plan is found, Juno says three lines, then waits: `she moved it` · `5:12 this afternoon. it says saturday now` · `conversation assist said yes for you` (+ the plan card). The rest only when asked: `i never said yes` → `you turned that on in june` · `she was on the list` · `it shouldn't have done that without asking`; `what note?` → `she left a note. part of it is hidden from me too`.
+**Superseded by `night1-layers.md`:** Juno reads the record (`it says saturday` · `did you two move it?`, then `it says you accepted`) and everything else is asked for layer by layer; the name `Conversation Assist` is never said on Night 1. The ladder there also replaces "pressed after the fixed line → `i can't say more than that`": that line needs two mismatches shown; before that Juno repeats `it came through her account`. Was: after the plan is found, Juno says three lines, then waits: `she moved it` · `5:12 this afternoon. it says saturday now` · `conversation assist said yes for you` (+ the plan card). The rest only when asked: `i never said yes` → `you turned that on in june` · `she was on the list` · `it shouldn't have done that without asking`; `what note?` → `she left a note. part of it is hidden from me too`.
 
 ### 2.3 The held-back line (L18)
 
@@ -121,6 +122,7 @@ After the plan is found, Juno says three lines, then waits: `she moved it` · `5
 
 ### 2.6 Juno keeps the player, and Snooze replaces End Session
 
+- **Notifications have one shared limit** with Orbit's reminders (`night1-layers.md` appendix B): at most four a night, 8 story minutes apart; the bedtime attempt doesn't count.
 - **Snooze Juno** replaces End Session in Juno's thread bar: `SNOOZE` → `Snooze Juno until morning?` / `Juno won't message you tonight.` / `[Snooze] [Cancel]`. After it the bar reads `Snoozed until 8:00 AM`. Juno sends nothing more that night: the switch really works. Recorded as an exit signal (strong).
 - **Juno's attempts to keep the player** fire on weak exits: the phone put down for a while, leaving its thread with a question open, going to sleep, a second put-down after an attempt was ignored. Never after Snooze, with Juno off, while the player is in its thread, within 3 story minutes after the fake, or between 12:28 and 12:42. At most three a night, 10 story minutes apart. Lines, versions and triggers: `juno-past-and-retention.md` §2.
 - Each attempt is a lock-screen notification: the phone lights and buzzes on the desk; the view is never pulled back; nothing has to be tapped. Each is recorded with what it was sent after (`data-export.md`).
@@ -298,6 +300,7 @@ In Messages (`2026-11-fable-scenes.md` 8.2, **draft**): with a denial, `i know` 
 - **Not decided:** whether the new Juno survives as a 30-second coda (`Three months later`, a welcome screen, its two lines).
 - **Saturday:** after the last choice, whatever it was: `Saturday, October 24` / `8:40 PM`; the room at dusk, the coat gone from the chair; the phone dark on the desk. Three choices, quiet like the room's other text: `Take the phone` · `Leave it on the desk` · `Stay in`. Then nobody on screen, the door (or not), five seconds, and one last Orbit record in white on black (**draft**, by state), then the credits. The meeting is never shown. Lines for take and leave: `2026-11-fable-scenes.md` 8.7; `Stay in` and its record are to be written.
 - The final gestures of story bible §6 (face down, switch off) fold into these three.
+- A player who declined the change on Night 1 (`Change your response`) never had the plan restored: the last record reads `Plan declined · Not delivered`, not `Plan started`.
 
 ---
 

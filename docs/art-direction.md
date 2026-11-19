@@ -121,7 +121,6 @@ What shows around the held phone: the books and the cabinet's edge (left), both 
 |---|---|
 | Phone | picks it up |
 | Power bank (to be drawn: Rachel's, blue, left of the phone, four indicator dots) | connects it: a cable appears between it and the phone; its one lit dot blinks, then fades as the charge moves; it can't be recharged |
-| Tote bag (`xoxo`) | Rachel's card, read in place (+2 min the first time) |
 | Lamp | on / off (free). Off, the room is darker and the phone's red carries it |
 
 **Waiting** appears only once the power bank is connected: a line of VT323 at the bottom, `Leave it charging`, opening a small panel in the title's button style: `Wait 5 minutes` · `Wait until it's empty (about 10 minutes)` · `Pick up the phone`, each with its cost (`11:41 PM → 11:46 PM · 3% → 5%`) and `Rachel's account closes at 12:40 AM`. That line is shown nowhere else.
@@ -143,16 +142,7 @@ What shows around the held phone: the books and the cabinet's edge (left), both 
 - **The car's light** brightens the blinds' slats as it passes (the light pixels of the slats, in a slanted band moving sideways), not a vertical shaft over them.
 - **Room text controls:** `Leave it charging` and `Go to sleep` are the same kind of thing, plain VT323 lines in the room's lower corners (charging bottom left, sleep bottom right), with the corner marks on hover; only the panels they open use the title's buttons.
 - **The waits panel:** `Wait 5 minutes` · `Wait until it's empty` · `Pick up the phone`; `about 10 minutes` goes into that wait's cost line. Picking up from the panel costs nothing.
-- **Rachel's card** closes on a click anywhere, Esc, or the bag again. Its text (draft, the author's to change; Rachel's rule: lowercase, no full stops, a joke, a question back):
-
-  ```text
-  for when your phone dies
-  which is always
-  now you have no excuse not to text me back
-  what are you gonna name it
-  ```
-
-  It looks like paper with her handwriting once that art exists; until then, the plain card.
+- **The tote bag** is not a hotspot: Rachel's card was removed (2026-11-20), and nothing in the room is tappable without a use.
 - **The power bank's hotspot** is its drawn pixels once the art arrives; until then, the planned place.
 
 **Narrowing:** after ten story minutes holding the phone without putting it down, the room darkens slowly toward a vignette (at most about a quarter darker, over twenty minutes). Putting the phone down resets it at once. Never mentioned anywhere.
@@ -203,7 +193,7 @@ If pixel art doesn't work (it doesn't feel right, or it's too much drawing), the
 
 ### Art still to make (the author's, 2026-11-12)
 
-- the room at 640 × 360 in its states (holding the phone, phone down, phone lit on the desk; later: dead, morning) and its objects (desk, lamp, window, tote bag, drawer with Rachel's card, coat, power bank);
+- the room at 640 × 360 in its states (holding the phone, phone down, phone lit on the desk; later: dead, morning) and its objects (desk, lamp, window, tote bag, power bank);
 - Orbit's logo at about 48 px for interface use (the 32 px from Figma is in use meanwhile);
 - 24 px avatars of Rachel and Dani for thread headers (Juno's exists);
 - three tab icons of about 14 px: speech box, log, head and torso;

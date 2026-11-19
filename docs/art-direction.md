@@ -137,6 +137,24 @@ What shows around the held phone: the books and the cabinet's edge (left), both 
 
 **Clock:** its hands follow story time (minute hand in 5-minute steps).
 
+**Second pass (decided 2026-11-21, after the first build of the room):**
+- **The held glow** comes from where the phone is: strongest just under the phone's bottom edge, falling off in every direction, faint (the room stays readable); never a band across the screen.
+- **The lamp's pool** until its art arrives: drawn in the pixel style (two or three flat, hard-edged bands of the room's warm colour, under the lamp's head), never a soft blur. A soft blur reads as a glowing ball in a pixel scene.
+- **The car's light** brightens the blinds' slats as it passes (the light pixels of the slats, in a slanted band moving sideways), not a vertical shaft over them.
+- **Room text controls:** `Leave it charging` and `Go to sleep` are the same kind of thing, plain VT323 lines in the room's lower corners (charging bottom left, sleep bottom right), with the corner marks on hover; only the panels they open use the title's buttons.
+- **The waits panel:** `Wait 5 minutes` · `Wait until it's empty` · `Pick up the phone`; `about 10 minutes` goes into that wait's cost line. Picking up from the panel costs nothing.
+- **Rachel's card** closes on a click anywhere, Esc, or the bag again. Its text (draft, the author's to change; Rachel's rule: lowercase, no full stops, a joke, a question back):
+
+  ```text
+  for when your phone dies
+  which is always
+  now you have no excuse not to text me back
+  what are you gonna name it
+  ```
+
+  It looks like paper with her handwriting once that art exists; until then, the plain card.
+- **The power bank's hotspot** is its drawn pixels once the art arrives; until then, the planned place.
+
 **Narrowing:** after ten story minutes holding the phone without putting it down, the room darkens slowly toward a vignette (at most about a quarter darker, over twenty minutes). Putting the phone down resets it at once. Never mentioned anywhere.
 
 **Status bar:** a pixel battery icon beside the percentage; a bolt while charging.

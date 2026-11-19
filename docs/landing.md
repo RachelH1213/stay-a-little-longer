@@ -77,7 +77,12 @@ Without one: `New Game · Settings · Credits`.
   Buttons are never "Yes / No". `Start Over` is not styled like the primary action (low-saturation red text).
 - `Start Over` doesn't delete anything by itself: the old save is replaced only when the player finishes Name and reaches the lock screen. Quitting during Before You Begin or Name keeps the old save and `Continue`.
 - After a completed ending, the menu also offers `Replay from Final Choice` (save-system §9).
-- Layout, motion and sound: **TBD**, the next discussion (§10).
+- **Layout (decided 2026-11-21):**
+  - **Background:** the room at the desk (the final art, unlit, the phone dark on the desk), full screen at whole-number scale, dimmed so the menu reads; a darker band on the left behind the title and menu, in flat pixel steps, never a blur.
+  - **The title and the menu are one block,** left-aligned in the left third and centred vertically, with equal space above and below. Title lettering, the short rule under it, then the menu.
+  - **Menu order:** `Continue` (only when there is a save) · `New Game` · `Settings` · `Credits` · `Quit`. Buttons 12 apart, all the same width.
+  - **Continue always carries one line under it,** in VT323, inside its own group so the rhythm of the buttons doesn't change: the save's place (`Night 1 · 11:44 PM`), or, when Night 1 is finished and Night 2 doesn't exist yet, `Night 2 isn't here yet.` with Continue disabled. A first-time player sees no Continue at all.
+  - **No version number** on the title screen.
 
 ### 4.2 Before You Begin
 
@@ -146,7 +151,7 @@ Actions use time and battery. Reading doesn't.
 
 ## 4.8 The game around the nights (decided 2026-11-20)
 
-**Name.** The game is `Stay a Little Longer` (window title, the Mac app, the menu bar), by the author (company name in Unity: the author's name). The version (`v0.1`) sits small in a corner of the title screen. No Unity splash screen. Changing the name moves the save and the PlayerPrefs; existing saves and settings are carried over on first launch.
+**Name.** The game is `Stay a Little Longer` (window title, the Mac app, the menu bar), by the author (company name in Unity: the author's name). No Unity splash screen. Changing the name moves the save and the PlayerPrefs; existing saves and settings are carried over on first launch.
 
 **Credits** (from the title; draft, the author fills the brackets):
 
@@ -174,7 +179,7 @@ The company name in Unity stays `Rachel Huang`; the credits use `Rachel (Xinyue)
 
 **Settings** (the title's and the pause menu's are the same screen): Text size, Reduce motion, Sound (one slider until there is sound to split), Display (`Fullscreen` / `Windowed`), and on the title only, Delete all local data.
 
-**A night begins and ends with a card.** After Name (or Continue into a night), the screen is black for a moment, then `Tuesday, October 20` and `11:31 PM` (VT323, centred) for about two seconds, then the room fades in. When the night ends (Sleep Anyway, or the phone left dead), the room fades to black, then `Wednesday, October 21`; then the title. Until Night 2 exists, Continue on the title is shown but disabled, with `Night 2 isn't here yet.` under it. With Reduce motion the fades are cuts and the cards stay the same time.
+**A night begins and ends with a card.** After Name (or Continue into a night), the screen is black for a moment, then `Tuesday, October 20` and `11:31 PM` (VT323, centred) for about two seconds, then the room fades in. When the night ends (Sleep Anyway, or the phone left dead), the room fades to black, then `Wednesday, October 21`; then the title. Until Night 2 exists, Continue on the title is shown but disabled, with `Night 2 isn't here yet.` under it (§4.1 Layout). With Reduce motion the fades are cuts and the cards stay the same time.
 
 **Transitions and feedback.** Title → night and night → title fade through black (0.5 s). Picking up and putting down the phone slide it in and out (0.25 s). Every tappable thing on the phone and in the room has a hover state (a brighter border or text) and a pressed state (one step darker), and the pointer becomes a hand over it. With Reduce motion: no slides, fades become cuts, hover and pressed states stay.
 

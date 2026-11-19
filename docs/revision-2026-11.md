@@ -313,3 +313,23 @@ In Messages (`2026-11-fable-scenes.md` 8.2, **draft**): with a denial, `i know` 
 - The trigger for `don't disappear on me too` (§3.6).
 - Night 1's opening as the scenes draft proposed (the phone left on Rachel's thread): deferred until after the grey-box.
 - The four questions from the Unity audit (`docs/review/2026-11-fable-unity-audit.md`).
+
+---
+
+## 7. Build order (decided 2026-11-19)
+
+The Unity work is done in rounds. A prompt can say "do round N" and nothing more: the round's scope is this table, and nothing from a later round is started early. This replaces rounds 4–6 of `docs/review/2026-11-fable-unity-audit.md` §8, which were written before the decisions above; its rounds 1–3 stand.
+
+| Round | Scope | Sources |
+|---|---|---|
+| 1 (done) | Typing and redrawing (T1–T6, R1–R6), the danger note, the date rule | audit §2.1–2.2 |
+| 2 | Story state recorded when shown (S1–S10); time, battery and the room (N1–N7); shell, save, input, resolution and title flow (H1–H11); 16:10 as in `art-direction.md`; the help note over a darkened screen; `1 new message` never covering text; why Play mode is slow | audit §2.3–2.5 |
+| 3 | Structure: the conversation view split out, a page registry with the Back path saved, sheets on their own layer, every line and screen text moved out of code into data files, the append-only action log (each entry with its story time) | audit §6.1–6.4, §7.1 |
+| 4 | Interaction and the text changes of this file: the four rules of §2.11; the audit's I1–I10; the first fake (§2.1); Juno's lines (§2.2 and the answers it must have); the held-back line (§2.3); Suggested replies ask, never conclude (§2.4); Rachel leaving and 12:40 as Orbit shows it (§2.5); Snooze (§2.6, without the attempts to keep the player); Notes and going to sleep (§2.7); Orbit's reply to Dani (§2.8); Privacy & Data (§2.9); Battery Saver (§2.10); the small facts of §1.4 (`same code`, Sunday's reply, crit); a visible way to forward a message, and `rachel answered` | this file §1–2; audit §3, §4 |
+| 5 | Night 1's nine layers, without Screen Time: History with the two `You accepted`, `Change your response`, `Share` on the plan and the profile, the new Me and Settings, Contact Protection as verification requests, Juno's and Dani's lines layer by layer, the confrontation ladder, Orbit's notifications and the shared limit | `night1-layers.md` |
+| 6 | Juno's past above `TODAY` and its attempts to keep the player on Night 1; each unprompted line recorded with what it was sent after | `juno-past-and-retention.md` §1–2; `data-export.md` |
+| 7 | Rachel's thread (once the author has written it), 12:40 as the player sees it, Night 1's last image | `rachel-history.md`; §2.5 |
+| 8 | The Night 3 export and Juno's last conversation, read from a Night 1 save through an editor-only entry; then three to five people try it | `data-export.md`; §4 |
+| Then | Night 2 grey-boxed, then Night 3; the model; sound; art | §3–5 |
+
+**Every round:** pull the design repository first, follow `CLAUDE.md` (tests, screenshots, the one-session rule), report what changed and what the documents didn't decide, and stop at the end of the round.

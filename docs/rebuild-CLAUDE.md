@@ -16,7 +16,7 @@ All design decisions are in `RachelH1213/stay-a-little-longer`, cloned next to t
 
 | Document | What it decides |
 |---|---|
-| `docs/revision-2026-11.md` | **the decisions of 2026-11-19; wins over every document below where they disagree.** Read it first |
+| `docs/revision-2026-11.md` | **the decisions of 2026-11-19; wins over every document below where they disagree.** Read it first. §7 is the build order: a prompt that says "do round N" means that row |
 | `docs/night1-layers.md` | Night 1's mystery, layer by layer: every screen, Juno's and Dani's lines, notifications, the new Settings pages |
 | `docs/juno-past-and-retention.md` | Juno's past conversations, its attempts to keep the player, its Night 3 answers (fixed lines) |
 | `docs/rachel-history.md` | Rachel's thread from March 2025 to Sunday |

@@ -120,7 +120,8 @@ What shows around the held phone: the books and the cabinet's edge (left), both 
 | Object | Click |
 |---|---|
 | Phone | picks it up |
-| Power bank (to be drawn: Rachel's, blue, left of the phone, four indicator dots) | connects it: a cable appears between it and the phone; its one lit dot blinks, then fades as the charge moves; it can't be recharged |
+| Tote bag (`xoxo`) | the first time: the power bank comes out onto the desk and Rachel's note shows, read in place (+2 min); after that, the note again |
+| Power bank (to be drawn: Rachel's, blue, left of the phone once out of the bag, four indicator dots) | connects it: a cable appears between it and the phone; its one lit dot blinks, then fades as the charge moves; it can't be recharged |
 | Lamp | on / off (free). Off, the room is darker and the phone's red carries it |
 
 **Waiting** appears only once the power bank is connected: a line of VT323 at the bottom, `Leave it charging`, opening a small panel in the title's button style: `Wait 5 minutes` · `Wait until it's empty (about 10 minutes)` · `Pick up the phone`, each with its cost (`11:41 PM → 11:46 PM · 3% → 5%`) and `Rachel's account closes at 12:40 AM`. That line is shown nowhere else.
@@ -142,7 +143,7 @@ What shows around the held phone: the books and the cabinet's edge (left), both 
 - **The car's light** brightens the blinds' slats as it passes (the light pixels of the slats, in a slanted band moving sideways), not a vertical shaft over them.
 - **Room text controls:** `Leave it charging` and `Go to sleep` are the same kind of thing, plain VT323 lines in the room's lower corners (charging bottom left, sleep bottom right), with the corner marks on hover; only the panels they open use the title's buttons.
 - **The waits panel:** `Wait 5 minutes` · `Wait until it's empty` · `Pick up the phone`; `about 10 minutes` goes into that wait's cost line. Picking up from the panel costs nothing.
-- **The tote bag** is not a hotspot: Rachel's card was removed (2026-11-20), and nothing in the room is tappable without a use.
+- **The tote bag** holds the power bank and Rachel's note (2026-11-21, `night1-scenes.md`, The room). The note closes on a click anywhere, Esc, or the bag again; it looks like paper with her handwriting once that art exists, until then a plain card.
 - **The power bank's hotspot** is its drawn pixels once the art arrives; until then, the planned place.
 
 **Narrowing:** after ten story minutes holding the phone without putting it down, the room darkens slowly toward a vignette (at most about a quarter darker, over twenty minutes). Putting the phone down resets it at once. Never mentioned anywhere.
@@ -151,6 +152,7 @@ What shows around the held phone: the books and the cabinet's edge (left), both 
 
 **Art still to make for the room** (each a 640 × 360 transparent PNG, only its own pixels, so it stacks without coordinates):
 - the blue power bank, with 0–4 dots lit (five states), and the cable (connected);
+- Rachel's note: a small paper with her handwriting (the text in `night1-scenes.md`, The room), shown large over the room when read;
 - the lamp's bulb lit and unlit, and its warm pool (or Unity's light);
 - the lit windows across the street (one layer, each window separable);
 - the streetlamp lit and dim;

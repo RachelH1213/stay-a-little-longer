@@ -103,7 +103,7 @@ Tuesday, October 20, 11:31 PM, battery 20%. The failed meeting has already happe
 - The fake is generated when one shared eligibility rule is met (11:45 PM at the latest); its time and trigger are recorded from the actual playthrough.
 - Juno's part is conditional: it receives a message's source only when the player asks it to look while it's on; later evidence reflects only what it really received and said.
 - **The held-back line:** Juno asks what the player was going to say to Rachel and advises keeping it for her; what the player says only to Juno can come back on Night 2.
-- **The room:** the blue power bank Rachel once mailed the player is on the desk, nearly empty; it came in the tote bag on the desk. It doesn't gate the investigation.
+- **The room:** the blue power bank Rachel once mailed the player is in the tote bag on the desk, nearly empty, with her note: she answers words the player never wrote in February (`evidence-matrix.md` E02b). Neither gates the investigation.
 - **Ends** when the player goes to sleep or the phone dies. If Dani was left unanswered, Orbit answers her as the player.
 
 ### Day interlude
@@ -144,7 +144,7 @@ No best ending. Each shows how Orbit reclassifies the player afterwards, and end
 | **Typing** | free text to Juno; a model sorts it, game rules decide Juno's answer | typing still goes through Orbit |
 | **Screenshots and showing Juno** | the player keeps evidence and shows it; Juno's stance changes with the strongest fact | the player finds it, not Juno |
 | **Time and battery** | reading is free; new actions cost minutes and battery; Night 1 is a limited night | staying costs something |
-| **The room** | put the phone down, look around, switch the lamp, plug in the power bank, wait for it to charge | the one place Orbit can't see |
+| **The room** | put the phone down, open the tote bag (the power bank, Rachel's note), switch the lamp, plug in the power bank, wait for it to charge | the one place Orbit can't see |
 | **End Session / Juno off / delete** | real controls that really work | the controls given aren't the ones that matter |
 | **Conversation Assist** | Follow-up replies sent for the player; a 10-second countdown | Orbit speaking for you, with a default of yes |
 | **Inferred anchors** | Orbit never asks | what the player did becomes Orbit's data |

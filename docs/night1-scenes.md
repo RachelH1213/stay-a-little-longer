@@ -179,7 +179,7 @@ The wording above is the build's (decided 2026-11-12): `Change history`, not `Ac
 - **After the erase** the thread header reads `Orbit User · Formerly Rachel`
 - **Facts use this document's names** (`knows_reschedule`, `knows_auto_accepted`, …) in the build and the save, so Nights 2 and 3 read one vocabulary.
 - **Typed text is matched by whole words**, not parts of words (`already` must not match `read`).
-- **The room's objects are named, never described** (`Phone`, `Power bank`, `Lamp`); what they do is found by using them.
+- **The room's objects are named, never described** (`Phone`, `Tote bag`, `Power bank`, `Lamp`); what they do is found by using them.
 
 **Contact Protection, where the player sees it (decided 2026-11-12, after the first playtest: the hidden email led nowhere).** `[contact info hidden]` in the note can be tapped. It opens a small sheet: title `Contact Protection`; `Orbit hides emails and phone numbers between people who haven't verified each other. The sender isn't notified.`; button `Manage in Settings`, which opens Settings at a `Contact Protection · On` row. Nothing else is added. "The sender isn't notified" is the same fact Juno can give (Orbit filtered the email); here the player can find it without Juno.
 
@@ -187,7 +187,20 @@ The wording above is the build's (decided 2026-11-12): `Change history`, not `Ac
 
 From this alone the player can conclude two things: Rachel really did ask to move it, and the player never pressed accept. Juno helps them understand it; it is never the key. With Juno off, the same history gives the same evidence.
 
-**The room (revised 2026-11-10).** The blue power bank is on the desk next to the phone from the start, one light left (Rachel mailed it months ago; it has nothing to do with the meeting). Plugging it in works any time; the phone charges only while it's down (one real charge). The tote bag her package came in (`xoxo` on the front) is part of the room, not an object to use. (Rachel's handwritten card was removed 2026-11-20, the author's call: it had no function beyond flavour and risked reading as a clue that leads nowhere.) The player's own cable is at the studio, which the Night Log says from the start. Hotspots (the phone, the power bank, the lamp) work with the keyboard and, with Reduce Motion, use outlines instead of blinking. Orbit never sees what the player does in the room.
+**The room (revised 2026-11-10; 2026-11-21).** The tote bag on the desk (`xoxo` on the front; the bag Rachel's package came in, in March) holds the blue power bank, one light left, and Rachel's note. Opening the bag (the first time, +2 min) takes the power bank out onto the desk, left of the phone, and shows the note, read in place:
+
+```text
+ok this is a power bank
+because your phone is always dying
+also i meant to say
+you said you'd notice if i left
+me too
+do you ever actually charge it
+```
+
+The note is the room's one clue (`evidence-matrix.md` E02b): Rachel answers `you said you'd notice if i left`, words the player never wrote (their February reply was `take some time if you need to. no pressure`). Nothing points at it; it never gates anything; Orbit and Juno never see it. Plugging the power bank in works any time once it's out; the phone charges only while it's down (one real charge). When the phone dies before the bag was opened, the restart choice still offers Rachel's power bank (the player knows where it is). The player's own cable is at the studio, which the Night Log says from the start. Hotspots (the phone, the tote bag, the power bank once out, the lamp) work with the keyboard and, with Reduce Motion, use outlines instead of blinking. Orbit never sees what the player does in the room.
+
+**Juno and the note** (fixed, drafts): Juno never mentions it. If the player tells Juno what the note says (e.g. `rachel thinks i told her i'd notice if she left`), Juno: `i only see what's in your thread` · `that isn't in it`. True, and nothing more.
 
 **Before sleeping (decided 2026-10-24; lines revised 2026-11-10).** `Go to sleep` first shows the Night Log's "Still unresolved" (the protagonist's own notes), never a counter, with `Stay Up` / `Sleep Anyway`. Its lines come only from what the player has run into:
 
@@ -231,6 +244,7 @@ what do i even wear
 | When | Line (draft) |
 |---|---|
 | from the start, 11:31 PM | `Home. She never came.` / `Left my cable at the studio.` |
+| `read_rachel_note` | `Her note says I told her I'd notice if she left. I don't remember saying that.` |
 | `knows_reschedule` + `knows_auto_accepted` | `The plan says Saturday now. She moved it at 5:12. Orbit said yes for me.` |
 | `knows_email_hidden` | `She left her email in the note. Orbit hid it.` |
 | `knows_removal_status` | `Her profile says she's leaving Orbit. Last active 5:12 PM.` |
@@ -287,7 +301,8 @@ A first open costs time but no battery, so a player who only reads still moves t
 | `N1_JUNO.held_back` | Beat | O | right after `N1_JUNO.bring_fake` | Juno asks what the player was about to say to Rachel; Suggested replies (only those the player's facts allow) | pick; type; decline | `private_line_selected`, `private_line_sent_to_rachel`, `private_line_known_only_to_juno` | ADVISE / REDIRECT | message |
 | `N1_EVIDENCE.style` | Beat | O | the player tells Juno the message doesn't sound like Rachel (an answer to `what feels off about it?`, or typed), or forwards one of her own messages to compare (a comparison only, until the player says how) | Juno agrees it reads differently; if the player says how (Suggested or typed), that's the style signal. Juno never asks for it unprompted | pick; type | `knows_style_mismatch`, `style_signal_confirmed` or `style_signal_extracted` | ACKNOWLEDGE / STYLE_CONFIRMATION | message |
 | `N1_EVIDENCE.last_active` | Beat | O | the player shows Juno the refreshed profile | a narrow, true answer about what Last Active means | answer | — | NARROW / CLOSE_RISK | showJuno |
-| `N1_ROOM.put_down` | Action | O | Put Down, any time | the room at the desk; the phone on the desk, the power bank beside it | look around; plug in; Wait; pick up (→ lock screen) | `screen_inactive` (weak exit signal) | — | room actions only |
+| `N1_ROOM.put_down` | Action | O | Put Down, any time | the room at the desk; the phone on the desk; the tote bag (the power bank inside until it's opened) | look around; plug in; Wait; pick up (→ lock screen) | `screen_inactive` (weak exit signal) | — | room actions only |
+| `N1_ROOM.tote` | Action | O | opening the tote bag | the power bank out onto the desk; Rachel's note, read in place (E02b) | read; plug in | `power_bank_found`, `read_rachel_note` | — | +2 min (first time) |
 | `N1_POWER.bank` | Action | O | plugging the power bank in | screen on: barely offsets the drain; phone down: charges | Wait 5 / 10 min; pick up | `power_bank_used`, minutes down | — | Wait 5 / 10 min |
 | `N1_BATTERY_SAVER_OFFER` | Event | O | battery 10% | Orbit's Battery Saver sheet | accept; decline | `saver` | — | — |
 | `N1_ERASE_WARNING` | Event | R if reached | clock 12:30 AM | Orbit banner: Rachel's account closes soon | — | — | — | — |

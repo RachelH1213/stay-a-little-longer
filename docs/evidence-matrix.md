@@ -13,7 +13,7 @@ What really happened, event by event, from February to the start of Night 2: who
 - **Locked 2026-11-10 (R2):** before deletion, Continuity writes through Rachel's grace-period account and looks ordinary; after deletion, into the player's retained thread under `Orbit User · Formerly Rachel`, below `Account removed · Wed 12:40 AM`. The composer stays. Two rules:
   - **Delivered means Orbit received it.** After deletion, the player's messages go `player → retained thread → Orbit's conversation service`, never to Rachel; `Delivered` only means Orbit's server accepted them. Any reply comes from the thread and the retained relationship model, not from her account.
   - **Last Active records only the account owner's human sessions.** 5:12 PM (Rachel moving the plan) updates it; MSG_1048 (Continuity) doesn't; at 12:40 AM it goes with the profile. It is on her profile from the start of Night 1.
-- **The blue power bank (locked):** Rachel mailed it to the player months ago. It has nothing to do with the meeting (revised 2026-11-10: Rachel no longer asks the player to bring it). It's on the desk next to the phone when Night 1 begins, one light left. The room search now leads to the card, not the power bank (`night1-scenes.md`, `N1_ROOM.card`).
+- **The blue power bank (locked):** Rachel mailed it to the player months ago. It has nothing to do with the meeting (revised 2026-11-10: Rachel no longer asks the player to bring it). Revised 2026-11-21: it's in the tote bag on the desk when Night 1 begins, one light left, with Rachel's note (E02b); opening the bag puts it on the desk.
 - **The player's evidence:** the Companion Activity Records the player requests on Night 2 and receives on Night 3; plus their own history and screenshots.
 - **Records list facts, never verdicts.** No field says "misleading" or "lie".
 - **Actions, not beliefs.** The game remembers what the player did (saved a message, asked again, showed Dani), never what they "believed". Night 3's lines quote actions only.
@@ -54,6 +54,24 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
 - **How each read it:** Rachel thanks the player for "i would notice if you left"; the player thinks she means their real `take some time, no pressure`. Both readings are reasonable until October.
 - **Check:** Night 1, scrolling back to February; the warmth of her thanks is all there is to notice.
 - **Not stated:** that the message alone made her stay. Rachel decided; Continuity influenced her.
+
+**E02b · March 2026 · Rachel mails the power bank, with a note (decided 2026-11-21)**
+- **Origin:** Rachel, weeks after February. She mails the blue power bank in a tote bag printed `xoxo`, with a handwritten note (draft):
+
+  ```text
+  ok this is a power bank
+  because your phone is always dying
+  also i meant to say
+  you said you'd notice if i left
+  me too
+  do you ever actually charge it
+  ```
+
+- **What it shows:** Rachel answering a line she believes the player wrote in February (E01: `i just don't want you to think i wouldn't notice if you left`). The player's own February thread has only `take some time if you need to. no pressure` (E00).
+- **The player saw:** the note, back then, without thinking twice; it stayed in the bag with the power bank.
+- **Orbit and Juno:** have never seen it; it never passed through Orbit.
+- **Check:** Night 1, the note against the player's February thread and Rachel's Sunday `do you remember what you said to me that night in february`: Rachel thanks the player for words they never wrote. Not proof of who wrote them; Night 2's archive is (E01 record).
+- **Remembered:** `read_rachel_note`.
 
 **E03 · Sun Oct 18, evening · Rachel downloads her Account Archive**
 - **Origin:** Rachel, getting ready to leave Orbit, curious what it kept about her. In February she had believed the message completely; the `relationship_reactivation` record is the first reason she has to doubt it, which is why she asks the player, in person, what they remember saying.

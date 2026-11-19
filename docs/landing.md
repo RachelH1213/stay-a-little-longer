@@ -153,23 +153,33 @@ Actions use time and battery. Reading doesn't.
 
 **Name.** The game is `Stay a Little Longer` (window title, the Mac app, the menu bar), by the author (company name in Unity: the author's name). No Unity splash screen. Changing the name moves the save and the PlayerPrefs; existing saves and settings are carried over on first launch.
 
-**Credits** (from the title; draft, the author fills the brackets):
+**Credits** (decided 2026-11-21):
 
 ```text
-Stay a Little Longer
+STAY A LITTLE LONGER
 
-A game by Rachel (Xinyue) Huang
+A game by
+Rachel (Xinyue) Huang
 
-Senior Thesis, BFA Design & Technology
-Parsons School of Design, 2026–27
+Thesis Advisor
+Ernesto Klar
 
-Advisor  [name]
-Thanks  [classmates, playtesters]
+Fonts
+VT323 by Peter Hull
+Silkscreen by Jason Kottke
+Inter by Rasmus Andersson
+SIL Open Font License
 
-Fonts: VT323 by Peter Hull, Silkscreen by Jason Kottke, Inter by Rasmus Andersson,
-under the SIL Open Font License
+Made at Parsons School of Design
+BFA Design & Technology, Senior Thesis, 2026–27
+
 Made with Unity
+
+© 2026 Rachel Huang
 ```
+
+- Only sections with names; playtesters are not listed (the author's call). Whether to add a line on AI tools (Claude, Midjourney) is still the author's to decide.
+- **Where:** from the title menu now. After the final ending (once Night 3 exists), the same credits roll slowly over black. Never after Night 1's end card (it isn't an ending), and never before the story.
 
 The company name in Unity stays `Rachel Huang`; the credits use `Rachel (Xinyue) Huang`.
 

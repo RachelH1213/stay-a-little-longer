@@ -294,7 +294,7 @@ Suggest adding to the home screen; never require it. Desktop and mobile builds u
 
 ## 13. Version migration
 
-Every save carries `schema_version`, `game_version` and `saved_at`. A new version ships with a migration from each older schema; a save that can't be migrated falls back to the backup, then to New Game with this message (outside the fiction, wording `[TBD]`; draft: "Your saved game couldn't be opened, so a new game has started. Your settings and endings are still here."). Ids are never renamed (§2), which is what keeps migrations small.
+Every save carries `schema_version`, `game_version` and `saved_at`. A new version ships with a migration from each older schema; a save that can't be migrated falls back to the backup, then to a message on the title screen (outside the fiction; decided 2026-11-19): `Your saved game couldn't be opened.` / `Your settings and endings are still here.` / `[ Start a New Game ]`. It sits centred over a darkened title, like every dialog there, and Continue isn't offered. Ids are never renamed (§2), which is what keeps migrations small.
 
 ## 14. Implementation phases
 

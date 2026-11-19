@@ -30,7 +30,7 @@ If the docs don't decide something, don't invent it: build the smallest neutral 
 ## Rules that never change
 
 - **Game code decides what Juno says; the model only writes the words.** Juno never receives the whole truth: only a persona, an intent and the facts that intent allows. Key lines (clues, lies, the fixed line about MSG_1048) are written in the docs, word for word, never model-written.
-- **Everything is phone furniture.** Nothing on screen speaks outside the fiction except the title screen, Before You Begin and Name. No developer text, ids, layout notes or debug labels on any screen a player can reach.
+- **Everything is phone furniture.** Nothing on screen speaks outside the fiction except the title screen, Before You Begin, Name, and the help note shown when a player writes that they are in danger or want to hurt themselves (any composer; Juno doesn't answer that message). No developer text, ids, layout notes or debug labels on any screen a player can reach.
 - **Let the player find it.** No character states a contradiction the player is meant to work out. Nothing points at a clue.
 - **Rachel's own messages:** lowercase, no full stops, a joke where something is hard, always a question back. Anything written as her by Orbit is punctuated, closed and asks nothing. Never "fix" either.
 - **The player's messages and Suggested replies:** lowercase, no full stops.

@@ -349,7 +349,7 @@ Your data                  ›
 
 | 编号 | 已定的 | 改成 | 出处 |
 |---|---|---|---|
-| M1 | Juno 查完计划说出 Conversation Assist、Auto-Coordinate、六月（2026-11-10、11-12） | 它只读出记录的表面，名字今晚不出现 | `night1-routes.md` 1.3；`evidence-matrix.md` E11 |
+| M1 | Juno 查完计划说三句：`she moved it` · `5:12 this afternoon. it says saturday now` · `conversation assist said yes for you`（2026-11-19 刚定的） | 它只读出记录的表面（`it says saturday` · `it says you accepted`），名字今晚不出现 | `revision-2026-11.md` §2.2 最后一段；`night1-routes.md` 1.3；`evidence-matrix.md` E11 |
 | M2 | Change history 写 `Handled by Conversation Assist` · `Manual confirmation: Not required`（2026-11-12） | 写 `You accepted`；自动这件事在点进去的一层 | `night1-scenes.md`「The plan, as the player finds it」 |
 | M3 | `Handled by Conversation Assist` 可以点，直接到 Me 里的 Auto-Coordinate | 只有第 5 层的 `Manage` 通向 Plans 那一页 | `orbit-ia.md` |
 | M4 | Me 是设置页，Juno、Conversation Assist 和它的两个子开关都在第一层（2026-11-13） | Me 是个人页；设置在齿轮后面，分七类 | `orbit-ia.md`；`phone-screens.md` §4 Me |
@@ -357,6 +357,8 @@ Your data                  ›
 | M6 | 关 Juno 的确认框有三个按钮，老实说明 Conversation Assist 还开着 | `Take a break` 在前，`Turn off` 在后；主按钮是 `Keep Juno` | `story-bible.md` §6 |
 | M7 | 假消息最晚 11:45 到 | 玩家到过第 3 层，或者 11:55 | `evidence-matrix.md` E14 |
 | M8 | 手机自己的 Settings 只有亮度 | 加 `Screen Time` | `orbit-ia.md` |
+
+**和 `revision-2026-11.md` 的关系：** 那份是 11 月 19 日定的，这份是在它之后、针对你新指出的问题写的。除了 M1，两者不冲突：那份里关于 Juno 越界的台词、Snooze、Battery Saver、Privacy & Data、六月是 Juno 推荐的，这份都沿用。那份 §2.9 的 `Download your data` 和 `Delete account`，在这里放进 `Your data` 那一类。
 
 **没有改的：** 三个系统仍然是三个；每个开关仍然真的有效；Continuity 仍然没有开关，Night 3 之前不出现它的名字；世界的事实一条没动（谁在什么时候做了什么，和 `evidence-matrix.md` 完全一致），改的只是每一样东西在什么时候、以什么面目被玩家看到。
 

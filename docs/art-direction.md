@@ -47,7 +47,7 @@ The visual system stays the one decided on 2026-10-13: phone, humans, Orbit.
 ## 6. The room
 
 - **View:** first person from the chair (story-bible §6, "How the game looks"), now drawn instead of modelled.
-- **Canvas:** 640 × 360 pixels, shown at whole-number scales only (×3 at 1080p, ×4 at 1440p, ×6 at 4K), never blurred. **Other shapes (decided 2026-11-19, e.g. a MacBook's 16:10):** the room fills the screen at the smallest whole-number scale that covers it, cropped equally at the edges, never letterboxed; the phone is always wholly inside the visible area and is scaled to fit its height. Hotspots, room controls (`Go to sleep`, waits) and the phone stay inside the central **safe area of 512 × 320**, which every Mac display shows. Every UI check adds one 16:10 screenshot (2880 × 1800).
+- **Canvas:** 640 × 360 pixels, shown at whole-number scales only (×3 at 1080p, ×4 at 1440p, ×6 at 4K), never blurred. **Other shapes (decided 2026-11-19, e.g. a MacBook's 16:10):** the room fills the screen at the smallest whole-number scale that covers it, cropped equally at the edges, never letterboxed; the phone is always wholly inside the visible area and is scaled to fit its height. Hotspots, room controls (`Go to sleep`, waits) and the phone stay inside the central **safe area of 512 × 320**, which every Mac display shows. A check of the room or the phone's placement adds one 16:10 screenshot (2880 × 1800).
 - **Window (decided 2026-11-12):** the game starts fullscreen at the display's own resolution, so a normal screen lands on ×3 or more and the phone's interface is 420 pixels wide or wider. 1280 × 720 in a window is the smallest supported size (×2, interface 280 wide): suggested replies wrap to a second line and dates use the short form there, so nothing is cut off. Only below ×2 does the game fall back to a smoothed scale. The phone's interface is laid out at one fixed size (280 × 512 units) and only scaled, so line breaks are the same on every screen.
 - **Phone frame and icons:** the phone frame (160 × 280), the 44 px avatars and Orbit's logo follow the same whole-number rule. The logo needs a small version of about 48 px drawn for the interface; the 96 px one doesn't scale cleanly.
 - **States to draw:** holding the phone (the screen area left empty); phone down, looking at the desk and room; phone lit up on the desk. Later: the phone dead, the power bank found, morning.
@@ -90,7 +90,7 @@ For Orbit's screens on the phone only; not the room, the title screen or other s
 - **The player's bubbles** have their own fill (a little lighter, slightly paper-tinted), different from the other person's. Bubble padding 8 horizontal, 6 vertical; 1 px border.
 - **Suggested replies:** a small `◌ Suggested replies` label (10), then the replies in one row that scrolls sideways if needed, 28 tall. Together with the composer, about 84 tall at most.
 - **The room's hint** `Esc · Put down` shows only until the player has put the phone down once.
-- **Every UI check** is made at all three text sizes, at 1280 × 720 and 1920 × 1080.
+- **UI checks** (revised 2026-11-19): Standard at 1280 × 720 by default; Extra Large when text could wrap or overflow; other sizes only when the change concerns them (`rebuild-CLAUDE.md`, Checking UI).
 
 ### Phone layout, second pass (decided 2026-11-17, after the author's walkthrough)
 

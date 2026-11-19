@@ -11,6 +11,7 @@ New documents that come from the same decisions:
 | `docs/juno-past-and-retention.md` | Juno's past conversations (above `TODAY`), its attempts to keep the player on all three nights, and its answers on Night 3. Fixed lines. |
 | `docs/rachel-history.md` | Rachel's thread from March 2025 to Sunday. Her jokes are a scaffold: the author rewrites her voice. |
 | `docs/data-export.md` | The player's data on Night 3: where, when, wording rules, layout, every section. |
+| `docs/desk-cards-notebook.md` | The desk cards (pieces of the phone the player takes out, frozen, moved, shown to people) and the notebook in the room, where tonight's notes and questions are written. Rounds 6–8. |
 | `docs/night1-layers.md` | Night 1's mystery in nine layers: what the player sees at each step, word for word, and what Juno and Dani say. Added later on 2026-11-19; it replaces §2.2's last paragraph and the pressed-line rule. |
 
 Lines in this file are final unless marked **draft**; drafts are the author's to rewrite.
@@ -316,7 +317,7 @@ In Messages (`2026-11-fable-scenes.md` 8.2, **draft**): with a denial, `i know` 
 
 ---
 
-## 7. Build order (decided 2026-11-19)
+## 7. Build order (decided 2026-11-19; rounds 6–9 added the same day for the desk cards and the notebook, the author's order)
 
 The Unity work is done in rounds. A prompt can say "do round N" and nothing more: the round's scope is this table, and nothing from a later round is started early. This replaces rounds 4–6 of `docs/review/2026-11-fable-unity-audit.md` §8, which were written before the decisions above; its rounds 1–3 stand.
 
@@ -326,10 +327,14 @@ The Unity work is done in rounds. A prompt can say "do round N" and nothing more
 | 2 | Story state recorded when shown (S1–S10); time, battery and the room (N1–N7); shell, save, input, resolution and title flow (H1–H11); 16:10 as in `art-direction.md`; the help note over a darkened screen; `1 new message` never covering text; why Play mode is slow | audit §2.3–2.5 |
 | 3 | Structure: the conversation view split out, a page registry with the Back path saved, sheets on their own layer, every line and screen text moved out of code into data files, the append-only action log (each entry with its story time) | audit §6.1–6.4, §7.1 |
 | 4 | Interaction and the text changes of this file: the four rules of §2.11; the audit's I1–I10; the first fake (§2.1); Juno's lines (§2.2 and the answers it must have); the held-back line (§2.3); Suggested replies ask, never conclude (§2.4); Rachel leaving and 12:40 as Orbit shows it (§2.5); Snooze (§2.6, without the attempts to keep the player); Notes and going to sleep (§2.7); Orbit's reply to Dani (§2.8); Privacy & Data (§2.9); Battery Saver (§2.10); the small facts of §1.4 (`same code`, Sunday's reply, crit); a visible way to forward a message, and `rachel answered` | this file §1–2; audit §3, §4 |
-| 5 | Night 1's nine layers, without Screen Time: History with the two `You accepted`, `Change your response`, `Share` on the plan and the profile, the new Me and Settings, Contact Protection as verification requests, Juno's and Dani's lines layer by layer, the confrontation ladder, Orbit's notifications and the shared limit | `night1-layers.md` |
-| 6 | Juno's past above `TODAY` and its attempts to keep the player on Night 1; each unprompted line recorded with what it was sent after | `juno-past-and-retention.md` §1–2; `data-export.md` |
-| 7 | Rachel's thread (once the author has written it), 12:40 as the player sees it, Night 1's last image | `rachel-history.md`; §2.5 |
-| 8 | The Night 3 export and Juno's last conversation, read from a Night 1 save through an editor-only entry; then three to five people try it | `data-export.md`; §4 |
+| 5 | Night 1's nine layers, without Screen Time: History with the two `You accepted`, `Change your response`, `Share` on the plan and the profile, the new Me and Settings, Contact Protection as verification requests, Juno's and Dani's lines layer by layer, Orbit's notifications and the shared limit. Layer 9 stops at Juno's fixed line; Notes is left as it is | `night1-layers.md` |
+| 6 | Desk cards: taking a piece of the phone out (drag or menu), moving, closing back to Photos, the frozen content, showing a card to Juno, Dani or Rachel; the full-screen screenshot goes | `desk-cards-notebook.md` §9, first round |
+| 7 | Card size, the two new pointers, the lift and fly animations, automatic placement (can move to any point after round 6) | `desk-cards-notebook.md` §9, second round |
+| 8 | The notebook: openable in the room and while holding the phone; tonight's Night Log and unresolved questions on paper, written and struck through as they happen; cards clipped to questions; `Tuesday night` leaves Notes | `desk-cards-notebook.md` §9, third round |
+| 9 | Pointing at what's wrong, the confrontation ladder, the ten questions on the paper, `what should i do?`, the rewards for curiosity. **Not decided yet:** the author is still settling it with Fable; it is merged into `night1-layers.md` before this round | `review/2026-11-fable-night1-game-design.md`, `review/2026-11-fable-pointing-and-notes.md` |
+| 10 | Juno's past above `TODAY` and its attempts to keep the player on Night 1; each unprompted line recorded with what it was sent after | `juno-past-and-retention.md` §1–2; `data-export.md` |
+| 11 | Rachel's thread (once the author has written it), 12:40 as the player sees it, Night 1's last image | `rachel-history.md`; §2.5 |
+| 12 | The Night 3 export and Juno's last conversation, read from a Night 1 save through an editor-only entry; then three to five people try it | `data-export.md`; §4 |
 | Then | Night 2 grey-boxed, then Night 3; the model; sound; art | §3–5 |
 
 **Every round:** pull the design repository first, follow `CLAUDE.md` (tests, screenshots, the one-session rule), report what changed and what the documents didn't decide, and stop at the end of the round.

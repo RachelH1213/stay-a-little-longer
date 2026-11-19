@@ -17,6 +17,7 @@ All design decisions are in `RachelH1213/stay-a-little-longer`, cloned next to t
 | Document | What it decides |
 |---|---|
 | `docs/revision-2026-11.md` | **the decisions of 2026-11-19; wins over every document below where they disagree.** Read it first. §7 is the build order: a prompt that says "do round N" means that row |
+| `docs/desk-cards-notebook.md` | the desk cards and the notebook: layout, every interaction, what is saved, rounds 6–8 |
 | `docs/night1-layers.md` | Night 1's mystery, layer by layer: every screen, Juno's and Dani's lines, notifications, the new Settings pages |
 | `docs/juno-past-and-retention.md` | Juno's past conversations, its attempts to keep the player, its Night 3 answers (fixed lines) |
 | `docs/rachel-history.md` | Rachel's thread from March 2025 to Sunday |
@@ -35,7 +36,7 @@ If the docs don't decide something, don't invent it: build the smallest neutral 
 ## Rules that never change
 
 - **Game code decides what Juno says; the model only writes the words.** Juno never receives the whole truth: only a persona, an intent and the facts that intent allows. Key lines (clues, lies, the fixed line about MSG_1048) are written in the docs, word for word, never model-written.
-- **Everything is phone furniture.** Nothing on screen speaks outside the fiction except the title screen, Before You Begin, Name, and the help note shown when a player writes that they are in danger or want to hurt themselves (any composer; Juno doesn't answer that message). No developer text, ids, layout notes or debug labels on any screen a player can reach.
+- **Everything is phone furniture,** with one exception, the author's (2026-11-19): the desk cards and the notebook (`docs/desk-cards-notebook.md`) sit outside the phone, over the room. They are the player's own things, never Orbit's: no Orbit ring, colour or wording on them, and Orbit and Juno never see them. Nothing on screen speaks outside the fiction except the title screen, Before You Begin, Name, and the help note shown when a player writes that they are in danger or want to hurt themselves (any composer; Juno doesn't answer that message). No developer text, ids, layout notes or debug labels on any screen a player can reach.
 - **Let the player find it.** No character states a contradiction the player is meant to work out. Nothing points at a clue.
 - **Rachel's own messages:** lowercase, no full stops, a joke where something is hard, always a question back. Anything Orbit writes as her has a full stop where she would have none, is closed and asks nothing. Never "fix" either.
 - **The player's messages and Suggested replies:** lowercase, no full stops.

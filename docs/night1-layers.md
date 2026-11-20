@@ -21,13 +21,16 @@
 | 1 | 九层的结构取代 Juno 查完计划一口气说完的做法。 |
 | 2 | History 里写 `You accepted`。10 月 20 日那一条后面带 Orbit 的小圆环 ◌，10 月 13 日那一条没有；点进去一个是 `Accepted by you.`，一个是 `Accepted for you.`。每一条记录都有 `›`。 |
 | 3 | Juno 先念记录（`it says you did`）。 |
-| 4 | Night 1 留一个开关：Auto-Coordinate。玩家可以自己去关（会碰到 `Keep on`），也可以让 Juno 替自己关。**Juno 的界线：** 玩家要求时，它能改玩家自己的设置；它从不替玩家对任何人说话（`can you message her for me?` → `no` · `i can't write to people for you`）。记录分清是谁关的。 |
+| 4 | Night 1 留一个开关：Auto-Coordinate，让玩家先赢一次。**2026-11-20 改：** 它不能一键直达。`Accepted for you.` 弹层里没有 `Manage`；玩家要自己去 Me → 齿轮 → `Plans` 找到它（会碰到 `Keep on`），或者把发现告诉 Juno，让它替自己关。**Juno 的界线：** 玩家要求时，它能改玩家自己的设置；它从不替玩家对任何人说话（`can you message her for me?` → `no` · `i can't write to people for you`）。记录分清是谁关的。 |
 | 5 | Me 改成个人页，设置在齿轮后面，分七类，第一层没有开关；关的时候主按钮是 `Keep on`。Contact Protection 不再是开关，只能对某个人发验证请求。 |
 | 6 | 对质的阶梯没有原稿的第 3 级（`i can only tell you where it came through` 暗示它只看得到路径，等于第二句假话）。没拿够东西时 Juno 重复 `it came through her account`。拿出两样才到 `i can't say more than that`。第 5 级 `can't` 保留。这条同时取代 `revision-2026-11.md` §2.2 里「追问就直接到 `i can't say more than that`」。 |
 | 7 | `rachel answered`、计划和主页的 `Share`、`Change your response`、Dani 的反应都做。 |
 | 8 | 通知有共同的上限（附 B）。 |
 | 9 | 假消息的触发改成第 9 层写的条件，最晚 11:55。 |
-| 10 | **Screen Time 推迟**，试玩后再定（第 4 层）。 |
+| 10 | ~~Screen Time 推迟~~。**2026-11-20 改：要做**（第 4 层）。它是「不是我点的」的几条路之一，不是唯一的一条。 |
+| 14 | **线索不止一条（2026-11-20，作者定）。** 每一个关键发现至少有三条路能到，任何一条都不是唯一的；卡住的玩家还可以问 Juno 或 Dani `what should i do?`（第 10 轮）。这不是单线的游戏：玩家用不同的方式、按不同的顺序走到同样的发现。以后设计任何线索都照这条做。 |
+| 15 | **Juno 前期要帮忙（2026-11-20，作者定）。** 它主动提出查计划、读出记录，这是真的帮忙，用来赢得玩家的信任，后面的反转才有分量。但它只帮到一半：它不替玩家往下走，后面每一步要玩家自己去看、拿着看到的东西回来问它。 |
+| 16 | **节奏（2026-11-20）。** 「她为什么没来」这个谜，一个不绕路的玩家大约 15 分钟解开，不是 2 分钟。假消息要等玩家至少看过 History 才来（第 9 层的条件不变，最晚 11:55）。 |
 | 11 | 设置里任何地方都不写 `Conversation Assist`，只有圆环。 |
 | 12 | Rachel 改期备注用她自己的写法：`my schedule changed` / `can we do saturday` / `email me if that works: [hidden]`。 |
 | 13 | 拒绝过改期的玩家，计划一直显示 `Declined · Not delivered`；周六尾声最后那条记录写 `Plan declined · Not delivered`，不写 `Plan started`。 |
@@ -357,9 +360,90 @@ I declined it. It didn't go through.
 
 ---
 
-## 第 4 层：那时候我没开过 Orbit（推迟）
+## 第 4 层：那时候我没开过 Orbit（2026-11-20 定：要做）
 
-推迟到试玩之后（0.3 第 10 条）。原稿是手机自己的 Settings 里加一页 `Screen Time`，显示 5:12 前后没有打开过 Orbit，Juno 看了截图说 `that's your phone, not orbit` · `i can't see that` · `but it doesn't match`。如果试玩时很多人走不到第 5 层，或者需要一个让 Juno 改口的东西，再按 `docs/review/2026-11-fable-night1-nine-layers.md` 的第 4 层加回来。现在手机的 Settings 只有亮度。
+### 入口
+
+主屏幕 → 手机自己的 `Settings` → `Screen Time`。没有任何东西指向它。
+
+### 屏幕
+
+**Settings**（手机的）：
+
+```text
+SETTINGS
+
+Brightness          ────────●
+Screen Time                                 ›
+```
+
+**Screen Time：**
+
+```text
+‹ SETTINGS          SCREEN TIME
+
+TODAY · TUE, OCT 20
+
+Orbit                                 1h 14m
+  1:48 PM – 1:52 PM
+  9:02 PM – 9:41 PM
+  11:31 PM – now
+
+Notes                                     6m
+Photos                                    2m
+```
+
+- `1h 14m` 和 `now` 那一行跟着今晚的故事时间走。过了午夜，上面的日期换成 `WED, OCT 21`，周二的留在下面。
+- 2 点到 9 点之间是空的。屏幕上没有任何标记指出这一点。
+- `Notes` 和 `Photos` 的数字是写死的，为了让这一页像一页，而不是一条线索。
+
+### Juno
+
+要给 Juno 看，只能截图再分享（它是手机的页面，不是 Orbit 的）。
+
+```text
+Juno
+that's your phone, not orbit
+i can't see that
+```
+
+停两秒，输入中的三个点再出现一次。
+
+```text
+Juno
+but it doesn't match
+```
+
+- 这是它第一次承认 Orbit 的记录可能不对。
+
+玩家不截图，只打字（`i wasn't even on orbit at 5`）：
+
+```text
+Juno
+i believe you
+i can't check it
+```
+
+### Dani
+
+截图分享给她：
+
+```text
+Dani
+huh
+then how did you accept it
+```
+
+### Night Log
+
+```text
+11:44 PM
+I didn't open Orbit between 1:52 and 9:02.
+```
+
+### 记下 / 花费
+
+新：`saw_screen_time`。打开手机的 Settings 不花时间。
 
 ---
 
@@ -378,11 +462,20 @@ Oct 20 · 5:12 PM
 Accepted for you.
 Auto-Coordinate is on for Rachel.
 
-[ Manage ]
 [ Close ]
 ```
 
 - 没有 `Conversation Assist`，没有 `Confirmation: Not required`。
+- **没有 `Manage`（2026-11-20 改）。** 这里不能一键跳到开关。
+
+**「是自动的」有几条路能到，找到任何一条都算（`knows_auto_accepted`）：**
+
+| 路 | 玩家做的 |
+|---|---|
+| 这个弹层 | 点第二条（带 ◌ 的）`You accepted` |
+| Screen Time（第 4 层） | 看到 5:12 前后没打开过 Orbit，截图拿给 Juno 看：`that's your phone, not orbit` · `i can't see that` · `but it doesn't match`；玩家再问 `then who accepted it?` → `there's a plans setting` · `it can say yes for you` |
+| 旧对话 | Juno 六月的旧消息（它提议打开一个替你接受改期的设置），或者自己六月对 Rachel 说的 `i said yes to everything`；拿去问 Juno → `you did` · `june` |
+| Dani | 告诉她「不是我点的」，她说 `i think mine's on too` · `there's a setting` |
 
 ### Juno
 
@@ -434,7 +527,7 @@ It was accepted for me. By something called Auto-Coordinate.
 
 ### 入口
 
-第 5 层的 `Manage`。或者自己走：Me → 齿轮 → `Plans`。
+（2026-11-20 改）没有一键直达。两条路：自己走 Me → 齿轮 → `Plans`；或者把发现告诉 Juno，它提出 `want me to turn it off?`，替你关掉（见下面「Juno 提出替玩家关掉」）。
 
 ### 屏幕
 
@@ -1165,9 +1258,9 @@ Delete account                              ›
 | 1 | Activity，或者 Orbit 的第一条通知 |
 | 2 | Notes，她的对话 |
 | 3 | 计划 → History |
-| 4 | （推迟） |
+| 4 | 手机自己的 Settings → `Screen Time` |
 | 5 | 点那条 `You accepted` |
-| 6 | `Manage`；六月的事在 Rachel 的对话里也有 |
+| 6 | 自己走 Me → 齿轮 → `Plans`；或者让 Juno 替你关；六月的事在 Juno 和 Rachel 的旧对话里都有 |
 | 7 | 点 `[hidden]`；Dani |
 | 8 | 她的主页，或者 Orbit 的第二条通知 |
 | 9 | 假消息自己会来；可以拿给 Dani |
@@ -1190,7 +1283,7 @@ Delete account                              ›
 
 ## 附 E：试玩时要看的
 
-1. **玩家会不会点第二条 `You accepted`。** 现在靠圆环 ◌ 和 Juno 的 `the same minute she changed it`。走不到的人多，就把第 4 层（Screen Time）加回来。
+1. **玩家会不会点第二条 `You accepted`。** 现在靠圆环 ◌ 和 Juno 的 `the same minute she changed it`。第 4 层（Screen Time）、旧对话和 Dani 是另外几条路。
 2. **`you had orbit`**（第 7 层）。很准，可能太准。
 3. **Dani 的 `i think mine's on too`**（第 5 层）。让事情不只是玩家一个人的，也可能分散注意力。
 4. **她主页上的 `ABOUT`。** 占位，等她的工作和猫定了由作者写。

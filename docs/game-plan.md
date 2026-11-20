@@ -68,7 +68,7 @@ What happened, event by event: `evidence-matrix.md`.
 
 ### Characters
 
-- **The player:** a design student after a bad crit; named by the player; on Orbit for a year and a half.
+- **The player:** a design student after a bad presentation; named by the player; on Orbit for a year and a half.
 - **Rachel:** met through Juno in March 2025; online friends, never met in person; writes with no full stops, turns bad news into specific jokes, always asks something back. Her fakes break exactly these habits.
 - **Juno:** the player's companion. Warm and needy at first, precise and technical when questioned, intimate again at the end.
 - **Dani:** the only mutual friend who knows Rachel outside Orbit; ran their online game nights; has Rachel's email.

@@ -30,7 +30,7 @@
 |---|---|---|
 | J1 | **已定（2026-11-19）：** End Session 换成 Snooze（`Snooze Juno until morning?` / `Juno won't message you tonight.`）。Snooze 之后当晚 Juno 什么都不发。挽留只由弱的离开信号触发：手机放下、带着没回答的问题离开它的对话、去睡觉。 | — |
 | J2 | **已定：** 六月是 Juno 向玩家提的 Auto-Coordinate。 | — |
-| J3 | **已定：** crit 在周二下午 2 点（报告 L6）。 | — |
+| J3 | **已定：** presentation（原来叫 crit）在周二下午 2 点（报告 L6）。 | — |
 | J4 | 玩家搬来这个城市不久（房间里有没拆的搬家纸箱）。 | 改 1.1 的选项。 |
 | J5 | **已定：** Night 2 早上玩家就知道 Rachel 没事（第二轮意见 3.2）。 | — |
 

@@ -52,7 +52,7 @@ The visual system stays the one decided on 2026-10-13: phone, humans, Orbit.
 - **Phone frame and icons:** the phone frame (160 × 280), the 44 px avatars and Orbit's logo follow the same whole-number rule. The logo needs a small version of about 48 px drawn for the interface; the 96 px one doesn't scale cleanly.
 - **States to draw:** holding the phone (the screen area left empty); phone down, looking at the desk and room; phone lit up on the desk. Later: the phone dead, the power bank found, morning.
 - **Layers:** each drawn on its own layer so light and a little parallax can work: back wall and window; desk; lamp; objects on the desk; the player's hands and phone; foreground. Names: `room_<state>_<layer>.png`, e.g. `room_holding_desk.png`.
-- **Things in the room:** the desk, the lamp, the window at night, a chair edge, the tote bag Rachel's package came in (`xoxo` printed on it), a radio, an alarm clock, books, a notebook and crit papers. (Revised 2026-11-20 to match the final art: no drawer.) The room tells who the player is (a design student after crit) without words.
+- **Things in the room:** the desk, the lamp, the window at night, a chair edge, the tote bag Rachel's package came in (`xoxo` printed on it), a radio, an alarm clock, books, a notebook and presentation boards. (Revised 2026-11-20 to match the final art: no drawer.) The room tells who the player is (a design student after the presentation) without words.
 - **Light:** drawn flat and darker than final; the game adds the lamp and the screen glow as real 2D lights, so the screen's light visibly changes the room when a notification arrives.
 
 ## 7. The phone and its screens

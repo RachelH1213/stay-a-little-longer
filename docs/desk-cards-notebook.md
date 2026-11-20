@@ -312,7 +312,7 @@ Photos 页面不用大改：
 | 先做（接现有的代码） | 现在 `Tuesday night` 那条笔记里 `Still unresolved` 下面的那些行（`StillUnresolved()`）。现在一条解决了就从列表里消失；改成留在纸上、被划掉。 | 现在那条笔记里带时间的那些行（`NightLogEntries()`），字不变 |
 | 「指出哪里」那一轮 | 换成我那份草稿第 12 节的十个问题和它们的答案行（如果你采纳那一份） | 不变 |
 
-**手机里的 Notes：** `Tuesday night` 那一条从列表里去掉。`crit` 和 `first time, finally` 两条旧笔记不动。
+**手机里的 Notes：** `Tuesday night` 那一条从列表里去掉。`presentation` 和 `first time, finally` 两条旧笔记不动。
 
 ### 6.4 写和划
 

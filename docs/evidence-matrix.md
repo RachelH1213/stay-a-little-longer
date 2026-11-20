@@ -130,7 +130,7 @@ Each event: **Origin** (who or what really acted) · **Rachel saw** · **The pla
   >
   > The player's earlier authorisation let Orbit make the decision; it doesn't show the player wanted this change.
 - **Rachel saw:** `Accepted`, from the player's account.
-- **The player saw:** nothing pushed; they were at their own crit all afternoon. The chat with Rachel keeps the original messages; the plan's current state lives in Plans, never as a large card in the chat.
+- **The player saw:** nothing pushed; they were at their own presentation all afternoon. The chat with Rachel keeps the original messages; the plan's current state lives in Plans, never as a large card in the chat.
 - **Juno:** can see in the plan's history who accepted, and when the setting was enabled.
 - **Check:** any time, Change history: `Change accepted · Handled by Conversation Assist · Manual confirmation: Not required`, with Rachel's note beside it, which played no part in the decision.
 

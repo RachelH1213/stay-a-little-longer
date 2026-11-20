@@ -351,7 +351,7 @@ From the playtest with classmates and Ernesto Klar, and `review/2026-11-fable-pl
 ### 8.1 Small fixes (round 7)
 
 1. **Scrolling the Suggested replies:** wheel and trackpad move them a sixth as far as now, only along the axis that moved most, and stop at both ends.
-2. **Home:** the thin home indicator becomes a small round Home button under the screen. Every app's top-level page (Chats, Activity, Me, Notes, Photos, Settings) has `‹ HOME` at its top left. The player's first entry is Juno's notification, so they never saw the home screen; these two make it findable.
+2. **Home:** ~~a small round Home button under the screen and `‹ HOME` at the top left of every top-level page~~ (built in round 7; the author found the masthead unbalanced, the ring unreadable and the strip under the tab bar empty). **Revised 2026-11-20:** the empty 20-unit strip under every page becomes the home bar: a small house glyph and `HOME`, centred, the whole strip clickable (`phone-screens.md` §3). The round button on the frame and the `‹ HOME` strips go; every masthead and heading returns to its earlier height. The player's first entry is Juno's notification, so they never saw the home screen; a labelled bar at the bottom of every page makes it findable.
 3. **Putting the phone down:** while holding the phone, `Put down` is always at the bottom left of the room, in the room controls' style; Esc still works. `Go to sleep` shows at the bottom right while holding the phone too, once it is available. The "already learned" marker, kept on this computer rather than in the save, is removed.
 4. **How many Suggested replies:** at most two; three only when Juno has just asked a question with three real answers; of the questions waiting, only the newest shows; the row can be empty.
 

@@ -9,13 +9,15 @@
 
 日历（第 6 节）作者还没定，写成可以整节拿掉的样子。
 
+**第二版（2026-11-20）：** 按设计窗口的两处修改重写了 1.1、1.5、1.6：Dani 约 game night 的话换成带关心的那两句；改时间是 Dani 请玩家帮忙改的。我在这两处上各调了一点，理由在 0.1。
+
 ---
 
 ## 0. 这一份加了什么
 
 | # | 加的 | 多大 |
 |---|---|---|
-| 1 | **试一下：** 玩家自己改一个和 Dani 的计划，从 Rachel 那一边看一次；Dani 改回来，从自己这一边再看一次 | 这一份的主体。一个新计划，Dani 约 14 句，三个弹层 |
+| 1 | **试一下：** 玩家替 Dani 改一个和她的计划，从 Rachel 那一边看一次；Dani 反过来改一次，从自己这一边再看一次 | 这一份的主体。一个新计划，Dani 约 14 句，三个弹层 |
 | 2 | Screen Time 画成一条 | 一页的版式 |
 | 3 | 对一对，第一晚能用的三处 | 在卡片上加，随第二晚一起做也可以 |
 | 4 | Juno 替玩家做的事，记下来 | 只加记录，几乎没有新的字 |
@@ -26,23 +28,42 @@
 
 **上一份写的是「Dani 的消息马上就到：`did you just move game night`」和「一条横幅 `Plan updated · Accepted for you`」。这两样都不对。** 已定的是：改期被自动接受时，Orbit 不通知任何人（`orbit-ia.md`：今晚没有关于改期的通知，第二天的回顾里才有）。所以 Dani 不会自己发现，玩家这边也不会有横幅。**没有人被告知，这正是这件事本身。** 下面是按这个写的，而且我认为比上一份更好：玩家得自己去问 Dani，Dani 是被玩家问了才发现的。
 
+### 0.1 对设计窗口两处修改的调整
+
+| 设计窗口的修改 | 我的看法 | 调了什么 |
+|---|---|---|
+| Dani 请玩家帮她把时间改到 10 点 | 采纳。没人会想到去做的玩法等于没有。代价是第一下从「玩家自己想试」变成了「帮朋友一个忙」，发现是撞上的。 | 三处，见下 |
+| 约 game night 的话改成带关心的两句，放在她发完邮件之后 | 话采纳；**时间不采纳** | 见下 |
+
+**对第一处调的三点：**
+
+1. **她为什么不自己改。** 计划是她刚建的，她自己改一下就行。要一个理由，而且不能是技术上的借口。我用的是她的脾气：`i made it. you do the admin`。
+2. **`Change the time` 在她开口之前就在计划页上。** 自己先想到去改的玩家照样可以先改。她之后那句只是换一个说法。
+3. **留住后半段。** 设计窗口上一轮提的注意是：玩家先关掉自己的开关再试，结果要不一样。按「帮她改到 10 点」做，改完就没有人再动这个计划了，这一半就没了。所以 Dani 发现自己的被自动接受之后，**她反过来在玩家身上试一次**：`i'm moving it to 10:30` · `tell me if it asks you`。这样玩家动手的那一下是帮忙，Dani 的那一下才是实验，而且是她提出来的。
+
+**对第二处：话用，时间不用。** 她的邮件是玩家找到第 7 层（被藏掉的邮箱）之后才有的。把邀请放在邮件之后，会有两个问题：
+
+- 这个实验本来是通到第 5 层「是自动的」的一条路。等到第 7 层之后才出现，大多数玩家已经知道第 5、6 层了，它就只剩下确认。
+- 第 7 层之后离 11:55 的假消息、12:30 的道别、12:40 很近，这一段已经很挤。
+
+带关心的那两句，放在她刚听说 Rachel 没来之后说，其实更合适：朋友是在你刚说完坏消息的时候叫你周五出来的，不是在办完事之后。
+
 ---
 
 ## 1. 试一下
 
 ### 1.1 那个计划从哪来
 
-每周五的 game night 九月底就停了（已定：Dani 9 月 27 日说 `ping me when you're alive again`；Juno 10 月 2 日说 `you used to have plans on fridays`）。
+每周五的 game night 九月底就停了（已定：Dani 9 月 27 日说 `ping me when you're alive again`；Juno 10 月 2 日说 `you used to have plans on fridays`）。今晚 Dani 把它约回来。
 
-**今晚玩家第一次给 Dani 发消息，就是那一声 ping。** 她借这个把 game night 约回来。
+**什么时候：** 玩家今晚给 Dani 发过消息，她第一轮的回答（`wait you were finally meeting??` · `that's not like her`）已经出现，之后过了 2 个故事分钟，或者玩家又对她说了一句，先到的那个。只发一次。
 
-**什么时候：** 玩家今晚给 Dani 发过消息，她第一轮的回答已经出现，之后过了 2 个故事分钟，或者玩家又对她说了一句，先到的那个。只发一次。假消息到达后的 3 个故事分钟内不发；12:30 之后不发。
+不发的时候：她正在问要不要发邮件、还没说 `sent` 的那一段中间（等那一段完了再发）；假消息到达后的 3 个故事分钟内；12:30 之后。
 
 ```text
 Dani
-also
-you pinged me so you're alive again
-game night friday?
+come to game night friday
+you shouldn't be alone in your room all week
 
 ┌────────────────────────────────────┐
 │ Game night                         │
@@ -52,11 +73,13 @@ game night friday?
 └────────────────────────────────────┘
 ```
 
+（前两句是设计窗口写的。）
+
 | 玩家 | 发生什么 |
 |---|---|
-| 点 `Accept` | 卡片上那一行变成 `Accepted by you`。Dani：`good` |
+| 点 `Accept` | 卡片上那一行变成 `Accepted by you`。Dani：`good`。隔一拍，她请玩家改时间，见 1.5。 |
 | 点 `Decline` | `Declined`。Dani：`fair` · `next week then`。这个计划没有了，这一节后面的事不会发生。 |
-| 不理 | 卡片一直是 `Dani invited you`。Activity 和 Plans 里它写着 `Waiting for you`。 |
+| 不理 | 卡片一直是 `Dani invited you`。Activity 和 Plans 里它写着 `Waiting for you`。她不会请玩家改一个还没答应的计划。 |
 
 - **不理的那一种，本身就是一样证据。** Dani 的邀请一直在等玩家点，而 Rachel 5:12 的改期没有等。两样东西并排在 Plans 列表里。没有任何地方指出这一点。
 - 她的消息不占今晚四条通知的名额（已定：Dani 的消息不占）。
@@ -164,12 +187,12 @@ Cancel
 - 三个现成的选项，不做日期选择器。
 - 没有周六：周六 9 点是和 Rachel 的那一个。
 
-玩家点了其中一个（下面以周日为例）。弹层关掉，回到计划详情。**它已经是这样了：**
+玩家点了其中一个（下面以 Dani 要的 10 点为例；选别的也一样）。弹层关掉，回到计划详情。**它已经是这样了：**
 
 ```text
 Game night
 With Dani
-WHEN     Sun, Oct 25 · 9:00 PM
+WHEN     Fri, Oct 23 · 10:00 PM
 WHERE    Online
 STATUS   Accepted · 11:48 PM
 ```
@@ -182,7 +205,7 @@ History 多了两条：
 OCT 20 · 11:48 PM
 You changed the time                        ›
 FROM   Fri, Oct 23 · 9:00 PM
-TO     Sun, Oct 25 · 9:00 PM
+TO     Fri, Oct 23 · 10:00 PM
 
 OCT 20 · 11:48 PM
 Dani accepted                               ›
@@ -201,23 +224,43 @@ Oct 20 · 11:48 PM
 - 这就是 Rachel 周二下午看到的画面（已定，`evidence-matrix.md`：她那边只有 `Accepted` 和时间，从没说是谁点的）。玩家现在坐在她的位置上。
 - 花费：+1 分钟，−0.5%。
 
-### 1.5 没有人告诉 Dani
+### 1.5 Dani 请玩家改时间，然后没有人告诉她
 
-改完之后，什么都不会发生。Dani 不知道。
+玩家点了 `Accept`，Dani 说了 `good`。隔一拍：
 
-Dani 的对话里多一个建议回复：`did you just accept that?`（玩家刚在自己的屏幕上看到了 `Dani accepted`，所以这句是在接屏幕上的东西。）
+```text
+Dani
+can you move it to 10 tho
+i'm at the studio till 9:30
+i made it. you do the admin
+```
+
+（前两句是设计窗口写的；第三句是她为什么不自己改。八月那一次也是挪到 10 点：`game night moved to 10 tonight`，已定。）
+
+玩家去计划页，`Change the time`，选 `Fri, Oct 23 · 10:00 PM`。1.4 写的事发生：同一秒，`Accepted · 11:48 PM`。
+
+**然后什么都不会发生。** Dani 那边没有收到任何通知。
+
+真实时间过了七八秒，或者玩家回到她的对话时：
+
+```text
+Dani
+did you move it yet?
+```
+
+建议回复：`yes`
 
 ```text
 You
-did you just accept that?
+yes
 
 Dani
-accept what
+nothing told me
 
 （输入中。三秒。）
 
 Dani
-game night's on sunday??
+it says i accepted?
 i didn't touch anything
 ```
 
@@ -232,7 +275,7 @@ well i didn't
 ```
 
 - `it says you did` 是今晚早些时候 Juno 对玩家说的原话（已定，第 3 层）。现在是玩家对 Dani 说。Dani 的回答，就是玩家当时的回答。
-- 玩家没有问她的，她一个字都不会提：她确实不知道。
+- `nothing told me`：她是因为没收到任何东西才来问的。
 
 接着，隔一拍。按她之前说没说过那一句分两种：
 
@@ -241,11 +284,24 @@ well i didn't
 | 还没说过 `i think mine's on too` | `oh` · `is this the thing from game night` · `i think mine's on` |
 | 已经说过了 | `oh` · `ok so mine IS on` |
 
-然后：
+**几种别的顺序：**
+
+| 情况 | Dani |
+|---|---|
+| 玩家在她开口之前就自己改过时间了 | 她不说 `can you move it to 10`。她过一会儿自己看到了：`why is game night at 10` · `did you move it?`，后面一样。（改成的不是 10 点时，把 10 换成那个时间。） |
+| 她请了，玩家改成了别的时间 | 后面一样，最后多一句 `also that's not 10` |
+| 她请了，过了 3 个故事分钟玩家还没改 | `did you move it yet?`。建议回复：`doing it now` · `not yet` → `ok`。只问这一次。 |
+| 玩家一直没改 | 她不再提。计划留在 9 点。 |
+
+### 1.6 Dani 反过来试一次：两种结果
+
+她发现了自己的被自动接受，想知道玩家的是不是也一样：
 
 ```text
 Dani
-moving it back
+ok wait
+i'm moving it to 10:30
+tell me if it asks you
 ```
 
 （真实时间三四秒。）
@@ -256,14 +312,12 @@ there
 did it ask you?
 ```
 
-### 1.6 她改回来：两种结果
-
 **玩家的 Auto-Coordinate 开着。**
 
 没有通知，没有横幅。玩家什么都没碰。打开计划：
 
 ```text
-WHEN     Fri, Oct 23 · 9:00 PM
+WHEN     Fri, Oct 23 · 10:30 PM
 STATUS   Accepted
 ```
 
@@ -272,8 +326,8 @@ History 多了两条：
 ```text
 OCT 20 · 11:50 PM
 Dani changed the time                       ›
-FROM   Sun, Oct 25 · 9:00 PM
-TO     Fri, Oct 23 · 9:00 PM
+FROM   Fri, Oct 23 · 10:00 PM
+TO     Fri, Oct 23 · 10:30 PM
 
 OCT 20 · 11:50 PM
 You accepted  ◌                             ›
@@ -299,7 +353,10 @@ no
 
 Dani
 ok that's creepy
+putting it back to 10
 ```
+
+（她改回 10 点时又是一次没人问的接受。没有人再提它。History 里多两条。）
 
 **玩家已经关掉了 Auto-Coordinate。**
 
@@ -308,11 +365,11 @@ ok that's creepy
 ```text
 ORBIT · 11:50 PM
 Dani changed Game night.
-Fri, Oct 23 · 9:00 PM
+Fri, Oct 23 · 10:30 PM
 ```
 
 ```text
-WHEN     Fri, Oct 23 · 9:00 PM
+WHEN     Fri, Oct 23 · 10:30 PM
 STATUS   Waiting for you
 
 [ Accept the change ]
@@ -328,11 +385,15 @@ yes
 Dani
 it didn't ask me
 so that's just mine now
+just decline it. 10's fine
 ```
+
+玩家点 `Decline`，计划留在 10 点。（点了 `Accept the change` 的，留在 10:30，Dani：`ok 10:30 then`。）
 
 - 这是玩家今晚第一次看到 Orbit 在一件改期上停下来等自己。
 - **关掉的只是自己这一边。** Dani 的还开着，Rachel 的也从来没有人关过。
 - 这一条 Orbit 的通知是对一件事的回应，不占四条的名额。
+- 玩家动手的那一下（1.5）是帮她一个忙。**这一下才是实验，是 Dani 提出来的，试的是玩家。**
 
 ### 1.7 记下、Night Log、笔记本
 
@@ -348,20 +409,20 @@ Night Log：
 
 ```text
 11:48 PM
-I moved game night. It said Dani accepted. Same second.
+I moved game night for Dani. It said she accepted. Same second.
 
 11:49 PM
 Dani didn't accept anything.
 
 11:50 PM
-She moved it back. It said I accepted. I was watching.
+She moved it to see. It said I accepted. I was watching.
 ```
 
 关着 Auto-Coordinate 的玩家，最后一条是：
 
 ```text
 11:50 PM
-She moved it back. This time it asked me. It never asked her.
+She moved it to see. This time it asked me. It never asked her.
 ```
 
 笔记本上 `who said yes` 这个问题如果还开着，在 `Dani didn't accept anything.` 写下的那一刻被划掉。
@@ -393,14 +454,13 @@ You can change the time when she returns.
 | 情况 | 怎么处理 |
 |---|---|
 | 玩家还什么都没发现就改了 game night | 照常。玩家只会觉得「接受得真快」。等看到 Rachel 那条 5:12 的记录，这一下才有意思。不拦。 |
-| 玩家改了时间，但不去问 Dani | Dani 什么都不说。计划就停在周日。Night Log 只有第一条。第二晚早上 Dani：`why is game night on sunday`（要随第二晚写）。 |
-| 玩家改了两次 | 每次都是一秒接受。Dani 那几句只说一次，之后她只说 `stop moving it`。 |
-| Dani 改回来之后，玩家拒绝了（关着的那一种） | `Declined`。Dani：`ok sunday then`。计划留在周日。 |
+| 玩家改了时间，Dani 问 `did you move it yet?`，玩家不回 | 她不追问。Night Log 只有第一条。 |
+| 玩家之后又自己改了几次 | 每次都是一秒接受。Dani 那几句只说一次，之后她只说 `stop moving it`。 |
 | 实验做到一半假消息到了 | 横幅照常出现并留在顶上（已定）。Dani 那边的话照常说完。 |
 | 12:40 之后 | 不受影响。这是和 Dani 的计划。 |
 | Battery Saver 开着 | 不受影响。 |
 | Juno 关着 | 不受影响。整个实验不需要 Juno。 |
-| 夜晚结束时 Orbit 替玩家回 Dani 的那一句（已定，§2.8） | 那张表是按 Dani 的最后一句选的。她的最后一句现在可能是 `ok that's creepy` 或 `so that's just mine now`。**表里要加一行**，我建议：Orbit 替玩家回 `haha yeah. night.`（草稿）。它用一句轻松的话把这件事盖过去了。 |
+| 夜晚结束时 Orbit 替玩家回 Dani 的那一句（已定，§2.8） | 那张表是按 Dani 的最后一句选的。她的最后一句现在可能是 `putting it back to 10`、`just decline it. 10's fine` 或 `did you move it yet?`。**表里加一行：** Orbit 替玩家回 `yeah. talk tomorrow.`（设计窗口写的）。和已有的 `thanks. talk tomorrow.` 是同一个口吻：有句号，轻描淡写，替玩家把一件吓人的事说成没什么。`did you move it yet?` 没人回的那一种，也用这一句：Orbit 替玩家说了「改了」，而玩家没改。 |
 
 ### 1.11 第三晚的导出里
 
@@ -598,12 +658,12 @@ Oct 20   Stayed up                       You said: "yes"
 | 11:38 | 给 Dani 发消息：她没来 | `wait you were finally meeting??` |
 | 11:40 | 点开 History | 两条 `You accepted`，一条带环 |
 | 11:41 | 把计划分享给 Dani | `and you said yes?` · `then who did` |
-| 11:42 | （Dani 的邀请到了）点 `Accept` | `Accepted by you` |
+| 11:42 | （Dani 的邀请到了）点 `Accept` | `Accepted by you`。Dani：`can you move it to 10 tho` |
 | 11:43 | 点第二条 `You accepted` | `Accepted for you.` |
-| 11:45 | 打开 game night，把它拿出来一张；`Change the time`，选周日 | 同一秒：`Accepted · 11:45 PM` |
+| 11:45 | 打开 game night，把它拿出来一张；`Change the time`，选 10 点 | 同一秒：`Accepted · 11:45 PM` |
 | 11:45 | 把之前那张叠上去 | `WHEN` 和 `STATUS` 两行有记号 |
-| 11:46 | 问 Dani：`did you just accept that?` | `i didn't touch anything` |
-| 11:47 | `it says you did` | `well i didn't` · `moving it back` |
+| 11:46 | Dani：`did you move it yet?` → `yes` | `it says i accepted?` · `i didn't touch anything` |
+| 11:47 | `it says you did` | `well i didn't` · `i'm moving it to 10:30` · `tell me if it asks you` |
 | 11:48 | 打开 game night 的 History | `You accepted ◌`，就在刚才，自己什么都没点 |
 
 这十分钟里玩家读的字不到三十行，大部分是 Dani 的短句。其余是点、拖、改、看。
@@ -614,9 +674,9 @@ Oct 20   Stayed up                       You said: "yes"
 
 | 类别 | 数量 |
 |---|---|
-| Dani 的新台词 | 约 16 句（邀请 4，接受或拒绝 3，被问到 5，改回来 4） |
+| Dani 的新台词 | 约 28 句（邀请 2，接受或拒绝 3，请玩家改 3，发现 8，反过来试 8，别的顺序 4） |
 | Juno 的新台词 | 2 句（`turn what off?`、`i can't do that from here`）；别的都是已定的 |
-| 建议回复 | 4 个（`did you just accept that?`、`it says you did`、`no`、`yes`） |
+| 建议回复 | 5 个（`yes`、`it says you did`、`no`、`doing it now`、`not yet`） |
 | Night Log 的新行 | 4 行，加日历的 1 行 |
 | 新的界面 | 邀请卡片；`Change the time` 弹层；`Waiting for you` 的计划详情；`Dani accepted` 的弹层；Rachel 计划上的「联系不上」弹层；Screen Time 的横条 |
 | Orbit 的通知 | 1 条（只在关着 Auto-Coordinate 时） |
@@ -647,18 +707,26 @@ Oct 20   Stayed up                       You said: "yes"
 
 ## 12. 要你定的
 
+设计窗口已经给了建议的四条：
+
+| # | 问题 | 现在的状态 |
+|---|---|---|
+| 1 | 计划由 Dani 今晚约 | 同意。话用设计窗口的两句；时间我建议不等邮件（0.1） |
+| 2 | Rachel 的计划上也有 `Change the time` | 同意 |
+| 3 | Orbit 替玩家回 Dani 的那一句 | `yeah. talk tomorrow.` |
+| 4 | 日历 | 等作者 |
+
+还要定的：
+
 | # | 问题 | 我的建议 |
 |---|---|---|
-| 1 | 计划由 Dani 今晚约（1.1），不是开局就在 | 是 |
-| 2 | 改期被接受时没有人被通知，Dani 要玩家去问才知道（1.5） | 是。这比我上一份写的更对。 |
-| 3 | Rachel 的计划上也有 `Change the time`，点了是「联系不上」（1.9） | 是 |
-| 4 | Orbit 替玩家回 Dani 的那张表加一行（1.10） | 加，字你来定 |
-| 5 | Dani 的十六句 | 都是草稿，请改成她的说法 |
-| 6 | 电池页 | 不做 |
-| 7 | 日历 | 你定 |
+| 5 | 邀请什么时候来：她第一轮回答之后，还是发完邮件之后（0.1） | 第一轮回答之后 |
+| 6 | Dani 发现之后反过来试一次（1.6） | 做。不然「关掉的只是自己这一边」没有地方发生。 |
+| 7 | `i made it. you do the admin` 这一句 | 草稿。要的只是一个她不自己改的理由，换成你的说法。 |
+| 8 | 电池页 | 不做 |
 
 ## 13. 我没把握的
 
-1. **玩家会不会想到去改 game night。** 没有任何东西叫玩家这么做，这是对的。但如果十个人里只有一个人去试，这一节的工作量就不值。我认为会有不少人去点 `Change the time`，因为那一行就在计划页上，而且玩家刚被一个「改时间」的事坑过。要试玩才知道。如果很少人试，可以让 Dani 在约 game night 的时候自己先改一次（`wait make it 10`），玩家开着 Auto-Coordinate 的话就当场看到一条带环的 `You accepted`。那样实验变成了 Dani 无意中做的。我没有把它写进正文，因为它把玩家的动作又变回了看。
-2. **Dani 半夜约 game night 合不合适。** 玩家刚告诉她 Rachel 没来。我用 `also` 和 `you pinged me so you're alive again` 让它像是她顺口一提、想让玩家好受一点。如果你觉得她这时候说这个不对，可以改成等她发完邮件（`sent. i'll tell you if she answers`）之后再说。
+1. **改成「帮她一个忙」之后，还像不像推理。** 玩家动手的那一下不再是自己想试的，是撞上的。我认为可以接受：自己想到的玩家仍然可以先改；撞上的玩家会在 Dani 反过来试的那一下里，第一次有意地看着它发生。但如果试玩里大家只觉得「帮 Dani 改了个时间」，没感到自己站在 Rachel 的位置上，就要让 `Dani accepted` 的那个弹层（里面什么都没写的那个）更容易被点开。
+2. **1.5 和 1.6 加起来 Dani 说了二十来句。** 这是今晚 Dani 说话最多的一段，而这一份的目的是少读一点。它们都是两三个词的短句，中间隔着玩家的动作。但要试玩时看一眼，是不是变成了另一段要读的对话。太长就砍掉「别的顺序」那几种里的台词，让她少说。
 3. **第二个计划会不会分散注意力。** Plans 列表里多了一行。我认为不会：它是在玩家和 Dani 说过话之后才出现的，而且它和 Rachel 的那一个并排放着，本身就在说话。

@@ -234,7 +234,7 @@ Orbit offers it in the open. What is never asked is the person being used.
 
 ### 3.4 Messages and answering Rachel
 
-- The phone's own **Messages** app exists from Night 1 in the final game, with two or three ordinary texts that have nothing to do with the story and no new characters. It is added to the build when Night 2 is built.
+- The phone's own **Messages** app exists from Night 1 in the final game, with two or three ordinary texts that have nothing to do with the story and no new characters (decided 2026-11-20: automated texts such as a dentist's reminder, a data plan, the library; never a delivery notice, which players would check against the tote bag's parcel). It is added to the build in round 6 (§8).
 - Dani gives Rachel's number as a contact card (`she got a normal number. this is it`). In Messages, Rachel's thread is empty: no Suggested replies, no ring.
 - The player answers her question with the **Remembering** form (story bible §6, the third kind of choice): `What do you remember saying?` · options (**draft**) `i didn't write that` · `i don't remember writing it` · `i wish i had`; typing is open. Or the player sends nothing; nothing is blocked. `Delivered` here means a person got it.
 - Replaces the keyboard words of scenes 7.9.
@@ -318,7 +318,7 @@ In Messages (`2026-11-fable-scenes.md` 8.2, **draft**): with a denial, `i know` 
 
 ---
 
-## 7. Build order (decided 2026-11-19; rounds 6–9 added the same day for the desk cards and the notebook, the author's order)
+## 7. Build order (decided 2026-11-19; the desk cards and the notebook added the same day, the playtest round on 2026-11-20)
 
 The Unity work is done in rounds. A prompt can say "do round N" and nothing more: the round's scope is this table, and nothing from a later round is started early. This replaces rounds 4–6 of `docs/review/2026-11-fable-unity-audit.md` §8, which were written before the decisions above; its rounds 1–3 stand.
 
@@ -329,13 +329,60 @@ The Unity work is done in rounds. A prompt can say "do round N" and nothing more
 | 3 | Structure: the conversation view split out, a page registry with the Back path saved, sheets on their own layer, every line and screen text moved out of code into data files, the append-only action log (each entry with its story time) | audit §6.1–6.4, §7.1 |
 | 4 | Interaction and the text changes of this file: the four rules of §2.11; the audit's I1–I10; the first fake (§2.1); Juno's lines (§2.2 and the answers it must have); the held-back line (§2.3); Suggested replies ask, never conclude (§2.4); Rachel leaving and 12:40 as Orbit shows it (§2.5); Snooze (§2.6, without the attempts to keep the player); Notes and going to sleep (§2.7); Orbit's reply to Dani (§2.8); Privacy & Data (§2.9); Battery Saver (§2.10); the small facts of §1.4 (`same code`, Sunday's reply, crit); a visible way to forward a message, and `rachel answered` | this file §1–2; audit §3, §4 |
 | 5 | Night 1's nine layers, without Screen Time: History with the two `You accepted`, `Change your response`, `Share` on the plan and the profile, the new Me and Settings, Contact Protection as verification requests, Juno's and Dani's lines layer by layer, Orbit's notifications and the shared limit. Layer 9 stops at Juno's fixed line; Notes is left as it is | `night1-layers.md` |
-| 6 | Desk cards: taking a piece of the phone out (drag or menu), moving, closing back to Photos, the frozen content, showing a card to Juno, Dani or Rachel; the full-screen screenshot goes | `desk-cards-notebook.md` §9, first round |
-| 7 | Card size, the two new pointers, the lift and fly animations, automatic placement (can move to any point after round 6) | `desk-cards-notebook.md` §9, second round |
-| 8 | The notebook: openable in the room and while holding the phone; tonight's Night Log and unresolved questions on paper, written and struck through as they happen; cards clipped to questions; `Tuesday night` leaves Notes | `desk-cards-notebook.md` §9, third round |
-| 9 | Pointing at what's wrong, the confrontation ladder, the ten questions on the paper, `what should i do?`, the rewards for curiosity. **Not decided yet:** the author is still settling it with Fable; it is merged into `night1-layers.md` before this round | `review/2026-11-fable-night1-game-design.md`, `review/2026-11-fable-pointing-and-notes.md` |
-| 10 | Juno's past above `TODAY` and its attempts to keep the player on Night 1; each unprompted line recorded with what it was sent after | `juno-past-and-retention.md` §1–2; `data-export.md` |
-| 11 | Rachel's thread (once the author has written it), 12:40 as the player sees it, Night 1's last image | `rachel-history.md`; §2.5 |
-| 12 | The Night 3 export and Juno's last conversation, read from a Night 1 save through an editor-only entry; then three to five people try it | `data-export.md`; §4 |
-| Then | Night 2 grey-boxed, then Night 3; the model; sound; art | §3–5 |
+| 6 | After the playtest (§8): trackpad and wheel scrolling of Suggested replies; the Home button and `‹ HOME`; `Put down` and `Go to sleep` while holding the phone, and the "learned" marker removed; Suggested replies at most two, sometimes none, each tagged with what it needs, with a test, and the four that told the player things they didn't know yet; Messages on the home screen with its ordinary texts | §8 |
+| 7 | Desk cards: taking a piece of the phone out (drag or menu), moving, closing back to Photos, the frozen content, showing a card to Juno, Dani or Rachel; the full-screen screenshot goes | `desk-cards-notebook.md` §9, first round |
+| 8 | Card size, the two new pointers, the lift and fly animations, automatic placement (can move to any point after round 7) | `desk-cards-notebook.md` §9, second round |
+| 9 | The notebook: openable in the room and while holding the phone; tonight's Night Log and unresolved questions on paper, written and struck through as they happen; cards clipped to questions; `Tuesday night` leaves Notes | `desk-cards-notebook.md` §9, third round |
+| 10 | Pointing at what's wrong, the confrontation ladder, the ten questions on the paper, `what should i do?`, the rewards for curiosity. **Not decided yet:** the author is still settling it with Fable; it is merged into `night1-layers.md` before this round | `review/2026-11-fable-night1-game-design.md`, `review/2026-11-fable-pointing-and-notes.md` |
+| 11 | Juno's past above `TODAY` and its attempts to keep the player on Night 1; each unprompted line recorded with what it was sent after | `juno-past-and-retention.md` §1–2; `data-export.md` |
+| 12 | Rachel's thread (once the author has written it), 12:40 as the player sees it, Night 1's last image | `rachel-history.md`; §2.5 |
+| 13 | The Night 3 export and Juno's last conversation, read from a Night 1 save through an editor-only entry; then three to five people try it | `data-export.md`; §4 |
+| Then | The café prologue (§8.5); Night 2 grey-boxed, then Night 3; the model; sound; art | §3–5, §8 |
 
 **Every round:** pull the design repository first, follow `CLAUDE.md` (tests, screenshots, the one-session rule), report what changed and what the documents didn't decide, and stop at the end of the round.
+
+---
+
+## 8. After the playtest (decided 2026-11-20)
+
+From the playtest with classmates and Ernesto Klar, and `review/2026-11-fable-playtest-response.md` and `-followup.md`. Nobody found the home screen on their own; the student who found the replies too jumpy used a trackpad.
+
+### 8.1 Small fixes (round 6)
+
+1. **Scrolling the Suggested replies:** wheel and trackpad move them a sixth as far as now, only along the axis that moved most, and stop at both ends.
+2. **Home:** the thin home indicator becomes a small round Home button under the screen. Every app's top-level page (Chats, Activity, Me, Notes, Photos, Settings) has `‹ HOME` at its top left. The player's first entry is Juno's notification, so they never saw the home screen; these two make it findable.
+3. **Putting the phone down:** while holding the phone, `Put down` is always at the bottom left of the room, in the room controls' style; Esc still works. `Go to sleep` shows at the bottom right while holding the phone too, once it is available. The "already learned" marker, kept on this computer rather than in the save, is removed.
+4. **How many Suggested replies:** at most two; three only when Juno has just asked a question with three real answers; of the questions waiting, only the newest shows; the row can be empty.
+
+### 8.2 Suggested replies answer, they never introduce (Night 1)
+
+- Everything a reply mentions is either in the last few messages of this conversation or something the player has opened and seen. Background about the main character is said first on screen (usually by Juno, who remembers it); a reply may then pick it up.
+- On Night 2, a prepared reply that knows something the player told only Juno is the clue, not a mistake. The rule is for Night 1.
+- Each reply in the data files carries what it needs (a recorded fact, or a line of Juno's); a test checks it never shows without it. The four that broke the rule:
+  - `crit went badly` (the opening): the opening becomes Juno `still awake?` → `yeah` · `can't sleep` · `rather not say`; then Juno `how was crit?` → `bad` · `fine` · `someone didn't show up`. The memory each choice creates stays as `landing.md` decided.
+  - `i was in crit`: only after crit has been said on screen tonight.
+  - `in a year and a half?` (layer 7): becomes `never?`.
+  - `she wanted to show me something`: only after her Sunday messages have been on screen.
+
+### 8.3 Telling the player the night can end
+
+- Juno, once: `juno-past-and-retention.md` 2.6. A player who answered it `ok` gets the bedtime line in version C (`goodnight` · `you can tell me tomorrow`, asking nothing), so the phone never asks a question right after saying goodnight.
+- Dani, when the player talks to her after her `sent`: `go to bed` · `i'll tell you if she answers`. It counts as her last line for Orbit's reply (§2.8, the `sent` row).
+- The limit for Juno's attempts and Orbit's reminders is four a night, 8 story minutes apart, everywhere (`juno-past-and-retention.md` 2.0 now says so).
+
+### 8.4 Easter eggs and unlocking
+
+- **Easter eggs:** a few things that are only fun. They must never look like clues: no Rachel, no plan, no Orbit feature in them; each finishes itself; they cost nothing or almost nothing. The list to start from: `review/2026-11-fable-playtest-response.md` 7.3 (radio, alarm clock, the cat behind the blinds, the lamp, the moth, three bad jokes from Juno, Orbit's search, `You're all caught up.`, the lowest brightness). The ones on the phone appear in Night 3's export, folded into one line that opens; the ones in the room never do. Built with round 10, then added a few at a time.
+- **Unlocking:** show the lock before the key, as `Download your data · Ready in 1 to 2 days` does. Messages is there from Night 1; the notebook's three bookmarks are there from Night 1, the later two blank. Basic actions are never locked.
+
+### 8.5 Places
+
+- **A café prologue, without the phone.** Before the room: the café table, the phone face down, the chair opposite empty. The player chooses quiet lines under the picture, like `Go to sleep` and Saturday's three: 9:02 `Text her` (the phone lights for a moment with `here` sent, then dims); 9:27 `Text her again` or `Keep waiting` (waiting changes nothing); 9:41 `Go home` (`heading home`, `message me when you can`). Then black, 11:31, the room. The player never sees Plans or Juno there, so nothing leaks; the messages are the ones already in her thread. Wording is a draft. It shares code with Saturday's scene. One new picture. The opening order becomes Title → Before You Begin → Name → café → the room.
+- **Wednesday morning** is the same room in morning light; **Saturday** the same room at dusk (already decided). No kitchen and no subway.
+- **Dani's visit on Wednesday night** is a knock and a new thing on the desk; she is not drawn.
+- Not used: a passer-by in a park who saw Rachel (the player has never met her and she isn't missing); going out at night when stuck (the clock and the battery are the night's tension).
+
+### 8.6 The export: the pattern at a glance
+
+Added to `data-export.md`: at the top, a strip of the last 30 days, one cell a day (filled: Orbit opened; empty: not), with a dot under each day Juno spoke first; then one strip per night, the room's gaps showing as blank. Under `Check-ins from Juno`, a count by what each was sent after. Under `View raw`, Orbit's own fields (`outcome: returned`, `helped: true`). It looks like the year-in-review Orbit would proudly show, never like an accusation.
+

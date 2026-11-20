@@ -27,6 +27,16 @@ The triage asks: by time or by kind, how much, and whether entries link back.
 - **Only entries where Orbit did something,** each followed by what the player did next. About fifteen a night. `Show all activity` opens the rest.
 - **Each entry links back.** `View in chat ›` jumps to that message in its thread. `Share ›` gives it to Juno with the Share action that already exists. Re-reading the old message in place, and putting it in front of Juno, are the two things the page is for.
 
+### The pattern at a glance (decided 2026-11-20)
+
+Three nights alone are too few points for a pattern, and a player who never put the phone down has no attempts to keep them at all. So the month before the game, which is the same for every player, sits on the same picture.
+
+1. **At a glance, at the top:** `LAST 30 DAYS`, one cell a day: filled when Orbit was opened, empty when not. Under a day, a small dot when Juno spoke first. The dots fall almost always after a run of empty days; nothing says so. Then one strip per night, in the same style, by story time; the room is a blank stretch, as the rule above says.
+2. **One tap deeper:** `Check-ins from Juno` opens into counts by what each was sent after (`After 3 days away · 2`, `Phone put down · 3`, …). No row is called anything like "to keep you"; none says "because you needed it".
+3. **Deepest:** `View raw` under `Helped` shows Orbit's own fields: `outcome: returned`, `helped: true`. Orbit's kind word on top, what it actually measured underneath.
+
+It must look like the year-in-review Orbit would be proud to show its users, never like an accusation. The month's data is fixed, written once with `juno-past-and-retention.md` §1. Easter eggs found on the phone are one folded line (`Just for fun · 4`) that opens.
+
 ### The page
 
 The samples below are one possible playthrough. Days that the design documents don't fix (March 15 and August 8, 2025) are placeholders.

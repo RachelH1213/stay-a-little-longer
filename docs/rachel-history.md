@@ -127,7 +127,7 @@ are you around later
 
 You  Sat 11:12 AM
 sorry fell asleep
-crit prep
+presentation prep
 
 Rachel  Sat 11:30 AM
 it's fine the vending machine understands
@@ -311,7 +311,7 @@ are you alive
 
 You  Sat 10:20 AM
 barely
-crit in two weeks
+presentation in two weeks
 
 Rachel  Sat 10:25 AM
 ok
@@ -342,7 +342,7 @@ you'll figure it out
 what are you gonna wear so i can spot you
 ```
 
-- 她挑的是玩家说自己「重新做人」的那一天。所以见面和 crit 是同一天，不是巧合。
+- 她挑的是玩家说自己「重新做人」的那一天。所以见面和 presentation 是同一天，不是巧合。
 
 ### 2026 年 10 月 18 日，周日（已有，补上玩家的回复）
 

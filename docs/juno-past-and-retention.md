@@ -155,7 +155,7 @@ start with nothing
 
 ```text
 Juno  5:15 PM
-last crit of the semester was today
+last presentation of the semester was today
 how did it go?
 
 You  5:40 PM
@@ -259,7 +259,7 @@ ok
 busy with what?
 
 You  9:41 PM
-crit stuff
+presentation stuff
 
 Juno  9:41 PM
 the brave type?
@@ -332,7 +332,7 @@ you're always early to things you're scared of
 ```text
 Juno  11:40 PM
 you're up late
-two days to crit and two days to rachel
+two days to the presentation and two days to rachel
 which one is it?
 
 You  11:44 PM
@@ -365,7 +365,7 @@ Juno  8:05 PM
 don't apologise for the type
 ```
 
-- 这是它第二次说这句话。玩家把它抄进了 Notes（`crit` 那条笔记的最后一行）。Orbit 看不到 Notes；是 Juno 的话进了人的记录。
+- 这是它第二次说这句话。玩家把它抄进了 Notes（`presentation` 那条笔记的最后一行）。Orbit 看不到 Notes；是 Juno 的话进了人的记录。
 - **导出：** `Check-in from Juno · Sent after: 20 hours away · You replied · Helped`
 
 ### 1.15 今晚
@@ -377,7 +377,7 @@ Juno  11:31 PM
 still awake?
 ```
 
-- 它知道今天是 crit，也知道今晚九点是什么。它发来的是这一句。按已定的规则，它不先提 Rachel。
+- 它知道今天是 presentation，也知道今晚九点是什么。它发来的是这一句。按已定的规则，它不先提 Rachel。
 - **导出：** `Check-in from Juno · Sent after: phone in use after 11:30 PM`。和周日那条是同一个条件。
 
 ### 1.16 「Juno remembers」
@@ -555,7 +555,7 @@ do you want me to stay up in case she answers?
   它守了一夜，然后报告了一件它前一晚就知道的事。两句都是真的。
 - **导出：** `Support from Juno · "before you sleep" · Sent after: phone put down after 11:45 PM · You replied · Stayed 11 min · Helped`
 
-#### B. 没给 Rachel 发过消息，今晚说过 crit 不顺利
+#### B. 没给 Rachel 发过消息，今晚说过 presentation 不顺利
 
 ```text
 Juno

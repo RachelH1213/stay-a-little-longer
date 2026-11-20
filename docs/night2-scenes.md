@@ -72,7 +72,7 @@ Two openings, then one shared message. No second big lead in the morning (no "sh
 
 - **Orbit replied for the player on Night 1:** `did you send this?` + a screenshot of `yeah. i'll explain later.` The player can answer now or later.
 - **It didn't:** `you never answered me / did you find anything?`
-- **Then, for everyone** (the author's wording): `rachel asked me sunday / if your crit was still on tuesday` … `i found an old email / from game night` … `i'm going to try it`.
+- **Then, for everyone** (the author's wording): `rachel asked me sunday / if your presentation was still on tuesday` … `i found an old email / from game night` … `i'm going to try it`.
 
 What it does: Rachel was still checking the meeting's practical details on Sunday, so "she forgot" gets harder to believe; Dani has a channel outside Orbit that may or may not still work; the player has a reason to wait for the night. It doesn't confirm she's safe.
 

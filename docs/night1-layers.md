@@ -311,7 +311,7 @@ STATUS   Declined · Not delivered
 | `when?` | `5:12 this afternoon` · `the same minute she changed it` |
 | `i didn't` | `it says you did` · `were you on orbit then?` |
 | → `no` | `ok` · `then i don't know yet` |
-| → `i was in crit` | `ok` · `then i don't know yet` |
+| → `i was at my presentation` | `ok` · `then i don't know yet` |
 | → `are you saying i'm lying?` | `no` · `i'm saying that's what it says` |
 
 - `the same minute she changed it`：它念的还是记录。但这半句是玩家可以抓住的东西。

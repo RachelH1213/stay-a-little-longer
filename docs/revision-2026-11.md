@@ -53,7 +53,7 @@ This is the only place the title appears in the game. Juno never says it. Replac
 - **Game night (L2):** a party game joined with a room code, posted in an Orbit group. No server outside Orbit. Dani's history: `same code?` · `new code. it's in the group`.
 - **Dani's email for Rachel (L3):** Rachel once paid Dani her share of a game pack; the payment receipt has her email. Replaces "game night at Rachel's old place".
 - **Sunday (L5):** the player answered: `yeah` · `see you there` (11:05 PM).
-- **Crit (L6):** Tuesday 2 PM, all afternoon. Notes: `crit tues 2pm` / `print boards by noon` / `don't apologise for the type`. The last line is Juno's words, copied down by the player (`juno-past-and-retention.md` 1.14).
+- **The presentation (L6; called "crit" until 2026-11-20, see §8.2):** Tuesday 2 PM, all afternoon. Notes: `presentation tues 2pm` / `print boards by noon` / `don't apologise for the type`. The last line is Juno's words, copied down by the player (`juno-past-and-retention.md` 1.14).
 - **Continuity's eligibility (L11)** reads activity signals, never content: an unanswered message, an account pending removal, the other person active in Orbit again tonight. It knows the player messaged Dani; it never knows what they said.
 
 ---
@@ -359,8 +359,9 @@ From the playtest with classmates and Ernesto Klar, and `review/2026-11-fable-pl
 - Everything a reply mentions is either in the last few messages of this conversation or something the player has opened and seen. Background about the main character is said first on screen (usually by Juno, who remembers it); a reply may then pick it up.
 - On Night 2, a prepared reply that knows something the player told only Juno is the clue, not a mistake. The rule is for Night 1.
 - Each reply in the data files carries what it needs (a recorded fact, or a line of Juno's); a test checks it never shows without it. The four that broke the rule:
-  - `crit went badly` (the opening): the opening becomes Juno `still awake?` → `yeah` · `can't sleep` · `rather not say`; then Juno `how was crit?` → `bad` · `fine` · `someone didn't show up`. The memory each choice creates stays as `landing.md` decided.
-  - `i was in crit`: only after crit has been said on screen tonight.
+  - `crit went badly` (the opening): the opening becomes Juno `still awake?` → `yeah` · `can't sleep` · `rather not say`; then Juno `how was the presentation?` → `bad` · `fine` · `someone didn't show up`. The memory each choice creates stays as `landing.md` decided.
+  - `i was in crit` becomes `i was at my presentation`: only after the presentation has been said on screen tonight.
+- **No "crit" anywhere in the game (decided 2026-11-20).** Players outside art school don't know the word. Every line, note and screen says `presentation` instead: the old note `crit` is titled `presentation`, `crit tues 2pm` becomes `presentation tues 2pm`, Juno's past says `last presentation of the semester`, `presentation stuff`, `two days to the presentation and two days to rachel`, Rachel's history says `presentation prep` and `presentation in two weeks`, Dani's morning line says `if your presentation was still on tuesday`. The boards and "the type" stay. Any other document that still says crit means the presentation.
   - `in a year and a half?` (layer 7): becomes `never?`.
   - `she wanted to show me something`: only after her Sunday messages have been on screen.
 

@@ -222,14 +222,14 @@ The list, newest first:
 
 ```text
 Tuesday night                  Tue, Oct 20
-crit                           Mon, Oct 19
+presentation                   Mon, Oct 19
 first time, finally            Tue, Oct 13
 ```
 
 The two older notes (character only, never evidence):
 
 ```text
-crit
+presentation
 10am
 print boards by 8
 don't apologise for the type
@@ -345,7 +345,7 @@ Notes for the Night Log (Notes) are written as facts are set, timed by when the 
   Sun, Sep 27 · 2:15 PM
   Dani: are we still doing game nights or did everyone get busy
   You: i think everyone got busy
-  You: crit season
+  You: presentation week
   Dani: ok. ping me when you're alive again
   ```
 - **Me → Settings switches, each one working when turned off:** `Juno` (as in Juno's switch below); `Conversation Assist`, with `Auto-Coordinate` and `Follow-up replies` under it. Follow-up replies off: no reply is sent to Dani when the night ends (`dani_auto_reply: off`). Conversation Assist off turns both off.

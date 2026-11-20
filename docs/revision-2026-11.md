@@ -331,7 +331,7 @@ The Unity work is done in rounds. A prompt can say "do round N" and nothing more
 | 5 (done) | Night 1's nine layers, without Screen Time: History with the two `You accepted`, `Change your response`, `Share` on the plan and the profile, the new Me and Settings, Contact Protection as verification requests, Juno's and Dani's lines layer by layer, Orbit's notifications and the shared limit. Layer 9 stops at Juno's fixed line; Notes is left as it is | `night1-layers.md` |
 | 6 (done) | Desk cards: taking a piece of the phone out (drag or menu), moving, closing back to Photos, the frozen content, showing a card to Juno, Dani or Rachel; the full-screen screenshot goes | `desk-cards-notebook.md` §9, first round |
 | 7 (done) | After the playtest (§8): trackpad and wheel scrolling of Suggested replies; the Home button and `‹ HOME`; `Put down` and `Go to sleep` while holding the phone, and the "learned" marker removed; Suggested replies at most two, sometimes none, each tagged with what it needs, with a test, and the four that told the player things they didn't know yet; Messages on the home screen with its ordinary texts | §8 |
-| 7b | The nine layers, revised on 2026-11-20 (`night1-layers.md` §0.3 rows 4, 10, 14–16): no `Manage` in the `Accepted for you.` sheet; the switch is found in Settings › Plans or turned off by Juno when the player tells it; layer 4, Screen Time, built; several routes to "it was automatic" (the sheet, Screen Time, the June messages, Dani), each enough | `night1-layers.md` |
+| 7b | The nine layers, revised on 2026-11-20 (`night1-layers.md` §0.3 rows 4, 10, 14–16): no `Manage` in the `Accepted for you.` sheet; the switch is found in Settings › Plans or turned off by Juno when the player tells it; layer 4, Screen Time, built; several routes to "it was automatic" (the sheet, Screen Time, the June messages, Dani), each enough; Juno's answer to `fine` in the opening is `ok`; `Put down` in the same place on every page; notifications that stay until seen and the notification list (§8.7) | `night1-layers.md`; §8.7 |
 | 8 | Card size, the two new pointers, the lift and fly animations, automatic placement (can move to any point after round 6) | `desk-cards-notebook.md` §9, second round |
 | 9 | The notebook: openable in the room and while holding the phone; tonight's Night Log and unresolved questions on paper, written and struck through as they happen; cards clipped to questions; `Tuesday night` leaves Notes | `desk-cards-notebook.md` §9, third round |
 | 10 | Pointing at what's wrong, the confrontation ladder, the ten questions on the paper, `what should i do?`, the rewards for curiosity. **Not decided yet:** the author is still settling it with Fable; it is merged into `night1-layers.md` before this round | `review/2026-11-fable-night1-game-design.md`, `review/2026-11-fable-pointing-and-notes.md` |
@@ -387,4 +387,14 @@ From the playtest with classmates and Ernesto Klar, and `review/2026-11-fable-pl
 ### 8.6 The export: the pattern at a glance
 
 Added to `data-export.md`: at the top, a strip of the last 30 days, one cell a day (filled: Orbit opened; empty: not), with a dot under each day Juno spoke first; then one strip per night, the room's gaps showing as blank. Under `Check-ins from Juno`, a count by what each was sent after. Under `View raw`, Orbit's own fields (`outcome: returned`, `helped: true`). It looks like the year-in-review Orbit would proudly show, never like an accusation.
+
+### 8.7 Notifications that are seen (decided 2026-11-20)
+
+The playtest showed banners vanishing before anyone read them, cut to one line. Everything the night sends (the fake, Orbit's reminders, Juno's attempts, Dani) arrives this way, so:
+
+- **A banner stays at the top until the player deals with it:** tapping it opens the full message where it came from; swiping it up puts it away. It never times out. It sits under the top bar, so Back still works. Long text ends in `…` after two lines; the full text is in the thread. Details: `phone-screens.md`, Banner.
+- **All of tonight's notifications** are listed when the player pulls down the status bar, under brightness, newest first (`phone-screens.md`, Quick panel).
+- **A sound and the phone shaking** with each one, a different sound for Juno, Orbit and people; placeholders until the sound pass.
+- **With the phone down,** the phone on the desk lights up and stays lit, showing the notification, until the player picks it up.
+- Built in round 7b.
 

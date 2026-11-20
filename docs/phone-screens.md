@@ -66,10 +66,13 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Icons are the author's art, drawn as whole rounded tiles (decided 2026-11-19): Orbit is the approved Saturn tile, Notes, Photos and Settings are ART 08.6 (`assets/art/phone-home-icons/png/*_44x44_ART08_6_FinePixel.png`). The UI draws no box, border or background behind them; at whole-number scale only, Point filtering.
 
 ### Quick panel (pulled down from the status bar)
+- **Notifications (added 2026-11-20):** under the brightness card, `NOTIFICATIONS` (Label) and tonight's notifications as lock-screen cards, newest first, read ones in dim text. Tapping one opens where it came from. Nothing here is ever deleted during the night.
 - A card under the status bar, 8 from the side edges: brightness (Label `BRIGHTNESS` and a slider), then the `SCREENSHOT` tile: 44 × 44 with a pixel glyph of a phone screen with corner marks, and the Label under it. Paused by Battery Saver, the tile is dimmed and says so when tapped.
 
 ### Banner (a message while on another screen)
-- The same card as a lock-screen notification, 8 under the status bar, over the top bar.
+- The same card as a lock-screen notification (revised 2026-11-20, after the playtest): the app line (`ORBIT · 11:55 PM`), the sender (Strong), and the text in at most two lines (Body), ending in `…` when longer. The full text is where it came from.
+- **It stays until the player deals with it.** It sits just under the page's top bar, so Back and the bar's button stay usable, and never times out. Tapping it opens where it came from (the thread, the plan, her profile), where the full message is. Swiping it up puts it away into the notification list. A newer one replaces it on screen; the older ones wait in the list, and the banner shows `+1` (or `+N`) at its right edge.
+- Every banner comes with a short sound and the phone shaking once: one sound for Juno, one for Orbit, one for people (Rachel, Dani). Placeholder sounds until the sound pass.
 
 ### Chats
 - Masthead: paper, 40 tall: the logo (24) and `orbit` (Heading, ink). Nothing under it but the list: no `CHATS` heading.

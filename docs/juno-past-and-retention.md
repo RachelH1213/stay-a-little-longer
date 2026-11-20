@@ -595,6 +595,27 @@ same time tomorrow?
 | `maybe` | `i'll take maybe` |
 | `stop` | `ok` |
 
+### 2.6 告诉玩家可以睡了（2026-11-20 定，来自试玩）
+
+**作用只有一个：** 让玩家知道这一晚可以结束了（Ernesto 的意见：玩家不知道什么时候该睡）。它不是挽留，也不带别的含义，不要为它设计更深的读法。
+
+```text
+Juno
+it's late
+you did what you could tonight
+get some sleep
+```
+
+- **什么时候：** 一晚只说一次，在下面两种情况先到的那一个：
+  1. 主线差不多走完了：玩家知道了是 Auto-Coordinate 接受的（`knows_auto_accepted`），假消息也到了，而且之后 10 个故事分钟里没有新发现；
+  2. 时间过了 12:15。
+- **怎么到：** 玩家在 Juno 的对话里，就直接出现在对话里；不在，就是一条普通的通知（拿着手机时是横幅，放下时是桌上的手机亮一下）。
+- **不发的时候：** Juno 关着或者被 Snooze 了；玩家已经点过 `Go to sleep`。这时玩家仍然看得到房间里的 `Go to sleep`。
+- **不占** 2.0 那一晚四条的名额。
+- **建议回复：** `ok` · `not yet`。`ok` → `goodnight`；`not yet` → `ok`。之后它不再提睡觉的事。
+- **导出：** `Check-in from Juno · "it's late" · Sent after: …`（按实际触发的那一条写），和别的条目一样，没有特别的标记。
+- 睡前那一句 `before you sleep`（2.3）照旧，是已定的挽留之一。两者之间不需要玩家看出任何关系。
+
 ### 2.5 Night 1 里 Juno 不做的事
 
 - 玩家只是回到主屏幕、去看 Notes 或 Rachel 的对话：什么都不发。那不是离开。

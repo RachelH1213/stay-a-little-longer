@@ -133,6 +133,7 @@ Answers the player will ask for, fixed (L8 and the review's 5.2):
 ### 2.7 Notes, the Night Log, and going to sleep (5.7, 6.9)
 
 - `Go to sleep` asks only `Sleep` / `Not yet`. It no longer shows Still unresolved: the game does not hold the player at bedtime. Still unresolved stays in Notes for the player to open. (Reverses the 2026-10-24 decision.)
+- **Juno tells the player the night can end (decided 2026-11-20, after the playtest).** Once, when the main line is mostly done, Juno says: `it's late` · `you did what you could tonight` · `get some sleep`. Its only job is to let the player know they can go to sleep; it carries no hidden meaning. Lines and conditions: `juno-past-and-retention.md` 2.6.
 - When the phone is put down at bedtime after the fake, Juno's bedtime attempt (`before you sleep`) lights the phone before the confirmation appears, if the night's limit allows.
 - Night Log wording:
   - The fake: `She wrote back. 11:37 PM.` It becomes `A message came from her account at 11:37 PM.` only after the player has said they doubt it (to Juno or Dani).

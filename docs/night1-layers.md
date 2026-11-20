@@ -1287,3 +1287,49 @@ Delete account                              ›
 2. **`you had orbit`**（第 7 层）。很准，可能太准。
 3. **Dani 的 `i think mine's on too`**（第 5 层）。让事情不只是玩家一个人的，也可能分散注意力。
 4. **她主页上的 `ABOUT`。** 占位，等她的工作和猫定了由作者写。
+
+---
+
+## 第 10 轮（2026-11-20 作者定）
+
+下面这些都已定，第 10 轮照着做。逐字的台词和界面文字在所注的稿子里，那些稿子的这些部分按这里的修改采纳；稿子和这里不一致的，以这里为准。
+
+### 10.1 指出哪里（第 9 层的阶梯）
+
+- **采纳：** `review/2026-11-fable-pointing-and-notes.md` 第一部分（§1–§10）。把东西给 Juno 看，它先问 `what about it?`，玩家指出是哪一点；指对了它确认，指错了给一句真话、不算数。每样东西可以给两次。四样里指对两样，才到 `i can't say more than that`；之前它重复 `it came through her account`。`can't or won't?` → `can't`。
+- **修改：** 写法那一问的错误选项是 `she writes in lowercase` → `so does this one`（不用 `she writes a lot`）。风格信号只有三种：不用句号、问回来、说出发生了什么（最后一种只能打字）。
+- 给 Dani 看不需要这一步。
+
+### 10.2 纸上的十个问题
+
+- **采纳：** `pointing-and-notes.md` §12 的问题表和出现、划掉的条件，写在笔记本那一页上（`desk-cards-notebook.md`），用 `desk-cards-notebook.md` 2.3 的短写法（`why didn't she come`、`saturday??`、`who said yes`、`when did i agree to that`、`her email?`、`will she answer dani`、`why is she leaving`、`who wrote that`、`february?`、`what can't juno say`）。解开时当场划掉，解开它的那一行写在下面。
+- **删掉：** 现在 Still unresolved 下面的几句（包括 `A message came from her account. I didn't ask Juno about it.`），由这十个问题取代。
+- **笔记本的两处小修：** 字的行距设成 18，和印好的横线对齐；字体在作者的手写字体做好之前仍用 Inter。
+
+### 10.3 `what should i do?`
+
+- **采纳：** `review/2026-11-fable-night1-game-design.md` 6.3 两张表：Juno 和 Dani 按玩家卡在哪一步回答。Juno 那张里 `it's late` · `you could sleep` 一行由 `juno-past-and-retention.md` 2.6 取代。问 Juno 的次数记进导出（`You asked Juno what to do · N times`），问 Dani 的不记。
+
+### 10.4 好奇心的回报和彩蛋
+
+- **采纳：** `night1-game-design.md` §7 的十二样，和 `revision-2026-11.md` §8.4 的彩蛋规则与清单（`review/2026-11-fable-playtest-response.md` 7.3）。彩蛋不能像线索；手机里的彩蛋记进导出，收成一行；房间里的不记。第一晚先做五六样，之后零散地加。
+
+### 10.5 试一下（game night）
+
+- **采纳：** `review/2026-11-fable-night1-hands.md` §1，包括它 0.1 对设计窗口两处修改的调整：Dani 刚听说 Rachel 没来时，带关心地约 game night（`come to game night friday` · `you shouldn't be alone in your room all week`），请玩家去改时间（`i made it. you do the admin`）；玩家改完，一秒内是 `Dani accepted`，她不知道；她再反过来在玩家身上试一次（`i'm moving it to 10:30` · `tell me if it asks you`）。玩家先关了自己的 Auto-Coordinate，结果不同（1.6）。
+- 它是第 5 层「是自动的」的又一条路。
+- Rachel 的计划上也有 `Change the time`，点了是联系不上（1.9）。
+- 夜晚结束时 Orbit 替玩家回 Dani 的表加一行：她最后一句是 `ok that's creepy` 时，回 `yeah. talk tomorrow.`
+
+### 10.6 对一对
+
+- **采纳：** `night1-hands.md` §3。只有同一样东西的前后两个版本能对：第一晚是她的主页刷新前后、Rachel 的计划拒绝前后、game night 改之前和之后。两张靠近时边缘吸一下，不一样的地方亮一个记号，没有文字。两条 `You accepted` 不能对，笔记和计划也不能对。
+- **卡片多一种：** 拖对话里的日期线，拿出一整天的对话（第二晚的二月要用，第一晚也能用）。
+
+### 10.7 其他
+
+- Screen Time 画成从半夜到半夜的一条，下午一整段是空的，5:12 的位置上没有任何记号（`night1-hands.md` §2）。不做电池用量页。
+- Juno 替玩家做的事（查计划、看消息、关开关、守一夜）只记下来：做了什么、玩家当时的原话、时间（`night1-hands.md` §4），第三晚的导出列出它们。
+- 走出去的第一步就是已定的 `Keep on`，不加东西。
+- **不做：** 墙上的日历（以后改房间的画时再加）；电池用量里 Orbit 的尖峰；把两条 `You accepted` 叠起来；让玩家感觉到桌上只放得下 8 张。
+

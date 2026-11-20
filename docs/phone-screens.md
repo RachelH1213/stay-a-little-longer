@@ -75,7 +75,7 @@ Every phone screen, element by element. Sizes are in the 280 × 512 layout units
 - Every banner comes with a short sound and the phone shaking once: one sound for Juno, one for Orbit, one for people (Rachel, Dani). Placeholder sounds until the sound pass.
 
 ### Chats
-- Masthead: paper, 40 tall: the logo (24) and `orbit` (Heading, ink). Nothing under it but the list: no `CHATS` heading.
+- Masthead: paper, 40 tall: the logo and `orbit` (Heading, ink). The logo slot is 32 (revised 2026-11-20, the author's call): her own 32 px Orbit logo (`assets/figma/orbit-logo-32.png`) drawn at 1×, never scaled; a 24 slot would need a fractional scale. The masthead stays 40 tall. Nothing under it but the list: no `CHATS` heading.
 - Rows, sorted by latest message: avatar 44, name (Strong) with `AI` (Label) for Juno, time (Label) at the right, preview (Secondary, one line, ellipsis). Unread: a paper dot of 6 at the right of the preview, the preview in text colour.
 - Tab bar.
 
